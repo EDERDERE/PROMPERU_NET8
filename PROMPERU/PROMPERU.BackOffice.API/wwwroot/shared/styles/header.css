@@ -1,0 +1,26 @@
+.header {
+  height: var(--header-height);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.header .logo-header {
+  height: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .header .logo-header {
+    height: 32px;
+  }
+  
+}
+@media screen and (min-width: 992px) {
+  :root{
+    --header-height: 60px;
+  }
+  .header .logo-header {
+    height: 50px;
+  }
+}

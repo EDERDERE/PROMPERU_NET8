@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../../shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css">
+    <link href="~/css/login.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="d-flex flex-column vh-100">
+        <div class="header">
+            <div class="container-fluid d-flex justify-content-between align-items-center px-3 px-md-5 h-100">
+                <img src="../../shared/assets/logos/promperu-logo.png" alt="Logo Superior" class="logo-header">
+
+            </div>
+        </div>
+
+        <div class="login-grid">
+            <div class="p-4 d-flex flex-column justify-content-center align-items-center  w-100">
+                <form class="login-card" id="loginForm">
+                    <h2 class="title mb-5">Bienvenido</h2>
+                    <div class="mb-4">
+                        <div class="input-wrapper">
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="custom-input" id="usuario" placeholder="Ingrese su usuario">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="input-wrapper">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="custom-input" id="password" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="text-end">
+                            <small><a href="#" class="text-muted text-decoration-none">¿Has olvidado tu contraseña?</a></small>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="custom-button m-auto px-5">Ingresar <img src="../../shared/assets/icons/arrow-right.svg" alt=""></button>
+                        <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
+                            <div class="line"></div>
+                            <span>o</span>
+                            <div class="line"></div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mt-4 gap-1">
+                            <span class="text-muted">¿Aun no tienes cuenta?</span>
+                            <a href="" class="text-decoration-none fw-bold signup-link">Regístrate</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="cta d-flex justify-content-center align-items-center">
+                <h2 class="fw-bold text-white text-center">Programa Comercial <br> para Empresas <br> Turísticas</h2>
+            </div>
+        </div>
+
+        <!-- <div class="footer text-end">
+          <img src="../../shared/assets/logos/peru-logo.png" alt="Peru Logo" class="logo-footer">
+        </div> -->
+    </div>
+
+    <script src="../../shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery Script -->
+    <script>
+        $(document).ready(function () {
+            // Cuando el formulario se envíe, hacemos un manejo personalizado
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();  // Evitar el comportamiento por defecto del formulario
+
+                // Obtener los valores de usuario y contraseña
+                var usuario = $('#usuario').val();
+                var password = $('#password').val();
+
+                // Validar los campos antes de enviar
+                if (usuario === "" || password === "") {
+                    alert("Por favor, ingrese ambos campos.");
+                    return;
+                }
+
+                // Realizar la petición AJAX
+                $.ajax({
+                    url: '/Login/Login',  // Ruta al método del controlador
+                    type: 'POST',
+                    data: {
+                        usuario: usuario,
+                        contrasenia: password
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        // if (response.success) {
+                            // Redirigir al Dashboard si el login es exitoso
+                            window.location.href = '/Dashboard';
+                        // } else {
+                        //     alert('Credenciales incorrectas');
+                        // }
+                    },
+                    error: function (xhr, status, error) {
+                        // Manejar errores de la solicitud
+                        alert('Hubo un problema al intentar iniciar sesión.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

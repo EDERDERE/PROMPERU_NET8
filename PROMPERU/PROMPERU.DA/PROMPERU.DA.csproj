@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PROMPERU.BE\PROMPERU.BE.csproj" />
+    <ProjectReference Include="..\PROMPERU.DB\PROMPERU.DB.csproj" />
+  </ItemGroup>
+
+</Project>

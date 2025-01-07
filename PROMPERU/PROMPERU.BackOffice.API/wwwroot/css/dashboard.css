@@ -1,0 +1,84 @@
+@import "../../shared/styles/variables.css";
+@import "../../shared/styles/header.css";
+
+.header {
+  background-color: var(--color-primary);
+  height: 60px;
+}
+.header .menu {
+  width: 30px;
+  cursor: pointer;
+}
+.header .menu .burger-line{
+  height: 2px;
+  background-color: var(--color-white);
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 2px;
+}
+.header .menu .burger-line:nth-child(3){
+  width: 50%;
+  margin-left: auto;
+}
+.sidebar{
+  background: #F9F9F9;
+  width: 100%;
+  position: fixed;
+  left: -100%;
+  height: 100%;
+  transition: left 0.3s ease;
+  z-index: 2;
+  top: 0;
+}
+.sidebar .menu{
+  width: 30px;
+  margin-left: auto;
+}
+.sidebar .menu .burger-line{
+  background-color: var(--color-text-bold);
+  height: 2px;
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 2px;
+}
+.sidebar .menu .burger-line:nth-child(3){
+  width: 50%;
+  margin-left: auto;
+}
+.sidebar.active{
+  left: 0;
+}
+.sidebar .menu-item{
+  margin-bottom: 0.5rem;
+}
+.sidebar .menu-item button{
+  background-color: #94A3B8;
+  border: none;
+}
+.sidebar .menu-item.active button{
+  background-color: var(--color-primary);
+  border: none;
+}
+.sidebar .menu-item ul{
+  max-width: 90%;
+}
+.sidebar .menu-item ul li a{
+  color: #3B3530;
+  background: var(--color-white);
+}
+.sidebar .menu-item ul li.active a{
+  background-color: #94A3B8;
+  color: var(--color-white);
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar{
+    width: 285px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .sidebar{
+    position: initial;
+    width: 285px;
+  }
+}
