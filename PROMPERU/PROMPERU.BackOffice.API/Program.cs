@@ -6,6 +6,8 @@ using PROMPERU.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configura servicios para controladores
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -24,6 +26,11 @@ builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnect
 // Registrar los servicios
 builder.Services.AddScoped<UsuarioDA>();
 builder.Services.AddScoped<UsuarioBL>();
+builder.Services.AddScoped<BannerDA>();
+builder.Services.AddScoped<BannerBL>();
+builder.Services.AddScoped<AuditoriaDA>();
+builder.Services.AddScoped<MultimediaDA>();
+builder.Services.AddScoped<MultimediaBL>();
 
 var app = builder.Build();
 

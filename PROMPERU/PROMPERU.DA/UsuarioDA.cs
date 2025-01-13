@@ -19,45 +19,38 @@ namespace PROMPERU.DA
             _conexionDB = conexionDB;
         }
 
-        public async Task<UsuarioBE?> ValidarUsuarioAsync(string usuario)
+        public async Task<UsuarioBE> ValidarUsuarioAsync(string usuario)
         {
             try
             {
-                using (SqlConnection conexion = _conexionDB.ObtenerConexion())
+                UsuarioBE usuarioValidado = null;
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_ValidarUsuario", conexion)
                 {
-                    using (SqlCommand comando = new SqlCommand("USP_ValidarUsuario", conexion))
+                    CommandType = CommandType.StoredProcedure
+                };
+                comando.Parameters.AddWithValue("Usuario", usuario);
+
+         
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    usuarioValidado = new UsuarioBE
                     {
-                        comando.CommandType = CommandType.StoredProcedure;
-
-                        // Parámetros
-                        comando.Parameters.AddWithValue("@Usuario", usuario);           
-
-                        await conexion.OpenAsync();
-
-                        using (SqlDataReader reader = await comando.ExecuteReaderAsync())
-                        {
-                            // Si hay resultados, se crea y devuelve el objeto Usuario
-                            if (await reader.ReadAsync())
-                            {
-                                return new UsuarioBE
-                                {
-                                    Usua_ID = reader.GetInt32(reader.GetOrdinal("Usua_ID")),
-                                    Usua_Usuario = reader.GetString(reader.GetOrdinal("Usua_Usuario")),
-                                    Usua_Contrasenia = reader.GetString(reader.GetOrdinal("Usua_Contrasenia")),
-                                    Usua_Cargo = reader.GetString(reader.GetOrdinal("Usua_Cargo"))
-                                };
-                            }
-                        }
-                    }
+                        Usua_ID = reader.GetInt32(reader.GetOrdinal("Usua_ID")),
+                        Usua_Usuario = reader.GetString(reader.GetOrdinal("Usua_Usuario")),
+                        Usua_Contrasenia = reader.GetString(reader.GetOrdinal("Usua_Contrasenia")),
+                        Usua_Cargo = reader.GetString(reader.GetOrdinal("Usua_Cargo"))
+                    };
                 }
 
-                // Si no hay resultados, devuelve null
-                return null;
+                return usuarioValidado;
             }
             catch (Exception ex)
             {
-                // Manejo del error, puedes registrar el error o lanzar una excepción personalizada
-                throw new Exception("Error al validar el usuario.", ex);
+                throw new Exception("Error al listar los Usuario", ex);
             }
         }
 

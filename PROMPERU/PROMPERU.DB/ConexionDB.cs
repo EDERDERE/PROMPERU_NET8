@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace PROMPERU.DB
 {
@@ -11,9 +12,14 @@ namespace PROMPERU.DB
             _cadenaConexion = cadenaConexion;
         }
 
-        public SqlConnection ObtenerConexion()
+        public async Task<SqlConnection> ObtenerConexionAsync()
         {
-            return new SqlConnection(_cadenaConexion);
+            var conexion = new SqlConnection(_cadenaConexion);
+            if (conexion.State == ConnectionState.Closed)
+            {
+                await conexion.OpenAsync();
+            }
+            return conexion;
         }
     }
 }

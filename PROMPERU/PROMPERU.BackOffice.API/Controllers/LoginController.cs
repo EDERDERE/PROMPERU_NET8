@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace PROMPERU.BackOffice.API.Controllers
 {
-    [SessionCheck]
+
     public class LoginController : Controller
     {
         private readonly ILogger<LoginController> _logger;
@@ -27,20 +27,25 @@ namespace PROMPERU.BackOffice.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string usuario, string contrasenia)
         {
-            var usuarioValido = await _UsuarioBL.ValidarUsuarioAsync(usuario, contrasenia);
+            try
+            {
+                var usuarioValido = await _UsuarioBL.ValidarUsuarioAsync(usuario, contrasenia);
 
             if (usuarioValido != null)
             {
                 // Guardar datos en la sesión
                 HttpContext.Session.SetString("Usuario", usuarioValido.Usua_Usuario);
-                HttpContext.Session.SetString("Rol", usuarioValido.Usua_Cargo); // Ejemplo
-                // Lógica de autenticación exitosa, puedes usar sesiones o JWT
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("Rol", usuarioValido.Usua_Cargo); 
+                return Json(new { success = true, redirectUrl = Url.Action("Index", "Banner") });
             }
 
-            // Si no es válido, mostrar mensaje de error
-            ViewBag.Error = "Usuario o contraseña incorrectos";
-            return View();
+                return Json(new { success = false, message = "Usuario o contraseña incorrectos" });
+            }
+               catch (Exception ex)
+            {
+                // En caso de error, retorna un mensaje
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }
