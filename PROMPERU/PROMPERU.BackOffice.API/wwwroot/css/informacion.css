@@ -1,0 +1,94 @@
+@import url('../shared/styles/variables.css');
+@import url('../shared/styles/header.css');
+@import url('../shared/styles/globals.css');
+
+.content {
+    background-color: var(--gray-primary);
+    padding-top: 2rem;
+    justify-content: start;
+    width: 100%;
+}
+
+.banner-item {
+    background-color: var(--color-background);
+}
+
+.btn-save {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+    .btn-save:hover {
+        background-color: var(--color-primary);
+        opacity: 0.9;
+        color: var(--color-white);
+    }
+
+.btn-close-modal {
+    background-color: var(--gray-bold);
+    color: var(--color-white);
+}
+
+    .btn-close-modal:hover {
+        background-color: var(--gray-bold);
+        opacity: 0.9;
+        color: var(--color-white);
+    }
+
+.banner-item h5 {
+    font-weight: bold;
+    font-size: 32px;
+    opacity: .75;
+}
+
+.button-create {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 5px;
+    padding: 4px 10px;
+}
+
+    .button-create:hover {
+        opacity: 0.9;
+    }
+
+
+
+
+.btn-delete:hover svg {
+    fill: #18181B;
+}
+
+
+.breadcrumb {
+    color: rgba(0, 0, 0, 0.59);
+    font-size: 13px;
+}
+
+    .breadcrumb .first-bread {
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.59);
+    }
+
+    .breadcrumb .second-bread {
+        font-size: 13px;
+        color: var(--red-primary);
+    }
+
+    .breadcrumb a {
+        text-decoration: none;
+    }
+
+
+
+@media (min-width: 768px) {
+    .content {
+        padding: 3rem 0;
+    }
+
+    .banner-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}

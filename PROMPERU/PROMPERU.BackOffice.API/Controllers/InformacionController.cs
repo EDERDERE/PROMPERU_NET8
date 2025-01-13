@@ -13,61 +13,73 @@ namespace PROMPERU.BackOffice.API.Controllers
     public class InformacionController : Controller
     {
         private readonly ILogger<InformacionController> _logger;    
-        private readonly BannerBL _bannerBL;
-        private readonly MultimediaBL _multimediaBL;
+        private readonly InformacionBL _informacionBL;
 
-        public InformacionController(ILogger<InformacionController> logger, BannerBL bannerBL, MultimediaBL multimediaBL)
+        public InformacionController(ILogger<InformacionController> logger, InformacionBL informacionBL)
         {
             _logger = logger;
-            _bannerBL = bannerBL;
-            _multimediaBL = multimediaBL;
+            _informacionBL = informacionBL;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            try
-            {
-                var banners = await _bannerBL.ListarBannersAsync(); // Cambio a versión asincrónica
-                return View(banners);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = ex.Message;
-                return View("Error"); // Vista de error
-            }
+            return View(); // Asegúrate de tener una vista asociada         
         }
+
 
         [HttpGet]
-        public async Task<IActionResult> ListarBanners()
+        public async Task<IActionResult> ListarInformacions()
         {
             try
             {
-                var banners = await _bannerBL.ListarBannersAsync(); // Cambio a versión asincrónica
-                return Json(banners); // Asegúrate de tener una vista asociada
+                var informacions = await _informacionBL.ListarInformacionsAsync(); // Cambio a versión asincrónica
+                if (informacions != null && informacions.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Informacions obtenidos exitosamente.",
+                        informacions
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron informacions disponibles."
+                    });
+                }
             }
             catch (Exception ex)
             {
-                ViewBag.Error = ex.Message;
-                return View("Error"); // Vista de error
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los informacions. Por favor, inténtelo nuevamente."
+
+                });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertarBanner(BannerDto bannerDto)
+        public async Task<IActionResult> InsertarInformacion(InformacionDto informacionDto)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente
                               
-                var banner = new BannerBE
+                var informacion = new InformacionBE
                 {
-                   Bann_Nombre = bannerDto.description,
-                   Bann_URLImagen =bannerDto.imageUrl
+                    Info_Titulo = informacionDto.titulo,
+                    Info_Descripcion = informacionDto.description,
+                    Info_URLPortada = informacionDto.urlPortada,
+                    Info_URLVideo = informacionDto.urlVideo
                 };                
 
-                await _bannerBL.InsertarBannerAsync(banner, usuario, ip); // Llamada asincrónica
-                return RedirectToAction("ListarBanners");
+                await _informacionBL.InsertarInformacionAsync(informacion, usuario, ip); // Llamada asincrónica
+                return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
             {
@@ -77,14 +89,22 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarBanner(BannerBE banner, int id)
+        public async Task<IActionResult> ActualizarInformacion(InformacionDto informacionDto, int id)
         {
             try
             {
-                string usuario = User.Identity.Name;
+                var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _bannerBL.ActualizarBannerAsync(banner, usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarBanners");
+                var informacion = new InformacionBE
+                {
+                    Info_ID = id,
+                    Info_Titulo = informacionDto.titulo,
+                    Info_Descripcion = informacionDto.description,
+                    Info_URLPortada = informacionDto.urlPortada,
+                    Info_URLVideo = informacionDto.urlVideo
+                };
+                await _informacionBL.ActualizarInformacionAsync(informacion, usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
             {
@@ -94,14 +114,14 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EliminarBanner(int id)
+        public async Task<IActionResult> EliminarInformacion(int id)
         {
             try
             {
-                string usuario = User.Identity.Name;
+                var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _bannerBL.EliminarBannerAsync(usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarBanners");
+                await _informacionBL.EliminarInformacionAsync(usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
             {

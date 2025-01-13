@@ -14,13 +14,11 @@ namespace PROMPERU.BackOffice.API.Controllers
     {
         private readonly ILogger<BannerController> _logger;    
         private readonly BannerBL _bannerBL;
-        private readonly MultimediaBL _multimediaBL;
 
         public BannerController(ILogger<BannerController> logger, BannerBL bannerBL, MultimediaBL multimediaBL)
         {
             _logger = logger;
             _bannerBL = bannerBL;
-            _multimediaBL = multimediaBL;
         }
 
         public IActionResult Index()
