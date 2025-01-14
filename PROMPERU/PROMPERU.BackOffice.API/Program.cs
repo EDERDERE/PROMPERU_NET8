@@ -33,6 +33,9 @@ builder.Services.AddScoped<MultimediaDA>();
 builder.Services.AddScoped<MultimediaBL>();
 builder.Services.AddScoped<InformacionDA>();
 builder.Services.AddScoped<InformacionBL>();
+builder.Services.AddScoped<RequisitoDA>();
+builder.Services.AddScoped<RequisitoBL>();
+
 
 var app = builder.Build();
 

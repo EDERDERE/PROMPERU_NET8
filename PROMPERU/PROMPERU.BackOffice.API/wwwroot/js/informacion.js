@@ -4,7 +4,7 @@
     loadCrearInformacion();
     loadEditarInformacion();
     loadEliminarInformacion(); 
-    loadGuardarOrden();
+    //loadGuardarOrden();
 });
 
 function loadListarInformacion() {
@@ -280,113 +280,113 @@ function loadEliminarInformacion() {
         });
     });  
 }
-function loadGuardarOrden() {
+//function loadGuardarOrden() {
 
 
-    // Al hacer clic en el botón de guardar cambios
-    $('#saveOrder').click(function () {
+//    // Al hacer clic en el botón de guardar cambios
+//    $('#saveOrder').click(function () {
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Esta acción no se puede deshacer",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, ordenar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
+//        Swal.fire({
+//            title: '¿Estás seguro?',
+//            text: "Esta acción no se puede deshacer",
+//            icon: 'warning',
+//            showCancelButton: true,
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            confirmButtonText: 'Sí, ordenar',
+//            cancelButtonText: 'Cancelar'
+//        }).then((result) => {
+//            if (result.isConfirmed) {
 
-                console.log('guardar order')
-                // Capturar el data-id del card correspondiente
+//                console.log('guardar order')
+//                // Capturar el data-id del card correspondiente
 
-                var Ids = [];
-                var Orders = [];
-                var Descriptions = [];
-                var Urls = [];
-                var NewOrders = [];
+//                var Ids = [];
+//                var Orders = [];
+//                var Descriptions = [];
+//                var Urls = [];
+//                var NewOrders = [];
 
-                // Iterar sobre cada card y capturar su data-id
-                $('.btn-link.text-primary').each(function () {
-                    var Id = $(this).data('id');
-                    Ids.push(Id);
+//                // Iterar sobre cada card y capturar su data-id
+//                $('.btn-link.text-primary').each(function () {
+//                    var Id = $(this).data('id');
+//                    Ids.push(Id);
 
-                    var Order = $(this).data('orden');
-                    Orders.push(Order);
+//                    var Order = $(this).data('orden');
+//                    Orders.push(Order);
 
-                    var Description = $(this).data('description');
-                    Descriptions.push(Description);
+//                    var Description = $(this).data('description');
+//                    Descriptions.push(Description);
 
-                    var Url = $(this).data('image-url');
-                    Urls.push(Url);
-
-
-                });
-
-                $('.card').each(function () {
-                    var NewOrder = $(this).find('.card-number').text().trim();
-                    NewOrders.push(NewOrder);
-                });
-
-                // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
-                console.log(Ids, NewOrders);
-                // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
+//                    var Url = $(this).data('image-url');
+//                    Urls.push(Url);
 
 
-                var result = [];
+//                });
 
-                Ids.forEach((id, index) => {
-                    result.push({
-                        id: parseInt(id),                 // Coincide con BannerDto.Id
-                        orden: parseInt(NewOrders[index]), // Coincide con BannerDto.Orden
-                        description: Descriptions[index].toString(), // Coincide con BannerDto.Description
-                        imageUrl: Urls[index].toString()  // Coincide con BannerDto.ImageUrl
-                    });
-                });
+//                $('.card').each(function () {
+//                    var NewOrder = $(this).find('.card-number').text().trim();
+//                    NewOrders.push(NewOrder);
+//                });
 
-                // Mostrar el resultado en la consola
-                console.log(result);
-                console.log(JSON.stringify(result));
+//                // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
+//                console.log(Ids, NewOrders);
+//                // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
+
+
+//                var result = [];
+
+//                Ids.forEach((id, index) => {
+//                    result.push({
+//                        id: parseInt(id),                 // Coincide con BannerDto.Id
+//                        orden: parseInt(NewOrders[index]), // Coincide con BannerDto.Orden
+//                        description: Descriptions[index].toString(), // Coincide con BannerDto.Description
+//                        imageUrl: Urls[index].toString()  // Coincide con BannerDto.ImageUrl
+//                    });
+//                });
+
+//                // Mostrar el resultado en la consola
+//                console.log(result);
+//                console.log(JSON.stringify(result));
                 
-                $.ajax({
-                    url: '/Banner/ActualizarOrdenBanner',
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8', // Cabecera correcta
-                    data: JSON.stringify(result),
-                    success: function (response) {
-                        // Manejo de la respuesta
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Actualizado!',
-                                text: 'El Banner se ha actualizado exitosamente.',
-                                confirmButtonText: 'Aceptar'
-                            }).then(() => {
-                                location.reload(); // Recargar la página o actualizar el contenido
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'No se pudo actualizar el Banner. Inténtelo nuevamente.',
-                                confirmButtonText: 'Aceptar'
-                            });
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Hubo un error al intentar actualizar el slider.',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                });
+//                $.ajax({
+//                    url: '/Banner/ActualizarOrdenBanner',
+//                    type: 'POST',
+//                    contentType: 'application/json; charset=utf-8', // Cabecera correcta
+//                    data: JSON.stringify(result),
+//                    success: function (response) {
+//                        // Manejo de la respuesta
+//                        if (response.success) {
+//                            Swal.fire({
+//                                icon: 'success',
+//                                title: '¡Actualizado!',
+//                                text: 'El Banner se ha actualizado exitosamente.',
+//                                confirmButtonText: 'Aceptar'
+//                            }).then(() => {
+//                                location.reload(); // Recargar la página o actualizar el contenido
+//                            });
+//                        } else {
+//                            Swal.fire({
+//                                icon: 'error',
+//                                title: 'Error',
+//                                text: 'No se pudo actualizar el Banner. Inténtelo nuevamente.',
+//                                confirmButtonText: 'Aceptar'
+//                            });
+//                        }
+//                    },
+//                    error: function (xhr, status, error) {
+//                        Swal.fire({
+//                            icon: 'error',
+//                            title: 'Error',
+//                            text: 'Hubo un error al intentar actualizar el slider.',
+//                            confirmButtonText: 'Aceptar'
+//                        });
+//                    }
+//                });
 
                
-            }
-        });
+//            }
+//        });
      
-    });
-}
+//    });
+//}

@@ -15,7 +15,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         private readonly ILogger<BannerController> _logger;    
         private readonly BannerBL _bannerBL;
 
-        public BannerController(ILogger<BannerController> logger, BannerBL bannerBL, MultimediaBL multimediaBL)
+        public BannerController(ILogger<BannerController> logger, BannerBL bannerBL)
         {
             _logger = logger;
             _bannerBL = bannerBL;
