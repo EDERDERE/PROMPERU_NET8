@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROMPERU.BL.Dtos
+{
+    public class InscripcionDto
+    {
+        public int id { get; set; }
+        public int orden { get; set; }
+        public string titulo { get; set; }
+        public string contenido { get; set; }
+        public string nombreBoton { get; set; }
+        public string urlIconBoton { get; set; }
+        public int paso { get; set; }
+        public string tituloPaso { get; set; }
+        public string description { get; set; }
+        public string urlImagen { get; set; }
+    }   
+}

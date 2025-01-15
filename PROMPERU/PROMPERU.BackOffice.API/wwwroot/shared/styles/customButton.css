@@ -1,0 +1,7 @@
+/* custom button */
+
+.custom-button {
+  border: 2px dashed var(--color-blue-ligth);
+  color: var(--color-blue-ligth) !important;
+  background: transparent !important;
+}

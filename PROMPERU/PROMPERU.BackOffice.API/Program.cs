@@ -35,6 +35,8 @@ builder.Services.AddScoped<InformacionDA>();
 builder.Services.AddScoped<InformacionBL>();
 builder.Services.AddScoped<RequisitoDA>();
 builder.Services.AddScoped<RequisitoBL>();
+builder.Services.AddScoped<InscripcionDA>();
+builder.Services.AddScoped<InscripcionBL>();
 
 
 var app = builder.Build();
