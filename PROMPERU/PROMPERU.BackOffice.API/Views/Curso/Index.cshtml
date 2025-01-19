@@ -1,9 +1,10 @@
 ﻿<link href="~/css/curso.css" rel="stylesheet" />
+<script src="~/js/curso.js"></script>
 <!-- copiar esto -->
 <div class="content overflow-x-scroll">
     <div class="container">
         <div class="row">
-            <div class="breadcrumb px-1 px-md-0 col-12 d-flex align-items-center ">
+            <div class="breadcrumb px-3 col-12 d-flex align-items-center ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mx-1" fill="currentColor"
                      class="bi bi-house-door-fill" viewBox="0 0 16 16">
                     <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
@@ -12,7 +13,7 @@
                     <span class="first-bread"> Mi Home</span>
                 </a>
                 <div class="px-2">
-                    >
+                    
                 </div>
                 <div>
                     <a href="#!">
@@ -20,7 +21,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-12 mb-4 px-2 px-lg-0 d-flex align-items-center justify-content-between ">
+            <div class="col-12 mb-4 d-flex align-items-center justify-content-between ">
                 <div class="d-flex align-items-center gap-3">
                     <h2 class="title d-none d-md-block">Edición de cursos </h2>
                     <h2 class="title d-block d-md-none"> Cursos</h2>
@@ -39,131 +40,14 @@
                     </button>
                 </div>
             </div>
-
-            <div class="row ">
-                <div class="col-md-6 my-3 ">
-                    <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Titulo</label>
-                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Titulo" disabled>
-
-                </div>
-                <div class="col-md-6 my-3 ">
-                    <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Nombre del botón</label>
-                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editNameButton">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <input type="text" id="image-url-1" class="form-control custom-button" placeholder="Nombre del botón"
-                           disabled>
-
-                </div>
+            <div id="tituloContainer">
+              
             </div>
-
-            <div class="row ">
-
-                <div class="col-md-6 my-3 ">
-                    <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">URL ícono de botón</label>
-                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editIconButton">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL ícono de botón" disabled>
-
-                </div>
-            </div>
+          
         </div>
-
-        <div class="row cards-container px-2 px-md-0 ">
-            <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <h5 class="card-number mb-0"></h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-link text-danger p-0" data-bs-toggle="modal"
-                                data-bs-target="#deleteConfirmationModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                            </svg>
-                        </button>
-                        <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
-                                data-bs-target="#editSliderModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </button>
-
-                        <div class="sortable-handle d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">Curso</label>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Curso" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">Objetivo del curso</label>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Escriba el objetivo del curso"
-                           disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="description-1" class="form-label fw-semibold">Logros esperados</label>
-                    <textarea id="description-1" class="form-control" rows="3" placeholder="Logros esperados"
-                              disabled></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">Fecha</label>
-                    <input type="date" id="image-url-1" class="form-control" placeholder="Fecha" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">Modalidad</label>
-                    <select class="form-select" id="image-url-1" disabled>
-                        <option selected>Modalidad...</option>
-                        <option value="Remoto">Remoto</option>
-                        <option value="Presencial">Presencial</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">URL de la imagen</label>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL de la imagen" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">Nombre del botón</label>
-                    <input type="text" id="image-url-1" class="form-control custom-button"
-                           placeholder="Escriba el Nombre del botón" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image-url-1" class="form-label fw-semibold">URL icono de boton</label>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL icono de boton" disabled>
-                </div>
-
-            </div>
+        <div class="container">
+            <div class="row cards-container px-2 px-md-0 " id="sliderContainer">
+     
 
 
 
@@ -173,12 +57,12 @@
 
         </div>
 
-
+        </div>
 
 
         <div class="row mt-4">
             <div class="col-12 text-end">
-                <button class="btn btn-save">Guardar Cambios</button>
+                <button class="btn btn-save" id="saveOrder">Guardar Cambios</button>
             </div>
         </div>
     </div>
@@ -197,30 +81,34 @@
             <div class="modal-body">
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Curso</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Curso" disabled>
+                        <label for="createCurso" class="form-label fw-semibold">Curso</label>
+                        <input type="text" id="createCurso" class="form-control" placeholder="Curso" >
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Objetivo del curso</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Escriba el objetivo del curso"
-                               disabled>
+                        <label for="createObjetivo" class="form-label fw-semibold">Objetivo del curso</label>
+                        <input type="text" id="createObjetivo" class="form-control" placeholder="Escriba el objetivo del curso"
+                               >
                     </div>
 
                     <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Logros esperados</label>
-                        <textarea id="description-1" class="form-control" rows="3" placeholder="Logros esperados"
-                                  disabled></textarea>
+                        <label for="createDescription" class="form-label fw-semibold">Logros esperados</label>
+                        <textarea id="createDescription" class="form-control" rows="3" placeholder="Logros esperados"
+                                  ></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Fecha</label>
-                        <input type="date" id="image-url-1" class="form-control" placeholder="Fecha" disabled>
+                        <label for="createFechaInicial" class="form-label fw-semibold">Fecha Inicial</label>
+                        <input type="date" id="createFechaInicial" class="form-control" placeholder="Fecha">
+                    </div>
+                    <div class="mb-3">
+                        <label for="createFechaFinal" class="form-label fw-semibold">Fecha Fin</label>
+                        <input type="date" id="createFechaFinal" class="form-control" placeholder="Fecha">
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Modalidad</label>
-                        <select class="form-select" id="image-url-1" disabled>
+                        <label for="createModalidad" class="form-label fw-semibold">Modalidad</label>
+                        <select class="form-select" id="createModalidad" >
                             <option selected>Modalidad...</option>
                             <option value="Remoto">Remoto</option>
                             <option value="Presencial">Presencial</option>
@@ -228,18 +116,18 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">URL de la imagen</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL de la imagen" disabled>
+                        <label for="createUrlImagen" class="form-label fw-semibold">URL de la imagen</label>
+                        <input type="text" id="createUrlImagen" class="form-control" placeholder="URL de la imagen" >
                     </div>
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Nombre del botón</label>
-                        <input type="text" id="image-url-1" class="form-control custom-button"
-                               placeholder="Escriba el Nombre del botón" disabled>
+                        <label for="createNombreBoton" class="form-label fw-semibold">Nombre del botón</label>
+                        <input type="text" id="createNombreBoton" class="form-control custom-button"
+                               placeholder="Escriba el Nombre del botón" >
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">URL icono de boton</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL icono de boton" disabled>
+                        <label for="createUrlIconBoton" class="form-label fw-semibold">URL icono de boton</label>
+                        <input type="text" id="createUrlIconBoton" class="form-control" placeholder="URL icono de boton" >
                     </div>
 
                 </form>
@@ -266,39 +154,52 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="editSliderModalLabel">Editar curso</h5>
 
-                <div class="form-check form-switch switch-centered">
+                @* <div class="form-check form-switch switch-centered">
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
                     <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                </div>
+                </div> *@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="createSliderForm">
+                    <div class="mb-3" hidden>
+                        <label for="editId" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="editId" placeholder="Id" required>
+                    </div>
+                    <div class="mb-3" hidden>
+                        <label for="editOrder" class="form-label">Orden</label>
+                        <input type="text" class="form-control" id="editOrder" placeholder="Id" required>
+                    </div>
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Curso</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Curso" disabled>
+                        <label for="editNombreCurso" class="form-label fw-semibold">Curso</label>
+                        <input type="text" id="editNombreCurso" class="form-control" placeholder="Curso" >
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Objetivo del curso</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Escriba el objetivo del curso"
-                               disabled>
+                        <label for="editObjetivo" class="form-label fw-semibold">Objetivo del curso</label>
+                        <input type="text" id="editObjetivo" class="form-control" placeholder="Escriba el objetivo del curso"
+                               >
                     </div>
 
                     <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Logros esperados</label>
-                        <textarea id="description-1" class="form-control" rows="3" placeholder="Logros esperados"
-                                  disabled></textarea>
+                        <label for="editDescription" class="form-label fw-semibold">Logros esperados</label>
+                        <textarea id="editDescription" class="form-control" rows="3" placeholder="Logros esperados"
+                                  ></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Fecha</label>
-                        <input type="date" id="image-url-1" class="form-control" placeholder="Fecha" >
+                        <label for="editFechaInicio" class="form-label fw-semibold">Fecha Inicio</label>
+                        <input type="date" id="editFechaInicio" class="form-control" placeholder="Fecha">
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Modalidad</label>
-                        <select class="form-select" id="image-url-1" disabled>
+                        <label for="editFechaFin" class="form-label fw-semibold">Fecha Fin</label>
+                        <input type="date" id="editFechaFin" class="form-control" placeholder="Fecha">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editModalidad" class="form-label fw-semibold">Modalidad</label>
+                        <select class="form-select" id="editModalidad">
                             <option selected>Modalidad...</option>
                             <option value="Remoto">Remoto</option>
                             <option value="Presencial">Presencial</option>
@@ -306,18 +207,18 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">URL de la imagen</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL de la imagen" disabled>
+                        <label for="editUrlImagen" class="form-label fw-semibold">URL de la imagen</label>
+                        <input type="text" id="editUrlImagen" class="form-control" placeholder="URL de la imagen" >
                     </div>
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Nombre del botón</label>
-                        <input type="text" id="image-url-1" class="form-control custom-button"
-                               placeholder="Escriba el Nombre del botón" disabled>
+                        <label for="editNombreBoton" class="form-label fw-semibold">Nombre del botón</label>
+                        <input type="text" id="editNombreBoton" class="form-control custom-button"
+                               placeholder="Escriba el Nombre del botón" >
                     </div>
 
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">URL icono de boton</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL icono de boton" disabled>
+                        <label for="editUrlIcon" class="form-label fw-semibold">URL icono de boton</label>
+                        <input type="text" id="editUrlIcon" class="form-control" placeholder="URL icono de boton" >
                     </div>
                 </form>
             </div>
@@ -365,9 +266,28 @@
             </div>
             <div class="modal-body">
                 <form id="editSliderForm">
+                    <div class="mb-3" hidden>
+                        <label for="editIdTitulo" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="editIdTitulo" placeholder="Id" required>
+                    </div>
                     <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="description-1" class="form-control" placeholder="¿Que es?" required>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo</label>
+                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNombreBotonTitulo" class="form-label fw-semibold">
+                            Nombre del botón
+                        </label>
+                        <input type="text" id="editNombreBotonTitulo" class="form-control" placeholder="Nombre del botón
+                    " required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editUrlBoton" class="form-label fw-semibold">
+                            URL ícono de botón
+
+                        </label>
+                        <input type="text" id="editUrlBoton" class="form-control" placeholder="URL ícono de botón " required>
                     </div>
 
                 </form>
@@ -377,7 +297,7 @@
                 btn-close-modal" data-bs-dismiss="modal">
                     Cerrar
                 </button>
-                <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
+                <button type="button" class="btn btn-save" id="saveEditTitulo">Guardar Cambios</button>
             </div>
         </div>
     </div>
@@ -396,13 +316,7 @@
             </div>
             <div class="modal-body">
                 <form id="editSliderForm">
-                    <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">
-                            Nombre del botón
-                        </label>
-                        <input type="text" id="description-1" class="form-control" placeholder="Nombre del botón
-                    " required>
-                    </div>
+                
 
                 </form>
             </div>
@@ -435,13 +349,7 @@
             </div>
             <div class="modal-body">
                 <form id="editSliderForm">
-                    <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">
-                            URL ícono de botón
-
-                        </label>
-                        <input type="text" id="description-1" class="form-control" placeholder="URL ícono de botón " required>
-                    </div>
+                 
 
                 </form>
             </div>

@@ -13,12 +13,12 @@ namespace PROMPERU.BackOffice.API.Controllers
     public class CursoController : Controller
     {
         private readonly ILogger<CursoController> _logger;    
-        private readonly BeneficioBL _beneficioBL;
+        private readonly CursoBL _cursoBL;
 
-        public CursoController(ILogger<CursoController> logger, BeneficioBL beneficioBL)
+        public CursoController(ILogger<CursoController> logger, CursoBL cursoBL)
         {
             _logger = logger;
-            _beneficioBL = beneficioBL;
+            _cursoBL = cursoBL;
         }
 
         public IActionResult Index()
@@ -27,18 +27,18 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarBeneficios()
+        public async Task<IActionResult> ListarCursos()
         {
             try
             {
-                var Beneficios = await _beneficioBL.ListarBeneficiosAsync(); // Cambio a versión asincrónica
-                if (Beneficios != null && Beneficios.Any())
+                var Cursos = await _cursoBL.ListarCursosAsync(); // Cambio a versión asincrónica
+                if (Cursos != null && Cursos.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Beneficios obtenidos exitosamente.",
-                        Beneficios
+                        message = "Cursos obtenidos exitosamente.",
+                        Cursos
                     });
                 }
                 else
@@ -46,7 +46,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Beneficios disponibles."
+                        message = "No se encontraron Cursos disponibles."
                     });
                 }
             }
@@ -55,32 +55,40 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Beneficios. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Cursos. Por favor, inténtelo nuevamente."
                   
                 });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertarBeneficio(BeneficioDto beneficioDto)
+        public async Task<IActionResult> InsertarCurso(CursoDto cursoDto)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente
 
-                var beneficio = new BeneficioBE
+                var curso = new CursoBE
                 {
-                    Bene_ID = beneficioDto.id,
-                    Bene_Orden = beneficioDto.orden,
-                    Bene_Titulo = beneficioDto.titulo,
-                    Bene_Nombre = beneficioDto.nombre,
-                    Bene_Descripcion = beneficioDto.description,
-                    Bene_URLImagen = beneficioDto.urlImagen,
-                    Bene_URLIcon = beneficioDto.urlIcon
+                    Curs_ID = cursoDto.id,
+                    Curs_Orden = cursoDto.orden,
+                    Curs_Titulo = cursoDto.titulo,
+                    Curs_NombreBoton = cursoDto.nombreBoton,
+                    Curs_UrlIconBoton = cursoDto.urlIconBoton,
+                    Curs_NombreCurso = cursoDto.nombreCurso,
+                    Curs_Objetivo = cursoDto.objetivo,
+                    Curs_Descripcion = cursoDto.description,
+                    Curs_Modalidad = cursoDto.modalidad,
+                    Curs_DuracionHoras = cursoDto.duracionHoras,
+                    Curs_FechaInicio = cursoDto.fechaInicio,
+                    Curs_FechaFin = cursoDto.fechaFin,
+                    Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
+                    Curs_UrlIcon = cursoDto.urlIcon,
+                    Curs_UrlImagen = cursoDto.urlImagen
                 };
-                await _beneficioBL.InsertarBeneficioAsync(beneficio, usuario, ip); // Llamada asincrónica
-                return RedirectToAction("ListarBeneficios");
+                await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica
+                return RedirectToAction("ListarCursos");
             }
             catch (Exception ex)
             {
@@ -90,24 +98,32 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarBeneficio(BeneficioDto beneficioDto, int id)
+        public async Task<IActionResult> ActualizarCurso(CursoDto cursoDto, int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                var beneficio = new BeneficioBE
+                var Curso = new CursoBE
                 {
-                    Bene_ID = beneficioDto.id,
-                    Bene_Orden = beneficioDto.orden,
-                    Bene_Titulo = beneficioDto.titulo,
-                    Bene_Nombre = beneficioDto.nombre,
-                    Bene_Descripcion = beneficioDto.description,
-                    Bene_URLImagen = beneficioDto.urlImagen,
-                    Bene_URLIcon = beneficioDto.urlIcon
+                    Curs_ID = cursoDto.id,
+                    Curs_Orden = cursoDto.orden,
+                    Curs_Titulo = cursoDto.titulo,
+                    Curs_NombreBoton = cursoDto.nombreBoton,
+                    Curs_UrlIconBoton = cursoDto.urlIconBoton,
+                    Curs_NombreCurso = cursoDto.nombreCurso,
+                    Curs_Objetivo = cursoDto.objetivo,
+                    Curs_Descripcion = cursoDto.description,
+                    Curs_Modalidad = cursoDto.modalidad,
+                    Curs_DuracionHoras = cursoDto.duracionHoras,
+                    Curs_FechaInicio = cursoDto.fechaInicio == DateTime.MinValue? (DateTime?)null : cursoDto.fechaInicio,
+                    Curs_FechaFin = cursoDto.fechaFin == DateTime.MinValue ? (DateTime?)null : cursoDto.fechaFin,
+                    Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
+                    Curs_UrlIcon = cursoDto.urlIcon,
+                    Curs_UrlImagen = cursoDto.urlImagen
                 };
-                await _beneficioBL.ActualizarBeneficioAsync(beneficio, usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarBeneficios");
+                await _cursoBL.ActualizarCursoAsync(Curso, usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarCursos");
             }
             catch (Exception ex)
             {
@@ -117,14 +133,14 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EliminarBeneficio(int id)
+        public async Task<IActionResult> EliminarCurso(int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _beneficioBL.EliminarBeneficioAsync(usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarBeneficios");
+                await _cursoBL.EliminarCursoAsync(usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarCursos");
             }
             catch (Exception ex)
             {
@@ -135,12 +151,12 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         //[HttpGet]
-        //public async Task<IActionResult> ObtenerBeneficio(int bannID)
+        //public async Task<IActionResult> ObtenerCurso(int bannID)
         //{
         //    try
         //    {
-        //        var Beneficio = await _BeneficioBL.ObtenerBeneficioAsync(bannID); // Llamada asincrónica
-        //        return View(Beneficio); // Asegúrate de tener una vista para mostrar un Beneficio
+        //        var Curso = await _CursoBL.ObtenerCursoAsync(bannID); // Llamada asincrónica
+        //        return View(Curso); // Asegúrate de tener una vista para mostrar un Curso
         //    }
         //    catch (Exception ex)
         //    {
@@ -151,28 +167,36 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarOrdenBeneficio([FromBody] List<BeneficioDto> beneficioDtos)
+        public async Task<IActionResult> ActualizarOrdenCurso([FromBody] List<CursoDto> cursoDtos)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
 
-                foreach (var beneficioDto in beneficioDtos)
+                foreach (var cursoDto in cursoDtos)
                 {
-                    var beneficio = new BeneficioBE
+                    var curso = new CursoBE
                     {
-                        Bene_ID = beneficioDto.id,
-                        Bene_Orden = beneficioDto.orden,
-                        Bene_Titulo = beneficioDto.titulo,
-                        Bene_Nombre = beneficioDto.nombre,
-                        Bene_Descripcion = beneficioDto.description,
-                        Bene_URLImagen = beneficioDto.urlImagen,
-                        Bene_URLIcon = beneficioDto.urlIcon
+                        Curs_ID = cursoDto.id,
+                        Curs_Orden = cursoDto.orden,
+                        Curs_Titulo = cursoDto.titulo,
+                        Curs_NombreBoton = cursoDto.nombreBoton,
+                        Curs_UrlIconBoton = cursoDto.urlIconBoton,
+                        Curs_NombreCurso = cursoDto.nombreCurso,
+                        Curs_Objetivo = cursoDto.objetivo,
+                        Curs_Descripcion = cursoDto.description,
+                        Curs_Modalidad = cursoDto.modalidad,
+                        Curs_DuracionHoras = cursoDto.duracionHoras,
+                        Curs_FechaInicio = cursoDto.fechaInicio,
+                        Curs_FechaFin = cursoDto.fechaFin,
+                        Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
+                        Curs_UrlIcon = cursoDto.urlIcon,
+                        Curs_UrlImagen = cursoDto.urlImagen
                     };
-                    await _beneficioBL.ActualizarBeneficioAsync(beneficio, usuario, ip, beneficio.Bene_ID); // Llamada asincrónica
+                    await _cursoBL.ActualizarCursoAsync(curso, usuario, ip, curso.Curs_ID); // Llamada asincrónica
                 }
-                return RedirectToAction("ListarBeneficios");
+                return RedirectToAction("ListarCursos");
             }
             catch (Exception ex)
             {

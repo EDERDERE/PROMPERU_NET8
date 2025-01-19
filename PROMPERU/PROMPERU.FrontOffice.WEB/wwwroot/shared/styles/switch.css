@@ -1,0 +1,20 @@
+/* switch  */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.switch-centered {
+  margin: 0 auto;
+  order: 1;
+}
+
+.modal-title {
+  flex: 1; 
+  text-align: left;
+}
+
+.btn-close {
+  order: 2;
+}

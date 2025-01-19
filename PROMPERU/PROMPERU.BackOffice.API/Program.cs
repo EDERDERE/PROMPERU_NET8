@@ -1,5 +1,3 @@
-
-
 using PROMPERU.BL;
 using PROMPERU.DA;
 using PROMPERU.DB;
@@ -39,6 +37,9 @@ builder.Services.AddScoped<InscripcionDA>();
 builder.Services.AddScoped<InscripcionBL>();
 builder.Services.AddScoped<BeneficioDA>();
 builder.Services.AddScoped<BeneficioBL>();
+builder.Services.AddScoped<CursoDA>();
+builder.Services.AddScoped<CursoBL>();
+
 
 var app = builder.Build();
 
