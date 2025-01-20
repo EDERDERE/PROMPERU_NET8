@@ -39,6 +39,8 @@ builder.Services.AddScoped<BeneficioDA>();
 builder.Services.AddScoped<BeneficioBL>();
 builder.Services.AddScoped<CursoDA>();
 builder.Services.AddScoped<CursoBL>();
+builder.Services.AddScoped<CasoDA>();
+builder.Services.AddScoped<CasoBL>();
 
 
 var app = builder.Build();
