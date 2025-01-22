@@ -13,13 +13,13 @@ function loadListarInformacion() {
             console.log(response)
             // Limpia el contenedor de sliders antes de renderizar
             $('#banner').empty();
-            $('#seccion').empty();
+            $('#seccionInfo').empty();
             if (response.success) {
                 const informacions = response.informacions;
                 console.log('informacions', informacions[0])
                 if (informacions.length > 0) {
                     renderBanner(informacions[0]);   
-                    renderSeccion(informacions[0]);  
+                    renderSeccionInfo(informacions[0]);  
                 } else {
                     $('#seccion').html('<p>No se información cursos disponibles.</p>');
                 }
@@ -47,6 +47,7 @@ function loadListarInformacion() {
 }
 
 function renderBanner(info) {
+    console.log(info,'info')
     const banner = `
      <div class="title">${info.info_Titulo}</div>
         <p class="description">${info.info_Descripcion}</p>
@@ -55,7 +56,8 @@ function renderBanner(info) {
     $('#banner').append(banner);   
     cambiarImagenDinamica(info.info_URLPortada);
 }
-function renderSeccion(info) {
+function renderSeccionInfo(info) {
+    console.log('aaaaaaa',info,'ingreso a la seccion')
     const seccion = `
 
         <h2 class="text-start title-que-es">${info.info_TituloSeccion}</h2>
@@ -76,7 +78,7 @@ function renderSeccion(info) {
             </div>
         </div>
       `;
-    $('#seccion').append(seccion);
+    $('#seccionInfo').append(seccion);
 }
 function formatearFecha(fechaISO) {
     const fecha = new Date(fechaISO);

@@ -29,6 +29,7 @@ namespace PROMPERU.DA
               
                 comando.Parameters.AddWithValue("@Curs_Orden", curso.Curs_Orden);
                 comando.Parameters.AddWithValue("@Curs_Titulo", curso.Curs_Titulo);
+                comando.Parameters.AddWithValue("@Curs_TituloSeccion", curso.Curs_TituloSeccion);
                 comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                 comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                 comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
@@ -41,6 +42,7 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Curs_NombreBotonTitulo", curso.Curs_NombreBotonTitulo);
                 comando.Parameters.AddWithValue("@Curs_UrlIcon", curso.Curs_UrlIcon);
                 comando.Parameters.AddWithValue("@Curs_UrlImagen", curso.Curs_UrlImagen);
+                comando.Parameters.AddWithValue("@Curs_LinkBoton", curso.Curs_LinkBoton);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -87,6 +89,7 @@ namespace PROMPERU.DA
                         Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
                         Curs_Orden = reader["Curs_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Curs_Orden"]) : 0,
                         Curs_Titulo = reader["Curs_Titulo"] != DBNull.Value ? reader["Curs_Titulo"].ToString() : "",
+                        Curs_TituloSeccion = reader["Curs_TituloSeccion"] != DBNull.Value ? reader["Curs_Titulo"].ToString() : "",
                         Curs_NombreBoton = reader["Curs_NombreBoton"] != DBNull.Value ? reader["Curs_NombreBoton"].ToString() : "",
                         Curs_UrlIconBoton = reader["Curs_UrlIconBoton"] != DBNull.Value ? reader["Curs_UrlIconBoton"].ToString() : "",
                         Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
@@ -98,7 +101,8 @@ namespace PROMPERU.DA
                         Curs_FechaFin = Convert.ToDateTime(reader["Curs_FechaFin"]),
                         Curs_NombreBotonTitulo = reader["Curs_NombreBotonTitulo"] != DBNull.Value ? reader["Curs_NombreBotonTitulo"].ToString() : "",
                         Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
-                         Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : ""
+                        Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
+                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : ""
 
                     };
                 }
@@ -171,6 +175,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Curs_ID", curso.Curs_ID);
                     comando.Parameters.AddWithValue("@Curs_Orden", curso.Curs_Orden);
                     comando.Parameters.AddWithValue("@Curs_Titulo", curso.Curs_Titulo);
+                    comando.Parameters.AddWithValue("@Curs_TituloSeccion", curso.Curs_TituloSeccion);
                     comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                     comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                     comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
@@ -183,6 +188,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Curs_NombreBotonTitulo", curso.Curs_NombreBotonTitulo);
                     comando.Parameters.AddWithValue("@Curs_UrlIcon", curso.Curs_UrlIcon);
                     comando.Parameters.AddWithValue("@Curs_UrlImagen", curso.Curs_UrlImagen);
+                    comando.Parameters.AddWithValue("@Curs_LinkBoton", curso.Curs_LinkBoton);
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
@@ -238,6 +244,7 @@ namespace PROMPERU.DA
                         Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
                         Curs_Orden = reader["Curs_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Curs_Orden"]) : 0,
                         Curs_Titulo = reader["Curs_Titulo"] != DBNull.Value ? reader["Curs_Titulo"].ToString() : "",
+                        Curs_TituloSeccion = reader["Curs_TituloSeccion"] != DBNull.Value ? reader["Curs_TituloSeccion"].ToString() : "",
                         Curs_NombreBoton = reader["Curs_NombreBoton"] != DBNull.Value ? reader["Curs_NombreBoton"].ToString() : "",
                         Curs_UrlIconBoton = reader["Curs_UrlIconBoton"] != DBNull.Value ? reader["Curs_UrlIconBoton"].ToString() : "",
                         Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
@@ -249,7 +256,8 @@ namespace PROMPERU.DA
                         Curs_FechaFin = reader["Curs_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Curs_FechaFin"]),
                         Curs_NombreBotonTitulo = reader["Curs_NombreBotonTitulo"] != DBNull.Value ? reader["Curs_NombreBotonTitulo"].ToString() : "",
                         Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
-                        Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : ""
+                        Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
+                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : ""
 
                     });
                 }

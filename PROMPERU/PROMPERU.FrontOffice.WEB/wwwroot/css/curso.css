@@ -1,3 +1,4 @@
+@import "../../shared/styles/globals.css";
 @import "../../shared/styles/variables.css";
 @import "../../shared/styles/header.css";
 
@@ -676,6 +677,7 @@ footer {
 @media screen and (min-width: 768px) {
     .logo_ministerio {
         width: 200px;
+        margin: 0;
         margin-left: auto;
     }
 

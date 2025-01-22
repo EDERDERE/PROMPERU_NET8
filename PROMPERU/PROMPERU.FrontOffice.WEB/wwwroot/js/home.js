@@ -1,51 +1,214 @@
 $(document).ready(function () {
     console.log('curso web home')
-    loadListarCursos();
-    loadListarInformacion();
+    home.loadListarCursos();
+    home.loadListarInformacion();
+    home.loadListarRequisitos();
 });
 
-function loadListarInformacion() {
-    $.ajax({
-        type: 'GET', // Método GET para obtener los sliders
-        url: '/Informacion/ListarInformacions', // URL del controlador que devuelve la lista de sliders
-        dataType: 'json',
-        success: function (response) {
+const home = {
+    loadListarInformacion: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Informacion/ListarInformacions', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
 
-            console.log(response)
-            // Limpia el contenedor de sliders antes de renderizar        
-            $('#seccion').empty();
-            if (response.success) {
-                const informacions = response.informacions;
-                console.log('informacions', informacions[0])
-                if (informacions.length > 0) {
-                    renderBanner(informacions[0]);
-                    renderSeccion(informacions[0]);
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#seccionHome').empty();
+                if (response.success) {
+                    const informacions = response.informacions;
+                    console.log('informacions', informacions[0])
+                    if (informacions.length > 0) {
+                        renderSeccionHome(informacions[0]);
+                    } else {
+                        $('#seccion').html('<p>No se información cursos disponibles.</p>');
+                    }
+
                 } else {
-                    $('#seccion').html('<p>No se información cursos disponibles.</p>');
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
                 }
 
-            } else {
 
+            },
+            error: function () {
                 Swal.fire({
                     icon: 'error',
-                    title: 'No hay cursos disponibles',
-                    text: response.message || 'No se encontraron cursos.',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
                 });
             }
+        });
+
+    },
+    loadListarCursos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Curso/ListarCursos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#tituloCursoHome').empty();
+                $('#botonCursoHome').empty();
+                $('#sliderCursoHome').empty();
+                if (response.success) {
+                    const cursos = response.cursos;
+                    console.log('cursos', cursos)
+                    if (cursos.length > 0) {
+                        renderTituloCursoHome(cursos[0]);
+                        renderBotonCursoHome(cursos[0]);
+                        renderSliderCursoHome(cursos);
+                    } else {
+                        $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
 
 
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al cargar los sliders',
-                text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
-            });
-        }
-    });
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarRequisitos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Requisito/ListarRequisitos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#sliderContainer').empty();
+                if (response.success) {
+                    // Itera sobre la respuesta y crea las tarjetas dinámicamente         
+                    console.log('obtener el tirulo Requisito', response.requisitos[0]);
+                    var requisito = response.requisitos[0];
+                    var tituloCard = `
+                   <div class="col-6 p-0">
+                        <div class="d-flex justify-content-between">
+                            <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">Titulo</label>
+                            <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
+                            data-id="${requisito.requ_ID}"
+                            data-titulo="${requisito.requ_Titulo}"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
+                    </div>`;
+                    // Agregar el slider al contenedor
+                    $('#tituloContainer').append(tituloCard);
+
+                    response.requisitos.forEach((requisito) => {
+                        if (requisito.requ_Orden > 0) {
+                            console.log('lista Requisito', requisito);
+
+                            var sliderCard = `
+                               <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-number mb-0">${requisito.requ_Orden}</h5>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-link text-danger p-0"
+                        data-id="${requisito.requ_ID}"  
+                        id="btn-delete-${requisito.requ_ID}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
+                                data-bs-target="#editSliderModal"
+                                data-id="${requisito.requ_ID}"
+                                data-orden="${requisito.requ_Orden}"
+                          data-nombre="${requisito.requ_Nombre}"
+                            data-description="${requisito.requ_Descripcion}"
+                              data-urlicon="${requisito.requ_URLIcon}"
+                              >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                            </svg>
+                        </button>
+
+                        <div class="sortable-handle d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nombre-${requisito.requ_ID}" class="form-label fw-semibold">Nombre</label>
+                    <input type="text" id="nombre-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Nombre}" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description-${requisito.requ_ID}" class="form-label fw-semibold">Descripción</label>
+                    <textarea id="description-${requisito.requ_ID}" class="form-control" rows="3" placeholder="${requisito.requ_Descripcion}"
+                              disabled></textarea>
+                </div>
+
+                <div>
+                    <label for="icon-url-${requisito.requ_ID}" class="form-label fw-semibold">URL de ícono</label>
+                    <input type="text" id="icon-url-${requisito.requ_ID}" class="form-control" value="${requisito.requ_URLIcon}" disabled>
+                </div>
+            </div>`;
+                            // Agregar el slider al contenedor
+                            $('#sliderContainer').append(sliderCard);
+                        }
+
+                    });
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
 
 }
-function renderSeccion(info) {
+}
+
+function renderSeccionHome(info) {
     const seccion = `
     <div class="row">
         <div class="col-12 col-md-5" >
@@ -67,79 +230,36 @@ function renderSeccion(info) {
         </div>
     </div>        
       `;
-    $('#seccion').append(seccion);
+    $('#seccionHome').append(seccion);
 }
-function loadListarCursos() {
-    $.ajax({
-        type: 'GET', // Método GET para obtener los sliders
-        url: '/Curso/ListarCursos', // URL del controlador que devuelve la lista de sliders
-        dataType: 'json',
-        success: function (response) {
 
-            console.log(response)
-            // Limpia el contenedor de sliders antes de renderizar
-            $('#tituloCurso').empty();
-            $('#botonCurso').empty();
-            $('#sliderCurso').empty();
-            if (response.success) {
-                const cursos = response.cursos;
-                console.log('cursos', cursos)
-                if (cursos.length > 0) {
-                    renderTituloCurso(cursos[0]);
-                    renderBotonCurso(cursos[0]);
-                    renderSliderCurso(cursos);
-                } else {
-                    $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
-                }
-
-            } else {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'No hay cursos disponibles',
-                    text: response.message || 'No se encontraron cursos.',
-                });
-            }
-
-
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al cargar los sliders',
-                text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
-            });
-        }
-    });
-
-}
-function renderTituloCurso(curso) {
-    const tituloCurso = `
+function renderTituloCursoHome(curso) {
+    const tituloCursoHome = `
      <h2>${curso.curs_Titulo}</h2>
      <div class="red-linear"></div>
       `;
-    $('#tituloCurso').append(tituloCurso);
+    $('#tituloCursoHome').append(tituloCursoHome);
 }
-function renderBotonCurso(curso) {
-    const botonCurso = `      
-            <a href="@Url.Action("Index", "Curso")">${curso.curs_NombreBotonTitulo}</a>
+function renderBotonCursoHome(curso) { 
+    const botonCursoHome = `      
+            <a href="/Curso/Index">${curso.curs_NombreBotonTitulo}</a>
             <img src="${curso.curs_UrlIconBoton}"
                  alt="" />      
       `;
-    $('#botonCurso').append(botonCurso);
+    $('#botonCursoHome').append(botonCursoHome);
 }
-function renderSliderCurso(cursos) {
+function renderSliderCursoHome(cursos) {
     let sliderCurso = '';
 
-    cursos.slice(0, 4).forEach(curso => {
-        if (curso.curs_Orden > 0) {
+    cursos.slice(0, 4).forEach(curs => {
+        if (curs.curs_Orden > 0) {
             sliderCurso +=
              `
                 <div class="swiper-slide p-3">
                     <div class="card rounded-4 overflow-hidden border-0 shadow-md">
-                        <img src="${curso.curs_UrlImagen}" alt="">
+                        <img src="${curs.curs_UrlImagen}" alt="">
                             <div class="content p-3">
-                                <h4>Inovacion</h4>
+                                <h4>${curs.curs_NombreCurso}</h4>
                                 <p class="curso_description">orem ipsum dolor sit amet consectetur adipiscing, elit platea porta ut fermentum enim facilisi, nostra posuere duis vehicula</p>
                                 <p class="d-flex align-items-center gap-2 ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0070BA" class="bi bi-calendar4-week" viewBox="0 0 16 16">
@@ -147,7 +267,7 @@ function renderSliderCurso(cursos) {
                                         <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
                                     </svg>
                                     <strong>Virtual en Vivo:</strong>
-                                    <span>Del ${obtenerDia(formatearFechaInversa(curso.curs_FechaInicio))} al ${obtenerDia(formatearFechaInversa(curso.curs_FechaFin))} del ${obtenerAno(formatearFechaInversa(curso.curs_FechaFin))}</span>
+                                    <span>Del ${obtenerDia(formatearFechaInversa(curs.curs_FechaInicio))} al ${obtenerDia(formatearFechaInversa(curs.curs_FechaFin))} del ${obtenerAno(formatearFechaInversa(curs.curs_FechaFin))}</span>
                                 </p>
                                 <p class="d-flex align-items-center gap-1  mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0070BA" class="bi bi-clock-history" viewBox="0 0 16 16">
@@ -156,11 +276,11 @@ function renderSliderCurso(cursos) {
                                         <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
                                     </svg>
                                     <strong>A tu ritmo:</strong>
-                                    <span>${curso.curs_Modalidad}</span>
+                                    <span>${curs.curs_Modalidad}</span>
                                 </p>
                                 <div class="d-flex justify-content-center">
-                                    <a href="${curso.curs_UrlIcon}" class="button_brochure" target="_blank">
-                                        Descargar brochure
+                                    <a href="${curs.curs_LinkBoton}" class="button_brochure" target="_blank">
+                                        ${curs.curs_NombreBoton}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-pdf" viewBox="0 0 16 16">
                                             <path d="M4.603 12.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.6 11.6 0 0 0-1.997.406 11.3 11.3 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.244.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 5.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z" />
                                         </svg>
@@ -174,7 +294,7 @@ function renderSliderCurso(cursos) {
         }
     });
 
-    $('#sliderCurso').append(sliderCurso);
+    $('#sliderCursoHome').append(sliderCurso);
   
 }
 

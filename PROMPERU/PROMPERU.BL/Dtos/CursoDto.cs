@@ -11,6 +11,7 @@ namespace PROMPERU.BL.Dtos
         public int id { get; set; }
         public int orden { get; set; }
         public string titulo { get; set; }
+        public string tituloSeccion { get; set; }
         public string nombreBotonTitulo { get; set; }
         public string urlIconBoton { get; set; }
         public string nombreCurso { get; set; }

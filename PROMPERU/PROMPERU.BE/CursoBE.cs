@@ -5,6 +5,7 @@
         public int Curs_ID { get; set; }  
         public int Curs_Orden { get; set; }
         public string Curs_Titulo { get; set; }
+        public string Curs_TituloSeccion { get; set; }
         public string Curs_NombreBotonTitulo { get; set; }
         public string Curs_UrlIconBoton { get; set; }
         public string Curs_NombreCurso { get; set; }
@@ -17,5 +18,6 @@
         public string Curs_NombreBoton { get; set; }
         public string Curs_UrlIcon { get; set; }
         public string Curs_UrlImagen { get; set; }
+        public string Curs_LinkBoton { get; set; }
     }
 }
