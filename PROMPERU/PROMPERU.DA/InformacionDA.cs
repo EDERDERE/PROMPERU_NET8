@@ -28,6 +28,7 @@ namespace PROMPERU.DA
                 };
                              
                 comando.Parameters.AddWithValue("@Info_Titulo", informacion.Info_Titulo);
+                comando.Parameters.AddWithValue("@Info_TituloSeccion", informacion.Info_TituloSeccion);
                 comando.Parameters.AddWithValue("@Info_Descripcion", informacion.Info_Descripcion);
                 comando.Parameters.AddWithValue("@Info_URLPortada", informacion.Info_URLPortada);
                 comando.Parameters.AddWithValue("@Info_URLVideo", informacion.Info_URLVideo);
@@ -76,6 +77,7 @@ namespace PROMPERU.DA
                     {
                         Info_ID = Convert.ToInt32(reader["Info_ID"]),
                         Info_Titulo = reader["Info_Titulo"].ToString(),
+                        Info_TituloSeccion = reader["Info_TituloSeccion"].ToString(),
                         Info_Descripcion = reader["Info_Descripcion"].ToString(),
                         Info_URLPortada = reader["Info_URLPortada"].ToString(),
                         Info_URLVideo = reader["Info_URLVideo"].ToString()
@@ -147,11 +149,12 @@ namespace PROMPERU.DA
                     };                   
 
                     // Parámetros del procedimiento almacenado
-                    comando.Parameters.Add("@Info_ID", SqlDbType.Int).Value = informacion.Info_ID;
-                    comando.Parameters.Add("@Info_Titulo", SqlDbType.VarChar, 255).Value = informacion.Info_Titulo;
-                    comando.Parameters.Add("@Info_Descripcion", SqlDbType.VarChar, 500).Value = informacion.Info_Descripcion;
-                    comando.Parameters.Add("@Info_URLPortada", SqlDbType.VarChar, 255).Value = informacion.Info_URLPortada;
-                    comando.Parameters.Add("@Info_URLVideo", SqlDbType.VarChar, 255).Value = informacion.Info_URLVideo;
+                    comando.Parameters.AddWithValue("@Info_ID", informacion.Info_ID);
+                    comando.Parameters.AddWithValue("@Info_Titulo", informacion.Info_Titulo);
+                    comando.Parameters.AddWithValue("@Info_TituloSeccion", informacion.Info_TituloSeccion);
+                    comando.Parameters.AddWithValue("@Info_Descripcion", informacion.Info_Descripcion);
+                    comando.Parameters.AddWithValue("@Info_URLPortada", informacion.Info_URLPortada);
+                    comando.Parameters.AddWithValue("@Info_URLVideo", informacion.Info_URLVideo);
 
 
                     // Ejecución del comando
@@ -208,6 +211,7 @@ namespace PROMPERU.DA
                     {
                         Info_ID = Convert.ToInt32(reader["Info_ID"]),
                         Info_Titulo = reader["Info_Titulo"].ToString(),
+                        Info_TituloSeccion = reader["Info_TituloSeccion"].ToString(),
                         Info_Descripcion = reader["Info_Descripcion"].ToString(),
                         Info_URLPortada = reader["Info_URLPortada"].ToString(),
                         Info_URLVideo = reader["Info_URLVideo"].ToString()

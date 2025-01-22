@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PROMPERU.BL\PROMPERU.BL.csproj" />
     <ProjectReference Include="..\PROMPERU.DB\PROMPERU.DB.csproj" />
   </ItemGroup>
 

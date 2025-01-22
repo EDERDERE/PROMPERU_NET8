@@ -73,6 +73,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 var informacion = new InformacionBE
                 {
                     Info_Titulo = informacionDto.titulo,
+                    Info_TituloSeccion = informacionDto.tituloSeccion,
                     Info_Descripcion = informacionDto.description,
                     Info_URLPortada = informacionDto.urlPortada,
                     Info_URLVideo = informacionDto.urlVideo
@@ -99,6 +100,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 {
                     Info_ID = id,
                     Info_Titulo = informacionDto.titulo,
+                    Info_TituloSeccion = informacionDto.tituloSeccion,
                     Info_Descripcion = informacionDto.description,
                     Info_URLPortada = informacionDto.urlPortada,
                     Info_URLVideo = informacionDto.urlVideo

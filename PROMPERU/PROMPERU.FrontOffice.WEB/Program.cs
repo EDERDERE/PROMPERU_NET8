@@ -1,5 +1,5 @@
-
-
+using PROMPERU.BL;
+using PROMPERU.DA;
 using PROMPERU.DB;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +8,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrar los servicios
+builder.Services.AddScoped<UsuarioDA>();
+builder.Services.AddScoped<UsuarioBL>();
+builder.Services.AddScoped<BannerDA>();
+builder.Services.AddScoped<BannerBL>();
+builder.Services.AddScoped<AuditoriaDA>();
+builder.Services.AddScoped<MultimediaDA>();
+builder.Services.AddScoped<MultimediaBL>();
+builder.Services.AddScoped<InformacionDA>();
+builder.Services.AddScoped<InformacionBL>();
+builder.Services.AddScoped<RequisitoDA>();
+builder.Services.AddScoped<RequisitoBL>();
+builder.Services.AddScoped<InscripcionDA>();
+builder.Services.AddScoped<InscripcionBL>();
+builder.Services.AddScoped<BeneficioDA>();
+builder.Services.AddScoped<BeneficioBL>();
+builder.Services.AddScoped<CursoDA>();
+builder.Services.AddScoped<CursoBL>();
+builder.Services.AddScoped<CasoDA>();
+builder.Services.AddScoped<CasoBL>();
+
 
 var app = builder.Build();
 

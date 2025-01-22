@@ -14,7 +14,7 @@
     />
    <link href="~/css/home.css" rel="stylesheet" />
   </head>
-
+<script src="~/shared/libraries/jquery-3.7.1/js/jquery.min.js"></script>
   <body>
     <div class="d-flex flex-column">
       <div class="header">
@@ -43,7 +43,7 @@
           class="d-flex justify-content-between list-unstyled gap-4 align-items-center m-0"
         >
           <li class="home">
-            <a href="">
+            <a href="@Url.Action("Index", "Home")">
               <?xml version="1.0" ?><svg
                 fill="none"
                 height="20"
@@ -58,11 +58,11 @@
               </svg>
             </a>
           </li>
-          <li><a href="" class="text-decoration-none">¿Qué es?</a></li>
-          <li><a href="" class="text-decoration-none">Cursos</a></li>
-          <li><a href="" class="text-decoration-none">Inscripción</a></li>
-          <li><a href="" class="text-decoration-none">Requisitos</a></li>
-          <li><a href="" class="text-decoration-none">Beneficios</a></li>
+          <li><a href="@Url.Action("Index", "Informacion")" class="text-decoration-none">¿Qué es?</a></li>
+          <li><a href="@Url.Action("Index", "Curso")" class="text-decoration-none">Cursos</a></li>
+          <li><a href="@Url.Action("Index", "Inscripcion")" class="text-decoration-none">Inscripción</a></li>
+          <li><a href="@Url.Action("Index", "Requisito")" class="text-decoration-none">Requisitos</a></li>
+          <li><a href="@Url.Action("Index", "Beneficio")" class="text-decoration-none">Beneficios</a></li>
           <li><a href="" class="text-decoration-none">Casos éxitos</a></li>
           <li><a href="" class="text-decoration-none">Empresas</a></li>
           <li><a href="" class="text-decoration-none">Contacto</a></li>
