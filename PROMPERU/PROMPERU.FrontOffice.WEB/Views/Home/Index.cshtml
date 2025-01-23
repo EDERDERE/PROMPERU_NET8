@@ -115,9 +115,12 @@
 </div>
 <!-- Container Nuestro requisitos -->
 <div class="container mt-5 mb-5">
-    <h2 class="text-start title-nuestro-requisitos">Nuestros requisitos</h2>
-    <div class="red-linear"></div>
-    <div class="mx-auto row mt-5">
+    <div id="tituloRequisitoHome">
+        <h2 class="text-start title-nuestro-requisitos">Nuestros requisitos</h2>
+        <div class="red-linear"></div>
+    </div>
+    
+    <div class="mx-auto row mt-5" id="sliderRequisitoHome">
         <div class="btn-group col-12 col-md-6 p-3">
             <button class="list-group-item d-flex align-items-center justify-content-between btn btn-light"
                     data-bs-toggle="dropdown"
@@ -576,18 +579,18 @@
 <div class="bg-white">
     <div class="container py-5">
         <div class="row mb-5">
-            <div class="col-12">
+            <div class="col-12" id="tituloBeneficioHome">
                 <h2>Beneficios</h2>
                 <div class="red-linear"></div>
             </div>
         </div>
         <div class="row beneficios">
-            <div class="col-lg-6 d-none d-lg-block h-100 text-end">
+            <div class="col-lg-6 d-none d-lg-block h-100 text-end" id="portadaBeneficioHome">
                 <img src="../../shared/assets/home/beneficios/img_beneficios.png"
                      class="img-fluid rounded-4 h-100"
                      alt="" />
             </div>
-            <div class="col-lg-6 col-12 overflow-y-auto h-100">
+            <div class="col-lg-6 col-12 overflow-y-auto h-100" id="sliderBeneficioHome">
                 <div class="beneficio_item">
                     <h3 class="d-flex align-items-center gap-3">
                         <img src="../../shared/assets/home/beneficios/administracion.png" alt="">
@@ -666,13 +669,13 @@
 <div>
     <div class="container py-5">
         <div class="row mb-5">
-            <div class="col-12">
+            <div class="col-12" id="tituloCasoHome">
                 <h2>Casos de éxito</h2>
                 <div class="red-linear"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-12 exito_video">
+            <div class="col-lg-6 col-12 exito_video" id="portadaCasoHome">
                 <iframe width="100%"
                         height="100%"
                         src="https://www.youtube.com/embed/3PHTlCsdBw8?si=-IerSaPQ3LsP1sk6"
@@ -681,8 +684,8 @@
                         allowfullscreen></iframe>
             </div>
             <div class="col-lg-6 col-12 d-none d-lg-block">
-                <div class="video_list">
-                    <div class="video_item row active">
+                <div class="video_list" id="sliderCasoHome">
+                    <div class="video_item row active" data-video="https://www.youtube.com/embed/3PHTlCsdBw8?si=-IerSaPQ3LsP1sk6">
                         <div class="col-8">
                             <h4>Fabiola Tahua</h4>
                             <p>Gerente General de Tahua Pottery</p>
@@ -691,19 +694,19 @@
                             <img src="../../shared/assets/home/casos_exito/video_thumbnail.png" alt="">
                         </div>
                     </div>
-                    <div class="video_item row">
+                    <div class="video_item row" data-video="https://www.youtube.com/embed/someOtherVideoID">
                         <div class="col-8">
-                            <h4>Fabiola Tahua</h4>
-                            <p>Gerente General de Tahua Pottery</p>
+                            <h4>Video 2</h4>
+                            <p>Descripción del segundo video</p>
                         </div>
                         <div class="col-4">
                             <img src="../../shared/assets/home/casos_exito/video_thumbnail.png" alt="">
                         </div>
                     </div>
-                    <div class="video_item row">
+                    <div class="video_item row" data-video="https://www.youtube.com/embed/yetAnotherVideoID">
                         <div class="col-8">
-                            <h4>Fabiola Tahua</h4>
-                            <p>Gerente General de Tahua Pottery</p>
+                            <h4>Video 3</h4>
+                            <p>Descripción del tercer video</p>
                         </div>
                         <div class="col-4">
                             <img src="../../shared/assets/home/casos_exito/video_thumbnail.png" alt="">
@@ -712,8 +715,9 @@
                 </div>
             </div>
         </div>
-        <div class="btn-test justify-content-center">
-            <div class="button-test ms-lg-auto ms-0">
+
+        <div class="btn-test justify-content-center" >
+            <div class="button-test ms-lg-auto ms-0" id="botonCasoHome">
                 <a href="">Mira más videos</a>
                 <img src="../../shared/assets/home/etapas/empezar_test.svg"
                      alt="" />
@@ -721,7 +725,7 @@
         </div>
     </div>
 </div>
-<div>
+<div style="display:none">
     <div class="container py-5">
         <div class="row mb-5">
             <div class="col-12">
@@ -921,3 +925,19 @@
         </div>
     </div>
 </div>
+<script>
+    // Escuchar clic en cualquier elemento con la clase "video_item"
+    $('.video_item').on('click', function () {
+        // Remover la clase "active" de todos los elementos
+        $('.video_item').removeClass('active');
+
+        // Agregar la clase "active" al elemento seleccionado
+        $(this).addClass('active');
+
+        // Obtener la URL del video (puedes almacenar la URL en un atributo personalizado como "data-video")
+        const videoURL = $(this).data('video');
+
+        // Actualizar el iframe con la nueva URL
+        $('.exito_video iframe').attr('src', videoURL);
+    });
+</script>

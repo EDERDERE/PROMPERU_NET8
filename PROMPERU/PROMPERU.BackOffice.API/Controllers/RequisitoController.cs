@@ -73,6 +73,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 {
                     Requ_Orden = requisitoDto.orden,
                     Requ_Titulo = requisitoDto.titulo,
+                    Requ_TituloSeccion = requisitoDto.tituloSeccion,
                     Requ_Nombre = requisitoDto.nombre,
                     Requ_Descripcion = requisitoDto.description,
                     Requ_URLIcon =requisitoDto.urlIcon,
@@ -101,6 +102,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Requ_ID = id,
                     Requ_Orden = requisitoDto.orden,
                     Requ_Titulo = requisitoDto.titulo,
+                    Requ_TituloSeccion = requisitoDto.tituloSeccion,
                     Requ_Nombre = requisitoDto.nombre,
                     Requ_Descripcion = requisitoDto.description,
                     Requ_URLIcon = requisitoDto.urlIcon,
@@ -165,6 +167,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Requ_ID = requisitoDto.id,
                         Requ_Orden = requisitoDto.orden,
                         Requ_Titulo = requisitoDto.titulo,
+                        Requ_TituloSeccion = requisitoDto.tituloSeccion,
                         Requ_Descripcion = requisitoDto.description,
                         Requ_URLIcon = requisitoDto.urlIcon,
                         Requ_URLImagen = requisitoDto.urlImagen

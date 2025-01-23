@@ -29,6 +29,7 @@ namespace PROMPERU.DA
                              
                 comando.Parameters.AddWithValue("@Requ_Orden", requisito.Requ_Orden);
                 comando.Parameters.AddWithValue("@Requ_Titulo", requisito.Requ_Titulo);
+                comando.Parameters.AddWithValue("@Requ_TituloSeccion", requisito.Requ_TituloSeccion);
                 comando.Parameters.AddWithValue("@Requ_Nombre", requisito.Requ_Nombre);
                 comando.Parameters.AddWithValue("@Requ_Descripcion", requisito.Requ_Descripcion);
                 comando.Parameters.AddWithValue("@Requ_URLIcon", requisito.Requ_URLIcon);
@@ -80,6 +81,7 @@ namespace PROMPERU.DA
                         Requ_ID = Convert.ToInt32(reader["Requ_ID"]),                        
                         Requ_Orden = Convert.ToInt32(reader["Requ_Orden"]),
                         Requ_Titulo = reader["Requ_Titulo"].ToString(),
+                        Requ_TituloSeccion = reader["Requ_TituloSeccion"].ToString(),
                         Requ_Descripcion = reader["Requ_Descripcion"].ToString(),
                         Requ_URLIcon = reader["Requ_URLIcon"].ToString(),
                         Requ_URLImagen = reader["Requ_URLImagen"].ToString()
@@ -154,6 +156,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Requ_ID", requisito.Requ_ID);
                     comando.Parameters.AddWithValue("@Requ_Orden", requisito.Requ_Orden);
                     comando.Parameters.AddWithValue("@Requ_Titulo", requisito.Requ_Titulo);
+                    comando.Parameters.AddWithValue("@Requ_TituloSeccion", requisito.Requ_TituloSeccion);
                     comando.Parameters.AddWithValue("@Requ_Nombre", requisito.Requ_Nombre);
                     comando.Parameters.AddWithValue("@Requ_Descripcion", requisito.Requ_Descripcion);
                     comando.Parameters.AddWithValue("@Requ_URLIcon", requisito.Requ_URLIcon);
@@ -214,6 +217,7 @@ namespace PROMPERU.DA
                         Requ_ID = Convert.ToInt32(reader["Requ_ID"]),
                         Requ_Orden = Convert.ToInt32(reader["Requ_Orden"]),
                         Requ_Titulo = reader["Requ_Titulo"].ToString(),
+                        Requ_TituloSeccion = reader["Requ_TituloSeccion"].ToString(),
                         Requ_Nombre = reader["Requ_Nombre"].ToString(),
                         Requ_Descripcion = reader["Requ_Descripcion"].ToString(),
                         Requ_URLIcon = reader["Requ_URLIcon"].ToString(),

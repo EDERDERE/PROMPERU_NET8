@@ -5,15 +5,15 @@ using PROMPERU.BL.Dtos;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-    public class RequisitoController : Controller
+    public class CasoController : Controller
     {
-        private readonly ILogger<RequisitoController> _logger;    
-        private readonly RequisitoBL _requisitoBL;
+        private readonly ILogger<CasoController> _logger;    
+        private readonly CasoBL _casoBL;
 
-        public RequisitoController(ILogger<RequisitoController> logger, RequisitoBL requisitoBL)
+        public CasoController(ILogger<CasoController> logger, CasoBL casoBL)
         {
             _logger = logger;
-            _requisitoBL = requisitoBL;
+            _casoBL = casoBL;
         }
 
         public IActionResult Index()
@@ -22,18 +22,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarRequisitos()
+        public async Task<IActionResult> ListarCasos()
         {
             try
             {
-                var requisitos = await _requisitoBL.ListarRequisitosAsync(); // Cambio a versión asincrónica
-                if (requisitos != null && requisitos.Any())
+                var Casos = await _casoBL.ListarCasosAsync(); // Cambio a versión asincrónica
+                if (Casos != null && Casos.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Requisitos obtenidos exitosamente.",
-                        requisitos
+                        message = "Casos obtenidos exitosamente.",
+                        Casos
                     });
                 }
                 else
@@ -41,7 +41,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron requisitos disponibles."
+                        message = "No se encontraron Casos disponibles."
                     });
                 }
             }
@@ -50,10 +50,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los requisitos. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Casos. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }               
+        }       
     }
 }

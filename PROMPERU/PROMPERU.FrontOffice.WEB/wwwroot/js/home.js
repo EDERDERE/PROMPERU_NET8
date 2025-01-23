@@ -3,6 +3,8 @@ $(document).ready(function () {
     home.loadListarCursos();
     home.loadListarInformacion();
     home.loadListarRequisitos();
+    home.loadListarBeneficios();
+    home.loadListarCasos();   
 });
 
 const home = {
@@ -66,7 +68,7 @@ const home = {
                         renderBotonCursoHome(cursos[0]);
                         renderSliderCursoHome(cursos);
                     } else {
-                        $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
+                        $('#sliderCursoHome').html('<p>No se encontraron cursos disponibles.</p>');
                     }
 
                 } else {
@@ -99,92 +101,17 @@ const home = {
 
                 console.log(response)
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#sliderContainer').empty();
+                $('#tituloRequisitoHome').empty();
+                $('#sliderRequisitoHome').empty();
                 if (response.success) {
-                    // Itera sobre la respuesta y crea las tarjetas dinámicamente         
-                    console.log('obtener el tirulo Requisito', response.requisitos[0]);
-                    var requisito = response.requisitos[0];
-                    var tituloCard = `
-                   <div class="col-6 p-0">
-                        <div class="d-flex justify-content-between">
-                            <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">Titulo</label>
-                            <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
-                            data-id="${requisito.requ_ID}"
-                            data-titulo="${requisito.requ_Titulo}"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
-                    </div>`;
-                    // Agregar el slider al contenedor
-                    $('#tituloContainer').append(tituloCard);
-
-                    response.requisitos.forEach((requisito) => {
-                        if (requisito.requ_Orden > 0) {
-                            console.log('lista Requisito', requisito);
-
-                            var sliderCard = `
-                               <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <h5 class="card-number mb-0">${requisito.requ_Orden}</h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-link text-danger p-0"
-                        data-id="${requisito.requ_ID}"  
-                        id="btn-delete-${requisito.requ_ID}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                            </svg>
-                        </button>
-                        <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
-                                data-bs-target="#editSliderModal"
-                                data-id="${requisito.requ_ID}"
-                                data-orden="${requisito.requ_Orden}"
-                          data-nombre="${requisito.requ_Nombre}"
-                            data-description="${requisito.requ_Descripcion}"
-                              data-urlicon="${requisito.requ_URLIcon}"
-                              >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                            </svg>
-                        </button>
-
-                        <div class="sortable-handle d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="nombre-${requisito.requ_ID}" class="form-label fw-semibold">Nombre</label>
-                    <input type="text" id="nombre-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Nombre}" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="description-${requisito.requ_ID}" class="form-label fw-semibold">Descripción</label>
-                    <textarea id="description-${requisito.requ_ID}" class="form-control" rows="3" placeholder="${requisito.requ_Descripcion}"
-                              disabled></textarea>
-                </div>
-
-                <div>
-                    <label for="icon-url-${requisito.requ_ID}" class="form-label fw-semibold">URL de ícono</label>
-                    <input type="text" id="icon-url-${requisito.requ_ID}" class="form-control" value="${requisito.requ_URLIcon}" disabled>
-                </div>
-            </div>`;
-                            // Agregar el slider al contenedor
-                            $('#sliderContainer').append(sliderCard);
-                        }
-
-                    });
+                    const requisitos = response.requisitos;
+                    console.log('requisitos', requisitos)
+                    if (requisitos.length > 0) {
+                        rederTituloRequisitoHome(requisitos[0]);                 
+                        renderSliderRequisitoHome(requisitos);
+                    } else {
+                        $('#sliderRequisitoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                    }
                 } else {
 
                     Swal.fire({
@@ -204,10 +131,249 @@ const home = {
                 });
             }
         });
+    },
+    loadListarBeneficios: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Beneficio/ListarBeneficios', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#tituloBeneficioHome').empty();
+                $('#sliderBeneficioHome').empty();
+                $('#portadaBeneficioHome').empty();
+                if (response.success) {
+                    const beneficios = response.beneficios;
+                    console.log('beneficios', beneficios)
+                    if (beneficios.length > 0) {
+                        renderTituloBeneficioHome(beneficios[0]);
+                        renderPortadaBeneficioHome(beneficios[0]);
+                        renderSliderBeneficioHome(beneficios);
+                    } else {
+                        $('#sliderBeneficioHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    },
+    loadListarCasos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Caso/ListarCasos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#tituloCasoHome').empty();
+                $('#sliderCasoHome').empty();
+                $('#portadaCasoHome').empty();
+                $('#botonCasoHome').empty();
+                if (response.success) {
+                    const casos = response.casos;
+                    console.log('casos', casos)
+                    if (casos.length > 0) {
+                        renderTituloCasoHome(casos[0]);
+                        renderPortadaCasoHome(casos[0]);
+                        renderBotonCasoHome(casos[0]);
+                        renderSliderCasoHome(casos);                   
+                        renderSeleccionarVideo();
+
+                    } else {
+                        $('#sliderCasoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    }
+}
+function renderTituloCasoHome(caso) {
+    const html = `
+     <h2>${caso.cexi_Titulo}</h2>
+                <div class="red-linear"></div>     
+      `;
+    $('#tituloCasoHome').append(html);
+}
+function renderPortadaCasoHome(caso) {
+    const html = `
+          <iframe width="100%"
+                        height="100%"
+                        src="${caso.cexi_UrlVideo}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+      `;
+    $('#portadaCasoHome').append(html);
+}
+function renderBotonCasoHome(caso) {
+    const html = `
+           <a href="Caso/index"> ${caso.cexi_NombreBoton}</a>
+                <img src="${caso.cexi_UrlBoton}"
+                     alt="" />
+      `;
+    $('#botonCasoHome').append(html);
+}
+function renderSliderCasoHome(casos) {
+    let slider = '';
+    console.log('renderSliderCasoHome',casos)
+    casos.slice(0, 5).forEach((caso,index) => {
+        if (caso.cexi_Orden > 0) {
+            const isActive = index === 1 ? 'active' : '';
+            slider +=
+                `
+                    <div class="video_item row ${isActive}" data-video="${caso.cexi_UrlVideo}">
+                        <div class="col-8">
+                            <h4>${caso.cexi_Nombre}</h4>
+                            <p>${caso.cexi_Descripcion}</p>
+                        </div>
+                        <div class="col-4">
+                            <img src="${caso.cexi_UrlPerfil}" alt="">
+                        </div>
+                    </div>
+
+                 `;
+
+        }
+    });
+
+    $('#sliderCasoHome').append(slider);
 
 }
+
+function renderTituloBeneficioHome(bene) {
+    const html = `
+     <h2>${bene.bene_Titulo}</h2>
+                <div class="red-linear"></div>     
+      `;
+    $('#tituloBeneficioHome').append(html);
+}
+function renderPortadaBeneficioHome(bene) {
+    const html = `
+     <img src="${bene.bene_URLImagen}"
+                     class="img-fluid rounded-4 h-100"
+                     alt="" />
+      `;
+    $('#portadaBeneficioHome').append(html);
+}
+function renderSliderBeneficioHome(beneficio) {
+    let slider = '';
+
+    beneficio.slice(0, 5).forEach(bene => {
+        if (bene.bene_Orden > 0) {
+            slider +=
+                `
+             <div class="beneficio_item">
+                    <h3 class="d-flex align-items-center gap-3">
+                        <img src="${bene.bene_URLIcon}" alt="">
+                        <span>${bene.bene_Nombre}</span>
+                    </h3>
+                    <p>${bene.bene_Descripcion}</p>
+                </div>
+                 `;
+
+        }
+    });
+
+    $('#sliderBeneficioHome').append(slider);
+
 }
 
+
+function rederTituloRequisitoHome(requ) {
+    const tituloRequisitoHome = `
+     <h2 class="text-start title-nuestro-requisitos">${requ.requ_Titulo}</h2>
+        <div class="red-linear"></div>
+      `;
+    $('#tituloRequisitoHome').append(tituloRequisitoHome);
+}
+function renderSliderRequisitoHome(requisitos) {
+    let slider = '';
+
+    requisitos.slice(0, 5).forEach(requ => {
+        if (requ.requ_Orden > 0) {
+            slider +=
+                `
+             <div class="btn-group col-12 col-md-6 p-3">
+            <button class="list-group-item d-flex align-items-center justify-content-between btn btn-light"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <div class="d-flex align-items-center w-100">
+                    <img src="${requ.requ_URLIcon}"
+                         alt="${requ.requ_Nombre}"
+                         class="icon-img" />
+                    <span class="text-requisitos w-100">${requ.requ_Nombre}</span>
+                </div>
+                <span class="bi-chevron-down">
+                    <svg width="10"
+                         height="11"
+                         viewBox="0 0 10 11"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_40000240_376)">
+                            <path d="M1.05252 3.76229C0.869476 3.94535 0.869476 4.24215 1.05252 4.42521L4.16713 7.53979C4.71618 8.08884 5.60624 8.08898 6.15549 7.54016L9.2377 4.46034C9.42077 4.27728 9.42077 3.98048 9.2377 3.79743C9.05465 3.61437 8.75785 3.61437 8.57479 3.79743L5.49416 6.87805C5.31107 7.06115 5.0143 7.06115 4.83126 6.87805L1.71548 3.76229C1.53238 3.57924 1.23562 3.57924 1.05252 3.76229Z"
+                                  fill="#B2B2B2" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_40000240_376">
+                                <rect width="10"
+                                      height="10"
+                                      fill="white"
+                                      transform="translate(10 0.5) rotate(90)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="dropdown-texto">
+                    <p>
+                        ${requ.requ_Descripcion}
+                    </p>
+                </li>
+            </ul>
+        </div>
+                 `;
+
+        }
+    });
+
+    $('#sliderRequisitoHome').append(slider);
+
+}
 function renderSeccionHome(info) {
     const seccion = `
     <div class="row">
@@ -232,7 +398,6 @@ function renderSeccionHome(info) {
       `;
     $('#seccionHome').append(seccion);
 }
-
 function renderTituloCursoHome(curso) {
     const tituloCursoHome = `
      <h2>${curso.curs_Titulo}</h2>
@@ -392,4 +557,21 @@ function obtenerDia(fecha) {
 function obtenerAno(fecha) {
     const fechaObj = new Date(fecha);
     return fechaObj.getFullYear();
+}
+
+function renderSeleccionarVideo() {
+    // Escuchar clic en cualquier elemento con la clase "video_item"
+    $('.video_item').on('click', function () {
+        // Remover la clase "active" de todos los elementos
+        $('.video_item').removeClass('active');
+
+        // Agregar la clase "active" al elemento seleccionado
+        $(this).addClass('active');
+
+        // Obtener la URL del video (puedes almacenar la URL en un atributo personalizado como "data-video")
+        const videoURL = $(this).data('video');
+
+        // Actualizar el iframe con la nueva URL
+        $('.exito_video iframe').attr('src', videoURL);
+    });
 }
