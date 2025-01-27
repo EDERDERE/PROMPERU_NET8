@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
-    console.log('Banner')
     loadListarBanner();
     loadCrearBanner();
     loadEditarBanner();
     loadEliminarBanner(); 
     loadGuardarOrden();
+
 });
 
 function loadListarBanner() {

@@ -46,7 +46,7 @@ function loadListarInscripcions() {
                         <div class="d-flex justify-content-between">
                             <label for="nombreBoton-${inscripcion.insc_ID}" class="form-label fw-semibold">Nombre del botón</label>                            
                         </div>
-                        <input type="text" id="nombreBoton-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_NombreBoton}" disabled>
+                        <input type="text" id="nombreBoton-${inscripcion.insc_ID}" class="form-control custom-button" placeholder="${inscripcion.insc_NombreBoton}" disabled>
 
                     </div>
                 </div>
@@ -67,6 +67,27 @@ function loadListarInscripcions() {
                         <input type="text" id="urlIcon-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_URLIconBoton}" disabled>
 
                     </div>
+                    <hr>
+
+
+              <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for="image-url-1" class="form-label fw-semibold">URL del banner</label>
+                  
+                </div>
+                <input type="text" id="image-url-1" class="form-control" placeholder="URL del banner" disabled>
+
+              </div>
+
+
+              <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for="image-url-1" class="form-label fw-semibold">Descripción</label>
+                 
+                </div>
+                <input type="text" id="image-url-1" class="form-control" placeholder="Descripción" disabled>
+
+              </div>
                 </div>
                   `;
                     // Agregar el slider al contenedor
