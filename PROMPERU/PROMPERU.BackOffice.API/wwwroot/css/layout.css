@@ -1,6 +1,7 @@
 @import url('../shared/styles/variables.css');
 @import url('../shared/styles/header.css');
 @import url('../shared/styles/globals.css');
+@import url('../shared/styles/customButton.css');
 
 .header {
     background-color: var(--color-primary);
