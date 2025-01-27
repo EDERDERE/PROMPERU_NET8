@@ -5,6 +5,8 @@ $(document).ready(function () {
     home.loadListarRequisitos();
     home.loadListarBeneficios();
     home.loadListarCasos();   
+    home.loadListarBanners();
+    home.loadListarInscripcions();
 });
 
 const home = {
@@ -219,7 +221,177 @@ const home = {
                 });
             }
         });
-    }
+    },
+    loadListarBanners: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Banner/ListarBanners', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#sliderBannerHome').empty();          
+                if (response.success) {
+                    const banners = response.banners;
+                    console.log('banners', banners)
+                    if (banners.length > 0) {                       
+                        renderSliderBannerHome(banners);                 
+
+                    } else {
+                        $('#sliderBannerHome').html('<p>No se encontraron banners disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    },
+    loadListarInscripcions: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Inscripcion/ListarInscripcions', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#tituloInscHome').empty();
+                $('#descrInscrHome').empty();
+                $('#sliderInscrHome').empty();
+                $('#botonInscHome').empty();
+                if (response.success) {
+                    const inscripcions = response.inscripcions;
+                    console.log('inscripcions', inscripcions)
+                    if (inscripcions.length > 0) {
+                        renderTituloInscHome(inscripcions[0]);
+                        renderDescrInscrHome(inscripcions[0]);
+                        renderBotonInscHome(inscripcions[0]);
+                        renderSliderInscrHome(inscripcions);
+                    
+
+                    } else {
+                        $('#sliderCasoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    },
+}
+function renderTituloInscHome(insc) {
+    const html = `
+     <h2 class="text-start title-nuestro-requisitos">${insc.insc_Titulo}</h2>
+      `;
+    $('#tituloInscHome').append(html);
+}
+function renderDescrInscrHome(insc) {
+    const html = `  
+              ${insc.insc_Contenido}
+           
+      `;
+    $('#descrInscrHome').append(html);
+}
+
+function renderBotonInscHome(insc) {
+    const html = `  
+             <a href="">  ${insc.insc_NombreBoton}</a>
+                    <img src="${insc.insc_URLIconBoton}"
+                         alt="" />
+           
+      `;
+    $('#botonInscHome').append(html);
+}
+function renderSliderInscrHome(inscripcions) {
+    let slider = '';
+    console.log('sliderInscrHome', inscripcions)
+    inscripcions.slice(0, 5).forEach((insc, index) => {
+        if (insc.insc_Orden > 0) {
+            const isActive = index === 1 ? 'active' : '';
+            slider +=
+                `
+                <div class="step">
+                    <div class="step-image">
+                        <img src="${insc.insc_URLImagen}"
+                             alt="Paso 1" />
+                    </div>
+                    <div class="step-content right-align">
+                        <p>PASO ${insc.insc_Paso}</p>
+                        <h3 class="step-title">${insc.insc_TituloPaso}</h3>
+                        <p class="p-p">
+                            ${insc.insc_Descripcion}
+                        </p>
+                    </div>
+                </div>
+
+                 `;
+
+        }
+    });
+
+    $('#sliderInscrHome').append(slider);
+
+}
+function renderSliderBannerHome(banners) {
+    let slider = '';
+    console.log('sliderBannerHome', banners)
+    banners.slice(0, 3).forEach((bann, index) => {
+        if (bann.bann_Orden > 0) {
+            const isActive = index === 1 ? 'active' : '';
+            slider +=
+                `
+                  <div class="swiper-slide">
+                <picture class="hero_bg">
+                    <source srcset="../../shared/assets/home/hero/hero-tablet.jpg" media="(min-width: 768px)" />
+                    <source srcset="../../shared/assets/home/hero/hero-desktop.jpg" media="(min-width: 992px)" />
+                    <img src="${bann.bann_URLImagen}" class="img-fluid" alt="Hero" />
+                </picture>
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="content">
+                        <p class="text-white">
+                           ${bann.bann_Nombre}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+                 `;
+
+        }
+    });
+
+    $('#sliderBannerHome').append(slider);
+
 }
 function renderTituloCasoHome(caso) {
     const html = `

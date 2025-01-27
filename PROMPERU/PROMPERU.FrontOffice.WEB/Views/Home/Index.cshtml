@@ -1,7 +1,7 @@
 ﻿
 <div class="hero">
     <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="sliderBannerHome">
             <div class="swiper-slide">
                 <picture class="hero_bg">
                     <source srcset="../../shared/assets/home/hero/hero-tablet.jpg" media="(min-width: 768px)" />
@@ -290,14 +290,17 @@
 <div class="bg-white">
 
     <div class="container container-inscripcion mt-5">
-        <h2 class="text-start title-nuestro-requisitos">Etapas de Inscripción</h2>
+        <div id="tituloInscHome">   
+            <h2 class="text-start title-nuestro-requisitos">Etapas de Inscripción</h2>
+
+        </div>
         <div class="red-linear"></div>
         <div class="container-import mt-5 ">
-            <p class="p-principal mb-5">
+            <p class="p-principal mb-5" id="descrInscrHome">
                 Si su empresa cumple con los requisitos descritos en la sección
                 anterior, los pasos para inscribirse en el programa son:
             </p>
-            <div class="nav-items">
+            <div class="nav-items" id="sliderInscrHome">
                 <div class="step">
                     <div class="step-image">
                         <img src="../../shared/assets/home/etapas/search.svg"
@@ -360,7 +363,7 @@
                 </div>
             </div>
             <div class="btn-test">
-                <div class="button-test">
+                <div class="button-test" id="botonInscHome">
                     <a href="">Empezar mi Test</a>
                     <img src="../../shared/assets/home/etapas/empezar_test.svg"
                          alt="" />
