@@ -31,7 +31,7 @@
                 </div>
                 <div>
 
-                    <button class="button-create d-flex align-items-center gap-2 fs-6" data-bs-toggle="modal"
+                    @* <button class="button-create d-flex align-items-center gap-2 fs-6" data-bs-toggle="modal"
                         data-bs-target="#createSliderModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -41,7 +41,7 @@
                                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                         </svg>
                         Nueva Información
-                    </button>
+                    </button> *@
                 </div>
             </div>
         </div>
@@ -54,48 +54,7 @@
         </div>
     </div>
 </div>
-<!-- Modal para Crear Informacion -->
-<div class="modal fade" id="createSliderModal" tabindex="-1" aria-labelledby="createSliderModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createSliderModalLabel">Crear Informacion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="createSliderForm">
-                    <div class="mb-3">
-                        <label for="titulo" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="titulo" class="form-control" placeholder="¿Que es?" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="createDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="createDescription" rows="3" placeholder="Descripción"
-                            required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-urlPortada" class="form-label fw-semibold">URL de la portada del video</label>
-                        <input type="text" id="image-urlPortada" class="form-control"
-                            placeholder="URL de la portada del video" required>
-                    </div>
-                    <div>
-                        <label for="image-urlVideo" class="form-label fw-semibold">URL del video</label>
-                        <input type="text" id="image-urlVideo" class="form-control" placeholder="URL del video" required
-                            required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-modal
-            btn-close-modal" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-                <button type="button" class="btn btn-save" id="saveCreateSlider">Crear</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Modal para Editar Informacion -->
 <div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel" aria-hidden="true">
@@ -120,11 +79,7 @@
                         <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción"
                             required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="editUrlPortada" class="form-label fw-semibold">URL de la portada del video</label>
-                        <input type="text" id="editUrlPortada" class="form-control"
-                            placeholder="URL de la portada del video" required>
-                    </div>
+                   
                     <div>
                         <label for="editUrlVideo" class="form-label fw-semibold">URL del video</label>
                         <input type="text" id="editUrlVideo" class="form-control" placeholder="URL del video" required>
@@ -133,13 +88,13 @@
                       <h5>Sección</h5>
 
                  <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="description-1" class="form-control" placeholder="Titulo" >
+                        <label for="editTituloSection" class="form-label fw-semibold">Titulo</label>
+                        <input type="text" id="editTituloSection" class="form-control" placeholder="Titulo" >
                     </div>
 
                     <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">URL del banner</label>
-                        <input type="text" id="description-1" class="form-control" placeholder="URL del banner"
+                        <label for="editUrlPortada" class="form-label fw-semibold">URL del banner</label>
+                        <input type="text" id="editUrlPortada" class="form-control" placeholder="URL del banner"
                             >
                     </div>
                 </form>

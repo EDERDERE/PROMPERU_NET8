@@ -27,7 +27,7 @@ function loadListarInformacion() {
                     <div class="d-flex gap-2">
                         <button class="btn btn-link text-danger p-0" 
                         data-id="${informacion.info_ID}"
-                          id="btn-delete-${informacion.info_ID}"                     
+                          id="btn-delete-${informacion.info_ID}"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -41,6 +41,7 @@ function loadListarInformacion() {
                                 data-descripcion="${informacion.info_Descripcion}"
                                 data-urlPortada="${informacion.info_URLPortada}"
                                 data-urlVideo="${informacion.info_URLVideo}"
+                                data-tituloDataprueba="${informacion.info_ID}"
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -60,11 +61,6 @@ function loadListarInformacion() {
                               disabled></textarea>
                 </div>
 
-                <div class="mb-3">
-                        <label for="image-urlPortada-${informacion.info_ID}" class="form-label fw-semibold">URL de la portada del video</label>
-                        <input type="text" id="image-urlPortada-${informacion.info_ID}" class="form-control" placeholder="${informacion.info_URLPortada}"
-                           disabled>
-                </div>
                 <div>
                         <label for="image-urlVideo-${informacion.info_ID}" class="form-label fw-semibold">URL del video</label>
                         <input type="text" id="image-urlVideo-${informacion.info_ID}" class="form-control" placeholder="${informacion.info_URLVideo}" disabled>
@@ -75,14 +71,14 @@ function loadListarInformacion() {
                 <h5>Sección</h5>
 
                  <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="description-1" class="form-control" placeholder="Titulo" disabled>
+                        <label for="info-Titulo-${informacion.info_ID}" class="form-label fw-semibold">Titulo</label>
+                        <input type="text" id="info-Titulo-${informacion.info_ID}" class="form-control" placeholder="${informacion.info_TituloSeccion}" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">URL del banner</label>
-                        <input type="text" id="description-1" class="form-control" placeholder="URL del banner"
-                            disabled>
+                        <label for="image-urlPortada-${informacion.info_ID}" class="form-label fw-semibold">URL del banner</label>
+                           <input type="text" id="image-urlPortada-${informacion.info_ID}" class="form-control" placeholder="${informacion.info_URLPortada}"
+                           disabled>
                     </div>
             </div>`;
           // Agregar el slider al contenedor
@@ -171,7 +167,8 @@ function loadEditarInformacion() {
     var descripcion = button.data("descripcion"); // Obtener la descripción
     var urlPortada = button.data("urlportada"); // Obtener la URL de la imagen
     var urlVideo = button.data("urlvideo"); // Obtener la URL de la imagen
-    console.log(urlPortada, urlVideo);
+    var tituloSeccion = button.data("tituloDataprueba");
+    console.log(tituloSeccion, "info_TituloSeccion");
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editId").val(id);
@@ -179,6 +176,7 @@ function loadEditarInformacion() {
     modal.find("#editDescription").val(descripcion); // Llenar el textarea con la descripción
     modal.find("#editUrlPortada").val(urlPortada); // Llenar el campo de la URL de la imagen
     modal.find("#editUrlVideo").val(urlVideo); // Llenar el campo de la URL de la imagen
+    modal.find("#editTituloSection").val(tituloSeccion);
   });
   $("#saveEditSlider").click(function () {
     console.log("editar modal");
@@ -187,6 +185,7 @@ function loadEditarInformacion() {
     var description = $("#editDescription").val();
     var urlPortada = $("#editUrlPortada").val();
     var urlVideo = $("#editUrlVideo").val();
+    var tituloSeccion = $("#editTituloSection").val();
 
     if (titulo && description && urlPortada && urlVideo) {
       $.ajax({
@@ -198,6 +197,7 @@ function loadEditarInformacion() {
           description: description,
           urlPortada: urlPortada,
           urlVideo: urlVideo,
+          tituloSeccion: tituloSeccion,
         },
         success: function (response) {
           console.log("actualzia banner", response);
