@@ -41,6 +41,10 @@ builder.Services.AddScoped<CursoDA>();
 builder.Services.AddScoped<CursoBL>();
 builder.Services.AddScoped<CasoDA>();
 builder.Services.AddScoped<CasoBL>();
+builder.Services.AddScoped<LogoDA>();
+builder.Services.AddScoped<LogoBL>();
+builder.Services.AddScoped<MenuDA>();
+builder.Services.AddScoped<MenuBL>();
 
 
 var app = builder.Build();

@@ -1,5 +1,7 @@
 $(document).ready(function () {
     console.log('curso web home')
+    home.loadListarLogos();
+    home.loadListarMenus();
     home.loadListarCursos();
     home.loadListarInformacion();
     home.loadListarRequisitos();
@@ -7,9 +9,90 @@ $(document).ready(function () {
     home.loadListarCasos();   
     home.loadListarBanners();
     home.loadListarInscripcions();
+
 });
 
 const home = {
+    loadListarLogos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Logo/ListarLogos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#logoHome').empty();
+                if (response.success) {
+                    const logos = response.logos;
+                    console.log('logoHome', logos[0])
+                    if (logos.length > 0) {
+                        renderLogoHome(logos[0]);
+                    } else {
+                        $('#logoHome').html('<p>No se información cursos disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarMenus: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Menu/ListarMenus', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#menuHome').empty();
+                if (response.success) {
+                    const menus = response.menus;
+                    console.log('menuHome', menus)
+                    if (menus.length > 0) {
+                        renderMenuHome(menus);
+                    } else {
+                        $('#menuHome').html('<p>No se información menus disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
     loadListarInformacion: function () {
         $.ajax({
             type: 'GET', // Método GET para obtener los sliders
@@ -307,6 +390,59 @@ const home = {
             }
         });
     },
+}
+function renderMenuHome(menus) {
+    console.log(menus,'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = `
+        <li class="home">
+            <a href="/Home/Index">
+              <?xml version="1.0" ?><svg
+                fill="none"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.5495 2.53189C11.3874 1.82531 12.6126 1.82531 13.4505 2.5319L20.2005 8.224C20.7074 8.65152 21 9.2809 21 9.94406V19.7468C21 20.7133 20.2165 21.4968 19.25 21.4968H15.75C14.7835 21.4968 14 20.7133 14 19.7468V14.2468C14 14.1088 13.8881 13.9968 13.75 13.9968H10.25C10.1119 13.9968 9.99999 14.1088 9.99999 14.2468V19.7468C9.99999 20.7133 9.2165 21.4968 8.25 21.4968H4.75C3.7835 21.4968 3 20.7133 3 19.7468V9.94406C3 9.2809 3.29255 8.65152 3.79952 8.224L10.5495 2.53189ZM12.4835 3.6786C12.2042 3.44307 11.7958 3.44307 11.5165 3.6786L4.76651 9.37071C4.59752 9.51321 4.5 9.72301 4.5 9.94406V19.7468C4.5 19.8849 4.61193 19.9968 4.75 19.9968H8.25C8.38807 19.9968 8.49999 19.8849 8.49999 19.7468V14.2468C8.49999 13.2803 9.2835 12.4968 10.25 12.4968H13.75C14.7165 12.4968 15.5 13.2803 15.5 14.2468V19.7468C15.5 19.8849 15.6119 19.9968 15.75 19.9968H19.25C19.3881 19.9968 19.5 19.8849 19.5 19.7468V9.94406C19.5 9.72301 19.4025 9.51321 19.2335 9.37071L12.4835 3.6786Z"
+                  fill="#C41121"
+                />
+              </svg>
+            </a>
+        </li>
+    `;
+    menus.forEach(item => {
+        console.log(item,'item')
+        html += `
+            <li>
+                <a href="${item.menu_UrlIconBoton || '#'}" class="text-decoration-none">
+                    ${item.menu_Nombre}
+                </a>
+            </li>
+        `;
+    });
+    $('#menuHome').append(html);
+}
+function renderLogoHome(logo) {
+    const html = `
+      <img
+            src="${logo.logo_UrlPrincipal}"
+            alt="Logo Superior"
+            class="logo-header"
+          />
+          <a
+            href=""
+            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1"
+          >
+           ${logo.logo_NombreBoton}
+            <img
+              src="${logo.logo_UrlIconBoton}"
+              alt="icono de diagnostico"
+            />
+          </a>
+      `;
+    $('#logoHome').append(html);
 }
 function renderTituloInscHome(insc) {
     const html = `

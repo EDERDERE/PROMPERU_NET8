@@ -1,18 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using PROMPERU.BE;
 using PROMPERU.BL;
+using PROMPERU.BL.Dtos;
+
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-
-    public class InscripcionController : Controller
+    public class MenuController : Controller
     {
-        private readonly ILogger<InscripcionController> _logger;    
-        private readonly InscripcionBL _InscripcionBL;
+        private readonly ILogger<MenuController> _logger;    
+        private readonly MenuBL _menuBL;
 
-        public InscripcionController(ILogger<InscripcionController> logger, InscripcionBL inscripcionBL)
+        public MenuController(ILogger<MenuController> logger, MenuBL menuBL)
         {
             _logger = logger;
-            _InscripcionBL = inscripcionBL;
+            _menuBL = menuBL;
         }
 
         public IActionResult Index()
@@ -21,18 +23,19 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarInscripcions()
+        public async Task<IActionResult> ListarMenus()
         {
             try
             {
-                var inscripcions = await _InscripcionBL.ListarInscripcionsAsync(); // Cambio a versión asincrónica
-                if (inscripcions != null && inscripcions.Any())
+                var Menus = await _menuBL.ListarMenusAsync(); // Cambio a versión asincrónica              
+    
+                if (Menus != null && Menus.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Inscripcions obtenidos exitosamente.",
-                        inscripcions
+                        message = "Menus obtenidos exitosamente.",
+                        Menus
                     });
                 }
                 else
@@ -40,7 +43,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Inscripcions disponibles."
+                        message = "No se encontraron Menus disponibles."
                     });
                 }
             }
@@ -49,10 +52,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Menus. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }        
+        }
+                
     }
 }

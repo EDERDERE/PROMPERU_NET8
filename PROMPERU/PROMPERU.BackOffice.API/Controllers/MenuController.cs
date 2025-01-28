@@ -3,19 +3,21 @@ using PROMPERU.BackOffice.API.Filters;
 using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.BL.Dtos;
+using PROMPERU.DA;
+
 
 namespace PROMPERU.BackOffice.API.Controllers
 {
     [SessionCheck]
-    public class LogoController : Controller
+    public class MenuController : Controller
     {
-        private readonly ILogger<LogoController> _logger;    
-        private readonly LogoBL _logoBL;
+        private readonly ILogger<MenuController> _logger;    
+        private readonly MenuBL _menuBL;
 
-        public LogoController(ILogger<LogoController> logger, LogoBL logoBL)
+        public MenuController(ILogger<MenuController> logger, MenuBL menuBL)
         {
             _logger = logger;
-            _logoBL = logoBL;
+            _menuBL = menuBL;
         }
 
         public IActionResult Index()
@@ -24,18 +26,18 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarLogos()
+        public async Task<IActionResult> ListarMenus()
         {
             try
             {
-                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
-                if (Logos != null && Logos.Any())
+                var Menus = await _menuBL.ListarMenusAsync(); // Cambio a versión asincrónica
+                if (Menus != null && Menus.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Logos obtenidos exitosamente.",
-                        Logos
+                        message = "Menus obtenidos exitosamente.",
+                        Menus
                     });
                 }
                 else
@@ -43,7 +45,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Logos disponibles."
+                        message = "No se encontraron Menus disponibles."
                     });
                 }
             }
@@ -52,32 +54,29 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Menus. Por favor, inténtelo nuevamente."
                   
                 });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertarLogo(LogoDto logoDto)
+        public async Task<IActionResult> InsertarMenu(MenuDto menuDto)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente
 
-                var Logo = new LogoBE
+                var Menu = new MenuBE
                 {
-                     Logo_ID = logoDto.id,
-                     Logo_NombreBoton = logoDto.nombreBoton,
-                     Logo_UrlIconBoton = logoDto.urlIconBoton,
-                     Logo_UrlPrincipal = logoDto.urlPrincipal,
-                     Logo_UrlSecundario = logoDto.urlSecundario
-                
-
+                     Menu_ID = menuDto.id,
+                     Menu_Nombre = menuDto.nombre,
+                     Menu_UrlIconBoton = menuDto.urlIconBoton              
+             
                 };
-                await _logoBL.InsertarLogoAsync(Logo, usuario, ip); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _menuBL.InsertarMenuAsync(Menu, usuario, ip); // Llamada asincrónica
+                return RedirectToAction("ListarMenus");
             }
             catch (Exception ex)
             {
@@ -87,22 +86,22 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarLogo(LogoDto logoDto, int id)
+        public async Task<IActionResult> ActualizarMenu(MenuDto menuDto, int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                var Logo = new LogoBE
+                var Menu = new MenuBE
                 {
-                    Logo_ID = logoDto.id,
-                    Logo_NombreBoton = logoDto.nombreBoton,
-                    Logo_UrlIconBoton = logoDto.urlIconBoton,
-                    Logo_UrlPrincipal = logoDto.urlPrincipal,
-                    Logo_UrlSecundario = logoDto.urlSecundario
+                   
+                    Menu_ID = menuDto.id,
+                    Menu_Nombre = menuDto.nombre,
+                    Menu_UrlIconBoton = menuDto.urlIconBoton    
+                   
                 };
-                await _logoBL.ActualizarLogoAsync(Logo, usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _menuBL.ActualizarMenuAsync(Menu, usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarMenus");
             }
             catch (Exception ex)
             {
@@ -112,14 +111,14 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EliminarLogo(int id)
+        public async Task<IActionResult> EliminarMenu(int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _logoBL.EliminarLogoAsync(usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _menuBL.EliminarMenuAsync(usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarMenus");
             }
             catch (Exception ex)
             {
@@ -130,12 +129,12 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         //[HttpGet]
-        //public async Task<IActionResult> ObtenerLogo(int bannID)
+        //public async Task<IActionResult> ObtenerMenu(int bannID)
         //{
         //    try
         //    {
-        //        var Logo = await _LogoBL.ObtenerLogoAsync(bannID); // Llamada asincrónica
-        //        return View(Logo); // Asegúrate de tener una vista para mostrar un Logo
+        //        var Menu = await _MenuBL.ObtenerMenuAsync(bannID); // Llamada asincrónica
+        //        return View(Menu); // Asegúrate de tener una vista para mostrar un Menu
         //    }
         //    catch (Exception ex)
         //    {
@@ -146,26 +145,24 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarOrdenLogo([FromBody] List<LogoDto> logoDtos)
+        public async Task<IActionResult> ActualizarOrdenMenu([FromBody] List<MenuDto> menuDtos)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
 
-                foreach (var logoDto in logoDtos)
+                foreach (var menuDto in menuDtos)
                 {
-                    var logo = new LogoBE
+                    var Menu = new MenuBE
                     {
-                        Logo_ID = logoDto.id,
-                        Logo_NombreBoton = logoDto.nombreBoton,
-                        Logo_UrlIconBoton = logoDto.urlIconBoton,
-                        Logo_UrlPrincipal = logoDto.urlPrincipal,
-                        Logo_UrlSecundario = logoDto.urlSecundario
+                        Menu_ID = menuDto.id,
+                        Menu_Nombre = menuDto.nombre,
+                        Menu_UrlIconBoton = menuDto.urlIconBoton
                     };
-                    await _logoBL.ActualizarLogoAsync(logo, usuario, ip,logo.Logo_ID); // Llamada asincrónica
+                    await _menuBL.ActualizarMenuAsync(Menu, usuario, ip,Menu.Menu_ID); // Llamada asincrónica
                 }
-                return RedirectToAction("ListarLogos");
+                return RedirectToAction("ListarMenus");
             }
             catch (Exception ex)
             {

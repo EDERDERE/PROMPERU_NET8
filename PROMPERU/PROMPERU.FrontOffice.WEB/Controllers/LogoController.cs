@@ -3,16 +3,15 @@ using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-
-    public class InscripcionController : Controller
+    public class LogoController : Controller
     {
-        private readonly ILogger<InscripcionController> _logger;    
-        private readonly InscripcionBL _InscripcionBL;
+        private readonly ILogger<LogoController> _logger;    
+        private readonly LogoBL _logoBL;
 
-        public InscripcionController(ILogger<InscripcionController> logger, InscripcionBL inscripcionBL)
+        public LogoController(ILogger<LogoController> logger, LogoBL logoBL)
         {
             _logger = logger;
-            _InscripcionBL = inscripcionBL;
+            _logoBL = logoBL;
         }
 
         public IActionResult Index()
@@ -21,18 +20,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarInscripcions()
+        public async Task<IActionResult> ListarLogos()
         {
             try
             {
-                var inscripcions = await _InscripcionBL.ListarInscripcionsAsync(); // Cambio a versión asincrónica
-                if (inscripcions != null && inscripcions.Any())
+                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
+                if (Logos != null && Logos.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Inscripcions obtenidos exitosamente.",
-                        inscripcions
+                        message = "Logos obtenidos exitosamente.",
+                        Logos
                     });
                 }
                 else
@@ -40,7 +39,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Inscripcions disponibles."
+                        message = "No se encontraron Logos disponibles."
                     });
                 }
             }
@@ -49,10 +48,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }        
+        }      
     }
 }
