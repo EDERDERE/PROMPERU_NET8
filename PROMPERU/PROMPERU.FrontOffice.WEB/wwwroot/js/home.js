@@ -10,6 +10,7 @@ $(document).ready(function () {
     home.loadListarBanners();
     home.loadListarInscripcions();
     home.loadListarLogros();
+    home.loadListarTestimonios();
     home.loadListarFooters();
 
 });
@@ -112,6 +113,48 @@ const home = {
                         renderLogrosHome(logros);
                     } else {
                         $('#logrosHome').html('<p>No se información logros disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarTestimonios: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Testimonio/ListarTestimonios', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#tituloTestHome').empty();
+                $('#slideTestHome').empty();
+                if (response.success) {
+                    const testimonios = response.testimonios;
+                    console.log('testimoniosHome', testimonios)
+                    if (testimonios.length > 0) {
+                        renderTituloTestHome(testimonios[0]);
+                        renderSlideTestHome(testimonios);
+                    } else {
+                        $('#slideTestHome').html('<p>No se información testimonios disponibles.</p>');
                     }
 
                 } else {
@@ -472,6 +515,39 @@ const home = {
             }
         });
     },
+}
+function renderTituloTestHome(test) {
+    const html = `
+     <div class="col-12">
+                <h2>${test.test_Nombre}</h2>
+                <div class="red-linear"></div>
+            </div>
+      `;
+    $('#tituloTestHome').append(html);
+}
+function renderSlideTestHome(testimonios) {
+    console.log(testimonios, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = "";
+    testimonios.forEach(test => {
+        console.log(test, 'test')
+        html += `
+          <div class="swiper-slide">
+                    <div class="testomnio_item card border-0 shadow-lg">
+                        <span class="quote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z" />
+                            </svg>
+                        </span>
+                        <p class="description">${test.test_Descripcion}</p>
+                        <div class="avatar">
+                            <img src="${test.test_UrlImagen}" alt="">
+                        </div>
+                    </div>
+                </div>
+        `;
+    });
+    $('#slideTestHome').append(html);
 }
 function renderLogrosHome(logros) {
     console.log(logros, 'asdasdasd')

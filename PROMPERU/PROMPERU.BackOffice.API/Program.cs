@@ -49,6 +49,8 @@ builder.Services.AddScoped<FooterDA>();
 builder.Services.AddScoped<FooterBL>();
 builder.Services.AddScoped<LogroDA>();
 builder.Services.AddScoped<LogroBL>();
+builder.Services.AddScoped<TestimonioDA>();
+builder.Services.AddScoped<TestimonioBL>();
 
 
 var app = builder.Build();
