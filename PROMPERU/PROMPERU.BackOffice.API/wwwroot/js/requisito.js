@@ -229,14 +229,14 @@ function loadEditarRequisito() {
 
     // Asignar los valores al modal
     var modal = $(this);
-    modal.find("#editId").val(id);
+    modal.find("#editIdTitulo").val(id);
     modal.find("#editTitulo").val(titulo);
     modal.find("#editDescripcion").val(descripcion);
     modal.find("#editTituloSection").val(tituloSeccion);
     modal.find("#editUrlImagen").val(urlImagen);
   });
   $("#saveEditTitulo").click(function () {
-    var id = $("#editId").val();
+      var id = $("#editIdTitulo").val();
     var titulo = $("#editTitulo").val();
     var descripcion = $("#editDescripcion").val();
     var tituloSeccion = $("#editTituloSection").val();
