@@ -25,15 +25,7 @@ function loadListarInformacion() {
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <h5 class="mb-0">1</h5>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-link text-danger p-0" 
-                        data-id="${informacion.info_ID}"
-                          id="btn-delete-${informacion.info_ID}"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                            </svg>
-                        </button>
+                       
                         <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
                                 data-bs-target="#editSliderModal"
                                 data-id="${informacion.info_ID}"
@@ -41,7 +33,7 @@ function loadListarInformacion() {
                                 data-descripcion="${informacion.info_Descripcion}"
                                 data-urlPortada="${informacion.info_URLPortada}"
                                 data-urlVideo="${informacion.info_URLVideo}"
-                                data-tituloDataprueba="${informacion.info_ID}"
+                                data-tituloSeccion="${informacion.info_TituloSeccion}"
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -167,7 +159,7 @@ function loadEditarInformacion() {
     var descripcion = button.data("descripcion"); // Obtener la descripción
     var urlPortada = button.data("urlportada"); // Obtener la URL de la imagen
     var urlVideo = button.data("urlvideo"); // Obtener la URL de la imagen
-    var tituloSeccion = button.data("tituloDataprueba");
+    var tituloSeccion = button.data("tituloseccion");
     console.log(tituloSeccion, "info_TituloSeccion");
     // Asignar los valores al modal
     var modal = $(this);

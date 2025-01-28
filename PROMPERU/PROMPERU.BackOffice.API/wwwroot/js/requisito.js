@@ -27,6 +27,10 @@ function loadListarRequisitos() {
                         <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
                         data-id="${requisito.requ_ID}"
                         data-titulo="${requisito.requ_Titulo}"
+                        data-descripcion="${requisito.requ_Descripcion}"
+                        data-tituloSeccion="${requisito.requ_TituloSeccion}"
+                        data-urlImagen="${requisito.requ_URLImagen}"
+                        data-urlIcon="${requisito.requ_URLIcon}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -34,14 +38,14 @@ function loadListarRequisitos() {
                             </svg>
                         </a>
                     </div>
-                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" disabled>
                 </div>
                     <div class="col-md-6 mb-2">
                     <div class="d-flex justify-content-between">
                         <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">descripcion del banner</label>
                     
                     </div>
-                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Descripcion}" disabled>
                 </div>
 
                  <div class="col-md-6 ">
@@ -49,15 +53,23 @@ function loadListarRequisitos() {
                         <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">URL del banner</label>
                     
                     </div>
-                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_URLImagen}" disabled>
                 </div>
 
-                 <div class="col-md-6 ">
+                 <div class="col-md-6  mb-2">
                     <div class="d-flex justify-content-between">
                         <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">Titulo seccion</label>
                     
                     </div>
-                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Titulo}" required>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_TituloSeccion}" disabled>
+                </div>
+
+                 <div class="col-md-6 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">URl del icono</label>
+                    
+                    </div>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_URLIcon}" disabled>
                 </div>
                     `;
         // Agregar el slider al contenedor
@@ -88,6 +100,7 @@ function loadListarRequisitos() {
                           data-nombre="${requisito.requ_Nombre}"
                             data-description="${requisito.requ_Descripcion}"
                               data-urlicon="${requisito.requ_URLIcon}"
+                              data-urlImagen="${requisito.requ_URLImagen}"
                               >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -123,8 +136,8 @@ function loadListarRequisitos() {
                  <hr>
 
               <div class="mb-3">
-                <label for="image-url-1" class="form-label fw-semibold">URL de imagen</label>
-                <input type="text" id="image-url-1" class="form-control" placeholder="URL de imagen" disabled>
+                <label for="icon-url-${requisito.requ_ID}" class="form-label fw-semibold">URL de imagen</label>
+                <input type="text"  id="icon-url-${requisito.requ_ID}" class="form-control" value="${requisito.requ_URLImagen}" disabled>
               </div>
             </div>`;
             // Agregar el slider al contenedor
@@ -153,8 +166,8 @@ function loadCrearRequisito() {
     var nombre = $("#createNombre").val();
     var description = $("#createDescription").val();
     var urlIcon = $("#createUrlIcon").val();
-
-    if (description && urlIcon && nombre) {
+    var urlImagen = $("#createImagenUrl").val();
+    if (description && urlIcon && nombre && urlImagen) {
       $.ajax({
         type: "POST",
         url: "/Requisito/InsertarRequisito", // URL del controlador para crear el slider
@@ -162,6 +175,7 @@ function loadCrearRequisito() {
           nombre: nombre,
           description: description,
           urlIcon: urlIcon,
+          urlImagen: urlImagen,
         },
         success: function (response) {
           console.log("Crear", response);
@@ -209,23 +223,35 @@ function loadEditarRequisito() {
     var button = $(event.relatedTarget); // El botón que activó el modal
     var id = button.data("id"); // Obtener el ID
     var titulo = button.data("titulo");
+    var descripcion = button.data("descripcion");
+    var tituloSeccion = button.data("tituloseccion");
+    var urlImagen = button.data("urlimagen");
 
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editId").val(id);
     modal.find("#editTitulo").val(titulo);
+    modal.find("#editDescripcion").val(descripcion);
+    modal.find("#editTituloSection").val(tituloSeccion);
+    modal.find("#editUrlImagen").val(urlImagen);
   });
   $("#saveEditTitulo").click(function () {
     var id = $("#editId").val();
     var titulo = $("#editTitulo").val();
+    var descripcion = $("#editDescripcion").val();
+    var tituloSeccion = $("#editTituloSection").val();
+    var urlImagen = $("#editUrlImagen").val();
     console.log("editar modal titulo", id, titulo);
-    if (id && titulo) {
+    if (id && titulo && descripcion && tituloSeccion && urlImagen) {
       $.ajax({
         type: "POST",
         url: "/Requisito/ActualizarRequisito", // URL del controlador para editar el slider
         data: {
           id: id,
           titulo: titulo,
+          tituloSeccion: tituloSeccion,
+          description: descripcion,
+          urlImagen: urlImagen,
         },
         success: function (response) {
           console.log("actualzia requisito", response);
@@ -275,6 +301,9 @@ function loadEditarRequisito() {
     var nombre = button.data("nombre");
     var description = button.data("description"); // Obtener la descripción
     var urlIcon = button.data("urlicon"); // Obtener la URL de la imagen
+    var urlImagen = button.data("urlimagen");
+
+    console.log(description, 'nombre')
 
     // Asignar los valores al modal
     var modal = $(this);
@@ -283,6 +312,7 @@ function loadEditarRequisito() {
     modal.find("#editNombre").val(nombre);
     modal.find("#editDescription").val(description); // Llenar el textarea con la descripción
     modal.find("#editUrlIcon").val(urlIcon); // Llenar el campo de la URL de la imagen
+    modal.find("#editImagen").val(urlImagen);
   });
   $("#saveEditSlider").click(function () {
     console.log("editar modal");
@@ -291,6 +321,7 @@ function loadEditarRequisito() {
     var urlIcon = $("#editUrlIcon").val();
     var orden = $("#editOrder").val();
     var id = $("#editId").val();
+    var urlImagen = $("#editImagen").val()
 
     if (description && urlIcon && nombre) {
       $.ajax({
@@ -302,6 +333,7 @@ function loadEditarRequisito() {
           nombre: nombre,
           description: description,
           urlIcon: urlIcon,
+          urlImagen: urlImagen,
         },
         success: function (response) {
           console.log("actualzia requisito", response);
