@@ -33,6 +33,10 @@ builder.Services.AddScoped<LogoDA>();
 builder.Services.AddScoped<LogoBL>();
 builder.Services.AddScoped<MenuDA>();
 builder.Services.AddScoped<MenuBL>();
+builder.Services.AddScoped<FooterDA>();
+builder.Services.AddScoped<FooterBL>();
+builder.Services.AddScoped<LogroDA>();
+builder.Services.AddScoped<LogroBL>();
 
 var app = builder.Build();
 
