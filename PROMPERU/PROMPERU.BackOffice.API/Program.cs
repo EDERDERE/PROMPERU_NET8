@@ -51,6 +51,9 @@ builder.Services.AddScoped<LogroDA>();
 builder.Services.AddScoped<LogroBL>();
 builder.Services.AddScoped<TestimonioDA>();
 builder.Services.AddScoped<TestimonioBL>();
+builder.Services.AddScoped<PerfilEmpresarialDA>();
+builder.Services.AddScoped<PerfilEmpresarialBL>();
+
 
 
 var app = builder.Build();

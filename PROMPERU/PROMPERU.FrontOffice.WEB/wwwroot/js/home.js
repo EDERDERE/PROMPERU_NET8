@@ -11,6 +11,7 @@ $(document).ready(function () {
     home.loadListarInscripcions();
     home.loadListarLogros();
     home.loadListarTestimonios();
+    home.loadListarPerfilEmpresarials();
     home.loadListarFooters();
 
 });
@@ -155,6 +156,48 @@ const home = {
                         renderSlideTestHome(testimonios);
                     } else {
                         $('#slideTestHome').html('<p>No se información testimonios disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarPerfilEmpresarials: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/PerfilEmpresarial/ListarPerfilEmpresarials', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log('PerfilEmpresarials',response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#tituloPEmpHome').empty();
+                $('#sliderPEmpHome').empty();
+                if (response.success) {
+                    const perfilEmpresarials = response.perfilEmpresarials;
+                    console.log('sliderPEmpHome', perfilEmpresarials)
+                    if (perfilEmpresarials.length > 0) {
+                        renderTituloPEmpHome(perfilEmpresarials[0]);
+                        renderSlidePEmpHome(perfilEmpresarials);
+                    } else {
+                        $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
                     }
 
                 } else {
@@ -515,6 +558,27 @@ const home = {
             }
         });
     },
+}
+function renderTituloPEmpHome(pemp) {
+    const html = `
+               <h2 class="text-start title-nuestro-requisitos">${pemp.pemp_Nombre}</h2>
+      `;
+    $('#tituloPEmpHome').append(html);
+}
+function renderSlidePEmpHome(pemps) {
+    console.log(pemps, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = "";
+    pemps.slice(1, 5).forEach(pemp => {
+        console.log(pemp, 'pemp')
+        html += `
+            <div class="col-6 col-md-3 text-center">
+                <img src="${pemp.pemp_UrlImagen}" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">${pemp.pemp_Descripcion}</p>
+            </div>
+        `;
+    });
+    $('#sliderPEmpHome').append(html);
 }
 function renderTituloTestHome(test) {
     const html = `
