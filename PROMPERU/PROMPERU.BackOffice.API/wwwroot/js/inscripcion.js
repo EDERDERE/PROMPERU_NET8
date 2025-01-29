@@ -1,27 +1,26 @@
 ﻿$(document).ready(function () {
-    console.log('Inscripcions')
-    loadListarInscripcions();
-    loadCrearInscripcion();
-    loadEditarInscripcion();
-    loadEliminarInscripcion(); 
-    loadGuardarOrden();
+  console.log("Inscripcions");
+  loadListarInscripcions();
+  loadCrearInscripcion();
+  loadEditarInscripcion();
+  loadEliminarInscripcion();
+  loadGuardarOrden();
 });
 
 function loadListarInscripcions() {
-    $.ajax({
-        type: 'GET', // Método GET para obtener los sliders
-        url: '/Inscripcion/ListarInscripcions', // URL del controlador que devuelve la lista de sliders
-        dataType: 'json',
-        success: function (response) {
-
-            console.log(response)
-            // Limpia el contenedor de sliders antes de renderizar
-            $('#sliderContainer').empty();
-            if (response.success) {
-                // Itera sobre la respuesta y crea las tarjetas dinámicamente         
-                console.log('obtener el tirulo Inscripcion', response.inscripcions[0]);
-                var inscripcion = response.inscripcions[0];
-                var tituloCard = `
+  $.ajax({
+    type: "GET", // Método GET para obtener los sliders
+    url: "/Inscripcion/ListarInscripcions", // URL del controlador que devuelve la lista de sliders
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+      // Limpia el contenedor de sliders antes de renderizar
+      $("#sliderContainer").empty();
+      if (response.success) {
+        // Itera sobre la respuesta y crea las tarjetas dinámicamente
+        console.log("obtener el tirulo Inscripcion", response.inscripcions[0]);
+        var inscripcion = response.inscripcions[0];
+        var tituloCard = `
                         <div class="row ">
                     <div class="col-md-6 my-3 ">
                         <div class="d-flex justify-content-between">
@@ -32,6 +31,7 @@ function loadListarInscripcions() {
                             data-nombreboton="${inscripcion.insc_NombreBoton}"
                               data-contenido="${inscripcion.insc_Contenido}"
                              data-urliconboton="${inscripcion.insc_URLIconBoton}"
+                             data-urlimagen="imagen.jpg"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -75,29 +75,19 @@ function loadListarInscripcions() {
                   <label for="image-url-1" class="form-label fw-semibold">URL del banner</label>
                   
                 </div>
-                <input type="text" id="image-url-1" class="form-control" placeholder="URL del banner" disabled>
-
+                <input type="text" id="urlimage-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_URLImagen}" disabled>
               </div>
 
-
-              <div class="col-md-6 my-3 ">
-                <div class="d-flex justify-content-between">
-                  <label for="image-url-1" class="form-label fw-semibold">Descripción</label>
-                 
-                </div>
-                <input type="text" id="image-url-1" class="form-control" placeholder="Descripción" disabled>
-
-              </div>
-                </div>
+                
                   `;
-                    // Agregar el slider al contenedor
-                    $('#tituloContainer').append(tituloCard);
-              
-                response.inscripcions.forEach((inscripcion) => {
-                    if (inscripcion.insc_Orden > 0) {
-                        console.log('lista Inscripcion', inscripcion);
+        // Agregar el slider al contenedor
+        $("#tituloContainer").append(tituloCard);
 
-                        var sliderCard = `
+        response.inscripcions.forEach((inscripcion) => {
+          if (inscripcion.insc_Orden > 0) {
+            console.log("lista Inscripcion", inscripcion);
+
+            var sliderCard = `
                            <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <h5 class="card-number mb-0">${inscripcion.insc_Orden}</h5>
@@ -158,416 +148,413 @@ function loadListarInscripcions() {
                 </div>
             </div>
                             `;
-                        // Agregar el slider al contenedor
-                        $('#sliderContainer').append(sliderCard);
-                    }
-                 
-                });
-            } else {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'No hay inscripcions disponibles',
-                    text: response.message || 'No se encontraron inscripcions.',
-                });
-            }
-     
-
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al cargar los sliders',
-                text: 'Hubo un problema al cargar los inscripcions. Por favor, inténtelo nuevamente más tarde.',
-            });
-        }
-    });
-
+            // Agregar el slider al contenedor
+            $("#sliderContainer").append(sliderCard);
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "No hay inscripcions disponibles",
+          text: response.message || "No se encontraron inscripcions.",
+        });
+      }
+    },
+    error: function () {
+      Swal.fire({
+        icon: "error",
+        title: "Error al cargar los sliders",
+        text: "Hubo un problema al cargar los inscripcions. Por favor, inténtelo nuevamente más tarde.",
+      });
+    },
+  });
 }
 function loadCrearInscripcion() {
-    $('#saveCreateSlider').click(function () {
-        var paso = $('#createPaso').val();   
-        var tituloPaso = $('#createTitulo').val();   
-        var description = $('#createDescription').val();
-        var urlImagen = $('#createUrlImagen').val();
+  $("#saveCreateSlider").click(function () {
+    var paso = $("#createPaso").val();
+    var tituloPaso = $("#createTitulo").val();
+    var description = $("#createDescription").val();
+    var urlImagen = $("#createUrlImagen").val();
 
-        if (paso && tituloPaso && description && urlImagen) {
-            $.ajax({
-                type: 'POST',
-                url: '/Inscripcion/InsertarInscripcion',  // URL del controlador para crear el slider
-                data: {
-                    paso: paso,
-                    tituloPaso: tituloPaso,
-                    description: description,
-                    urlImagen: urlImagen
-                },
-                success: function (response) {
-
-                    console.log('Crear', response)
-                    // Manejo de la respuesta
-                    if (response.success) {
-                        Swal.fire({
-                            title: '¡Éxito!',
-                            text: 'Inscripcion creado exitosamente',
-                            icon: 'success',
-                            confirmButtonText: 'Aceptar'
-                        }).then(function () {
-                            location.reload(); // Recargar la página o actualizar el contenido
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Hubo un error al crear el inscripcion',
-                            icon: 'error',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                },
-                error: function () {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Hubo un error al intentar crear el inscripcion',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar'
-                    });
-                }
-            });
-        } else {
+    if (paso && tituloPaso && description && urlImagen) {
+      $.ajax({
+        type: "POST",
+        url: "/Inscripcion/InsertarInscripcion", // URL del controlador para crear el slider
+        data: {
+          paso: paso,
+          tituloPaso: tituloPaso,
+          description: description,
+          urlImagen: urlImagen,
+        },
+        success: function (response) {
+          console.log("Crear", response);
+          // Manejo de la respuesta
+          if (response.success) {
             Swal.fire({
-                title: 'Advertencia',
-                text: 'Por favor, complete todos los campos',
-                icon: 'warning',
-                confirmButtonText: 'Aceptar'
+              title: "¡Éxito!",
+              text: "Inscripcion creado exitosamente",
+              icon: "success",
+              confirmButtonText: "Aceptar",
+            }).then(function () {
+              location.reload(); // Recargar la página o actualizar el contenido
             });
-        }
-    });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: "Hubo un error al crear el inscripcion",
+              icon: "error",
+              confirmButtonText: "Aceptar",
+            });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un error al intentar crear el inscripcion",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        title: "Advertencia",
+        text: "Por favor, complete todos los campos",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  });
 }
 function loadEditarInscripcion() {
+  $("#editTitle").on("show.bs.modal", function (event) {
+    // Obtener los datos del botón que activó el modal
+    var button = $(event.relatedTarget); // El botón que activó el modal
 
-    $('#editTitle').on('show.bs.modal', function (event) {
-        // Obtener los datos del botón que activó el modal
-        var button = $(event.relatedTarget); // El botón que activó el modal
-        var id = button.data('id'); // Obtener el ID
-        var titulo = button.data('titulo');  
-        var contenido = button.data('contenido');
-        var nombreboton = button.data('nombreboton');
-        var urlIconBoton = button.data('urliconboton');
+    var id = button.data("id"); // Obtener el ID
+    var titulo = button.data("titulo");
+    var contenido = button.data("contenido");
+    var nombreboton = button.data("nombreboton");
+    var urlIconBoton = button.data("urliconboton");
+    var urlImageBanner = button.data("urlimagen");
 
-        // Asignar los valores al modal
-        var modal = $(this);
-        modal.find('#editId').val(id);
-        modal.find('#editTitulo').val(titulo);   
-        modal.find('#editContenido').val(contenido);
-        modal.find('#editNombreBoton').val(nombreboton);  
-        modal.find('#editUrlIcon').val(urlIconBoton);  
-    });
-    $('#saveEditTitulo').click(function () {
-        console.log('editar modal')
-        var id = $('#editId').val();
-        var titulo = $('#editTitulo').val();    
-        var conetnido = $('#editContenido').val();
-        var nombreBoton = $('#editNombreBoton').val();  
-        var urlIconBoton = $('#editUrlIcon').val();  
-        console.log('editar modal', id , titulo , conetnido , nombreBoton , urlIconBoton)
-        if (id && titulo && conetnido && nombreBoton && urlIconBoton) {
-            $.ajax({
-                type: 'POST',
-                url: '/Inscripcion/ActualizarInscripcion',  // URL del controlador para editar el slider
-                data: {
-                    id: id,
-                    titulo: titulo,
-                    contenido: conetnido,
-                    nombreBoton: nombreBoton,
-                    urlIconBoton:urlIconBoton
-                },
-                success: function (response) {
-                    console.log('actualzia inscripcion', response)
-                    // Manejo de la respuesta
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Actualizado!',
-                            text: 'El inscripcion se ha actualizado exitosamente.',
-                            confirmButtonText: 'Aceptar'
-                        }).then(() => {
-                            location.reload(); // Recargar la página o actualizar el contenido
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'No se pudo actualizar el inscripcion. Inténtelo nuevamente.',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Hubo un error al intentar actualizar el inscripcion.',
-                        confirmButtonText: 'Aceptar'
-                    });
-                }
-            });
-        } else {
+ 
+    // Asignar los valores al modal
+    var modal = $(this);
+    modal.find("#editForm").val(id);
+    modal.find("#editTitulo").val(titulo);
+    modal.find("#editContenido").val(contenido);
+    modal.find("#editNombreBoton").val(nombreboton);
+    modal.find("#editUrlIcon").val(urlIconBoton);
+    modal.find("#editUrlImageBanner").val(urlImageBanner);
+  });
+  $("#saveEditTitulo").click(function () {
+ 
+    var idForm = $("#editForm").val();
+    var titulo = $("#editTitulo").val();
+    var contenido = $("#editContenido").val();
+    var nombreBoton = $("#editNombreBoton").val();
+    var urlIconBoton = $("#editUrlIcon").val();
+    var urlImageBanner = $("#editUrlImageBanner").val();
+  
+    if (
+      idForm &&
+      titulo &&
+      contenido &&
+      nombreBoton &&
+      urlIconBoton &&
+      urlImageBanner
+    ) {
+
+      $.ajax({
+        type: "POST",
+        url: "/Inscripcion/ActualizarInscripcion", // URL del controlador para editar el slider
+        data: {
+          id: idForm,
+          titulo: titulo,
+          contenido: contenido,
+          nombreBoton: nombreBoton,
+          urlIconBoton: urlIconBoton,
+          urlImagen: urlImageBanner,
+        },
+        success: function (response) {
+          console.log("actualzia inscripcion", response);
+          // Manejo de la respuesta
+          if (response.success) {
             Swal.fire({
-                icon: 'warning',
-                title: 'Campos incompletos',
-                text: 'Por favor, complete todos los campos antes de continuar.',
-                confirmButtonText: 'Aceptar'
+              icon: "success",
+              title: "¡Actualizado!",
+              text: "El inscripcion se ha actualizado exitosamente.",
+              confirmButtonText: "Aceptar",
+            }).then(() => {
+              location.reload(); // Recargar la página o actualizar el contenido
             });
-        }
-    });  
-
-    $('#editSliderModal').on('show.bs.modal', function (event) {
-        // Obtener los datos del botón que activó el modal
-        var button = $(event.relatedTarget); // El botón que activó el modal
-        var id = button.data('id'); // Obtener el ID
-        var orden = button.data('orden'); 
-        var paso = button.data('paso'); 
-        var tituloPaso = button.data('titulopaso'); 
-        var description = button.data('description'); // Obtener la descripción
-        var urlImagen = button.data('urlimagen'); // Obtener la URL de la imagen
-
-        // Asignar los valores al modal
-        var modal = $(this);
-        modal.find('#editId').val(id);
-        modal.find('#editOrder').val(orden);
-        modal.find('#editTituloPaso').val(tituloPaso);
-        modal.find('#editPaso').val(paso);
-        modal.find('#editDescription').val(description); // Llenar el textarea con la descripción
-        modal.find('#editUrlImagen').val(urlImagen); // Llenar el campo de la URL de la imagen
-    });
-    $('#saveEditSlider').click(function () {
-        console.log('editar modal')
-        var tituloPaso = $('#editTituloPaso').val();
-        var description = $('#editDescription').val();
-        var paso = $('#editPaso').val();
-        var orden = $('#editOrder').val();
-        var id = $('#editId').val();
-        var urlImagen = $('#editId').val();
-
-        if (description && tituloPaso && description && paso && id ) {
-            $.ajax({
-                type: 'POST',
-                url: '/Inscripcion/ActualizarInscripcion',  // URL del controlador para editar el slider
-                data: {
-                    id: id,
-                    orden: orden,
-                    paso: paso,
-                    tituloPaso: tituloPaso,
-                    description: description,
-                    urlImagen: urlImagen
-                },
-                success: function (response) {
-                    console.log('actualzia requisito',response)
-                    // Manejo de la respuesta
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Actualizado!',
-                            text: 'El inscripcion se ha actualizado exitosamente.',
-                            confirmButtonText: 'Aceptar'
-                        }).then(() => {
-                            location.reload(); // Recargar la página o actualizar el contenido
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'No se pudo actualizar el inscripcion. Inténtelo nuevamente.',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Hubo un error al intentar actualizar el inscripcion.',
-                        confirmButtonText: 'Aceptar'
-                    });
-                }
-            });
-        } else {
+          } else {
             Swal.fire({
-                icon: 'warning',
-                title: 'Campos incompletos',
-                text: 'Por favor, complete todos los campos antes de continuar.',
-                confirmButtonText: 'Aceptar'
+              icon: "error",
+              title: "Error",
+              text: "No se pudo actualizar el inscripcion. Inténtelo nuevamente.",
+              confirmButtonText: "Aceptar",
             });
-        }
-    });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al intentar actualizar el inscripcion.",
+            confirmButtonText: "Aceptar",
+          });
+        },
+      });
+    } else {
+      console.error("dato");
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, complete todos los campos antes de continuar.",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  });
+
+  $("#editSliderModal").on("show.bs.modal", function (event) {
+    // Obtener los datos del botón que activó el modal
+    var button = $(event.relatedTarget); // El botón que activó el modal
+    var id = button.data("id"); // Obtener el ID
+    var orden = button.data("orden");
+    var paso = button.data("paso");
+    var tituloPaso = button.data("titulopaso");
+    var description = button.data("description"); // Obtener la descripción
+    var urlImagen = button.data("urlimagen"); // Obtener la URL de la imagen
+
+    // Asignar los valores al modal
+    var modal = $(this);
+    modal.find("#editId").val(id);
+    modal.find("#editOrder").val(orden);
+    modal.find("#editTituloPaso").val(tituloPaso);
+    modal.find("#editPaso").val(paso);
+    modal.find("#editDescription").val(description); // Llenar el textarea con la descripción
+    modal.find("#editUrlImagen").val(urlImagen); // Llenar el campo de la URL de la imagen
+  });
+  $("#saveEditSlider").click(function () {
+    console.log("editar modal");
+    var tituloPaso = $("#editTituloPaso").val();
+    var description = $("#editDescription").val();
+    var paso = $("#editPaso").val();
+    var orden = $("#editOrder").val();
+    var id = $("#editId").val();
+    var urlImagen = $("#editId").val();
+
+    if (description && tituloPaso && paso && id) {
+      $.ajax({
+        type: "POST",
+        url: "/Inscripcion/ActualizarInscripcion", // URL del controlador para editar el slider
+        data: {
+          id: id,
+          orden: orden,
+          paso: paso,
+          tituloPaso: tituloPaso,
+          description: description,
+          urlImagen: urlImagen,
+        },
+        success: function (response) {
+          console.log("actualzia requisito", response);
+          // Manejo de la respuesta
+          if (response.success) {
+            Swal.fire({
+              icon: "success",
+              title: "¡Actualizado!",
+              text: "El inscripcion se ha actualizado exitosamente.",
+              confirmButtonText: "Aceptar",
+            }).then(() => {
+              location.reload(); // Recargar la página o actualizar el contenido
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se pudo actualizar el inscripcion. Inténtelo nuevamente.",
+              confirmButtonText: "Aceptar",
+            });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al intentar actualizar el inscripcion.",
+            confirmButtonText: "Aceptar",
+          });
+        },
+      });
+    } else {
+      console.error("prueba");
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, complete todos los campos antes de continuar.",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  });
 }
 function loadEliminarInscripcion() {
-    $(document).on('click', '[id^="btn-delete-"]', function () {
-        var id = $(this).data('id'); // Obtener el ID del elemento a eliminar
-        console.log(`ID a eliminar: ${id}`);
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Esta acción no se puede deshacer",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Enviar la solicitud AJAX para eliminar el elemento
-                $.ajax({
-                    type: 'POST',
-                    url: '/Inscripcion/EliminarInscripcion', // Ruta del controlador para la eliminación
-                    data: { id: id },
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire(
-                                '¡Eliminado!',
-                                'El elemento ha sido eliminado con éxito.',
-                                'success'
-                            ).then(() => {
-                                location.reload(); // Recargar la página o actualizar el contenido dinámicamente
-                            });
-                        } else {
-                            Swal.fire(
-                                'Error',
-                                'No se pudo eliminar el elemento. Inténtalo de nuevo.',
-                                'error'
-                            );
-                        }
-                    },
-                    error: function () {
-                        Swal.fire(
-                            'Error',
-                            'Hubo un error en el servidor al intentar eliminar el elemento.',
-                            'error'
-                        );
-                    }
-                });
+  $(document).on("click", '[id^="btn-delete-"]', function () {
+    var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
+    console.log(`ID a eliminar: ${id}`);
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Enviar la solicitud AJAX para eliminar el elemento
+        $.ajax({
+          type: "POST",
+          url: "/Inscripcion/EliminarInscripcion", // Ruta del controlador para la eliminación
+          data: { id: id },
+          success: function (response) {
+            if (response.success) {
+              Swal.fire(
+                "¡Eliminado!",
+                "El elemento ha sido eliminado con éxito.",
+                "success"
+              ).then(() => {
+                location.reload(); // Recargar la página o actualizar el contenido dinámicamente
+              });
+            } else {
+              Swal.fire(
+                "Error",
+                "No se pudo eliminar el elemento. Inténtalo de nuevo.",
+                "error"
+              );
             }
+          },
+          error: function () {
+            Swal.fire(
+              "Error",
+              "Hubo un error en el servidor al intentar eliminar el elemento.",
+              "error"
+            );
+          },
         });
-    });  
+      }
+    });
+  });
 }
 function loadGuardarOrden() {
+  // Al hacer clic en el botón de guardar cambios
+  $("#saveOrder").click(function () {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ordenar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("guardar order");
+        // Capturar el data-id del card correspondiente
 
+        var Ids = [];
+        var Orders = [];
+        var Pasos = [];
+        var TituloPasos = [];
+        var Descriptions = [];
+        var UrlImagen = [];
+        var NewOrders = [];
 
-    // Al hacer clic en el botón de guardar cambios
-    $('#saveOrder').click(function () {
+        // Iterar sobre cada card y capturar su data-id
+        $(".btn-link.text-primary").each(function () {
+          var id = $(this).data("id");
+          Ids.push(id);
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Esta acción no se puede deshacer",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, ordenar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
+          var order = $(this).data("orden");
+          Orders.push(order);
 
-                console.log('guardar order')
-                // Capturar el data-id del card correspondiente
+          var tituloPaso = $(this).data("titulopaso");
+          TituloPasos.push(tituloPaso);
 
-                var Ids = [];
-                var Orders = [];
-                var Pasos = [];
-                var TituloPasos = [];               
-                var Descriptions = [];
-                var UrlImagen = [];
-                var NewOrders = [];
+          var paso = $(this).data("paso");
+          Pasos.push(paso);
 
+          var description = $(this).data("description");
+          Descriptions.push(description);
 
-                // Iterar sobre cada card y capturar su data-id
-                $('.btn-link.text-primary').each(function () {
-                    var id = $(this).data('id');
-                    Ids.push(id);
-
-                    var order = $(this).data('orden');
-                    Orders.push(order);
-
-                    var tituloPaso = $(this).data('titulopaso');
-                    TituloPasos.push(tituloPaso);                
-
-                    var paso = $(this).data('paso');
-                    Pasos.push(paso);  
-
-
-                    var description = $(this).data('description');
-                    Descriptions.push(description);
-
-                    var urlImagen = $(this).data('urlimagen');
-                    UrlImagen.push(urlImagen);
-
-
-                });
-
-                $('.card').each(function () {
-                    var NewOrder = $(this).find('.card-number').text().trim();
-                    NewOrders.push(NewOrder);
-                });
-
-                // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
-                console.log(Ids, NewOrders, UrlImagen, TituloPasos);
-                // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
-
-
-                var result = [];
-
-                Ids.forEach((id, index) => {
-                    result.push({
-                        id: parseInt(id),                 // Coincide con BannerDto.Id
-                        orden: parseInt(NewOrders[index]), // Coincide con BannerDto.Orden
-                        tituloPaso: TituloPasos[index].toString(),   
-                        paso: Pasos[index].toString(),  
-                        description: Descriptions[index].toString(), // Coincide con BannerDto.Description
-                        UrlImagen: UrlImagen[index].toString()
-                    });
-                });
-
-                // Mostrar el resultado en la consola
-                console.log(result);
-                console.log(JSON.stringify(result));
-                
-                $.ajax({
-                    url: '/Inscripcion/ActualizarOrdenInscripcion',
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8', // Cabecera correcta
-                    data: JSON.stringify(result),
-                    success: function (response) {
-                        // Manejo de la respuesta
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Actualizado!',
-                                text: 'El Inscripcion se ha actualizado exitosamente.',
-                                confirmButtonText: 'Aceptar'
-                            }).then(() => {
-                                location.reload(); // Recargar la página o actualizar el contenido
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'No se pudo actualizar el Inscripcion. Inténtelo nuevamente.',
-                                confirmButtonText: 'Aceptar'
-                            });
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Hubo un error al intentar actualizar el slider.',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                });
-
-               
-            }
+          var urlImagen = $(this).data("urlimagen");
+          UrlImagen.push(urlImagen);
         });
-     
+
+        $(".card").each(function () {
+          var NewOrder = $(this).find(".card-number").text().trim();
+          NewOrders.push(NewOrder);
+        });
+
+        // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
+        console.log(Ids, NewOrders, UrlImagen, TituloPasos);
+        // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
+
+        var result = [];
+
+        Ids.forEach((id, index) => {
+          result.push({
+            id: parseInt(id), // Coincide con BannerDto.Id
+            orden: parseInt(NewOrders[index]), // Coincide con BannerDto.Orden
+            tituloPaso: TituloPasos[index].toString(),
+            paso: Pasos[index].toString(),
+            description: Descriptions[index].toString(), // Coincide con BannerDto.Description
+            UrlImagen: UrlImagen[index].toString(),
+          });
+        });
+
+        // Mostrar el resultado en la consola
+        console.log(result);
+        console.log(JSON.stringify(result));
+
+        $.ajax({
+          url: "/Inscripcion/ActualizarOrdenInscripcion",
+          type: "POST",
+          contentType: "application/json; charset=utf-8", // Cabecera correcta
+          data: JSON.stringify(result),
+          success: function (response) {
+            // Manejo de la respuesta
+            if (response.success) {
+              Swal.fire({
+                icon: "success",
+                title: "¡Actualizado!",
+                text: "El Inscripcion se ha actualizado exitosamente.",
+                confirmButtonText: "Aceptar",
+              }).then(() => {
+                location.reload(); // Recargar la página o actualizar el contenido
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo actualizar el Inscripcion. Inténtelo nuevamente.",
+                confirmButtonText: "Aceptar",
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Hubo un error al intentar actualizar el slider.",
+              confirmButtonText: "Aceptar",
+            });
+          },
+        });
+      }
     });
+  });
 }
