@@ -9,6 +9,7 @@ obj/
 *.user
 *.suo
 *.csproj.user
+*.appsettings.json
 
 # Ignorar archivos de paquetes NuGet
 packages/

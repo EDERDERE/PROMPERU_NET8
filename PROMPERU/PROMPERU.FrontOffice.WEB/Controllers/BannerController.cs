@@ -3,15 +3,16 @@ using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-    public class BeneficioController : Controller
-    {
-        private readonly ILogger<BeneficioController> _logger;    
-        private readonly BeneficioBL _beneficioBL;
 
-        public BeneficioController(ILogger<BeneficioController> logger, BeneficioBL beneficioBL)
+    public class BannerController : Controller
+    {
+        private readonly ILogger<BannerController> _logger;    
+        private readonly BannerBL _bannerBL;
+
+        public BannerController(ILogger<BannerController> logger, BannerBL bannerBL)
         {
             _logger = logger;
-            _beneficioBL = beneficioBL;
+            _bannerBL = bannerBL;
         }
 
         public IActionResult Index()
@@ -20,18 +21,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarBeneficios()
+        public async Task<IActionResult> ListarBanners()
         {
             try
             {
-                var Beneficios = await _beneficioBL.ListarBeneficiosAsync(); // Cambio a versión asincrónica
-                if (Beneficios != null && Beneficios.Any())
+                var banners = await _bannerBL.ListarBannersAsync(); // Cambio a versión asincrónica
+                if (banners != null && banners.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Beneficios obtenidos exitosamente.",
-                        Beneficios
+                        message = "Banners obtenidos exitosamente.",
+                        banners
                     });
                 }
                 else
@@ -39,7 +40,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Beneficios disponibles."
+                        message = "No se encontraron banners disponibles."
                     });
                 }
             }
@@ -48,10 +49,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Beneficios. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los banners. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }    
+        }
+              
     }
 }

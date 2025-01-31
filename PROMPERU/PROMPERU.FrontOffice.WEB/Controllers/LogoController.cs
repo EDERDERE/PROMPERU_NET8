@@ -3,15 +3,15 @@ using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-    public class BeneficioController : Controller
+    public class LogoController : Controller
     {
-        private readonly ILogger<BeneficioController> _logger;    
-        private readonly BeneficioBL _beneficioBL;
+        private readonly ILogger<LogoController> _logger;    
+        private readonly LogoBL _logoBL;
 
-        public BeneficioController(ILogger<BeneficioController> logger, BeneficioBL beneficioBL)
+        public LogoController(ILogger<LogoController> logger, LogoBL logoBL)
         {
             _logger = logger;
-            _beneficioBL = beneficioBL;
+            _logoBL = logoBL;
         }
 
         public IActionResult Index()
@@ -20,18 +20,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarBeneficios()
+        public async Task<IActionResult> ListarLogos()
         {
             try
             {
-                var Beneficios = await _beneficioBL.ListarBeneficiosAsync(); // Cambio a versión asincrónica
-                if (Beneficios != null && Beneficios.Any())
+                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
+                if (Logos != null && Logos.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Beneficios obtenidos exitosamente.",
-                        Beneficios
+                        message = "Logos obtenidos exitosamente.",
+                        Logos
                     });
                 }
                 else
@@ -39,7 +39,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Beneficios disponibles."
+                        message = "No se encontraron Logos disponibles."
                     });
                 }
             }
@@ -48,10 +48,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Beneficios. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }    
+        }      
     }
 }

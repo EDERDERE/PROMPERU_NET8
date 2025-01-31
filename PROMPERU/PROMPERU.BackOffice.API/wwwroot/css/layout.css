@@ -1,6 +1,7 @@
 @import url('../shared/styles/variables.css');
 @import url('../shared/styles/header.css');
 @import url('../shared/styles/globals.css');
+@import url('../shared/styles/customButton.css');
 
 .header {
     background-color: var(--color-primary);
@@ -87,6 +88,7 @@
             }
 
 @media screen and (min-width: 768px) {
+    
     .sidebar {
         width: 285px;
     }
@@ -95,7 +97,7 @@
 @media screen and (min-width: 992px) {
     .sidebar {
         position: initial;
-        width: 285px;
+        width: 350px;
     }
 }
 

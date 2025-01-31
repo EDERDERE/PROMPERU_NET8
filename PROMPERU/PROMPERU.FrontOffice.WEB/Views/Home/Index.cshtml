@@ -1,7 +1,7 @@
 ﻿
 <div class="hero">
     <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="sliderBannerHome">
             <div class="swiper-slide">
                 <picture class="hero_bg">
                     <source srcset="../../shared/assets/home/hero/hero-tablet.jpg" media="(min-width: 768px)" />
@@ -56,7 +56,7 @@
 </div>
 <!-- Container Scroll -->
 <div class="d-flex justify-content-end mb-5">
-    <div class="quick_data d-flex align-items-center gap-3 overflow-y-hidden overflow-x-auto">
+    <div class="quick_data d-flex align-items-center gap-3 overflow-y-hidden overflow-x-auto" id="logrosHome">
         <div class="item d-flex align-items-center gap-2">
             <img src="../../shared/assets/icons/graduate.svg" alt="" />
             <div class="description text-white">
@@ -286,18 +286,50 @@
         </div>
     </div>
 </div>
+
+<div class="perfil">
+    <div class="container container-inscripcion mt-5 mb-5">
+        <div id="tituloPEmpHome">
+            <h2 class="text-start title-nuestro-requisitos">Perfil Empresarial</h2>
+        </div>
+      
+        <div class="red-linear"></div>
+        <div class="row mt-5" id="sliderPEmpHome">
+            <div class="col-6 col-md-3 text-center">
+                <img src="../../shared/assets/que-es/perfil-item.png" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">Generar actividad constante en las redes sociales</p>
+            </div> 
+            <div class="col-6 col-md-3 text-center">
+                <img src="../../shared/assets/que-es/perfil-item.png" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">Optimizar su pagina web para realizar comercio electronico</p>
+            </div>
+            <div class="col-6 col-md-3 text-center">
+                <img src="../../shared/assets/que-es/perfil-item.png" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">Desarrollar una estrategia digital</p>
+            </div> 
+            <div class="col-6 col-md-3 text-center">
+                <img src="../../shared/assets/que-es/perfil-item.png" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">Realizar un modelo de negocios bajo el formato digital</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Container inscripcion -->
 <div class="bg-white">
 
     <div class="container container-inscripcion mt-5">
-        <h2 class="text-start title-nuestro-requisitos">Etapas de Inscripción</h2>
+        <div id="tituloInscHome">   
+            <h2 class="text-start title-nuestro-requisitos">Etapas de Inscripción</h2>
+
+        </div>
         <div class="red-linear"></div>
         <div class="container-import mt-5 ">
-            <p class="p-principal mb-5">
+            <p class="p-principal mb-5" id="descrInscrHome">
                 Si su empresa cumple con los requisitos descritos en la sección
                 anterior, los pasos para inscribirse en el programa son:
             </p>
-            <div class="nav-items">
+            <div class="nav-items" id="sliderInscrHome">
                 <div class="step">
                     <div class="step-image">
                         <img src="../../shared/assets/home/etapas/search.svg"
@@ -360,7 +392,7 @@
                 </div>
             </div>
             <div class="btn-test">
-                <div class="button-test">
+                <div class="button-test" id="botonInscHome">
                     <a href="">Empezar mi Test</a>
                     <img src="../../shared/assets/home/etapas/empezar_test.svg"
                          alt="" />
@@ -725,9 +757,9 @@
         </div>
     </div>
 </div>
-<div style="display:none">
+<div>
     <div class="container py-5">
-        <div class="row mb-5">
+        <div class="row mb-5" id="tituloTestHome">
             <div class="col-12">
                 <h2>Testimoniales</h2>
                 <div class="red-linear"></div>
@@ -735,7 +767,7 @@
         </div>
         <div class="swiper testomnios_swiper">
             <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper" id="slideTestHome">
                 <!-- Slides -->
                 <div class="swiper-slide">
                     <div class="testomnio_item card border-0 shadow-lg">

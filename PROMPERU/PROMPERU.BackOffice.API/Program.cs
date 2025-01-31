@@ -41,6 +41,19 @@ builder.Services.AddScoped<CursoDA>();
 builder.Services.AddScoped<CursoBL>();
 builder.Services.AddScoped<CasoDA>();
 builder.Services.AddScoped<CasoBL>();
+builder.Services.AddScoped<LogoDA>();
+builder.Services.AddScoped<LogoBL>();
+builder.Services.AddScoped<MenuDA>();
+builder.Services.AddScoped<MenuBL>();
+builder.Services.AddScoped<FooterDA>();
+builder.Services.AddScoped<FooterBL>();
+builder.Services.AddScoped<LogroDA>();
+builder.Services.AddScoped<LogroBL>();
+builder.Services.AddScoped<TestimonioDA>();
+builder.Services.AddScoped<TestimonioBL>();
+builder.Services.AddScoped<PerfilEmpresarialDA>();
+builder.Services.AddScoped<PerfilEmpresarialBL>();
+
 
 
 var app = builder.Build();

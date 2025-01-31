@@ -1,13 +1,226 @@
 $(document).ready(function () {
     console.log('curso web home')
+    home.loadListarLogos();
+    home.loadListarMenus();
     home.loadListarCursos();
     home.loadListarInformacion();
     home.loadListarRequisitos();
     home.loadListarBeneficios();
     home.loadListarCasos();   
+    home.loadListarBanners();
+    home.loadListarInscripcions();
+    home.loadListarLogros();
+    home.loadListarTestimonios();
+    home.loadListarPerfilEmpresarials();
+    home.loadListarFooters();
+
 });
 
 const home = {
+    loadListarLogos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Logo/ListarLogos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#logoHome').empty();
+                if (response.success) {
+                    const logos = response.logos;
+                    console.log('logoHome', logos[0])
+                    if (logos.length > 0) {
+                        renderLogoHome(logos[0]);
+                    } else {
+                        $('#logoHome').html('<p>No se información cursos disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarMenus: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Menu/ListarMenus', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#menuHome').empty();
+                if (response.success) {
+                    const menus = response.menus;
+                    console.log('menuHome', menus)
+                    if (menus.length > 0) {
+                        renderMenuHome(menus);
+                    } else {
+                        $('#menuHome').html('<p>No se información menus disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarLogros: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Logro/ListarLogros', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#logrosHome').empty();
+                if (response.success) {
+                    const logros = response.logros;
+                    console.log('logrosHome', logros)
+                    if (logros.length > 0) {
+                        renderLogrosHome(logros);
+                    } else {
+                        $('#logrosHome').html('<p>No se información logros disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarTestimonios: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Testimonio/ListarTestimonios', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#tituloTestHome').empty();
+                $('#slideTestHome').empty();
+                if (response.success) {
+                    const testimonios = response.testimonios;
+                    console.log('testimoniosHome', testimonios)
+                    if (testimonios.length > 0) {
+                        renderTituloTestHome(testimonios[0]);
+                        renderSlideTestHome(testimonios);
+                    } else {
+                        $('#slideTestHome').html('<p>No se información testimonios disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarPerfilEmpresarials: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/PerfilEmpresarial/ListarPerfilEmpresarials', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log('PerfilEmpresarials',response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#tituloPEmpHome').empty();
+                $('#sliderPEmpHome').empty();
+                if (response.success) {
+                    const perfilEmpresarials = response.perfilEmpresarials;
+                    console.log('sliderPEmpHome', perfilEmpresarials)
+                    if (perfilEmpresarials.length > 0) {
+                        renderTituloPEmpHome(perfilEmpresarials[0]);
+                        renderSlidePEmpHome(perfilEmpresarials);
+                    } else {
+                        $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
     loadListarInformacion: function () {
         $.ajax({
             type: 'GET', // Método GET para obtener los sliders
@@ -219,7 +432,390 @@ const home = {
                 });
             }
         });
-    }
+    },
+    loadListarBanners: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Banner/ListarBanners', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#sliderBannerHome').empty();          
+                if (response.success) {
+                    const banners = response.banners;
+                    console.log('banners', banners)
+                    if (banners.length > 0) {                       
+                        renderSliderBannerHome(banners);                 
+
+                    } else {
+                        $('#sliderBannerHome').html('<p>No se encontraron banners disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    },
+    loadListarInscripcions: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Inscripcion/ListarInscripcions', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#tituloInscHome').empty();
+                $('#descrInscrHome').empty();
+                $('#sliderInscrHome').empty();
+                $('#botonInscHome').empty();
+                if (response.success) {
+                    const inscripcions = response.inscripcions;
+                    console.log('inscripcions', inscripcions)
+                    if (inscripcions.length > 0) {
+                        renderTituloInscHome(inscripcions[0]);
+                        renderDescrInscrHome(inscripcions[0]);
+                        renderBotonInscHome(inscripcions[0]);
+                        renderSliderInscrHome(inscripcions);
+                    
+
+                    } else {
+                        $('#sliderCasoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    }, 
+    loadListarFooters: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Footer/ListarFooters', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log(response)
+                // Limpia el contenedor de sliders antes de renderizar
+                $('#footerHome').empty();               
+                if (response.success) {
+                    const footers = response.footers;
+                    console.log('footers', footers)
+                    if (footers.length > 0) {
+                        renderFooterHome(footers[0]);                  
+
+
+                    } else {
+                        $('#footerHome').html('<p>No se encontraron footer disponibles.</p>');
+                    }
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay banners disponibles',
+                        text: response.message || 'No se encontraron banners.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+    },
+}
+function renderTituloPEmpHome(pemp) {
+    const html = `
+               <h2 class="text-start title-nuestro-requisitos">${pemp.pemp_Nombre}</h2>
+      `;
+    $('#tituloPEmpHome').append(html);
+}
+function renderSlidePEmpHome(pemps) {
+    console.log(pemps, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = "";
+    pemps.slice(1, 5).forEach(pemp => {
+        console.log(pemp, 'pemp')
+        html += `
+            <div class="col-6 col-md-3 text-center">
+                <img src="${pemp.pemp_UrlImagen}" alt="" class="img-fluid rounded-pill w-80">
+                <p class="mt-2">${pemp.pemp_Descripcion}</p>
+            </div>
+        `;
+    });
+    $('#sliderPEmpHome').append(html);
+}
+function renderTituloTestHome(test) {
+    const html = `
+     <div class="col-12">
+                <h2>${test.test_Nombre}</h2>
+                <div class="red-linear"></div>
+            </div>
+      `;
+    $('#tituloTestHome').append(html);
+}
+function renderSlideTestHome(testimonios) {
+    console.log(testimonios, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = "";
+    testimonios.forEach(test => {
+        console.log(test, 'test')
+        html += `
+          <div class="swiper-slide">
+                    <div class="testomnio_item card border-0 shadow-lg">
+                        <span class="quote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z" />
+                            </svg>
+                        </span>
+                        <p class="description">${test.test_Descripcion}</p>
+                        <div class="avatar">
+                            <img src="${test.test_UrlImagen}" alt="">
+                        </div>
+                    </div>
+                </div>
+        `;
+    });
+    $('#slideTestHome').append(html);
+}
+function renderLogrosHome(logros) {
+    console.log(logros, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html="";
+    logros.forEach(logr => {
+        console.log(logr, 'logr')
+        html += `
+           <div class="item d-flex align-items-center gap-2">
+            <img src="${logr.logr_UrlIcon}" alt="" />
+            <div class="description text-white">
+                <h3 class="fs-10">${logr.logr_Nombre}</h3>
+                <p class="fs-8 texto-descriptivo-quick_data">
+                   ${logr.logr_Descripcion}
+                </p>
+            </div>
+        </div>
+        `;
+    });
+    $('#logrosHome').append(html);
+}
+function renderFooterHome(foot) {
+    const html = `
+      <div class="container pt-4 pb-5">
+      <div class="logo_footer mb-4">
+        <img src="${foot.foot_UrlLogoPrincipal}" alt="" class="img-fluid">
+      </div>
+      <div class="row">
+        <div class="col-12 class-md-8 text-white">
+          <h4 class="mb-3 fs-5"> ${foot.foot_Nombre}</h4>
+          <p class="d-flex align-items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+            </svg>
+            ${foot.foot_Contacto}
+          </p>
+          <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+            </svg>
+            ${foot.foot_Ubicacion}
+          </p>
+        </div>
+        <div class="col-12 class-md-4 text-white text-center text-md-end">
+          <strong>${foot.foot_Ayuda}</strong>
+          <p class="mb-5">Comunicate con nosotros</p>
+          <div class="d-flex gap-3 justify-content-center justify-content-md-end mb-5">
+            <a href="" class="text-white text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+              </svg>
+            </a>
+            <a href="" class="text-white text-decoration-none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+              </svg>
+            </a>
+          </div>
+          <div class="logo_ministerio">
+            <img src="${foot.foot_UrlLogoSecundario}" alt="" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+      `;
+    $('#footerHome').append(html);
+}
+function renderMenuHome(menus) {
+    console.log(menus,'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = `
+        <li class="home">
+            <a href="/Home/Index">
+              <?xml version="1.0" ?><svg
+                fill="none"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.5495 2.53189C11.3874 1.82531 12.6126 1.82531 13.4505 2.5319L20.2005 8.224C20.7074 8.65152 21 9.2809 21 9.94406V19.7468C21 20.7133 20.2165 21.4968 19.25 21.4968H15.75C14.7835 21.4968 14 20.7133 14 19.7468V14.2468C14 14.1088 13.8881 13.9968 13.75 13.9968H10.25C10.1119 13.9968 9.99999 14.1088 9.99999 14.2468V19.7468C9.99999 20.7133 9.2165 21.4968 8.25 21.4968H4.75C3.7835 21.4968 3 20.7133 3 19.7468V9.94406C3 9.2809 3.29255 8.65152 3.79952 8.224L10.5495 2.53189ZM12.4835 3.6786C12.2042 3.44307 11.7958 3.44307 11.5165 3.6786L4.76651 9.37071C4.59752 9.51321 4.5 9.72301 4.5 9.94406V19.7468C4.5 19.8849 4.61193 19.9968 4.75 19.9968H8.25C8.38807 19.9968 8.49999 19.8849 8.49999 19.7468V14.2468C8.49999 13.2803 9.2835 12.4968 10.25 12.4968H13.75C14.7165 12.4968 15.5 13.2803 15.5 14.2468V19.7468C15.5 19.8849 15.6119 19.9968 15.75 19.9968H19.25C19.3881 19.9968 19.5 19.8849 19.5 19.7468V9.94406C19.5 9.72301 19.4025 9.51321 19.2335 9.37071L12.4835 3.6786Z"
+                  fill="#C41121"
+                />
+              </svg>
+            </a>
+        </li>
+    `;
+    menus.forEach(item => {
+        console.log(item,'item')
+        html += `
+            <li>
+                <a href="${item.menu_UrlIconBoton || '#'}" class="text-decoration-none">
+                    ${item.menu_Nombre}
+                </a>
+            </li>
+        `;
+    });
+    $('#menuHome').append(html);
+}
+function renderLogoHome(logo) {
+    const html = `
+      <img
+            src="${logo.logo_UrlPrincipal}"
+            alt="Logo Superior"
+            class="logo-header"
+          />
+          <a
+            href=""
+            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1"
+          >
+           ${logo.logo_NombreBoton}
+            <img
+              src="${logo.logo_UrlIconBoton}"
+              alt="icono de diagnostico"
+            />
+          </a>
+      `;
+    $('#logoHome').append(html);
+}
+function renderTituloInscHome(insc) {
+    const html = `
+     <h2 class="text-start title-nuestro-requisitos">${insc.insc_Titulo}</h2>
+      `;
+    $('#tituloInscHome').append(html);
+}
+function renderDescrInscrHome(insc) {
+    const html = `  
+              ${insc.insc_Contenido}
+           
+      `;
+    $('#descrInscrHome').append(html);
+}
+
+function renderBotonInscHome(insc) {
+    const html = `  
+             <a href="">  ${insc.insc_NombreBoton}</a>
+                    <img src="${insc.insc_URLIconBoton}"
+                         alt="" />
+           
+      `;
+    $('#botonInscHome').append(html);
+}
+function renderSliderInscrHome(inscripcions) {
+    let slider = '';
+    console.log('sliderInscrHome', inscripcions)
+    inscripcions.slice(0, 5).forEach((insc, index) => {
+        if (insc.insc_Orden > 0) {
+            const isActive = index === 1 ? 'active' : '';
+            slider +=
+                `
+                <div class="step">
+                    <div class="step-image">
+                        <img src="${insc.insc_URLImagen}"
+                             alt="Paso 1" />
+                    </div>
+                    <div class="step-content right-align">
+                        <p>PASO ${insc.insc_Paso}</p>
+                        <h3 class="step-title">${insc.insc_TituloPaso}</h3>
+                        <p class="p-p">
+                            ${insc.insc_Descripcion}
+                        </p>
+                    </div>
+                </div>
+
+                 `;
+
+        }
+    });
+
+    $('#sliderInscrHome').append(slider);
+
+}
+function renderSliderBannerHome(banners) {
+    let slider = '';
+    console.log('sliderBannerHome', banners)
+    banners.slice(0, 3).forEach((bann, index) => {
+        if (bann.bann_Orden > 0) {
+            const isActive = index === 1 ? 'active' : '';
+            slider +=
+                `
+                  <div class="swiper-slide">
+                <picture class="hero_bg">
+                    <source srcset="../../shared/assets/home/hero/hero-tablet.jpg" media="(min-width: 768px)" />
+                    <source srcset="../../shared/assets/home/hero/hero-desktop.jpg" media="(min-width: 992px)" />
+                    <img src="${bann.bann_URLImagen}" class="img-fluid" alt="Hero" />
+                </picture>
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="content">
+                        <p class="text-white">
+                           ${bann.bann_Nombre}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+                 `;
+
+        }
+    });
+
+    $('#sliderBannerHome').append(slider);
+
 }
 function renderTituloCasoHome(caso) {
     const html = `

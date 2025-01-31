@@ -3,20 +3,21 @@ using PROMPERU.BackOffice.API.Filters;
 using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.BL.Dtos;
+using PROMPERU.DA;
 
 
 namespace PROMPERU.BackOffice.API.Controllers
 {
     [SessionCheck]
-    public class LogoController : Controller
+    public class LogroController : Controller
     {
-        private readonly ILogger<LogoController> _logger;    
-        private readonly LogoBL _logoBL;
+        private readonly ILogger<LogroController> _logger;    
+        private readonly LogroBL _logroBL;
 
-        public LogoController(ILogger<LogoController> logger, LogoBL logoBL)
+        public LogroController(ILogger<LogroController> logger, LogroBL logroBL)
         {
             _logger = logger;
-            _logoBL = logoBL;
+            _logroBL = logroBL;
         }
 
         public IActionResult Index()
@@ -25,18 +26,18 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarLogos()
+        public async Task<IActionResult> ListarLogros()
         {
             try
             {
-                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
-                if (Logos != null && Logos.Any())
+                var Logros = await _logroBL.ListarLogrosAsync(); // Cambio a versión asincrónica
+                if (Logros != null && Logros.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Logos obtenidos exitosamente.",
-                        Logos
+                        message = "Logros obtenidos exitosamente.",
+                        Logros
                     });
                 }
                 else
@@ -44,7 +45,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Logos disponibles."
+                        message = "No se encontraron Logros disponibles."
                     });
                 }
             }
@@ -53,32 +54,31 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Logros. Por favor, inténtelo nuevamente."
                   
                 });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertarLogo(LogoDto logoDto)
+        public async Task<IActionResult> InsertarLogro(LogroDto logroDto)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente
 
-                var Logo = new LogoBE
+                var Logro = new LogroBE
                 {
-                     Logo_ID = logoDto.id,
-                     Logo_NombreBoton = logoDto.nombreBoton,
-                     Logo_UrlIconBoton = logoDto.urlIconBoton,
-                     Logo_UrlPrincipal = logoDto.urlPrincipal,
-                     Logo_UrlSecundario = logoDto.urlSecundario
+                     Logr_ID = logroDto.id,
+                     Logr_Nombre = logroDto.nombre,
+                     Logr_Descripcion = logroDto.descripcion,
+                     Logr_UrlIcon = logroDto.urlIcon                    
                 
 
                 };
-                await _logoBL.InsertarLogoAsync(Logo, usuario, ip); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _logroBL.InsertarLogroAsync(Logro, usuario, ip); // Llamada asincrónica
+                return RedirectToAction("ListarLogros");
             }
             catch (Exception ex)
             {
@@ -88,22 +88,22 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarLogo(LogoDto logoDto, int id)
+        public async Task<IActionResult> ActualizarLogro(LogroDto logroDto, int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                var Logo = new LogoBE
+                var logro = new LogroBE
                 {
-                    Logo_ID = logoDto.id,
-                    Logo_NombreBoton = logoDto.nombreBoton,
-                    Logo_UrlIconBoton = logoDto.urlIconBoton,
-                    Logo_UrlPrincipal = logoDto.urlPrincipal,
-                    Logo_UrlSecundario = logoDto.urlSecundario
+                    Logr_ID = logroDto.id,
+                    Logr_Nombre = logroDto.nombre,
+                    Logr_Descripcion = logroDto.descripcion,
+                    Logr_UrlIcon = logroDto.urlIcon
+
                 };
-                await _logoBL.ActualizarLogoAsync(Logo, usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _logroBL.ActualizarLogroAsync(logro, usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarLogros");
             }
             catch (Exception ex)
             {
@@ -113,14 +113,14 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EliminarLogo(int id)
+        public async Task<IActionResult> EliminarLogro(int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _logoBL.EliminarLogoAsync(usuario, ip, id); // Llamada asincrónica
-                return RedirectToAction("ListarLogos");
+                await _logroBL.EliminarLogroAsync(usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarLogros");
             }
             catch (Exception ex)
             {
@@ -131,12 +131,12 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         //[HttpGet]
-        //public async Task<IActionResult> ObtenerLogo(int bannID)
+        //public async Task<IActionResult> ObtenerLogro(int bannID)
         //{
         //    try
         //    {
-        //        var Logo = await _LogoBL.ObtenerLogoAsync(bannID); // Llamada asincrónica
-        //        return View(Logo); // Asegúrate de tener una vista para mostrar un Logo
+        //        var Logro = await _LogroBL.ObtenerLogroAsync(bannID); // Llamada asincrónica
+        //        return View(Logro); // Asegúrate de tener una vista para mostrar un Logro
         //    }
         //    catch (Exception ex)
         //    {
@@ -147,26 +147,26 @@ namespace PROMPERU.BackOffice.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ActualizarOrdenLogo([FromBody] List<LogoDto> logoDtos)
+        public async Task<IActionResult> ActualizarOrdenLogro([FromBody] List<LogroDto> logroDtos)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
 
-                foreach (var logoDto in logoDtos)
+                foreach (var logroDto in logroDtos)
                 {
-                    var logo = new LogoBE
+                    var logro = new LogroBE
                     {
-                        Logo_ID = logoDto.id,
-                        Logo_NombreBoton = logoDto.nombreBoton,
-                        Logo_UrlIconBoton = logoDto.urlIconBoton,
-                        Logo_UrlPrincipal = logoDto.urlPrincipal,
-                        Logo_UrlSecundario = logoDto.urlSecundario
+                        Logr_ID = logroDto.id,
+                        Logr_Nombre = logroDto.nombre,
+                        Logr_Descripcion = logroDto.descripcion,
+                        Logr_UrlIcon = logroDto.urlIcon
+
                     };
-                    await _logoBL.ActualizarLogoAsync(logo, usuario, ip,logo.Logo_ID); // Llamada asincrónica
+                    await _logroBL.ActualizarLogroAsync(logro, usuario, ip,logro.Logr_ID); // Llamada asincrónica
                 }
-                return RedirectToAction("ListarLogos");
+                return RedirectToAction("ListarLogros");
             }
             catch (Exception ex)
             {

@@ -3,15 +3,16 @@ using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-    public class BeneficioController : Controller
-    {
-        private readonly ILogger<BeneficioController> _logger;    
-        private readonly BeneficioBL _beneficioBL;
 
-        public BeneficioController(ILogger<BeneficioController> logger, BeneficioBL beneficioBL)
+    public class InscripcionController : Controller
+    {
+        private readonly ILogger<InscripcionController> _logger;    
+        private readonly InscripcionBL _InscripcionBL;
+
+        public InscripcionController(ILogger<InscripcionController> logger, InscripcionBL inscripcionBL)
         {
             _logger = logger;
-            _beneficioBL = beneficioBL;
+            _InscripcionBL = inscripcionBL;
         }
 
         public IActionResult Index()
@@ -20,18 +21,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarBeneficios()
+        public async Task<IActionResult> ListarInscripcions()
         {
             try
             {
-                var Beneficios = await _beneficioBL.ListarBeneficiosAsync(); // Cambio a versión asincrónica
-                if (Beneficios != null && Beneficios.Any())
+                var inscripcions = await _InscripcionBL.ListarInscripcionsAsync(); // Cambio a versión asincrónica
+                if (inscripcions != null && inscripcions.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Beneficios obtenidos exitosamente.",
-                        Beneficios
+                        message = "Inscripcions obtenidos exitosamente.",
+                        inscripcions
                     });
                 }
                 else
@@ -39,7 +40,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Beneficios disponibles."
+                        message = "No se encontraron Inscripcions disponibles."
                     });
                 }
             }
@@ -48,10 +49,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Beneficios. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }    
+        }        
     }
 }

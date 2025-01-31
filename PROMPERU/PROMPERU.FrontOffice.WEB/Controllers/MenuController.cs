@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using PROMPERU.BE;
 using PROMPERU.BL;
+using PROMPERU.BL.Dtos;
+
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-    public class BeneficioController : Controller
+    public class MenuController : Controller
     {
-        private readonly ILogger<BeneficioController> _logger;    
-        private readonly BeneficioBL _beneficioBL;
+        private readonly ILogger<MenuController> _logger;    
+        private readonly MenuBL _menuBL;
 
-        public BeneficioController(ILogger<BeneficioController> logger, BeneficioBL beneficioBL)
+        public MenuController(ILogger<MenuController> logger, MenuBL menuBL)
         {
             _logger = logger;
-            _beneficioBL = beneficioBL;
+            _menuBL = menuBL;
         }
 
         public IActionResult Index()
@@ -20,18 +23,19 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarBeneficios()
+        public async Task<IActionResult> ListarMenus()
         {
             try
             {
-                var Beneficios = await _beneficioBL.ListarBeneficiosAsync(); // Cambio a versión asincrónica
-                if (Beneficios != null && Beneficios.Any())
+                var Menus = await _menuBL.ListarMenusAsync(); // Cambio a versión asincrónica              
+    
+                if (Menus != null && Menus.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Beneficios obtenidos exitosamente.",
-                        Beneficios
+                        message = "Menus obtenidos exitosamente.",
+                        Menus
                     });
                 }
                 else
@@ -39,7 +43,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Beneficios disponibles."
+                        message = "No se encontraron Menus disponibles."
                     });
                 }
             }
@@ -48,10 +52,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Beneficios. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los Menus. Por favor, inténtelo nuevamente."
                   
                 });
             }
-        }    
+        }
+                
     }
 }
