@@ -53,7 +53,10 @@ builder.Services.AddScoped<TestimonioDA>();
 builder.Services.AddScoped<TestimonioBL>();
 builder.Services.AddScoped<PerfilEmpresarialDA>();
 builder.Services.AddScoped<PerfilEmpresarialBL>();
-
+builder.Services.AddScoped<EmpresaDA>();
+builder.Services.AddScoped<EmpresaBL>();
+builder.Services.AddScoped<FormularioContactoDA>();
+builder.Services.AddScoped<FormularioContactoBL>();
 
 
 var app = builder.Build();

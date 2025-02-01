@@ -10,12 +10,12 @@ using System.Diagnostics;
 namespace PROMPERU.BackOffice.API.Controllers
 {
     [SessionCheck]
-    public class EmpresaController : Controller
+    public class CalendarioController : Controller
     {
-        private readonly ILogger<EmpresaController> _logger;    
+        private readonly ILogger<CalendarioController> _logger;    
         private readonly EmpresaBL _empresaBL;
 
-        public EmpresaController(ILogger<EmpresaController> logger, EmpresaBL empresaBL)
+        public CalendarioController(ILogger<CalendarioController> logger, EmpresaBL empresaBL)
         {
             _logger = logger;
             _empresaBL = empresaBL;
