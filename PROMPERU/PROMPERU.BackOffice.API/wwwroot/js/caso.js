@@ -113,8 +113,8 @@ function renderTitulo(caso) {
                     <div class="d-flex justify-content-between">
                         <label for="tituloVideo-${caso.cexi_ID}" class="form-label fw-semibold">Descripcion Sección</label>                        
                     </div>
-
-                    <input type="text" id="tituloVideo-${caso.cexi_ID}" class="form-control" placeholder="${caso.cexi_Descripcion}" disabled>
+                    <textarea  id="tituloVideo-${caso.cexi_ID}" class="form-control" placeholder="${caso.cexi_Descripcion}" disabled></textarea>
+     
 
 
                 </div>
@@ -324,7 +324,7 @@ function loadEditarCaso() {
       urlBoton: $("#editUrlBoton").val(),
       tituloVideo: $("#editTituloVideo").val(),
       urlIcon: $("#editUrlBoton").val(),
-      description: $("#editDescripcionSeccion").val()
+      description: $("#editDescripcionSeccion").val(),
     };
 
     console.log(data);
