@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PROMPERU.BL.Dtos
+{
+    public class EmpresaDto
+    {
+        public int id { get; set; }
+        public int orden { get; set; }
+        public string nombreEmpresa { get; set; }
+        public string descripcion { get; set; }
+        public string titulo { get; set; }
+        public string nombreBoton { get; set; }
+        public string urlBoton { get; set; }
+        public string correo { get; set; }
+        public string paginaWeb { get; set; }
+        public string urlLogo { get; set; }
+        public string mercados { get; set; }
+        public string rUC { get; set; }
+        public string razonSocial { get; set; }
+        public string certificaciones { get; set; }
+        public string tipoEmpresa { get; set; }
+        public string region { get; set; }
+        public string redesSociales { get; set; }
+        public string segmentosAtendidos { get; set; }
+        public string direccion { get; set; }
+
+    }   
+}

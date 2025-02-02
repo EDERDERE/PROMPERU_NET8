@@ -12,6 +12,7 @@ $(document).ready(function () {
     home.loadListarLogros();
     home.loadListarTestimonios();
     home.loadListarPerfilEmpresarials();
+    home.loadListarEmpresaGraduadas();
     home.loadListarFooters();
 
 });
@@ -196,6 +197,50 @@ const home = {
                     if (perfilEmpresarials.length > 0) {
                         renderTituloPEmpHome(perfilEmpresarials[0]);
                         renderSlidePEmpHome(perfilEmpresarials);
+                    } else {
+                        $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarEmpresaGraduadas: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/Empresa/ListarEmpresas', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log('Empresas', response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#tituloEGHome').empty();
+                $('#sliderEGHome').empty();
+                $('#botonEGHome').empty();
+                if (response.success) {
+                    const empresas = response.empresas;
+                    console.log('empresas', empresas)
+                    if (empresas.length > 0) {
+                        renderTituloEGHome(empresas[0]);
+                        renderBotonEGHome(empresas[0]);
+                        renderSliderEGHome(empresas);
                     } else {
                         $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
                     }
@@ -558,6 +603,41 @@ const home = {
             }
         });
     },
+}
+function renderTituloEGHome(egra) {
+    console.log(egra,'egra')
+    const html = `
+              <h2>${egra.egra_Titulo}</h2>
+                <div class="red-linear"></div>
+      `;
+    $('#tituloEGHome').append(html);
+}
+
+function renderBotonEGHome(egra) {
+    const html = `
+              <a href="">V${egra.egra_NombreBoton}</a>
+                <img src="${egra.egra_UrlBoton}"
+                     alt="" />
+      `;
+    $('#botonEGHome').append(html);
+}
+
+function renderSliderEGHome(empresas) {
+    console.log(empresas, 'asdasdasd')
+    // Genera los elementos del menú dinámicamente  
+    let html = "";
+    empresas.slice(1, 5).forEach(egra => {
+        console.log(egra, 'egra')
+        html += `
+              <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
+                <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
+                <h4>${egra.egra_NombreEmpresa}</h4>
+                <a href="#">${egra.egra_Correo}</a>
+                <span>${egra.egra_Descripcion}</span>
+            </div>
+        `;
+    });
+    $('#sliderEGHome').append(html);
 }
 function renderTituloPEmpHome(pemp) {
     const html = `
