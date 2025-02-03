@@ -12,6 +12,7 @@ $(document).ready(function () {
     home.loadListarLogros();
     home.loadListarTestimonios();
     home.loadListarPerfilEmpresarials();
+    home.loadListarFormularioContactos();
     home.loadListarEmpresaGraduadas();
     home.loadListarFooters();
 
@@ -199,6 +200,46 @@ const home = {
                         renderSlidePEmpHome(perfilEmpresarials);
                     } else {
                         $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cursos disponibles',
+                        text: response.message || 'No se encontraron cursos.',
+                    });
+                }
+
+
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar los sliders',
+                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                });
+            }
+        });
+
+    },
+    loadListarFormularioContactos: function () {
+        $.ajax({
+            type: 'GET', // Método GET para obtener los sliders
+            url: '/FormularioContacto/ListarFormularioContactos', // URL del controlador que devuelve la lista de sliders
+            dataType: 'json',
+            success: function (response) {
+
+                console.log('FormularioContactos', response)
+                // Limpia el contenedor de sliders antes de renderizar        
+                $('#contactoHome').empty();            
+                if (response.success) {
+                    const formularioContactos = response.formularioContactos;
+                    console.log('sliderPEmpHome', formularioContactos)
+                    if (formularioContactos.length > 0) {
+                        renderContactoHome(formularioContactos[0]);                       
+                    } else {
+                        $('#contactoHome').html('<p>No se información Contacto disponibles.</p>');
                     }
 
                 } else {
@@ -604,6 +645,83 @@ const home = {
         });
     },
 }
+
+function renderContactoHome(fcont) {
+    console.log(fcont, 'fcont')
+    const html = `
+               <div class="row mb-5">
+            <div class="col-12">
+                <h2>${fcont.fcont_Titulo}</h2>
+                <div class="red-linear"></div>
+            </div>
+        </div>
+        <div class="row contacto">
+            <div class="col-12 col-md-7 description">
+                <div class="title">
+                    <h3>Escríbenos un mensaje</h3>
+                    <p>¿Tienes dudas sobre el Programa Comercial de PROMPERÚ? Escríbenos mediante el formulario, contáctanos por correo o llámanos. También puedes visitarnos durante nuestros horarios de atencion ¡Estamos aquí para ayudarte con cualquier consulta!</p>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                        </svg>
+                        <span>Calle Uno Oeste 50, edificio Mincetur, pisos 13 y 14, San Isidro - Lima (Mesa de Partes (piso 1) </span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 data">
+                <h3>Escríbenos tu consulta</h3>
+                <p class="d-flex align-items-center gap-2">
+                    <strong class="d-flex align-items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                        <span> Correo: </span>
+                    </strong>
+                    <span>
+                        programacomercialruta@promperu.gob.pe
+                    </span>
+                </p>
+                <p class="d-flex align-items-center gap-2">
+                    <strong class="d-flex align-items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg>
+                        <span> Teléfono: </span>
+                    </strong>
+                    <span>
+                        +51 987 654 321
+                    </span>
+                </p>
+                <p class="d-flex align-items-center gap-2">
+                    <strong class="d-flex align-items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                        <span>  Horario: </span>
+                    </strong>
+                    <span>
+                        Lunes a Viernes, 9:00 AM - 6:00 PM
+                    </span>
+                </p>
+
+                <div class="btn-test">
+                    <div class="button-test">
+                        <a href="">Contáctanos</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+    $('#contactoHome').append(html);
+}
+
 function renderTituloEGHome(egra) {
     console.log(egra,'egra')
     const html = `
