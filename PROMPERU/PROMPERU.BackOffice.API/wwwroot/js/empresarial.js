@@ -1,7 +1,7 @@
 $(document).ready(function () {
   loadListarEmpresarial();
   loadCrearPerfilEmpresarial();
-  loadEditarPerfilEmpresarial();
+  loadEditarTestimonio();
   loadEliminarPerfilEmpresarial();
 });
 
@@ -163,7 +163,7 @@ function loadCrearPerfilEmpresarial() {
     }
   });
 }
-function loadEditarPerfilEmpresarial() {
+function loadEditarTestimonio() {
   $("#editTitle").on("show.bs.modal", function (event) {
     // Obtener los datos del botón que activó el modal
     var button = $(event.relatedTarget); // El botón que activó el modal
@@ -185,7 +185,7 @@ function loadEditarPerfilEmpresarial() {
         url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial",
         data: {
           id: id,
-          titulo: titulo,
+          nombre: titulo,
         },
         success: function (response) {
           console.log("actualzia requisito", response);
