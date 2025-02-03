@@ -1,5 +1,159 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<link href="~/css/banner.css" rel="stylesheet" />
+<script src="~/js/empresarial.js"></script>
+<!-- copiar esto -->
+<!-- copiar esto -->
+<div class="content overflow-x-scroll">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb px-3 col-12 d-flex align-items-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mx-1" fill="currentColor"
+                    class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+                </svg>
+                <a href="#!">
+                    <span class="first-bread"> Mi Home</span>
+                </a>
+                <div class="px-2">
+                    >
+                </div>
+                <div>
+                    <a href="#!">
+                        <span class="second-bread">Perfil Empresarial</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 mb-4  d-flex align-items-center justify-content-between ">
+                <div class="d-flex align-items-center gap-3">
+                    <h2 class="title d-none d-md-block">Edición del Perfil empresarial</h2>
+                    <h2 class="title d-block d-md-none"> Perfil Empresarial</h2>
+
+                </div>
+                <div>
+
+                    <button class="button-create d-flex align-items-center gap-2 fs-6" data-bs-toggle="modal"
+                        data-bs-target="#createSliderModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                        Nuevo Perfil
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row cards-container mb-3" id="sliderContainer">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- copiar esto -->
+<!-- Modal para Crear Slider -->
+<!-- Modal para Crear Slider -->
+<div class="modal fade" id="createSliderModal" tabindex="-1" aria-labelledby="createSliderModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createSliderModalLabel">Crear Slider</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createSliderForm">
+                    <div class="mb-3">
+                        <label for="createNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="createNombre" rows="3" placeholder="Descripción"
+                            required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="createDescription" rows="3" placeholder="Descripción"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createImageUrl" class="form-label">URL de la Imagen</label>
+                        <input type="text" class="form-control" id="createImageUrl" placeholder="URL de la Imagen"
+                            required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-modal
+            btn-close-modal" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-save" id="saveCreateSlider">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Slider -->
+<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSliderModalLabel">Editar Slider</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editSliderForm">
+                    <div class="mb-3" hidden>
+                        <label for="editId" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="editId" placeholder="Id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editNombre" rows="3" placeholder="Descripción"
+                            required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editImageUrl" class="form-label">URL de la Imagen</label>
+                        <input type="text" class="form-control" id="editImageUrl" placeholder="URL de la Imagen"
+                            required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-modal
+            btn-close-modal" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación para Eliminar -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este slider? Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="confirmDeleteButton" class="btn btn-save">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../shared/libraries/sortable/Sortable.min.js"></script>
+<script src="../../shared/js/moveCard.js"></script>
