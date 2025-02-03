@@ -1,7 +1,7 @@
 $(document).ready(function () {
   loadListarTestimonio();
   loadCrearPerfilEmpresarial();
-  loadEditarPerfilEmpresarial();
+  loadEditarTestimonio();
   loadEliminarPerfilEmpresarial();
 });
 
@@ -9,52 +9,83 @@ function loadListarTestimonio() {
   $.ajax({
     type: "GET", // Método GET para obtener los sliders
     url: "/Testimonio/ListarTestimonios", // URL del controlador que devuelve la lista de sliders
+    // URL del controlador que devuelve la lista de sliders
     dataType: "json",
     success: function (response) {
       console.log(response);
       // Limpia el contenedor de sliders antes de renderizar
-      $("#sliderContainer").empty();
+      $("#tituloContainer").empty();
       if (response.success) {
-        // Itera sobre la respuesta y crea las tarjetas dinámicamente
-        response.testimonios.forEach((testimonio) => {
-          console.log("lista PerfilEmpresarial", testimonio);
-          var sliderCard = `
-          <div class="card col-12 col-md-12 shadow-lg border-0 p-4 mb-3" data-id="${testimonio.test_ID}">
-            <div class="d-flex justify-content-between align-items-start mb-3">
-              <h5 class="card-number mb-0"></h5>
-              <div class="d-flex gap-2">
-                <button class="btn btn-link text-danger p-0" 
-                  id="btn-delete-${testimonio.test_ID}"
-                      data-id=${testimonio.test_ID} >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                  </svg>
-                </button>
-                <button class="btn btn-link text-primary p-0" data-bs-toggle="modal" data-bs-target="#editSliderModal"
-                data-id="${testimonio.test_ID}"
-                data-nombre="${testimonio.test_Nombre}"
-                data-icon="${testimonio.test_UrlIcon}"
-                data-image-url="${testimonio.test_UrlImagen}">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                  </svg>
-                </button>
+        var requisito = response.testimonios[0];
+        var tituloCard = `
+                 <div class="col-md-6">
+                    <div class="d-flex justify-content-between">
+                        <label for="titulo-${requisito.test_ID}" class="form-label fw-semibold">Titulo</label>
+                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
+                        data-id="${requisito.test_ID}"
+                        data-titulo="${requisito.test_Nombre}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <input type="text" id="titulo-${requisito.test_ID}" class="form-control" placeholder="${requisito.test_Nombre}" disabled>
+                </div>
+                 
 
+            
+                    `;
+        // Agregar el slider al contenedor
+        $("#tituloContainer").append(tituloCard);
+
+        response.testimonios.forEach((testimonio) => {
+          console.log("lista Requisito", testimonio);
+          if (testimonio.pemp_ID >= 2) {
+            var sliderCard = `
+              <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-number mb-0"></h5>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-link text-danger p-0"
+                        data-id="${testimonio.pemp_ID}"  
+                        id="btn-delete-${testimonio.pemp_ID}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
+                                data-bs-target="#editSliderModal"
+                                data-id="${testimonio.pemp_ID}"
+                            data-description="${testimonio.pemp_Descripcion}"
+                              data-urlImagen="${testimonio.pemp_UrlImagen}"
+                              >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                            </svg>
+                        </button>
+
+                       
+                    </div>
+                </div>
+
+               
+                <div class="mb-3">
+                    <label for="description-${testimonio.pemp_ID}" class="form-label fw-semibold">Descripción</label>
+                    <textarea id="description-${testimonio.pemp_ID}" class="form-control" rows="3" placeholder="${testimonio.pemp_Descripcion}"
+                              disabled></textarea>
+                </div>
+
+              <div class="mb-3">
+                <label for="icon-url-${testimonio.pemp_ID}" class="form-label fw-semibold">URL de imagen</label>
+                <input type="text"  id="icon-url-${testimonio.pemp_ID}" class="form-control" value="${testimonio.pemp_UrlImagen}" disabled>
               </div>
-            </div>
-             <div class="mb-3">
-              <label for="description-${testimonio.test_ID}" class="form-label fw-semibold">Nombre</label>
-              <input id="description-${testimonio.test_ID}" class="form-control" rows="3" placeholder="${testimonio.test_Nombre}" disabled/>
-            </div>
-            <div class="mb-3">
-              <label for="description-${testimonio.test_ID}" class="form-label fw-semibold">Descripción</label>
-              <textarea id="description-${testimonio.test_ID}" class="form-control" rows="3" placeholder="${testimonio.test_UrlIcon}" disabled></textarea>
-            </div>
-            <div>
-              <label for="image-url-${testimonio.test_ID}" class="form-label fw-semibold">URL de la imagen</label>
-              <input type="text" id="image-url-${testimonio.test_ID}" class="form-control" value="${testimonio.test_UrlImagen}" disabled>
-            </div>
-          </div>`;
+            </div>`;
+          }
           // Agregar el slider al contenedor
           $("#sliderContainer").append(sliderCard);
         });
@@ -130,50 +161,38 @@ function loadCrearPerfilEmpresarial() {
     }
   });
 }
-function loadEditarPerfilEmpresarial() {
-  $("#editSliderModal").on("show.bs.modal", function (event) {
+function loadEditarTestimonio() {
+  $("#editTitle").on("show.bs.modal", function (event) {
     // Obtener los datos del botón que activó el modal
     var button = $(event.relatedTarget); // El botón que activó el modal
     var id = button.data("id"); // Obtener el ID
-    var order = button.data("orden");
-    var description = button.data("description"); // Obtener la descripción
-    var imageUrl = button.data("image-url"); // Obtener la URL de la imagen
-    var nombrePerfil = button.data("nombre");
+    var titulo = button.data("titulo");
 
     // Asignar los valores al modal
     var modal = $(this);
-    modal.find("#editId").val(id);
-    modal.find("#editOrder").val(order);
-    modal.find("#editDescription").val(description); // Llenar el textarea con la descripción
-    modal.find("#editImageUrl").val(imageUrl); // Llenar el campo de la URL de la imagen
-    modal.find("#editNombre").val(nombrePerfil); // Llenar el campo de la URL de la imagen
+    modal.find("#editIdTitulo").val(id);
+    modal.find("#editTitulo").val(titulo);
   });
-  $("#saveEditSlider").click(function () {
-    console.log("editar modal");
-    var description = $("#editDescription").val();
-    var imageUrl = $("#editImageUrl").val();
-    var orden = $("#editOrder").val();
-    var id = $("#editId").val();
-    var nombrePerfil = $("#editNombre").val();
+  $("#saveEditTitulo").click(function () {
+    var id = $("#editIdTitulo").val();
+    var titulo = $("#editTitulo").val();
 
-    if (description && imageUrl) {
+    if (id && titulo) {
       $.ajax({
         type: "POST",
-        url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial", // URL del controlador para editar el slider
+        url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial",
         data: {
-          nombre: nombrePerfil,
           id: id,
-          description: description,
-          imageUrl: imageUrl,
+          titulo: titulo,
         },
         success: function (response) {
-          console.log("actualzia banner", response);
+          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
               icon: "success",
               title: "¡Actualizado!",
-              text: "El slider se ha actualizado exitosamente.",
+              text: "El requisito se ha actualizado exitosamente.",
               confirmButtonText: "Aceptar",
             }).then(() => {
               location.reload(); // Recargar la página o actualizar el contenido
@@ -191,7 +210,77 @@ function loadEditarPerfilEmpresarial() {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Hubo un error al intentar actualizar el slider.",
+            text: "Hubo un error al intentar actualizar el requisito.",
+            confirmButtonText: "Aceptar",
+          });
+        },
+      });
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, complete todos los campos antes de continuar.",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  });
+
+  $("#editSliderModal").on("show.bs.modal", function (event) {
+    // Obtener los datos del botón que activó el modal
+    var button = $(event.relatedTarget); // El botón que activó el modal
+    var id = button.data("id"); // Obtener el ID
+    var description = button.data("description"); // Obtener la descripción
+    var urlImagen = button.data("urlimagen");
+
+    console.log(description, "nombre");
+
+    // Asignar los valores al modal
+    var modal = $(this);
+    modal.find("#editId").val(id);
+
+    modal.find("#editDescription").val(description);
+    modal.find("#editImageUrl").val(urlImagen);
+  });
+  $("#saveEditSlider").click(function () {
+    var description = $("#editDescription").val();
+    var id = $("#editId").val();
+    var urlImagen = $("#editImageUrl").val();
+
+    if (description && urlImagen) {
+      $.ajax({
+        type: "POST",
+        url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial",
+        data: {
+          id: id,
+          descripcion: description,
+          urlImagen: urlImagen,
+        },
+        success: function (response) {
+          console.log("actualzia requisito", response);
+          // Manejo de la respuesta
+          if (response.success) {
+            Swal.fire({
+              icon: "success",
+              title: "¡Actualizado!",
+              text: "El requisito se ha actualizado exitosamente.",
+              confirmButtonText: "Aceptar",
+            }).then(() => {
+              location.reload(); // Recargar la página o actualizar el contenido
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se pudo actualizar el slider. Inténtelo nuevamente.",
+              confirmButtonText: "Aceptar",
+            });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al intentar actualizar el requisito.",
             confirmButtonText: "Aceptar",
           });
         },
