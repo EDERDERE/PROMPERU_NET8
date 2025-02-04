@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PROMPERU.BE\PROMPERU.BE.csproj" />
     <ProjectReference Include="..\PROMPERU.BL\PROMPERU.BL.csproj" />
     <ProjectReference Include="..\PROMPERU.DB\PROMPERU.DB.csproj" />

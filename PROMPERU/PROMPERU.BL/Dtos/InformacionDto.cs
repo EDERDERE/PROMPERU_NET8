@@ -14,5 +14,6 @@ namespace PROMPERU.BL.Dtos
         public string description { get; set; }
         public string urlPortada { get; set; }
         public string urlVideo { get; set; }
+        public string descriptionBanner { get; set; }
     }   
 }

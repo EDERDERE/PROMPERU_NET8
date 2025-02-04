@@ -8,5 +8,6 @@
         public string Info_Descripcion { get; set; }
         public string Info_URLPortada { get; set; }
         public string Info_URLVideo { get; set; }
+        public string Info_DescripcionBanner { get; set; }
     }
 }

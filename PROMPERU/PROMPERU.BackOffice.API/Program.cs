@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PROMPERU.BL;
 using PROMPERU.DA;
 using PROMPERU.DB;
@@ -17,6 +18,16 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true; // Requerido para funcionalidad de sesión
 });
 
+// Agregar autenticación con cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Login"; // Redirige a Login si no está autenticado
+        options.LogoutPath = "/Login/CerrarSesion"; // Ruta para cerrar sesión
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Expira en 30 minutos
+    });
+
+builder.Services.AddAuthorization();
 
 //Configurar DatabaseContext
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -57,6 +68,10 @@ builder.Services.AddScoped<EmpresaDA>();
 builder.Services.AddScoped<EmpresaBL>();
 builder.Services.AddScoped<FormularioContactoDA>();
 builder.Services.AddScoped<FormularioContactoBL>();
+builder.Services.AddScoped<RegionDA>();
+builder.Services.AddScoped<RegionBL>();
+builder.Services.AddScoped<TipoEmpresaDA>();
+builder.Services.AddScoped<TipoEmpresaBL>();
 
 
 var app = builder.Build();
@@ -74,6 +89,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Activar sesiones

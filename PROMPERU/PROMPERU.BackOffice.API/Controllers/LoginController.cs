@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BackOffice.API.Filters;
 using PROMPERU.BackOffice.API.Models;
@@ -46,6 +48,14 @@ namespace PROMPERU.BackOffice.API.Controllers
                 // En caso de error, retorna un mensaje
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Especificamos el esquema
+            HttpContext.Session.Clear();
+            return Json(new { success = true });
         }
     }
 }

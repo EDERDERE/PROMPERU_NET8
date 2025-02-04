@@ -45,7 +45,10 @@ builder.Services.AddScoped<EmpresaDA>();
 builder.Services.AddScoped<EmpresaBL>();
 builder.Services.AddScoped<FormularioContactoDA>();
 builder.Services.AddScoped<FormularioContactoBL>();
-
+builder.Services.AddScoped<RegionDA>();
+builder.Services.AddScoped<RegionBL>();
+builder.Services.AddScoped<TipoEmpresaDA>();
+builder.Services.AddScoped<TipoEmpresaBL>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

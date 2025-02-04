@@ -11,8 +11,4 @@
     <ProjectReference Include="..\PROMPERU.DB\PROMPERU.DB.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Inscripcion\" />
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,48 @@
 ﻿$(document).ready(function () {
   loadMenu();
-  setActiveMenuItem();
+    setActiveMenuItem();
+    loadCerrarSesion();
 });
+function loadCerrarSesion() {
+    $("#btnLogout").click(function () {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Se cerrará tu sesión actual.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sí, cerrar sesión",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Login/CerrarSesion", // Ruta del controlador
+                    type: "POST",
+                    success: function () {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Sesión cerrada",
+                            text: "Tu sesión se ha cerrado correctamente.",
+                            confirmButtonText: "OK"
+                        }).then(() => {
+                            window.location.href = "/Login/Index"; // Redirige al login
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Hubo un problema al cerrar la sesión.",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
 
 function loadMenu() {
   const menu = document.querySelectorAll(".menu");

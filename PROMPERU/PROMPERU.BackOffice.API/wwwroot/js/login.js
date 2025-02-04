@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    loadValidarUsuario();   
+    loadValidarUsuario();  
+    loadForgotPasswordLink();
 });
 
 function loadValidarUsuario() {
@@ -12,11 +13,31 @@ function loadValidarUsuario() {
         var password = $('#password').val();
 
         // Validar los campos antes de enviar
-        if (usuario === "" || password === "") {
+        if (usuario === "" && password === "") {
             Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
                 text: 'Por favor, ingrese ambos campos.',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        if (usuario === "" && password !== "") {
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Atención!',
+                text: 'Por favor, ingrese el usuario.',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        if (usuario !== "" && password === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Atención!',
+                text: 'Por favor, ingrese el password.',
                 confirmButtonText: 'OK'
             });
             return;
@@ -57,6 +78,17 @@ function loadValidarUsuario() {
                     text: 'Ocurrió un error al procesar la solicitud. Inténtalo de nuevo más tarde.'
                 });
             }
+        });
+    });
+}
+function loadForgotPasswordLink(){
+    $("#forgotPasswordLink").click(function (event) {
+        event.preventDefault(); // Evita la navegación por defecto  
+        Swal.fire({
+            icon: 'warning',
+            title: '¡Atención!',
+            text: 'Por favor, comunícate con el administrador para restablecer tu contraseña.',
+            confirmButtonText: 'OK'
         });
     });
 }

@@ -651,26 +651,26 @@ function renderContactoHome(fcont) {
     const html = `
                <div class="row mb-5">
             <div class="col-12">
-                <h2>${fcont.fcont_Titulo}</h2>
+                <h2>${fcont.fcon_Titulo}</h2>
                 <div class="red-linear"></div>
             </div>
         </div>
         <div class="row contacto">
             <div class="col-12 col-md-7 description">
                 <div class="title">
-                    <h3>Escríbenos un mensaje</h3>
-                    <p>¿Tienes dudas sobre el Programa Comercial de PROMPERÚ? Escríbenos mediante el formulario, contáctanos por correo o llámanos. También puedes visitarnos durante nuestros horarios de atencion ¡Estamos aquí para ayudarte con cualquier consulta!</p>
+                    <h3>${fcont.fcon_SubTitulo}</h3>
+                    <p>${fcont.fcon_DescripcionSubTitulo}</p>
                     <p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                         </svg>
-                        <span>Calle Uno Oeste 50, edificio Mincetur, pisos 13 y 14, San Isidro - Lima (Mesa de Partes (piso 1) </span>
+                        <span>${fcont.fcon_Direccion}</span>
                     </p>
                 </div>
             </div>
             <div class="col-12 col-md-5 data">
-                <h3>Escríbenos tu consulta</h3>
+                <h3>${fcont.fcon_SubTituloDos}</h3>
                 <p class="d-flex align-items-center gap-2">
                     <strong class="d-flex align-items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
@@ -679,7 +679,7 @@ function renderContactoHome(fcont) {
                         <span> Correo: </span>
                     </strong>
                     <span>
-                        programacomercialruta@promperu.gob.pe
+                       ${fcont.fcon_Correo}
                     </span>
                 </p>
                 <p class="d-flex align-items-center gap-2">
@@ -687,10 +687,10 @@ function renderContactoHome(fcont) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
                             <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
                         </svg>
-                        <span> Teléfono: </span>
+                        <span> Celular: </span>
                     </strong>
                     <span>
-                        +51 987 654 321
+                        ${fcont.fcon_Telefono}
                     </span>
                 </p>
                 <p class="d-flex align-items-center gap-2">
@@ -703,13 +703,13 @@ function renderContactoHome(fcont) {
                         <span>  Horario: </span>
                     </strong>
                     <span>
-                        Lunes a Viernes, 9:00 AM - 6:00 PM
+                         ${fcont.fcon_Horario}
                     </span>
                 </p>
 
                 <div class="btn-test">
                     <div class="button-test">
-                        <a href="">Contáctanos</a>
+                        <a href="">${fcont.fcon_NombreBoton}</a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-chat-left-text" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                             <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
@@ -986,7 +986,7 @@ function renderSliderInscrHome(inscripcions) {
 function renderSliderBannerHome(banners) {
     let slider = '';
     console.log('sliderBannerHome', banners)
-    banners.slice(0, 3).forEach((bann, index) => {
+    banners.forEach((bann, index) => {
         if (bann.bann_Orden > 0) {
             const isActive = index === 1 ? 'active' : '';
             slider +=

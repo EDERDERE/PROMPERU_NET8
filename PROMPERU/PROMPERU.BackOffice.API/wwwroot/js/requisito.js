@@ -64,7 +64,7 @@ function loadListarRequisitos() {
                     <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_TituloSeccion}" disabled>
                 </div>
 
-                 <div class="col-md-6 ">
+                 <div class="col-md-6 " style="display:none">
                     <div class="d-flex justify-content-between">
                         <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">URl del icono</label>
                     
@@ -447,6 +447,7 @@ function loadGuardarOrden() {
         var Nombres = [];
         var Descriptions = [];
         var UrlIcons = [];
+        var UrlImagens = [];
         var NewOrders = [];
 
         // Iterar sobre cada card y capturar su data-id
@@ -466,8 +467,11 @@ function loadGuardarOrden() {
           var Description = $(this).data("description");
           Descriptions.push(Description);
 
-          var UrlIcon = $(this).data("urlicon");
-          UrlIcons.push(UrlIcon);
+            var UrlIcon = $(this).data("urlicon");
+            UrlIcons.push(UrlIcon);
+
+            var UrlImagen = $(this).data("urlimagen");
+            UrlImagens.push(UrlImagen);
         });
 
         $(".card").each(function () {
@@ -476,7 +480,7 @@ function loadGuardarOrden() {
         });
 
         // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
-        console.log(Ids, NewOrders, UrlIcons);
+          console.log(Ids, NewOrders, UrlIcons, UrlImagens);
         // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
 
         var result = [];
@@ -488,8 +492,8 @@ function loadGuardarOrden() {
             titulo: null,
             nombre: Nombres[index].toString(),
             description: Descriptions[index].toString(), // Coincide con BannerDto.Description
-            UrlIcon: UrlIcons[index].toString(), // Coincide con BannerDto.ImageUrl
-            UrlImagen: null,
+            urlIcon: UrlIcons[index].toString(), // Coincide con BannerDto.ImageUrl
+            urlImagen: UrlImagens[index].toString(), 
           });
         });
 

@@ -32,6 +32,7 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Info_Descripcion", informacion.Info_Descripcion);
                 comando.Parameters.AddWithValue("@Info_URLPortada", informacion.Info_URLPortada);
                 comando.Parameters.AddWithValue("@Info_URLVideo", informacion.Info_URLVideo);
+                comando.Parameters.AddWithValue("@Info_DescripcionBanner", informacion.Info_DescripcionBanner);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -80,7 +81,8 @@ namespace PROMPERU.DA
                         Info_TituloSeccion = reader["Info_TituloSeccion"].ToString(),
                         Info_Descripcion = reader["Info_Descripcion"].ToString(),
                         Info_URLPortada = reader["Info_URLPortada"].ToString(),
-                        Info_URLVideo = reader["Info_URLVideo"].ToString()
+                        Info_URLVideo = reader["Info_URLVideo"].ToString(),
+                        Info_DescripcionBanner= reader["Info_DescripcionBanner"].ToString()
                     };
                 }
 
@@ -155,6 +157,8 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Info_Descripcion", informacion.Info_Descripcion);
                     comando.Parameters.AddWithValue("@Info_URLPortada", informacion.Info_URLPortada);
                     comando.Parameters.AddWithValue("@Info_URLVideo", informacion.Info_URLVideo);
+                    comando.Parameters.AddWithValue("@Info_DescripcionBanner", informacion.Info_DescripcionBanner);
+
 
 
                     // Ejecución del comando
@@ -214,7 +218,8 @@ namespace PROMPERU.DA
                         Info_TituloSeccion = reader["Info_TituloSeccion"].ToString(),
                         Info_Descripcion = reader["Info_Descripcion"].ToString(),
                         Info_URLPortada = reader["Info_URLPortada"].ToString(),
-                        Info_URLVideo = reader["Info_URLVideo"].ToString()
+                        Info_URLVideo = reader["Info_URLVideo"].ToString(),
+                        Info_DescripcionBanner = reader["Info_DescripcionBanner"].ToString()
                     });
                 }
 

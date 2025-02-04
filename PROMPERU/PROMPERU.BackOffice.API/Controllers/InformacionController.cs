@@ -76,7 +76,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Info_TituloSeccion = informacionDto.tituloSeccion,
                     Info_Descripcion = informacionDto.description,
                     Info_URLPortada = informacionDto.urlPortada,
-                    Info_URLVideo = informacionDto.urlVideo
+                    Info_URLVideo = informacionDto.urlVideo,
+                    Info_DescripcionBanner = informacionDto.descriptionBanner
                 };                
 
                 await _informacionBL.InsertarInformacionAsync(informacion, usuario, ip); // Llamada asincrónica
@@ -103,7 +104,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Info_TituloSeccion = informacionDto.tituloSeccion,
                     Info_Descripcion = informacionDto.description,
                     Info_URLPortada = informacionDto.urlPortada,
-                    Info_URLVideo = informacionDto.urlVideo
+                    Info_URLVideo = informacionDto.urlVideo,
+                    Info_DescripcionBanner = informacionDto.descriptionBanner
                 };
                 await _informacionBL.ActualizarInformacionAsync(informacion, usuario, ip, id); // Llamada asincrónica
                 return RedirectToAction("ListarInformacions");

@@ -1,7 +1,8 @@
-﻿
+﻿<link href="~/css/empresa.css" rel="stylesheet" />
+<script src="~/js/empresa.js"></script>
 <main>
     <div class="hero">
-        <div class="container">
+        <div class="container" id="bannerEmpresa">
             <div class="title">Empresas graduadas</div>
             <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn</p>
         </div>
@@ -13,7 +14,7 @@
                 <div class="row">
                     <div class="col-6">
                         <h3>Ubicación</h3>
-                        <select name="ubicacion" id="" class="form-select">
+                        <select name="ubicacion" id="inputRegion" class="form-select">
                             <option selected>Seleccionar ubicación</option>
                             <option value="1">Perú</option>
                             <option value="2">Cuzco</option>
@@ -22,7 +23,7 @@
                     </div>
                     <div class="col-6">
                         <h3>Tipo de empresa</h3>
-                        <select name="ubicacion" id="" class="form-select">
+                        <select name="ubicacion" id="inputTipoEmpresa" class="form-select">
                             <option selected>Seleccionar tipo</option>
                             <option value="1">Perú</option>
                             <option value="2">Cuzco</option>
@@ -31,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cursos_grid graduated_companies">
+            <div class="cursos_grid graduated_companies" id="sliderEmpresa">
                 <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
                     <img src="../../shared/assets/home/empresas/empresa.png" alt="" class="img-fluid mb-4">
                     <h4>Destinos Perú - Cuzco</h4>

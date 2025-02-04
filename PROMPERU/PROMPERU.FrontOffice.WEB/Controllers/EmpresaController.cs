@@ -10,11 +10,15 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
     {
         private readonly ILogger<EmpresaController> _logger;    
         private readonly EmpresaBL _empresaBL;
+        private readonly RegionBL _regionBL;
+        private readonly TipoEmpresaBL _tipoEmpresaBL;
 
-        public EmpresaController(ILogger<EmpresaController> logger, EmpresaBL empresaBL)
+        public EmpresaController(ILogger<EmpresaController> logger, EmpresaBL empresaBL, RegionBL regionBL, TipoEmpresaBL tipoEmpresaBL)
         {
             _logger = logger;
             _empresaBL = empresaBL;
+            _regionBL = regionBL;
+            _tipoEmpresaBL = tipoEmpresaBL;
         }
 
         public IActionResult Index()
@@ -56,6 +60,73 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 });
             }
         }
-      
+
+        public async Task<IActionResult> ListarRegiones()
+        {
+            try
+            {
+                var regions = await _regionBL.ListarRegionsAsync(); // Cambio a versión asincrónica
+                if (regions != null && regions.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Regiones obtenidos exitosamente.",
+                        regions
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron Regiones disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los Regiones. Por favor, inténtelo nuevamente."
+
+                });
+            }
+        }
+        public async Task<IActionResult> ListarTipoEmpresas()
+        {
+            try
+            {
+                var tipoEmpresas = await _tipoEmpresaBL.ListarTipoEmpresasAsync(); // Cambio a versión asincrónica
+                if (tipoEmpresas != null && tipoEmpresas.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "TipoEmpresas obtenidos exitosamente.",
+                        tipoEmpresas
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron TipoEmpresas disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los TipoEmpresas. Por favor, inténtelo nuevamente."
+
+                });
+            }
+        }
+
     }
 }
