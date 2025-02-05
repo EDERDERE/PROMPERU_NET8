@@ -5,47 +5,42 @@
     cargarRegion();
 });
 
-function loadListarEmpresas() {
-        $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Empresa/ListarEmpresas', // URL del controlador que devuelve la lista de sliders
+async function loadListarEmpresas() {
+    try {
+        // Realiza la solicitud AJAX de forma asíncrona
+        const response = await $.ajax({
+            type: 'GET',
+            url: '/Empresa/ListarEmpresas',
             dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar
-                $('#bannerEmpresa').empty();             
-                $('#sliderEmpresa').empty();
-                if (response.success) {
-                    const empresas = response.empresas;
-                    console.log('Empresas Empresas', empresas)
-                    if (empresas.length > 0) {
-                        renderBannerEmpresa(empresas[0]);                        
-                       renderSliderEmpresa(empresas);
-                    } else {
-                        $('#sliderEmpresaHome').html('<p>No se encontraron Empresas disponibles.</p>');
-                    }
-                } else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
-                    });
-                }
-
-
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
-                });
-            }
         });
-    
+
+        // Limpia los contenedores antes de renderizar nuevos datos
+        clearEmpresaContainers();
+
+        if (response.success) {
+            const empresas = response.empresas;
+            console.log('Empresas:', empresas);
+
+            if (empresas.length > 0) {
+                renderBannerEmpresa(empresas[0]);
+                renderSliderEmpresa(empresas);
+            } else {
+                $('#sliderEmpresaHome').html('<p>No se encontraron Empresas disponibles.</p>');
+            }
+        } else {
+            showErrorMessage(response.message || 'No se encontraron empresas.');
+        }
+
+    } catch (error) {
+        showErrorMessage('Hubo un problema al cargar las empresas. Por favor, inténtelo nuevamente más tarde.');
+    }
 }
+// Función para limpiar los contenedores de empresas
+function clearEmpresaContainers() {
+    $('#bannerEmpresa').empty();
+    $('#sliderEmpresa').empty();
+}
+// Función para mostrar mensajes de error con Swal
 function renderSliderEmpresa(empresas) {
     let slidersHTML = '';
     console.log('empresas', empresas)
@@ -76,80 +71,3 @@ function renderBannerEmpresa(egra) {
    
 }
 
-function cargarRegion() {
-    $.ajax({
-        url: "/Empresa/ListarRegiones", // Ruta del controlador
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log('lista region', data)
-            var select = $("#inputRegion");
-            select.empty(); // Limpiar opciones previas
-            select.append('<option selected>seleccione a su región</option>');
-
-            $.each(data.regions, function (index, item) {
-                select.append($('<option>', {
-                    value: item.regi_ID,
-                    text: item.regi_Nombre
-                }));
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al cargar los tipos de empresa:", error);
-        }
-    });
-}
-function cargarTiposEmpresa() {
-    $.ajax({
-        url: "/Empresa/ListarTipoEmpresas", // Ruta del controlador
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log('lista tipo empresa', data)
-            var select = $("#inputTipoEmpresa");
-            select.empty(); // Limpiar opciones previas
-            select.append('<option selected>Seleccione su tipo</option>');
-
-            $.each(data.tipoEmpresas, function (index, item) {
-                select.append($('<option>', {
-                    value: item.temp_ID,
-                    text: item.temp_Nombre
-                }));
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al cargar los tipos de empresa:", error);
-        }
-    });
-}
-
-
-
-
-
-
-
-
-
-// Función para formatear la fecha
-function formatearFecha(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
-}
-function formatearFechaInversa(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
-}
-
-function cambiarImagenDinamica(imagenUrl) {
-    // Usamos jQuery para modificar el background-image
-    $(".hero").css("background-image", "url(" + imagenUrl + ")");
-}

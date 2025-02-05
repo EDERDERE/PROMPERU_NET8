@@ -2,52 +2,52 @@
     console.log('curso web')
     loadListarRequisitos();  
 });
-
-function loadListarRequisitos() {
-        $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Requisito/ListarRequisitos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar
-                $('#banner').empty();
-                $('#tituloRequisito').empty();
-                $('#sliderRequisito').empty();
-                if (response.success) {
-                    const requisitos = response.requisitos;
-                    console.log('requisitos', requisitos)
-                    if (requisitos.length > 0) {
-                        renderBanner(requisitos[0]);
-                        rederTituloRequisito(requisitos[0]);
-                        renderSliderRequisito(requisitos);
-                    } else {
-                        $('#sliderRequisitoHome').html('<p>No se encontraron requisitos disponibles.</p>');
-                    }
-                } else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
-                    });
-                }
-
-
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
-                });
-            }
+async function loadListarRequisitos() {
+    try {
+        const response = await $.ajax({
+            type: "GET",
+            url: "/Requisito/ListarRequisitos",
+            dataType: "json",
         });
-    
-}
 
-function renderBanner(requ) {
+        console.log("Respuesta de requisitos:", response);
+
+        limpiarContenedoresRequisitos();
+
+        if (response.success && Array.isArray(response.requisitos)) {
+            const requisitos = response.requisitos;
+
+            if (requisitos.length > 0) {
+                renderBannerRequisito(requisitos[0]);
+                renderTituloRequisito(requisitos[0]); // Corregido el nombre de la función
+                renderSliderRequisito(requisitos);
+            } else {
+                $("#sliderRequisitoHome").html("<p>No se encontraron requisitos disponibles.</p>");
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "No hay requisitos disponibles",
+                text: response.message || "No se encontraron requisitos.",
+            });
+        }
+    } catch (error) {
+        console.error("Error al cargar los requisitos:", error);
+
+        Swal.fire({
+            icon: "error",
+            title: "Error al cargar los requisitos",
+            text: "Hubo un problema al cargar los requisitos. Por favor, inténtelo nuevamente más tarde.",
+        });
+    }
+}
+// Función auxiliar para limpiar los contenedores
+function limpiarContenedoresRequisitos() {
+    $("#banner").empty();
+    $("#tituloRequisito").empty();
+    $("#sliderRequisito").empty();
+}
+function renderBannerRequisito(requ) {
     const banner = `
        <div class="title">${requ.requ_Titulo    }</div>
             <p class="description">${requ.requ_Descripcion}</p>
@@ -56,8 +56,7 @@ function renderBanner(requ) {
     $('#banner').append(banner);
     cambiarImagenDinamica(requ.requ_URLImagen);
 }
-
-function rederTituloRequisito(requ) {
+function renderTituloRequisito(requ) {
 
     const tituloRequisito = `
      <h2>${requ.requ_TituloSeccion}</h2>
@@ -66,7 +65,6 @@ function rederTituloRequisito(requ) {
     $('#banner').append(banner);    
     $('#tituloRequisito').append(tituloRequisito);
 }
-
 function renderSliderRequisito(requisitos) {
     let slidersHTML = '';
     console.log('seccion', requisitos)
@@ -110,32 +108,3 @@ function renderSliderRequisito(requisitos) {
     $('#sliderRequisito').append(slidersHTML);
 }
 
-
-
-
-
-
-
-
-// Función para formatear la fecha
-function formatearFecha(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
-}
-function formatearFechaInversa(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
-}
-
-function cambiarImagenDinamica(imagenUrl) {
-    // Usamos jQuery para modificar el background-image
-    $(".hero").css("background-image", "url(" + imagenUrl + ")");
-}

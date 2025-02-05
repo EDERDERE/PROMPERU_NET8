@@ -4,97 +4,54 @@
     cargarTiposEmpresa();
     cargarRegion();
 });
-
-function cargarRegion() {
-    $.ajax({
-        url: "/Empresa/ListarRegiones", // Ruta del controlador
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log('lista region', data)
-            var select = $("#inputRegion");
-            select.empty(); // Limpiar opciones previas
-            select.append('<option selected>seleccione a su región</option>');
-
-            $.each(data.regions, function (index, item) {
-                select.append($('<option>', {
-                    value: item.regi_ID,
-                    text: item.regi_Nombre
-                }));
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al cargar los tipos de empresa:", error);
-        }
-    });
-}
-function cargarTiposEmpresa() {
-    $.ajax({
-        url: "/Empresa/ListarTipoEmpresas", // Ruta del controlador
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log('lista tipo empresa',data)
-            var select = $("#inputTipoEmpresa");
-            select.empty(); // Limpiar opciones previas
-            select.append('<option selected>Seleccione su tipo</option>');
-
-            $.each(data.tipoEmpresas, function (index, item) {
-                select.append($('<option>', {
-                    value: item.temp_ID,
-                    text: item.temp_Nombre
-                }));
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al cargar los tipos de empresa:", error);
-        }
-    });
-}
-function loadListarFormularioContactos() {
-        $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/FormularioContacto/ListarFormularioContactos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response,'forumulario contacto')
-                // Limpia el contenedor de sliders antes de renderizar
-                $('#bannerContacto').empty();             
-                $('#tituloSeccionContacto').empty();
-                $('#politicaContacto').empty();
-                $('#botonContacto').empty();
-                if (response.success) {
-                    const formularioContactos = response.formularioContactos;
-                    console.log('FormularioContacto FormularioContacto', formularioContactos)
-                    if (formularioContactos.length > 0) {
-                        renderBannerContacto(formularioContactos[0]);     
-                        renderTituloSeccionContacto(formularioContactos[0]);  
-                        renderPoliticaContacto(formularioContactos[0]);
-                        renderBotonContacto(formularioContactos[0]);
-                    } else {
-                        $('#bannerHome').html('<p>No se encontraron FormularioContacto disponibles.</p>');
-                    }
-                } else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
-                    });
-                }
-
-
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
-                });
-            }
+async function loadListarFormularioContactos() {
+    try {
+        const response = await $.ajax({
+            type: "GET",
+            url: "/FormularioContacto/ListarFormularioContactos",
+            dataType: "json",
         });
-    
+
+        console.log("Formulario de contacto:", response);
+
+        limpiarContenedores();
+
+        if (response.success && Array.isArray(response.formularioContactos)) {
+            const formularioContactos = response.formularioContactos;
+
+            if (formularioContactos.length > 0) {
+                const contacto = formularioContactos[0];
+
+                renderBannerContacto(contacto);
+                renderTituloSeccionContacto(contacto);
+                renderPoliticaContacto(contacto);
+                renderBotonContacto(contacto);
+            } else {
+                $("#bannerHome").html("<p>No se encontraron formularios de contacto disponibles.</p>");
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "No hay formularios disponibles",
+                text: response.message || "No se encontraron formularios.",
+            });
+        }
+    } catch (error) {
+        console.error("Error al cargar los formularios de contacto:", error);
+
+        Swal.fire({
+            icon: "error",
+            title: "Error al cargar los formularios",
+            text: "Hubo un problema al cargar los formularios de contacto. Inténtelo más tarde.",
+        });
+    }
+}
+// Función para limpiar los contenedores
+function limpiarContenedores() {
+    $("#bannerContacto").empty();
+    $("#tituloSeccionContacto").empty();
+    $("#politicaContacto").empty();
+    $("#botonContacto").empty();
 }
 function renderBannerContacto(fcon) {
     console.log('fcon secciono', fcon)
@@ -131,7 +88,6 @@ function renderPoliticaContacto(fcon) {
       `;
     $('#politicaContacto').append(html);
 }
-
 function renderBotonContacto(fcon) {
     console.log('fcon secciono', fcon)
     const html = `    

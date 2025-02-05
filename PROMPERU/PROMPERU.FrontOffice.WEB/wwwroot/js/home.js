@@ -1320,3 +1320,81 @@ function renderSeleccionarVideo() {
         $('.exito_video iframe').attr('src', videoURL);
     });
 }
+function cambiarImagenDinamica(imagenUrl) {
+    // Usamos jQuery para modificar el background-image
+    $(".hero").css("background-image", "url(" + imagenUrl + ")");
+}
+// Función para mostrar mensajes de error con Swal
+function showErrorMessage(message) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+    });
+}
+async function cargarRegion() {
+    try {
+        const response = await $.ajax({
+            url: "/Empresa/ListarRegiones",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de regiones:", response);
+
+        const select = $("#inputRegion");
+        select.empty().append('<option selected>Seleccione su regi&oacute;n</option>');
+
+        if (Array.isArray(response.regions) && response.regions.length > 0) {
+            response.regions.forEach(region => {
+                select.append(new Option(region.regi_Nombre, region.regi_ID));
+            });
+        } else {
+            select.append('<option disabled>No hay regiones disponibles</option>');
+        }
+    } catch (error) {
+        console.error("Error al cargar las regiones:", error);
+        $("#inputRegion")
+            .empty()
+            .append('<option disabled>Error al cargar regiones</option>');
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar las regiones. Inténtelo más tarde.",
+        });
+    }
+}
+async function cargarTiposEmpresa() {
+    try {
+        const response = await $.ajax({
+            url: "/Empresa/ListarTipoEmpresas",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de tipos de empresa:", response);
+
+        const select = $("#inputTipoEmpresa");
+        select.empty().append('<option selected>Seleccione su tipo</option>');
+
+        if (Array.isArray(response.tipoEmpresas) && response.tipoEmpresas.length > 0) {
+            response.tipoEmpresas.forEach(tipo => {
+                select.append(new Option(tipo.temp_Nombre, tipo.temp_ID));
+            });
+        } else {
+            select.append('<option disabled>No hay tipos de empresa disponibles</option>');
+        }
+    } catch (error) {
+        console.error("Error al cargar los tipos de empresa:", error);
+        $("#inputTipoEmpresa")
+            .empty()
+            .append('<option disabled>Error al cargar tipos de empresa</option>');
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar los tipos de empresa. Inténtelo más tarde.",
+        });
+    }
+}

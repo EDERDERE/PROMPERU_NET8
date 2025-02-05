@@ -3,52 +3,42 @@
     loadListarCasos();  
 });
 
-function loadListarCasos() {
-        $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Caso/ListarCasos', // URL del controlador que devuelve la lista de sliders
+async function loadListarCasos() {
+    try {
+        // Realiza la solicitud AJAX
+        const response = await $.ajax({
+            type: 'GET',
+            url: '/Caso/ListarCasos',
             dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar
-                $('#bannerCaso').empty();             
-                $('#sliderCaso').empty();
-                $('#tituloSeccionCaso').empty();
-                if (response.success) {
-                    const casos = response.casos;
-                    console.log('Casos Casos', casos)
-                    if (casos.length > 0) {
-                        renderBannerCaso(casos[0]);     
-                        renderTituloSeccionCaso(casos[0]);  
-                        renderSliderCaso(casos);
-                    } else {
-                        $('#sliderCaso').html('<p>No se encontraron Casos disponibles.</p>');
-                    }
-                } else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
-                    });
-                }
-
-
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
-                });
-            }
         });
-    
-}
 
+        // Limpia los contenedores antes de renderizar nuevos datos
+        $('#bannerCaso').empty();
+        $('#sliderCaso').empty();
+        $('#tituloSeccionCaso').empty();
+
+        // Verifica si la respuesta es exitosa
+        if (response.success) {
+            const casos = response.casos;
+            if (casos.length > 0) {
+                // Renderiza los casos si hay resultados
+                renderBannerCaso(casos[0]);
+                renderTituloSeccionCaso(casos[0]);
+                renderSliderCaso(casos);
+            } else {
+                // Si no hay casos, muestra un mensaje
+                $('#sliderCaso').html('<p>No se encontraron Casos disponibles.</p>');
+            }
+        } else {
+            // Muestra un mensaje de error si la respuesta no es exitosa
+            showErrorMessage(response.message || 'No se encontraron casos.');
+        }
+    } catch (error) {
+        // Maneja errores de red o fallos inesperados
+        showErrorMessage('Hubo un problema al cargar los casos. Por favor, inténtelo nuevamente más tarde.');
+    }
+}
 function renderBannerCaso(caso) {
-    console.log('caso',caso)
     const banner = `    
  <div class="title">${caso.cexi_Titulo}</div>
             <p class="description">${caso.cexi_Descripcion}</p>
@@ -57,17 +47,14 @@ function renderBannerCaso(caso) {
     cambiarImagenDinamica(caso.cexi_UrlCabecera);
 }
 function renderTituloSeccionCaso(caso) {
-    console.log('bene', caso)
     const tituloseccion = `   
      <h2>${caso.cexi_TituloVideo}</h2>
                     <div class="red-linear"></div>
  `;
-    $('#tituloSeccionCaso').append(tituloseccion);
-    
+    $('#tituloSeccionCaso').append(tituloseccion);    
 }
 function renderSliderCaso(casos) {
     let slidersHTML = '';
-    console.log('seccion Casos', casos)
     casos.forEach((caso,index) => {       
 
         if (caso.cexi_Orden > 0) {
@@ -104,34 +91,4 @@ function renderSliderCaso(casos) {
     });
 
     $('#sliderCaso').append(slidersHTML);
-}
-
-
-
-
-
-
-
-
-// Función para formatear la fecha
-function formatearFecha(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
-}
-function formatearFechaInversa(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
-}
-
-function cambiarImagenDinamica(imagenUrl) {
-    // Usamos jQuery para modificar el background-image
-    $(".hero").css("background-image", "url(" + imagenUrl + ")");
 }

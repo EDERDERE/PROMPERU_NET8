@@ -2,53 +2,45 @@
     console.log('curso web')
     loadListarCursos();  
 });
+async function loadListarCursos() {
+    try {
+        // Realiza la solicitud AJAX de forma asíncrona
+        const response = await $.ajax({
+            type: 'GET',
+            url: '/Curso/ListarCursos',
+            dataType: 'json',
+        });
 
-function loadListarCursos() {
-    $.ajax({
-        type: 'GET', // Método GET para obtener los sliders
-        url: '/Curso/ListarCursos', // URL del controlador que devuelve la lista de sliders
-        dataType: 'json',
-        success: function (response) {
+        // Limpia los contenedores antes de renderizar nuevos datos
+        clearContainers();
 
-            console.log(response)
-            // Limpia el contenedor de sliders antes de renderizar
-            $('#banner').empty();
-            $('#tituloCurso').empty();
-            $('#sliderCurso').empty();
-            if (response.success) {
-                const cursos = response.cursos;
-                console.log('cursos',cursos)
-                if (cursos.length > 0) {
-                    renderBanner(cursos[0]);
-                    renderTituloCurso(cursos[0]); 
-                    renderSliderCurso(cursos);
-                } else {
-                    $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
-                }
-
+        // Verifica si la respuesta es exitosa
+        if (response.success) {
+            const cursos = response.cursos;
+            if (cursos.length > 0) {
+                renderBannerCurso(cursos[0]);
+                renderTituloCurso(cursos[0]);
+                renderSliderCurso(cursos);
             } else {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'No hay cursos disponibles',
-                    text: response.message || 'No se encontraron cursos.',
-                });
+                $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
             }
-
-
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al cargar los sliders',
-                text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
-            });
+        } else {
+            showErrorMessage(response.message || 'No se encontraron cursos.');
         }
-    });
 
+    } catch (error) {
+        // Maneja errores de red o fallos inesperados
+        showErrorMessage('Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.');
+    }
 }
-
-function renderBanner(curs) {
+// Función para limpiar los contenedores
+function clearContainers() {
+    $('#banner').empty();
+    $('#tituloCurso').empty();
+    $('#sliderCurso').empty();
+}
+// Función para mostrar mensajes de error con Swal
+function renderBannerCurso(curs) {
     const banner = `
       <div class="title">${curs.curs_Titulo}</div>
             <p class="description">${curs.curs_Descripcion}</p>
@@ -56,7 +48,6 @@ function renderBanner(curs) {
     $('#banner').append(banner);
     cambiarImagenDinamica(curs.curs_UrlImagen);
 }
-
 function renderTituloCurso(curs) {
 
     const tituloCurso = `
@@ -66,7 +57,6 @@ function renderTituloCurso(curs) {
     $('#banner').append(banner);    
     $('#tituloCurso').append(tituloCurso);
 }
-
 function renderSliderCurso(cursos) {
     let slidersHTML = '';
     console.log('seccion',cursos)
@@ -114,32 +104,3 @@ function renderSliderCurso(cursos) {
     $('#sliderCurso').append(slidersHTML);
 }
 
-
-
-
-
-
-
-
-// Función para formatear la fecha
-function formatearFecha(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
-}
-function formatearFechaInversa(fechaISO) {
-    const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
-
-    return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
-}
-
-function cambiarImagenDinamica(imagenUrl) {
-    // Usamos jQuery para modificar el background-image
-    $(".hero").css("background-image", "url(" + imagenUrl + ")");
-}
