@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
-  loadListarEmpresarial();
+  loadListarBanner();
   loadCrearBanner();
   loadEditarBanner();
   loadEliminarBanner();
   loadGuardarOrden();
 });
 
-function loadListarEmpresarial() {
+function loadListarBanner() {
   $.ajax({
     type: "GET", // Método GET para obtener los sliders
     url: "/Banner/ListarBanners", // URL del controlador que devuelve la lista de sliders
