@@ -1,12 +1,12 @@
-$(document).ready(function () {
-    console.log('curso web home')
+$(document).ready(function() {
+    console.log("curso web home");
     home.loadListarLogos();
     home.loadListarMenus();
     home.loadListarCursos();
     home.loadListarInformacion();
     home.loadListarRequisitos();
     home.loadListarBeneficios();
-    home.loadListarCasos();   
+    home.loadListarCasos();
     home.loadListarBanners();
     home.loadListarInscripcions();
     home.loadListarLogros();
@@ -15,639 +15,578 @@ $(document).ready(function () {
     home.loadListarFormularioContactos();
     home.loadListarEmpresaGraduadas();
     home.loadListarFooters();
-
 });
 
 const home = {
-    loadListarLogos: function () {
+    loadListarLogos: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Logo/ListarLogos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#logoHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Logo/ListarLogos", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#logoHome").empty();
                 if (response.success) {
                     const logos = response.logos;
-                    console.log('logoHome', logos[0])
+                    console.log("logoHome", logos[0]);
                     if (logos.length > 0) {
                         renderLogoHome(logos[0]);
                     } else {
-                        $('#logoHome').html('<p>No se información cursos disponibles.</p>');
+                        $("#logoHome").html("<p>No se información cursos disponibles.</p>");
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarMenus: function () {
+    loadListarMenus: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Menu/ListarMenus', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#menuHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Menu/ListarMenus", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#menuHome").empty();
                 if (response.success) {
                     const menus = response.menus;
-                    console.log('menuHome', menus)
+                    console.log("menuHome", menus);
                     if (menus.length > 0) {
                         renderMenuHome(menus);
                     } else {
-                        $('#menuHome').html('<p>No se información menus disponibles.</p>');
+                        $("#menuHome").html("<p>No se información menus disponibles.</p>");
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarLogros: function () {
+    loadListarLogros: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Logro/ListarLogros', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#logrosHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Logro/ListarLogros", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#logrosHome").empty();
                 if (response.success) {
                     const logros = response.logros;
-                    console.log('logrosHome', logros)
+                    console.log("logrosHome", logros);
                     if (logros.length > 0) {
                         renderLogrosHome(logros);
                     } else {
-                        $('#logrosHome').html('<p>No se información logros disponibles.</p>');
+                        $("#logrosHome").html(
+                            "<p>No se información logros disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarTestimonios: function () {
+    loadListarTestimonios: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Testimonio/ListarTestimonios', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#tituloTestHome').empty();
-                $('#slideTestHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Testimonio/ListarTestimonios", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#tituloTestHome").empty();
+                $("#slideTestHome").empty();
                 if (response.success) {
                     const testimonios = response.testimonios;
-                    console.log('testimoniosHome', testimonios)
+                    console.log("testimoniosHome", testimonios);
                     if (testimonios.length > 0) {
                         renderTituloTestHome(testimonios[0]);
                         renderSlideTestHome(testimonios);
                     } else {
-                        $('#slideTestHome').html('<p>No se información testimonios disponibles.</p>');
+                        $("#slideTestHome").html(
+                            "<p>No se información testimonios disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarPerfilEmpresarials: function () {
+    loadListarPerfilEmpresarials: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/PerfilEmpresarial/ListarPerfilEmpresarials', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log('PerfilEmpresarials',response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#tituloPEmpHome').empty();
-                $('#sliderPEmpHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/PerfilEmpresarial/ListarPerfilEmpresarials", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log("PerfilEmpresarials", response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#tituloPEmpHome").empty();
+                $("#sliderPEmpHome").empty();
                 if (response.success) {
                     const perfilEmpresarials = response.perfilEmpresarials;
-                    console.log('sliderPEmpHome', perfilEmpresarials)
+                    console.log("sliderPEmpHome", perfilEmpresarials);
                     if (perfilEmpresarials.length > 0) {
                         renderTituloPEmpHome(perfilEmpresarials[0]);
                         renderSlidePEmpHome(perfilEmpresarials);
                     } else {
-                        $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
+                        $("#sliderPEmpHome").html(
+                            "<p>No se información testimonios disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarFormularioContactos: function () {
+    loadListarFormularioContactos: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/FormularioContacto/ListarFormularioContactos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log('FormularioContactos', response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#contactoHome').empty();            
+            type: "GET", // Método GET para obtener los sliders
+            url: "/FormularioContacto/ListarFormularioContactos", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log("FormularioContactos", response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#contactoHome").empty();
                 if (response.success) {
                     const formularioContactos = response.formularioContactos;
-                    console.log('sliderPEmpHome', formularioContactos)
+                    console.log("sliderPEmpHome", formularioContactos);
                     if (formularioContactos.length > 0) {
-                        renderContactoHome(formularioContactos[0]);                       
+                        renderContactoHome(formularioContactos[0]);
                     } else {
-                        $('#contactoHome').html('<p>No se información Contacto disponibles.</p>');
+                        $("#contactoHome").html(
+                            "<p>No se información Contacto disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarEmpresaGraduadas: function () {
+    loadListarEmpresaGraduadas: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Empresa/ListarEmpresas', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log('Empresas', response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#tituloEGHome').empty();
-                $('#sliderEGHome').empty();
-                $('#botonEGHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Empresa/ListarEmpresas", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log("Empresas", response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#tituloEGHome").empty();
+                $("#sliderEGHome").empty();
+                $("#botonEGHome").empty();
                 if (response.success) {
                     const empresas = response.empresas;
-                    console.log('empresas', empresas)
+                    console.log("empresas", empresas);
                     if (empresas.length > 0) {
                         renderTituloEGHome(empresas[0]);
                         renderBotonEGHome(empresas[0]);
                         renderSliderEGHome(empresas);
                     } else {
-                        $('#sliderPEmpHome').html('<p>No se información testimonios disponibles.</p>');
+                        $("#sliderPEmpHome").html(
+                            "<p>No se información testimonios disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarInformacion: function () {
+    loadListarInformacion: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Informacion/ListarInformacions', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar        
-                $('#seccionHome').empty();
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Informacion/ListarInformacions", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#seccionHome").empty();
                 if (response.success) {
                     const informacions = response.informacions;
-                    console.log('informacions', informacions[0])
+                    console.log("informacions", informacions[0]);
                     if (informacions.length > 0) {
                         renderSeccionHome(informacions[0]);
                     } else {
-                        $('#seccion').html('<p>No se información cursos disponibles.</p>');
+                        $("#seccion").html("<p>No se información cursos disponibles.</p>");
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarCursos: function () {
+    loadListarCursos: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Curso/ListarCursos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Curso/ListarCursos", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#tituloCursoHome').empty();
-                $('#botonCursoHome').empty();
-                $('#sliderCursoHome').empty();
+                $("#tituloCursoHome").empty();
+                $("#botonCursoHome").empty();
+                $("#sliderCursoHome").empty();
                 if (response.success) {
                     const cursos = response.cursos;
-                    console.log('cursos', cursos)
+                    console.log("cursos", cursos);
                     if (cursos.length > 0) {
                         renderTituloCursoHome(cursos[0]);
                         renderBotonCursoHome(cursos[0]);
                         renderSliderCursoHome(cursos);
                     } else {
-                        $('#sliderCursoHome').html('<p>No se encontraron cursos disponibles.</p>');
+                        $("#sliderCursoHome").html(
+                            "<p>No se encontraron cursos disponibles.</p>",
+                        );
                     }
-
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay cursos disponibles',
-                        text: response.message || 'No se encontraron cursos.',
+                        icon: "error",
+                        title: "No hay cursos disponibles",
+                        text: response.message || "No se encontraron cursos.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los cursos. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
-
     },
-    loadListarRequisitos: function () {
+    loadListarRequisitos: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Requisito/ListarRequisitos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Requisito/ListarRequisitos", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#tituloRequisitoHome').empty();
-                $('#sliderRequisitoHome').empty();
+                $("#tituloRequisitoHome").empty();
+                $("#sliderRequisitoHome").empty();
                 if (response.success) {
                     const requisitos = response.requisitos;
-                    console.log('requisitos', requisitos)
+                    console.log("requisitos", requisitos);
                     if (requisitos.length > 0) {
-                        rederTituloRequisitoHome(requisitos[0]);                 
+                        rederTituloRequisitoHome(requisitos[0]);
                         renderSliderRequisitoHome(requisitos);
                     } else {
-                        $('#sliderRequisitoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                        $("#sliderRequisitoHome").html(
+                            "<p>No se encontraron requisitos disponibles.</p>",
+                        );
                     }
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
     },
-    loadListarBeneficios: function () {
+    loadListarBeneficios: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Beneficio/ListarBeneficios', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Beneficio/ListarBeneficios", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#tituloBeneficioHome').empty();
-                $('#sliderBeneficioHome').empty();
-                $('#portadaBeneficioHome').empty();
+                $("#tituloBeneficioHome").empty();
+                $("#sliderBeneficioHome").empty();
+                $("#portadaBeneficioHome").empty();
                 if (response.success) {
                     const beneficios = response.beneficios;
-                    console.log('beneficios', beneficios)
+                    console.log("beneficios", beneficios);
                     if (beneficios.length > 0) {
                         renderTituloBeneficioHome(beneficios[0]);
                         renderPortadaBeneficioHome(beneficios[0]);
                         renderSliderBeneficioHome(beneficios);
                     } else {
-                        $('#sliderBeneficioHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                        $("#sliderBeneficioHome").html(
+                            "<p>No se encontraron requisitos disponibles.</p>",
+                        );
                     }
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
     },
-    loadListarCasos: function () {
+    loadListarCasos: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Caso/ListarCasos', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Caso/ListarCasos", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#tituloCasoHome').empty();
-                $('#sliderCasoHome').empty();
-                $('#portadaCasoHome').empty();
-                $('#botonCasoHome').empty();
+                $("#tituloCasoHome").empty();
+                $("#sliderCasoHome").empty();
+                $("#portadaCasoHome").empty();
+                $("#botonCasoHome").empty();
                 if (response.success) {
                     const casos = response.casos;
-                    console.log('casos', casos)
+                    console.log("casos", casos);
                     if (casos.length > 0) {
                         renderTituloCasoHome(casos[0]);
                         renderPortadaCasoHome(casos[0]);
                         renderBotonCasoHome(casos[0]);
-                        renderSliderCasoHome(casos);                   
+                        renderSliderCasoHome(casos);
                         renderSeleccionarVideo();
-
                     } else {
-                        $('#sliderCasoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                        $("#sliderCasoHome").html(
+                            "<p>No se encontraron requisitos disponibles.</p>",
+                        );
                     }
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
     },
-    loadListarBanners: function () {
+    loadListarBanners: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Banner/ListarBanners', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Banner/ListarBanners", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#sliderBannerHome').empty();          
+                $("#sliderBannerHome").empty();
                 if (response.success) {
                     const banners = response.banners;
-                    console.log('banners', banners)
-                    if (banners.length > 0) {                       
-                        renderSliderBannerHome(banners);                 
-
+                    console.log("banners", banners);
+                    if (banners.length > 0) {
+                        renderSliderBannerHome(banners);
                     } else {
-                        $('#sliderBannerHome').html('<p>No se encontraron banners disponibles.</p>');
+                        $("#sliderBannerHome").html(
+                            "<p>No se encontraron banners disponibles.</p>",
+                        );
                     }
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
+            },
         });
     },
-    loadListarInscripcions: function () {
+    loadListarInscripcions: function() {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Inscripcion/ListarInscripcions', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Inscripcion/ListarInscripcions", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
                 // Limpia el contenedor de sliders antes de renderizar
-                $('#tituloInscHome').empty();
-                $('#descrInscrHome').empty();
-                $('#sliderInscrHome').empty();
-                $('#botonInscHome').empty();
+                $("#tituloInscHome").empty();
+                $("#descrInscrHome").empty();
+                $("#sliderInscrHome").empty();
+                $("#botonInscHome").empty();
                 if (response.success) {
                     const inscripcions = response.inscripcions;
-                    console.log('inscripcions', inscripcions)
+                    console.log("inscripcions", inscripcions);
                     if (inscripcions.length > 0) {
                         renderTituloInscHome(inscripcions[0]);
                         renderDescrInscrHome(inscripcions[0]);
                         renderBotonInscHome(inscripcions[0]);
                         renderSliderInscrHome(inscripcions);
-                    
-
                     } else {
-                        $('#sliderCasoHome').html('<p>No se encontraron requisitos disponibles.</p>');
+                        $("#sliderCasoHome").html(
+                            "<p>No se encontraron requisitos disponibles.</p>",
+                        );
                     }
                 } else {
-
                     Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
                     });
                 }
-
-
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
                 });
-            }
-        });
-    }, 
-    loadListarFooters: function () {
-        $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
-            url: '/Footer/ListarFooters', // URL del controlador que devuelve la lista de sliders
-            dataType: 'json',
-            success: function (response) {
-
-                console.log(response)
-                // Limpia el contenedor de sliders antes de renderizar
-                $('#footerHome').empty();               
-                if (response.success) {
-                    const footers = response.footers;
-                    console.log('footers', footers)
-                    if (footers.length > 0) {
-                        renderFooterHome(footers[0]);                  
-
-
-                    } else {
-                        $('#footerHome').html('<p>No se encontraron footer disponibles.</p>');
-                    }
-                } else {
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No hay banners disponibles',
-                        text: response.message || 'No se encontraron banners.',
-                    });
-                }
-
-
             },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
-                });
-            }
         });
     },
-}
+    loadListarFooters: function() {
+        $.ajax({
+            type: "GET", // Método GET para obtener los sliders
+            url: "/Footer/ListarFooters", // URL del controlador que devuelve la lista de sliders
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                // Limpia el contenedor de sliders antes de renderizar
+                $("#footerHome").empty();
+                if (response.success) {
+                    const footers = response.footers;
+                    console.log("footers", footers);
+                    if (footers.length > 0) {
+                        renderFooterHome(footers[0]);
+                    } else {
+                        $("#footerHome").html(
+                            "<p>No se encontraron footer disponibles.</p>",
+                        );
+                    }
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "No hay banners disponibles",
+                        text: response.message || "No se encontraron banners.",
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error al cargar los sliders",
+                    text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
+                });
+            },
+        });
+    },
+};
 
 function renderContactoHome(fcont) {
-    console.log(fcont, 'fcont')
+    console.log(fcont, "fcont");
     const html = `
                <div class="row mb-5">
             <div class="col-12">
@@ -719,16 +658,16 @@ function renderContactoHome(fcont) {
             </div>
         </div>
       `;
-    $('#contactoHome').append(html);
+    $("#contactoHome").append(html);
 }
 
 function renderTituloEGHome(egra) {
-    console.log(egra,'egra')
+    console.log(egra, "egra");
     const html = `
               <h2>${egra.egra_Titulo}</h2>
                 <div class="red-linear"></div>
       `;
-    $('#tituloEGHome').append(html);
+    $("#tituloEGHome").append(html);
 }
 
 function renderBotonEGHome(egra) {
@@ -737,15 +676,15 @@ function renderBotonEGHome(egra) {
                 <img src="${egra.egra_UrlBoton}"
                      alt="" />
       `;
-    $('#botonEGHome').append(html);
+    $("#botonEGHome").append(html);
 }
 
 function renderSliderEGHome(empresas) {
-    console.log(empresas, 'asdasdasd')
-    // Genera los elementos del menú dinámicamente  
+    console.log(empresas, "asdasdasd");
+    // Genera los elementos del menú dinámicamente
     let html = "";
-    empresas.slice(1, 5).forEach(egra => {
-        console.log(egra, 'egra')
+    empresas.slice(1, 5).forEach((egra) => {
+        console.log(egra, "egra");
         html += `
               <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
                 <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
@@ -755,20 +694,20 @@ function renderSliderEGHome(empresas) {
             </div>
         `;
     });
-    $('#sliderEGHome').append(html);
+    $("#sliderEGHome").append(html);
 }
 function renderTituloPEmpHome(pemp) {
     const html = `
                <h2 class="text-start title-nuestro-requisitos">${pemp.pemp_Nombre}</h2>
       `;
-    $('#tituloPEmpHome').append(html);
+    $("#tituloPEmpHome").append(html);
 }
 function renderSlidePEmpHome(pemps) {
-    console.log(pemps, 'asdasdasd')
-    // Genera los elementos del menú dinámicamente  
+    console.log(pemps, "asdasdasd");
+    // Genera los elementos del menú dinámicamente
     let html = "";
-    pemps.slice(1, 5).forEach(pemp => {
-        console.log(pemp, 'pemp')
+    pemps.slice(1, 5).forEach((pemp) => {
+        console.log(pemp, "pemp");
         html += `
             <div class="col-6 col-md-3 text-center">
                 <img src="${pemp.pemp_UrlImagen}" alt="" class="img-fluid rounded-pill w-80">
@@ -776,7 +715,7 @@ function renderSlidePEmpHome(pemps) {
             </div>
         `;
     });
-    $('#sliderPEmpHome').append(html);
+    $("#sliderPEmpHome").append(html);
 }
 function renderTituloTestHome(test) {
     const html = `
@@ -785,14 +724,14 @@ function renderTituloTestHome(test) {
                 <div class="red-linear"></div>
             </div>
       `;
-    $('#tituloTestHome').append(html);
+    $("#tituloTestHome").append(html);
 }
 function renderSlideTestHome(testimonios) {
-    console.log(testimonios, 'asdasdasd')
-    // Genera los elementos del menú dinámicamente  
+    console.log(testimonios, "asdasdasd");
+    // Genera los elementos del menú dinámicamente
     let html = "";
-    testimonios.forEach(test => {
-        console.log(test, 'test')
+    testimonios.forEach((test) => {
+        console.log(test, "test");
         html += `
           <div class="swiper-slide">
                     <div class="testomnio_item card border-0 shadow-lg">
@@ -809,14 +748,14 @@ function renderSlideTestHome(testimonios) {
                 </div>
         `;
     });
-    $('#slideTestHome').append(html);
+    $("#slideTestHome").append(html);
 }
 function renderLogrosHome(logros) {
-    console.log(logros, 'asdasdasd')
-    // Genera los elementos del menú dinámicamente  
-    let html="";
-    logros.forEach(logr => {
-        console.log(logr, 'logr')
+    console.log(logros, "asdasdasd");
+    // Genera los elementos del menú dinámicamente
+    let html = "";
+    logros.forEach((logr) => {
+        console.log(logr, "logr");
         html += `
            <div class="item d-flex align-items-center gap-2">
             <img src="${logr.logr_UrlIcon}" alt="" />
@@ -829,16 +768,20 @@ function renderLogrosHome(logros) {
         </div>
         `;
     });
-    $('#logrosHome').append(html);
+    $("#logrosHome").append(html);
 }
 function renderFooterHome(foot) {
     const html = `
-      <div class="container pt-4 pb-5">
-      <div class="logo_footer mb-4">
+<div class="logo_footer mb-4">
+<div class="container py-3">
         <img src="${foot.foot_UrlLogoPrincipal}" alt="" class="img-fluid">
+
+</div>
       </div>
-      <div class="row">
-        <div class="col-12 class-md-8 text-white">
+
+      <div class="container pt-4 pb-5">
+            <div class="row">
+        <div class="col-12 col-md-8 text-white d-flex flex-column">
           <h4 class="mb-3 fs-5"> ${foot.foot_Nombre}</h4>
           <p class="d-flex align-items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
@@ -852,8 +795,9 @@ function renderFooterHome(foot) {
             </svg>
             ${foot.foot_Ubicacion}
           </p>
+<p class="mt-auto mb-0">Copyright 2024 PROMPERU</p>
         </div>
-        <div class="col-12 class-md-4 text-white text-center text-md-end">
+        <div class="col-12 col-md-4 text-white text-center text-md-end">
           <strong>${foot.foot_Ayuda}</strong>
           <p class="mb-5">Comunicate con nosotros</p>
           <div class="d-flex gap-3 justify-content-center justify-content-md-end mb-5">
@@ -875,11 +819,11 @@ function renderFooterHome(foot) {
       </div>
     </div>
       `;
-    $('#footerHome').append(html);
+    $("#footerHome").append(html);
 }
 function renderMenuHome(menus) {
-    console.log(menus,'asdasdasd')
-    // Genera los elementos del menú dinámicamente  
+    console.log(menus, "asdasdasd");
+    // Genera los elementos del menú dinámicamente
     let html = `
         <li class="home">
             <a href="/Home/Index">
@@ -898,17 +842,17 @@ function renderMenuHome(menus) {
             </a>
         </li>
     `;
-    menus.forEach(item => {
-        console.log(item,'item')
+    menus.forEach((item) => {
+        console.log(item, "item");
         html += `
             <li>
-                <a href="${item.menu_UrlIconBoton || '#'}" class="text-decoration-none">
+                <a href="${item.menu_UrlIconBoton || "#"}" class="text-decoration-none">
                     ${item.menu_Nombre}
                 </a>
             </li>
         `;
     });
-    $('#menuHome').append(html);
+    $("#menuHome").append(html);
 }
 function renderLogoHome(logo) {
     const html = `
@@ -928,20 +872,20 @@ function renderLogoHome(logo) {
             />
           </a>
       `;
-    $('#logoHome').append(html);
+    $("#logoHome").append(html);
 }
 function renderTituloInscHome(insc) {
     const html = `
      <h2 class="text-start title-nuestro-requisitos">${insc.insc_Titulo}</h2>
       `;
-    $('#tituloInscHome').append(html);
+    $("#tituloInscHome").append(html);
 }
 function renderDescrInscrHome(insc) {
     const html = `  
               ${insc.insc_Contenido}
            
       `;
-    $('#descrInscrHome').append(html);
+    $("#descrInscrHome").append(html);
 }
 
 function renderBotonInscHome(insc) {
@@ -951,23 +895,22 @@ function renderBotonInscHome(insc) {
                          alt="" />
            
       `;
-    $('#botonInscHome').append(html);
+    $("#botonInscHome").append(html);
 }
 function renderSliderInscrHome(inscripcions) {
-    let slider = '';
-    console.log('sliderInscrHome', inscripcions)
+    let slider = "";
+    console.log("sliderInscrHome", inscripcions);
     inscripcions.slice(0, 5).forEach((insc, index) => {
         if (insc.insc_Orden > 0) {
-            const isActive = index === 1 ? 'active' : '';
-            slider +=
-                `
+            const isActive = index === 1 ? "active" : "";
+            slider += `
                 <div class="step">
                     <div class="step-image">
                         <img src="${insc.insc_URLImagen}"
                              alt="Paso 1" />
                     </div>
-                    <div class="step-content right-align">
-                        <p>PASO ${insc.insc_Paso}</p>
+                    <div class="step-content ${index % 2 == 0 ? "left-align" : "right-align"}">
+                        <p class="step-indicator">PASO ${insc.insc_Paso}</p>
                         <h3 class="step-title">${insc.insc_TituloPaso}</h3>
                         <p class="p-p">
                             ${insc.insc_Descripcion}
@@ -976,21 +919,18 @@ function renderSliderInscrHome(inscripcions) {
                 </div>
 
                  `;
-
         }
     });
 
-    $('#sliderInscrHome').append(slider);
-
+    $("#sliderInscrHome").append(slider);
 }
 function renderSliderBannerHome(banners) {
-    let slider = '';
-    console.log('sliderBannerHome', banners)
+    let slider = "";
+    console.log("sliderBannerHome", banners);
     banners.forEach((bann, index) => {
         if (bann.bann_Orden > 0) {
-            const isActive = index === 1 ? 'active' : '';
-            slider +=
-                `
+            const isActive = index === 1 ? "active" : "";
+            slider += `
                   <div class="swiper-slide">
                 <picture class="hero_bg">
                     <source srcset="../../shared/assets/home/hero/hero-tablet.jpg" media="(min-width: 768px)" />
@@ -1008,19 +948,17 @@ function renderSliderBannerHome(banners) {
             </div>
 
                  `;
-
         }
     });
 
-    $('#sliderBannerHome').append(slider);
-
+    $("#sliderBannerHome").append(slider);
 }
 function renderTituloCasoHome(caso) {
     const html = `
      <h2>${caso.cexi_Titulo}</h2>
                 <div class="red-linear"></div>     
       `;
-    $('#tituloCasoHome').append(html);
+    $("#tituloCasoHome").append(html);
 }
 function renderPortadaCasoHome(caso) {
     const html = `
@@ -1031,7 +969,7 @@ function renderPortadaCasoHome(caso) {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
       `;
-    $('#portadaCasoHome').append(html);
+    $("#portadaCasoHome").append(html);
 }
 function renderBotonCasoHome(caso) {
     const html = `
@@ -1039,16 +977,15 @@ function renderBotonCasoHome(caso) {
                 <img src="${caso.cexi_UrlBoton}"
                      alt="" />
       `;
-    $('#botonCasoHome').append(html);
+    $("#botonCasoHome").append(html);
 }
 function renderSliderCasoHome(casos) {
-    let slider = '';
-    console.log('renderSliderCasoHome',casos)
-    casos.slice(0, 5).forEach((caso,index) => {
+    let slider = "";
+    console.log("renderSliderCasoHome", casos);
+    casos.slice(0, 5).forEach((caso, index) => {
         if (caso.cexi_Orden > 0) {
-            const isActive = index === 1 ? 'active' : '';
-            slider +=
-                `
+            const isActive = index === 1 ? "active" : "";
+            slider += `
                     <div class="video_item row ${isActive}" data-video="${caso.cexi_UrlVideo}">
                         <div class="col-8">
                             <h4>${caso.cexi_Nombre}</h4>
@@ -1060,12 +997,10 @@ function renderSliderCasoHome(casos) {
                     </div>
 
                  `;
-
         }
     });
 
-    $('#sliderCasoHome').append(slider);
-
+    $("#sliderCasoHome").append(slider);
 }
 
 function renderTituloBeneficioHome(bene) {
@@ -1073,7 +1008,7 @@ function renderTituloBeneficioHome(bene) {
      <h2>${bene.bene_Titulo}</h2>
                 <div class="red-linear"></div>     
       `;
-    $('#tituloBeneficioHome').append(html);
+    $("#tituloBeneficioHome").append(html);
 }
 function renderPortadaBeneficioHome(bene) {
     const html = `
@@ -1081,15 +1016,14 @@ function renderPortadaBeneficioHome(bene) {
                      class="img-fluid rounded-4 h-100"
                      alt="" />
       `;
-    $('#portadaBeneficioHome').append(html);
+    $("#portadaBeneficioHome").append(html);
 }
 function renderSliderBeneficioHome(beneficio) {
-    let slider = '';
+    let slider = "";
 
-    beneficio.slice(0, 5).forEach(bene => {
+    beneficio.slice(0, 5).forEach((bene) => {
         if (bene.bene_Orden > 0) {
-            slider +=
-                `
+            slider += `
              <div class="beneficio_item">
                     <h3 class="d-flex align-items-center gap-3">
                         <img src="${bene.bene_URLIcon}" alt="">
@@ -1098,29 +1032,25 @@ function renderSliderBeneficioHome(beneficio) {
                     <p>${bene.bene_Descripcion}</p>
                 </div>
                  `;
-
         }
     });
 
-    $('#sliderBeneficioHome').append(slider);
-
+    $("#sliderBeneficioHome").append(slider);
 }
-
 
 function rederTituloRequisitoHome(requ) {
     const tituloRequisitoHome = `
      <h2 class="text-start title-nuestro-requisitos">${requ.requ_Titulo}</h2>
         <div class="red-linear"></div>
       `;
-    $('#tituloRequisitoHome').append(tituloRequisitoHome);
+    $("#tituloRequisitoHome").append(tituloRequisitoHome);
 }
 function renderSliderRequisitoHome(requisitos) {
-    let slider = '';
+    let slider = "";
 
-    requisitos.slice(0, 5).forEach(requ => {
+    requisitos.slice(0, 5).forEach((requ) => {
         if (requ.requ_Orden > 0) {
-            slider +=
-                `
+            slider += `
              <div class="btn-group col-12 col-md-6 p-3">
             <button class="list-group-item d-flex align-items-center justify-content-between btn btn-light"
                     data-bs-toggle="dropdown"
@@ -1161,12 +1091,10 @@ function renderSliderRequisitoHome(requisitos) {
             </ul>
         </div>
                  `;
-
         }
     });
 
-    $('#sliderRequisitoHome').append(slider);
-
+    $("#sliderRequisitoHome").append(slider);
 }
 function renderSeccionHome(info) {
     const seccion = `
@@ -1190,30 +1118,29 @@ function renderSeccionHome(info) {
         </div>
     </div>        
       `;
-    $('#seccionHome').append(seccion);
+    $("#seccionHome").append(seccion);
 }
 function renderTituloCursoHome(curso) {
     const tituloCursoHome = `
      <h2>${curso.curs_Titulo}</h2>
      <div class="red-linear"></div>
       `;
-    $('#tituloCursoHome').append(tituloCursoHome);
+    $("#tituloCursoHome").append(tituloCursoHome);
 }
-function renderBotonCursoHome(curso) { 
+function renderBotonCursoHome(curso) {
     const botonCursoHome = `      
             <a href="/Curso/Index">${curso.curs_NombreBotonTitulo}</a>
             <img src="${curso.curs_UrlIconBoton}"
                  alt="" />      
       `;
-    $('#botonCursoHome').append(botonCursoHome);
+    $("#botonCursoHome").append(botonCursoHome);
 }
 function renderSliderCursoHome(cursos) {
-    let sliderCurso = '';
+    let sliderCurso = "";
 
-    cursos.slice(0, 4).forEach(curs => {
+    cursos.slice(0, 4).forEach((curs) => {
         if (curs.curs_Orden > 0) {
-            sliderCurso +=
-             `
+            sliderCurso += `
                 <div class="swiper-slide p-3">
                     <div class="card rounded-4 overflow-hidden border-0 shadow-md">
                         <img src="${curs.curs_UrlImagen}" alt="">
@@ -1249,84 +1176,83 @@ function renderSliderCursoHome(cursos) {
                     </div>
                 </div>
                  `;
-                             
         }
     });
 
-    $('#sliderCursoHome').append(sliderCurso);
-  
+    $("#sliderCursoHome").append(sliderCurso);
 }
 
 var swiper = new Swiper(".mySwiper", {
-  direction: "vertical",
-  slidesPerView: 1,
-  autoplay: {
-    delay: 3000,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
+    direction: "vertical",
+    slidesPerView: 1,
+    autoplay: {
+        delay: 3000,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
 });
 
 var swiper = new Swiper(".cursos_swiper", {
-  direction: "horizontal",
-  slidesPerView: "auto",
-  spaceBetween: 10,
-  navigation: {
-    nextEl: ".swiper-next",
-    prevEl: ".swiper-prev",
-  },
-  breakpoints: {
-    // when window width is >= 320px
-    320: {
-      slidesPerView: 1.2,
-      spaceBetween: 20
+    direction: "horizontal",
+    slidesPerView: "auto",
+    spaceBetween: 10,
+    navigation: {
+        nextEl: ".swiper-next",
+        prevEl: ".swiper-prev",
     },
-    // when window width is >= 480px
-    480: {
-      slidesPerView: 2.2,
-      spaceBetween: 20
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1.2,
+            spaceBetween: 20,
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 2.2,
+            spaceBetween: 20,
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 3.2,
+            spaceBetween: 20,
+        },
     },
-    // when window width is >= 640px
-    640: {
-      slidesPerView: 3.2,
-      spaceBetween: 20
-    }
-  }
 });
 var swiper = new Swiper(".testomnios_swiper", {
-  direction: "horizontal",
-  slidesPerView: 3,
-  centeredSlides: true,
-  spaceBetween: 10,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  breakpoints: {
-    // when window width is >= 320px
-    320: {
-      slidesPerView: 1.2,
-      spaceBetween: 20
+    direction: "horizontal",
+    slidesPerView: 3,
+    centeredSlides: true,
+    initialSlide: 1,
+    spaceBetween: 80,
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
-    // when window width is >= 480px
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+        },
     },
-    // when window width is >= 640px
-    640: {
-      slidesPerView: 3,
-      spaceBetween: 20
-    }
-  }
 });
 
 function formatearFecha(fechaISO) {
     const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
+    const dia = String(fecha.getDate()).padStart(2, "0"); // Día con dos dígitos
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes con dos dígitos
     const anio = fecha.getFullYear(); // Año completo
 
     return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
@@ -1334,8 +1260,8 @@ function formatearFecha(fechaISO) {
 
 function formatearFechaInversa(fechaISO) {
     const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
+    const dia = String(fecha.getDate()).padStart(2, "0"); // Día con dos dígitos
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes con dos dígitos
     const anio = fecha.getFullYear(); // Año completo
 
     return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
@@ -1355,17 +1281,17 @@ function obtenerAno(fecha) {
 
 function renderSeleccionarVideo() {
     // Escuchar clic en cualquier elemento con la clase "video_item"
-    $('.video_item').on('click', function () {
+    $(".video_item").on("click", function() {
         // Remover la clase "active" de todos los elementos
-        $('.video_item').removeClass('active');
+        $(".video_item").removeClass("active");
 
         // Agregar la clase "active" al elemento seleccionado
-        $(this).addClass('active');
+        $(this).addClass("active");
 
         // Obtener la URL del video (puedes almacenar la URL en un atributo personalizado como "data-video")
-        const videoURL = $(this).data('video');
+        const videoURL = $(this).data("video");
 
         // Actualizar el iframe con la nueva URL
-        $('.exito_video iframe').attr('src', videoURL);
+        $(".exito_video iframe").attr("src", videoURL);
     });
 }
