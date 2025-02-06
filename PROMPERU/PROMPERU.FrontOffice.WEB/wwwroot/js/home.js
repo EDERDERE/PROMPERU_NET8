@@ -808,7 +808,7 @@ function renderFooterHome(foot) {
         <img src="${foot.foot_UrlLogoPrincipal}" alt="" class="img-fluid">
       </div>
       <div class="row">
-        <div class="col-12 class-md-8 text-white">
+        <div class="col-12 col-md-8 text-white">
           <h4 class="mb-3 fs-5"> ${foot.foot_Nombre}</h4>
           <p class="d-flex align-items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
@@ -823,7 +823,7 @@ function renderFooterHome(foot) {
             ${foot.foot_Ubicacion}
           </p>
         </div>
-        <div class="col-12 class-md-4 text-white text-center text-md-end">
+        <div class="col-12 col-md-4 text-white text-center text-md-end">
           <strong>${foot.foot_Ayuda}</strong>
           <p class="mb-5">Comunicate con nosotros</p>
           <div class="d-flex gap-3 justify-content-center justify-content-md-end mb-5">
