@@ -8,6 +8,9 @@
         public string Bene_Nombre { get; set; }
         public string Bene_Descripcion { get; set; }
         public string Bene_URLImagen { get; set; }
-        public string Bene_URLIcon { get; set; }        
+        public string Bene_URLIcon { get; set; }
+        public string Bene_NombreBoton { get; set; }
+        public string Bene_URLImagenBanner { get; set; }
+
     }
 }

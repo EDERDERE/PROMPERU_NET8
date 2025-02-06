@@ -269,6 +269,37 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los Cursos", ex);
             }
         }
+        public async Task<List<TipoEventoBE>> ListarTipoEventosAsync()
+        {
+            try
+            {
+                var TipoEvento = new List<TipoEventoBE>();
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_TipoEvento_LIS", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    TipoEvento.Add(new TipoEventoBE
+                    {
+                        Teve_ID = reader["Teve_ID"] != DBNull.Value ? Convert.ToInt32(reader["Teve_ID"]) : 0,
+                        Teve_Nombre = reader["Teve_Nombre"] != DBNull.Value ? reader["Teve_Nombre"].ToString() : ""                       
+
+                    });
+                }
+
+                return TipoEvento;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Tipo Eventos", ex);
+            }
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     console.log('curso web')
     loadListarCursos();  
+    cargarTiposEvento();
 });
 async function loadListarCursos() {
     try {

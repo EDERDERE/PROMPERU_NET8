@@ -187,6 +187,7 @@ const home = {
             url: '/PerfilEmpresarial/ListarPerfilEmpresarials',
             dataType: 'json',
             success: function (response) {
+                console.log('Respuesta del servidor:', response);
                 $('#tituloPEmpHome').empty();
                 $('#sliderPEmpHome').empty();
 
@@ -225,6 +226,7 @@ const home = {
             url: '/FormularioContacto/ListarFormularioContactos',
             dataType: 'json',
             success: function (response) {
+                console.log('Respuesta del servidor:', response);
                 $('#contactoHome').empty(); // Limpia el contenedor antes de renderizar
 
                 if (!response?.success) {
@@ -261,6 +263,7 @@ const home = {
             url: '/Empresa/ListarEmpresas',
             dataType: 'json',
             success: function (response) {
+                console.log('Respuesta del servidor:', response);
                 // Limpia los contenedores antes de renderizar
                 $('#tituloEGHome, #sliderEGHome, #botonEGHome').empty();
 
@@ -1395,6 +1398,39 @@ async function cargarTiposEmpresa() {
             icon: "error",
             title: "Error",
             text: "Hubo un problema al cargar los tipos de empresa. Inténtelo más tarde.",
+        });
+    }
+}
+async function cargarTiposEvento() {
+    try {
+        const response = await $.ajax({
+            url: "/Curso/ListarTipoEventos",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de tipos de eventos:", response);
+
+        const select = $("#inputTipoEvento");
+        select.empty().append('<option selected>Seleccione su tipo</option>');
+
+        if (Array.isArray(response.tipoEventos) && response.tipoEventos.length > 0) {
+            response.tipoEventos.forEach(tipo => {
+                select.append(new Option(tipo.teve_Nombre, tipo.teve_ID));
+            });
+        } else {
+            select.append('<option disabled>No hay tipos de eventos disponibles</option>');
+        }
+    } catch (error) {
+        console.error("Error al cargar los tipos de eventos:", error);
+        $("#inputTipoEvento")
+            .empty()
+            .append('<option disabled>Error al cargar tipos de eventos</option>');
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar los tipos de eventos. Inténtelo más tarde.",
         });
     }
 }

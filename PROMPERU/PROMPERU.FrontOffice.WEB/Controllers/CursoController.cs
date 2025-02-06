@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PROMPERU.BE;
 using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
@@ -54,6 +55,40 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 });
             }
         }
-       
+
+        public async Task<IActionResult> ListarTipoEventos()
+        {
+            try
+            {
+                var TipoEventos = await _cursoBL.ListarTipoEventosAsync(); // Cambio a versión asincrónica
+                if (TipoEventos != null && TipoEventos.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "TipoEventos obtenidos exitosamente.",
+                        TipoEventos
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron TipoEventos disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los TipoEventos. Por favor, inténtelo nuevamente."
+
+                });
+            }
+        }
+
     }
 }

@@ -77,6 +77,18 @@ namespace PROMPERU.BL
             }
         }
 
+        public async Task<List<TipoEventoBE>> ListarTipoEventosAsync()
+        {
+            try
+            {
+                return await _cursoDA.ListarTipoEventosAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar los tipos de eventos", ex);
+            }
+        }
+
         //public async Task<DataTable> ObtenerReporteCursosAsync()
         //{
         //    try

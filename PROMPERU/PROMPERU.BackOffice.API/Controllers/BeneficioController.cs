@@ -77,7 +77,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Bene_Nombre = beneficioDto.nombre,
                     Bene_Descripcion = beneficioDto.description,
                     Bene_URLImagen = beneficioDto.urlImagen,
-                    Bene_URLIcon = beneficioDto.urlIcon
+                    Bene_URLIcon = beneficioDto.urlIcon,
+                    Bene_NombreBoton=beneficioDto.nombreBoton
                 };
                 await _beneficioBL.InsertarBeneficioAsync(beneficio, usuario, ip); // Llamada asincrónica
                 return RedirectToAction("ListarBeneficios");
@@ -104,7 +105,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Bene_Nombre = beneficioDto.nombre,
                     Bene_Descripcion = beneficioDto.description,
                     Bene_URLImagen = beneficioDto.urlImagen,
-                    Bene_URLIcon = beneficioDto.urlIcon
+                    Bene_URLIcon = beneficioDto.urlIcon,
+                    Bene_NombreBoton = beneficioDto.nombreBoton
                 };
                 await _beneficioBL.ActualizarBeneficioAsync(beneficio, usuario, ip, id); // Llamada asincrónica
                 return RedirectToAction("ListarBeneficios");
@@ -168,7 +170,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Bene_Nombre = beneficioDto.nombre,
                         Bene_Descripcion = beneficioDto.description,
                         Bene_URLImagen = beneficioDto.urlImagen,
-                        Bene_URLIcon = beneficioDto.urlIcon
+                        Bene_URLIcon = beneficioDto.urlIcon,
+                        Bene_NombreBoton = beneficioDto.nombreBoton
                     };
                     await _beneficioBL.ActualizarBeneficioAsync(beneficio, usuario, ip, beneficio.Bene_ID); // Llamada asincrónica
                 }

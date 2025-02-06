@@ -32,8 +32,8 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Bene_Orden", beneficio.Bene_Orden);
                 comando.Parameters.AddWithValue("@Bene_URLImagen", beneficio.Bene_URLImagen);
                 comando.Parameters.AddWithValue("@Bene_URLIcon", beneficio.Bene_URLIcon);
-
-
+                comando.Parameters.AddWithValue("@Bene_NombreBoton", beneficio.Bene_NombreBoton);
+                comando.Parameters.AddWithValue("@Bene_URLImagenBanner", beneficio.Bene_URLImagenBanner);
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
@@ -57,41 +57,41 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<BeneficioBE> ObtenerBeneficioPorIDAsync(int bene_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Beneficio_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
+        //private async Task<BeneficioBE> ObtenerBeneficioPorIDAsync(int bene_ID)
+        //{
+        //    try
+        //    {
+        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();
+        //        await using var comando = new SqlCommand("USP_Beneficio_SEL", conexion)
+        //        {
+        //            CommandType = CommandType.StoredProcedure
+        //        };
 
-                comando.Parameters.AddWithValue("@Bene_ID", bene_ID);
+        //        comando.Parameters.AddWithValue("@Bene_ID", bene_ID);
 
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
+        //        await conexion.OpenAsync();
+        //        await using var reader = await comando.ExecuteReaderAsync();
 
-                if (await reader.ReadAsync())
-                {
-                    return new BeneficioBE
-                    {
-                        Bene_ID = Convert.ToInt32(reader["Bene_ID"]),
-                        Bene_Orden = Convert.ToInt32(reader["Bene_Orden"]),
-                        Bene_Nombre = reader["Bene_Nombre"].ToString(),
-                        Bene_Descripcion = reader["Bene_Descripcion"].ToString(),
-                        Bene_URLIcon = reader["Bene_URLIcon"].ToString(),
-                        Bene_URLImagen = reader["Bene_URLImagen"].ToString()
-                    };
-                }
+        //        if (await reader.ReadAsync())
+        //        {
+        //            return new BeneficioBE
+        //            {
+        //                Bene_ID = Convert.ToInt32(reader["Bene_ID"]),
+        //                Bene_Orden = Convert.ToInt32(reader["Bene_Orden"]),
+        //                Bene_Nombre = reader["Bene_Nombre"].ToString(),
+        //                Bene_Descripcion = reader["Bene_Descripcion"].ToString(),
+        //                Bene_URLIcon = reader["Bene_URLIcon"].ToString(),
+        //                Bene_URLImagen = reader["Bene_URLImagen"].ToString()
+        //            };
+        //        }
 
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Beneficio por ID", ex);
-            }
-        }
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al obtener el Beneficio por ID", ex);
+        //    }
+        //}
 
         public async Task<int> EliminarBeneficioAsync(string usuario, string ip, int id)
         {
@@ -157,6 +157,8 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Bene_Orden", beneficio.Bene_Orden);
                     comando.Parameters.AddWithValue("@Bene_URLImagen", beneficio.Bene_URLImagen);
                     comando.Parameters.AddWithValue("@Bene_URLIcon", beneficio.Bene_URLIcon);
+                    comando.Parameters.AddWithValue("@Bene_NombreBoton", beneficio.Bene_NombreBoton);
+                    comando.Parameters.AddWithValue("@Bene_URLImagenBanner", beneficio.Bene_URLImagenBanner);
 
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
@@ -216,7 +218,10 @@ namespace PROMPERU.DA
                         Bene_Nombre = reader["Bene_Nombre"] != DBNull.Value ? reader["Bene_Nombre"].ToString() : "",
                         Bene_Descripcion = reader["Bene_Descripcion"] != DBNull.Value ? reader["Bene_Descripcion"].ToString() : "",
                         Bene_URLIcon = reader["Bene_URLIcon"] != DBNull.Value ? reader["Bene_URLIcon"].ToString() : "",
-                        Bene_URLImagen = reader["Bene_URLImagen"] != DBNull.Value ? reader["Bene_URLImagen"].ToString() : ""                    
+                        Bene_URLImagen = reader["Bene_URLImagen"] != DBNull.Value ? reader["Bene_URLImagen"].ToString() : "",
+                        Bene_NombreBoton = reader["Bene_NombreBoton"] != DBNull.Value ? reader["Bene_NombreBoton"].ToString() : "",
+                        Bene_URLImagenBanner = reader["Bene_URLImagenBanner"] != DBNull.Value ? reader["Bene_URLImagenBanner"].ToString() : "",
+
                     });
                 }
 
