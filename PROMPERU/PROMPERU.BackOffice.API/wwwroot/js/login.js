@@ -3,18 +3,18 @@
     loadForgotPasswordLink();
 });
 
-function loadValidarUsuario() {
-    // Cuando el formulario se envíe, hacemos un manejo personalizado
-    $('#loginForm').submit(function (e) {
-        e.preventDefault();  // Evitar el comportamiento por defecto del formulario
+async function loadValidarUsuario() {
+    // Configurar el evento de envío del formulario con un manejo personalizado
+    $('#loginForm').submit(async function (e) {
+        e.preventDefault();  // Evita el envío por defecto del formulario
 
-        // Obtener los valores de usuario y contraseña
+        // Capturar los valores ingresados en los campos de usuario y contraseña
         var usuario = $('#usuario').val();
         var password = $('#password').val();
 
-        // Validar los campos antes de enviar
+        // Validaciones previas para asegurar que ambos campos sean ingresados
         if (usuario === "" && password === "") {
-            Swal.fire({
+            await Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
                 text: 'Por favor, ingrese ambos campos.',
@@ -24,7 +24,7 @@ function loadValidarUsuario() {
         }
 
         if (usuario === "" && password !== "") {
-            Swal.fire({
+            await Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
                 text: 'Por favor, ingrese el usuario.',
@@ -34,53 +34,55 @@ function loadValidarUsuario() {
         }
 
         if (usuario !== "" && password === "") {
-            Swal.fire({
+            await Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
-                text: 'Por favor, ingrese el password.',
+                text: 'Por favor, ingrese la contraseña.',
                 confirmButtonText: 'OK'
             });
             return;
         }
 
-        // Realizar la petición AJAX
-        $.ajax({
-            url: '/Login/Login',  // Ruta al método del controlador
-            type: 'POST',
-            data: {
-                usuario: usuario,
-                contrasenia: password
-            },
-            success: function (response) {
-                console.log(response)
-                 if (response.success) {                 
-                     Swal.fire({
-                         icon: 'success',
-                         title: '¡Inicio de sesión exitoso!',
-                         text: 'Redirigiendo...',
-                         timer: 2000,
-                         showConfirmButton: false
-                     }).then(() => {
-                         window.location.href = response.redirectUrl;
-                     });
-                 } else {
-                     Swal.fire({
-                         icon: 'error',
-                         title: 'Error',
-                         text: response.message
-                     });
-                 }
-            },
-            error: function (xhr, status, error) {
-                Swal.fire({
+        // Realizar la solicitud AJAX de manera asíncrona
+        try {
+            const response = await $.ajax({
+                url: '/Login/Login',  // URL del controlador encargado del inicio de sesión
+                type: 'POST',
+                data: {
+                    usuario: usuario,
+                    contrasenia: password
+                }
+            });
+
+            // Verificar si la autenticación fue exitosa
+            if (response.success) {
+                await Swal.fire({
+                    icon: 'success',
+                    title: '¡Inicio de sesión exitoso!',
+                    text: 'Redirigiendo...',
+                    timer: 2000,  // Mostrar la alerta por 2 segundos
+                    showConfirmButton: false
+                });
+                window.location.href = response.redirectUrl; // Redirigir al usuario
+            } else {
+                // Mostrar mensaje de error si la autenticación falla
+                await Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Ocurrió un error al procesar la solicitud. Inténtalo de nuevo más tarde.'
+                    text: response.message
                 });
             }
-        });
+        } catch (error) {
+            // Manejar errores en la solicitud AJAX
+            await Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error al procesar la solicitud. Inténtalo de nuevo más tarde.'
+            });
+        }
     });
 }
+
 function loadForgotPasswordLink(){
     $("#forgotPasswordLink").click(function (event) {
         event.preventDefault(); // Evita la navegación por defecto  
