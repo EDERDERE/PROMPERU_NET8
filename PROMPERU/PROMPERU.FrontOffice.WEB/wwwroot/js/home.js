@@ -36,7 +36,7 @@ const home = {
                         renderLogoHome(logos[0]);
                     } else {
                         // Si no hay logos, mostrar un mensaje adecuado
-                        $logoHome.html('<p>No hay información de logos disponibles.</p>');
+                        $logoHome.html('<p>No hay informaciï¿½n de logos disponibles.</p>');
                     }
                 } else {
                     // Mostrar alerta de error si no hay logos disponibles
@@ -48,11 +48,11 @@ const home = {
                 }
             },
             error: function (xhr, status, error) {
-                // Manejo de errores con más detalles
+                // Manejo de errores con mï¿½s detalles
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los logos',
-                    text: `Hubo un problema al cargar los logos. Error: ${error}. Por favor, inténtelo nuevamente más tarde.`,
+                    text: `Hubo un problema al cargar los logos. Error: ${error}. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.`,
                 });
                 console.error('Error al cargar los logos:', status, error);
             }
@@ -64,37 +64,37 @@ const home = {
             url: '/Menu/ListarMenus',
             dataType: 'json',
             success: function ({ success, menus, message }) {
-                console.log('Respuesta de menús:', menus);
+                console.log('Respuesta de menï¿½s:', menus);
 
-                // Limpiar el contenedor de menús antes de renderizar
+                // Limpiar el contenedor de menï¿½s antes de renderizar
                 const $menuHome = $('#menuHome');
                 $menuHome.empty();
 
                 if (success) {
                     if (menus.length > 0) {
-                        // Renderizar los menús si hay disponibles
+                        // Renderizar los menï¿½s si hay disponibles
                         renderMenuHome(menus);
                     } else {
-                        // Si no hay menús, mostrar un mensaje adecuado
-                        $menuHome.html('<p>No hay información de menús disponibles.</p>');
+                        // Si no hay menï¿½s, mostrar un mensaje adecuado
+                        $menuHome.html('<p>No hay informaciï¿½n de menï¿½s disponibles.</p>');
                     }
                 } else {
-                    // Mostrar alerta de error si no hay menús disponibles
+                    // Mostrar alerta de error si no hay menï¿½s disponibles
                     Swal.fire({
                         icon: 'error',
-                        title: 'No hay menús disponibles',
-                        text: message || 'No se encontraron menús.',
+                        title: 'No hay menï¿½s disponibles',
+                        text: message || 'No se encontraron menï¿½s.',
                     });
                 }
             },
             error: function (xhr, status, error) {
-                // Manejo de errores con más detalles
+                // Manejo de errores con mï¿½s detalles
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al cargar los menús',
-                    text: `Hubo un problema al cargar los menús. Error: ${error}. Por favor, inténtelo nuevamente más tarde.`,
+                    title: 'Error al cargar los menï¿½s',
+                    text: `Hubo un problema al cargar los menï¿½s. Error: ${error}. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.`,
                 });
-                console.error('Error al cargar los menús:', status, error);
+                console.error('Error al cargar los menï¿½s:', status, error);
             }
         });
     },
@@ -116,7 +116,7 @@ const home = {
                         renderLogrosHome(logros);
                     } else {
                         // Si no hay logros, mostrar un mensaje adecuado
-                        $logrosHome.html('<p>No hay información de logros disponibles.</p>');
+                        $logrosHome.html('<p>No hay informaciï¿½n de logros disponibles.</p>');
                     }
                 } else {
                     // Mostrar alerta de error si no se encuentran logros
@@ -128,11 +128,11 @@ const home = {
                 }
             },
             error: function (xhr, status, error) {
-                // Manejo de errores con más detalles
+                // Manejo de errores con mï¿½s detalles
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los logros',
-                    text: `Hubo un problema al cargar los logros. Error: ${error}. Por favor, inténtelo nuevamente más tarde.`,
+                    text: `Hubo un problema al cargar los logros. Error: ${error}. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.`,
                 });
                 console.error('Error al cargar los logros:', status, error);
             }
@@ -154,12 +154,12 @@ const home = {
 
                 if (success) {
                     if (testimonios.length > 0) {
-                        // Renderizar el título y el slide de los testimonios
+                        // Renderizar el tï¿½tulo y el slide de los testimonios
                         renderTituloTestHome(testimonios[0]);
                         renderSlideTestHome(testimonios);
                     } else {
                         // Si no hay testimonios, mostrar un mensaje adecuado
-                        $slideTestHome.html('<p>No hay información de testimonios disponibles.</p>');
+                        $slideTestHome.html('<p>No hay informaciï¿½n de testimonios disponibles.</p>');
                     }
                 } else {
                     // Mostrar alerta si no se encuentran testimonios
@@ -171,11 +171,11 @@ const home = {
                 }
             },
             error: function (xhr, status, error) {
-                // Manejo de errores con más detalles
+                // Manejo de errores con mï¿½s detalles
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los testimonios',
-                    text: `Hubo un problema al cargar los testimonios. Error: ${error}. Por favor, inténtelo nuevamente más tarde.`,
+                    text: `Hubo un problema al cargar los testimonios. Error: ${error}. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.`,
                 });
                 console.error('Error al cargar los testimonios:', status, error);
             }
@@ -194,7 +194,7 @@ const home = {
                 if (!response?.success) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'No hay información disponible',
+                        title: 'No hay informaciï¿½n disponible',
                         text: response?.message || 'No se encontraron registros.',
                     });
                     return;
@@ -203,10 +203,10 @@ const home = {
                 const perfilEmpresarials = response.perfilEmpresarials || [];
 
                 if (perfilEmpresarials.length > 0) {
-                    renderTituloPEmpHome(perfilEmpresarials[0]); // Renderiza el título con el primer elemento
+                    renderTituloPEmpHome(perfilEmpresarials[0]); // Renderiza el tï¿½tulo con el primer elemento
                     renderSlidePEmpHome(perfilEmpresarials); // Renderiza los sliders
                 } else {
-                    $('#sliderPEmpHome').html('<p>No hay información de testimonios disponibles.</p>');
+                    $('#sliderPEmpHome').html('<p>No hay informaciï¿½n de testimonios disponibles.</p>');
                 }
             },
             error: function (xhr, status, error) {
@@ -215,7 +215,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los perfiles',
-                    text: 'Hubo un problema al cargar la información. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al cargar la informaciï¿½n. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -232,7 +232,7 @@ const home = {
                 if (!response?.success) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'No hay información disponible',
+                        title: 'No hay informaciï¿½n disponible',
                         text: response?.message || 'No se encontraron registros.',
                     });
                     return;
@@ -243,7 +243,7 @@ const home = {
                 if (formularioContactos.length > 0) {
                     renderContactoHome(formularioContactos[0]); // Renderiza el primer contacto
                 } else {
-                    $('#contactoHome').html('<p>No hay información de contacto disponible.</p>');
+                    $('#contactoHome').html('<p>No hay informaciï¿½n de contacto disponible.</p>');
                 }
             },
             error: function (xhr, status, error) {
@@ -251,8 +251,8 @@ const home = {
 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al cargar la información',
-                    text: 'Hubo un problema al cargar los datos de contacto. Intente nuevamente más tarde.',
+                    title: 'Error al cargar la informaciï¿½n',
+                    text: 'Hubo un problema al cargar los datos de contacto. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -283,7 +283,7 @@ const home = {
                     renderBotonEGHome(empresas[0]);
                     renderSliderEGHome(empresas);
                 } else {
-                    $('#sliderEGHome').html('<p>No hay información de empresas disponibles.</p>');
+                    $('#sliderEGHome').html('<p>No hay informaciï¿½n de empresas disponibles.</p>');
                 }
             },
             error: function (xhr, status, error) {
@@ -292,7 +292,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar las empresas',
-                    text: 'Hubo un problema al obtener la información. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al obtener la informaciï¿½n. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -311,7 +311,7 @@ const home = {
                 if (!response?.success) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'No hay información disponible',
+                        title: 'No hay informaciï¿½n disponible',
                         text: response?.message || 'No se encontraron registros.',
                     });
                     return;
@@ -322,7 +322,7 @@ const home = {
                 if (informacions.length > 0) {
                     renderSeccionHome(informacions[0]);
                 } else {
-                    $('#seccionHome').html('<p>No hay información disponible.</p>');
+                    $('#seccionHome').html('<p>No hay informaciï¿½n disponible.</p>');
                 }
             },
             error: function (xhr, status, error) {
@@ -330,8 +330,8 @@ const home = {
 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al cargar la información',
-                    text: 'Hubo un problema al obtener la información. Intente nuevamente más tarde.',
+                    title: 'Error al cargar la informaciï¿½n',
+                    text: 'Hubo un problema al obtener la informaciï¿½n. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -372,7 +372,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los cursos',
-                    text: 'Hubo un problema al obtener los cursos. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al obtener los cursos. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -400,7 +400,7 @@ const home = {
                 $('#tituloRequisitoHome, #sliderRequisitoHome').empty();
 
                 if (requisitos.length > 0) {
-                    renderTituloRequisitoHome(requisitos[0]); // Se corrigió el typo en la función
+                    renderTituloRequisitoHome(requisitos[0]); // Se corrigiï¿½ el typo en la funciï¿½n
                     renderSliderRequisitoHome(requisitos);
                 } else {
                     $('#sliderRequisitoHome').html('<p>No se encontraron requisitos disponibles.</p>');
@@ -412,14 +412,14 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los requisitos',
-                    text: 'Hubo un problema al obtener los requisitos. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al obtener los requisitos. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
     },
     loadListarBeneficios: function () {
         $.ajax({
-            type: 'GET', // Método GET para obtener los sliders
+            type: 'GET', // Mï¿½todo GET para obtener los sliders
             url: '/Beneficio/ListarBeneficios', // URL del controlador que devuelve la lista de sliders
             dataType: 'json',
             success: function (response) {
@@ -454,7 +454,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los sliders',
-                    text: 'Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.',
+                    text: 'Hubo un problema al cargar los banners. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -497,7 +497,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los casos',
-                    text: 'Hubo un problema al obtener los casos. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al obtener los casos. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -536,14 +536,14 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los banners',
-                    text: 'Hubo un problema al obtener los banners. Intente nuevamente más tarde.',
+                    text: 'Hubo un problema al obtener los banners. Intente nuevamente mï¿½s tarde.',
                 });
             }
         });
     },
     loadListarInscripcions: function () {
         $.ajax({
-            type: 'GET', // Método GET para obtener las inscripciones
+            type: 'GET', // Mï¿½todo GET para obtener las inscripciones
             url: '/Inscripcion/ListarInscripcions', // URL del controlador que devuelve la lista de inscripciones
             dataType: 'json',
             success: function (response) {
@@ -582,14 +582,14 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar las inscripciones',
-                    text: 'Hubo un problema al cargar las inscripciones. Por favor, inténtelo nuevamente más tarde.',
+                    text: 'Hubo un problema al cargar las inscripciones. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.',
                 });
             }
         });
     }, 
     loadListarFooters: function () {
         $.ajax({
-            type: 'GET', // Método GET para obtener los footers
+            type: 'GET', // Mï¿½todo GET para obtener los footers
             url: '/Footer/ListarFooters', // URL del controlador que devuelve la lista de footers
             dataType: 'json',
             success: function (response) {
@@ -622,7 +622,7 @@ const home = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar los footers',
-                    text: 'Hubo un problema al cargar los footers. Por favor, inténtelo nuevamente más tarde.',
+                    text: 'Hubo un problema al cargar los footers. Por favor, intï¿½ntelo nuevamente mï¿½s tarde.',
                 });
             }
         });
@@ -718,7 +718,7 @@ function renderBotonEGHome(egra) {
     $('#botonEGHome').append(html);
 }
 function renderSliderEGHome(empresas) {
-    // Genera los elementos del menú dinámicamente  
+    // Genera los elementos del menï¿½ dinï¿½micamente  
     let html = "";
     empresas.slice(1, 5).forEach(egra => {
         html += `
@@ -739,7 +739,7 @@ function renderTituloPEmpHome(pemp) {
     $('#tituloPEmpHome').append(html);
 }
 function renderSlidePEmpHome(pemps) {
-    // Genera los elementos del menú dinámicamente  
+    // Genera los elementos del menï¿½ dinï¿½micamente  
     let html = "";
     pemps.slice(1, 5).forEach(pemp => {
         html += `
@@ -761,7 +761,7 @@ function renderTituloTestHome(test) {
     $('#tituloTestHome').append(html);
 }
 function renderSlideTestHome(testimonios) {
-    // Genera los elementos del menú dinámicamente  
+    // Genera los elementos del menï¿½ dinï¿½micamente  
     let html = "";
     const testimoniosContador = testimonios.slice(1);
     testimoniosContador.forEach(test => {  
@@ -784,7 +784,7 @@ function renderSlideTestHome(testimonios) {
     $('#slideTestHome').append(html);
 }
 function renderLogrosHome(logros) {
-    // Genera los elementos del menú dinámicamente  
+    // Genera los elementos del menï¿½ dinï¿½micamente  
     let html="";
     logros.forEach(logr => {
         html += `
@@ -848,7 +848,7 @@ function renderFooterHome(foot) {
     $('#footerHome').append(html);
 }
 function renderMenuHome(menus) {
-    // Genera los elementos del menú dinámicamente  
+    // Genera los elementos del menï¿½ dinï¿½micamente  
     let html = `
         <li class="home">
             <a href="/Home/Index">
@@ -924,16 +924,15 @@ function renderSliderInscrHome(inscripcions) {
     let slider = '';
     inscripcions.slice(0, 5).forEach((insc, index) => {
         if (insc.insc_Orden > 0) {
-            const isActive = index === 1 ? 'active' : '';
-            slider +=
-                `
+            const isActive = index === 1 ? "active" : "";
+            slider += `
                 <div class="step">
                     <div class="step-image">
                         <img src="${insc.insc_URLImagen}"
                              alt="Paso 1" />
                     </div>
-                    <div class="step-content right-align">
-                        <p>PASO ${insc.insc_Paso}</p>
+                    <div class="step-content ${index % 2 == 0 ? "left-align" : "right-align"}">
+                        <p class="step-indicator">PASO ${insc.insc_Paso}</p>
                         <h3 class="step-title">${insc.insc_TituloPaso}</h3>
                         <p class="p-p">
                             ${insc.insc_Descripcion}
@@ -942,12 +941,10 @@ function renderSliderInscrHome(inscripcions) {
                 </div>
 
                  `;
-
         }
     });
 
-    $('#sliderInscrHome').append(slider);
-
+    $("#sliderInscrHome").append(slider);
 }
 function renderSliderBannerHome(banners) {
     let slider = '';
@@ -1283,26 +1280,26 @@ var swiper = new Swiper(".testomnios_swiper", {
 });
 function formatearFecha(fechaISO) {
     const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
+    const dia = String(fecha.getDate()).padStart(2, '0'); // Dï¿½a con dos dï¿½gitos
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dï¿½gitos
+    const anio = fecha.getFullYear(); // Aï¿½o completo
 
-    return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
+    return `${dia}/${mes}/${anio}`; // Cambia el formato segï¿½n sea necesario
 }
 function formatearFechaInversa(fechaISO) {
     const fecha = new Date(fechaISO);
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Día con dos dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
-    const anio = fecha.getFullYear(); // Año completo
+    const dia = String(fecha.getDate()).padStart(2, '0'); // Dï¿½a con dos dï¿½gitos
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Mes con dos dï¿½gitos
+    const anio = fecha.getFullYear(); // Aï¿½o completo
 
-    return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
+    return `${anio}-${mes}-${dia}`; // Cambia el formato segï¿½n sea necesario
 }
-// Función para obtener el día de una fecha
+// Funciï¿½n para obtener el dï¿½a de una fecha
 function obtenerDia(fecha) {
     const fechaObj = new Date(fecha);
     return fechaObj.getDate();
 }
-// Función para obtener el año de una fecha
+// Funciï¿½n para obtener el aï¿½o de una fecha
 function obtenerAno(fecha) {
     const fechaObj = new Date(fecha);
     return fechaObj.getFullYear();
@@ -1327,7 +1324,7 @@ function cambiarImagenDinamica(imagenUrl) {
     // Usamos jQuery para modificar el background-image
     $(".hero").css("background-image", "url(" + imagenUrl + ")");
 }
-// Función para mostrar mensajes de error con Swal
+// Funciï¿½n para mostrar mensajes de error con Swal
 function showErrorMessage(message) {
     Swal.fire({
         icon: 'error',
@@ -1364,7 +1361,7 @@ async function cargarRegion() {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Hubo un problema al cargar las regiones. Inténtelo más tarde.",
+            text: "Hubo un problema al cargar las regiones. Intï¿½ntelo mï¿½s tarde.",
         });
     }
 }
@@ -1397,7 +1394,7 @@ async function cargarTiposEmpresa() {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Hubo un problema al cargar los tipos de empresa. Inténtelo más tarde.",
+            text: "Hubo un problema al cargar los tipos de empresa. Intï¿½ntelo mï¿½s tarde.",
         });
     }
 }
@@ -1430,7 +1427,7 @@ async function cargarTiposEvento() {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Hubo un problema al cargar los tipos de eventos. Inténtelo más tarde.",
+            text: "Hubo un problema al cargar los tipos de eventos. Intï¿½ntelo mï¿½s tarde.",
         });
     }
 }
