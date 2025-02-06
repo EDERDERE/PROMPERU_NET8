@@ -63,9 +63,6 @@ async function loadCerrarSesion() {
         }
     });
 }
-
-
-
 function loadMenu() {
   const menu = document.querySelectorAll(".menu");
   const sidebar = document.querySelector(".sidebar");

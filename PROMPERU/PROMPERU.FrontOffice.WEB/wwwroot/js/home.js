@@ -998,7 +998,7 @@ function renderSliderBannerHome(banners) {
     }
   });
 
-  $("#sliderBannerHome").append(slider);
+  $("#sliderBannerHome").html(slider);
 }
 function renderTituloCasoHome(caso) {
   const html = `
