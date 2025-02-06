@@ -35,7 +35,7 @@ const home = {
             renderLogoHome(logos[0]);
           } else {
             // Si no hay logos, mostrar un mensaje adecuado
-            $logoHome.html("<p>No hay informaci�n de logos disponibles.</p>");
+            $logoHome.html("<p>No hay información de logos disponibles.</p>");
           }
         } else {
           // Mostrar alerta de error si no hay logos disponibles
@@ -75,7 +75,7 @@ const home = {
             renderMenuHome(menus);
           } else {
             // Si no hay men�s, mostrar un mensaje adecuado
-            $menuHome.html("<p>No hay informaci�n de men�s disponibles.</p>");
+            $menuHome.html("<p>No hay información de men�s disponibles.</p>");
           }
         } else {
           // Mostrar alerta de error si no hay men�s disponibles
@@ -116,7 +116,7 @@ const home = {
           } else {
             // Si no hay logros, mostrar un mensaje adecuado
             $logrosHome.html(
-              "<p>No hay informaci�n de logros disponibles.</p>"
+              "<p>No hay información de logros disponibles.</p>"
             );
           }
         } else {
@@ -161,7 +161,7 @@ const home = {
           } else {
             // Si no hay testimonios, mostrar un mensaje adecuado
             $slideTestHome.html(
-              "<p>No hay informaci�n de testimonios disponibles.</p>"
+              "<p>No hay información de testimonios disponibles.</p>"
             );
           }
         } else {
@@ -197,7 +197,7 @@ const home = {
         if (!response?.success) {
           Swal.fire({
             icon: "error",
-            title: "No hay informaci�n disponible",
+            title: "No hay información disponible",
             text: response?.message || "No se encontraron registros.",
           });
           return;
@@ -210,7 +210,7 @@ const home = {
           renderSlidePEmpHome(perfilEmpresarials); // Renderiza los sliders
         } else {
           $("#sliderPEmpHome").html(
-            "<p>No hay informaci�n de testimonios disponibles.</p>"
+            "<p>No hay información de testimonios disponibles.</p>"
           );
         }
       },
@@ -220,7 +220,7 @@ const home = {
         Swal.fire({
           icon: "error",
           title: "Error al cargar los perfiles",
-          text: "Hubo un problema al cargar la informaci�n. Intente nuevamente m�s tarde.",
+          text: "Hubo un problema al cargar la información. Intente nuevamente m�s tarde.",
         });
       },
     });
@@ -237,7 +237,7 @@ const home = {
         if (!response?.success) {
           Swal.fire({
             icon: "error",
-            title: "No hay informaci�n disponible",
+            title: "No hay información disponible",
             text: response?.message || "No se encontraron registros.",
           });
           return;
@@ -249,7 +249,7 @@ const home = {
           renderContactoHome(formularioContactos[0]); // Renderiza el primer contacto
         } else {
           $("#contactoHome").html(
-            "<p>No hay informaci�n de contacto disponible.</p>"
+            "<p>No hay información de contacto disponible.</p>"
           );
         }
       },
@@ -258,7 +258,7 @@ const home = {
 
         Swal.fire({
           icon: "error",
-          title: "Error al cargar la informaci�n",
+          title: "Error al cargar la información",
           text: "Hubo un problema al cargar los datos de contacto. Intente nuevamente m�s tarde.",
         });
       },
@@ -291,7 +291,7 @@ const home = {
           renderSliderEGHome(empresas);
         } else {
           $("#sliderEGHome").html(
-            "<p>No hay informaci�n de empresas disponibles.</p>"
+            "<p>No hay información de empresas disponibles.</p>"
           );
         }
       },
@@ -301,7 +301,7 @@ const home = {
         Swal.fire({
           icon: "error",
           title: "Error al cargar las empresas",
-          text: "Hubo un problema al obtener la informaci�n. Intente nuevamente m�s tarde.",
+          text: "Hubo un problema al obtener la información. Intente nuevamente m�s tarde.",
         });
       },
     });
@@ -320,7 +320,7 @@ const home = {
         if (!response?.success) {
           Swal.fire({
             icon: "error",
-            title: "No hay informaci�n disponible",
+            title: "No hay información disponible",
             text: response?.message || "No se encontraron registros.",
           });
           return;
@@ -331,7 +331,7 @@ const home = {
         if (informacions.length > 0) {
           renderSeccionHome(informacions[0]);
         } else {
-          $("#seccionHome").html("<p>No hay informaci�n disponible.</p>");
+          $("#seccionHome").html("<p>No hay información disponible.</p>");
         }
       },
       error: function (xhr, status, error) {
@@ -339,8 +339,8 @@ const home = {
 
         Swal.fire({
           icon: "error",
-          title: "Error al cargar la informaci�n",
-          text: "Hubo un problema al obtener la informaci�n. Intente nuevamente m�s tarde.",
+          title: "Error al cargar la información",
+          text: "Hubo un problema al obtener la información. Intente nuevamente m�s tarde.",
         });
       },
     });
@@ -803,6 +803,7 @@ function renderSlideTestHome(testimonios) {
         `;
   });
   $("#slideTestHome").append(html);
+
 }
 function renderLogrosHome(logros) {
   // Genera los elementos del men� din�micamente
@@ -1270,31 +1271,32 @@ var swiper = new Swiper(".cursos_swiper", {
   },
 });
 var swiper = new Swiper(".testomnios_swiper", {
-  direction: "horizontal",
-  slidesPerView: 3,
-  centeredSlides: true,
-  spaceBetween: 10,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  breakpoints: {
-    // when window width is >= 320px
-    320: {
-      slidesPerView: 1.2,
-      spaceBetween: 20,
+    direction: "horizontal",
+    slidesPerView: 3,
+    centeredSlides: true,
+    initialSlide: 1,
+    spaceBetween: 80,
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
-    // when window width is >= 480px
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20,
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+        },
     },
-    // when window width is >= 640px
-    640: {
-      slidesPerView: 3,
-      spaceBetween: 20,
-    },
-  },
 });
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
