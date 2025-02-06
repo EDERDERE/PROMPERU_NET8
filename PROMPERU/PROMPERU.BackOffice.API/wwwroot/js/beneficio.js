@@ -4,7 +4,7 @@
   loadCrearBeneficio();
   loadEditarBeneficio();
   loadEliminarBeneficio();
-  loadGuardarOrden();
+  loadGuardarOrdenBeneficio();
 });
 function renderTituloBeneficio(beneficio) {
     return `
@@ -158,7 +158,6 @@ async function loadListarBeneficios() {
         });
     }
 }
-
 async function loadCrearBeneficio() {
     $("#saveCreateSlider").click(async function () {
         var nombre = $("#createNombre").val();
@@ -214,8 +213,6 @@ async function loadCrearBeneficio() {
         }
     });
 }
-
-
 async function loadEditarBeneficio() {
     $("#editTitle").on("show.bs.modal", function (event) {
         // Obtener los datos del botón que activó el modal
@@ -431,8 +428,7 @@ async function loadEliminarBeneficio() {
         }
     });
 }
-
-async function loadGuardarOrden() {
+async function loadGuardarOrdenBeneficio() {
     // Al hacer clic en el botón de guardar cambios
     $("#saveOrder").click(async function () {
         const result = await Swal.fire({
