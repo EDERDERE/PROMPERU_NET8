@@ -6,41 +6,41 @@
   loadGuardarOrdenInfo();
 });
 async function loadListarBanner() {
-    try {
-        // Realiza la solicitud AJAX de forma asíncrona
-        const response = await $.ajax({
-            type: "GET",
-            url: "/Banner/ListarBanners",
-            dataType: "json",
-        });
+  try {
+    // Realiza la solicitud AJAX de forma asíncrona
+    const response = await $.ajax({
+      type: "GET",
+      url: "/Banner/ListarBanners",
+      dataType: "json",
+    });
 
-        console.log(response);
-        $("#sliderContainer").empty();
+    console.log(response);
+    $("#sliderContainer").empty();
 
-        if (response.success) {
-            // Itera sobre los banners y los agrega al contenedor
-            response.banners.forEach((banner) => {
-                const sliderCard = createSliderCardBanner(banner); // Usar la función para crear la tarjeta
-                $("#sliderContainer").append(sliderCard);
-            });
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "No hay banners disponibles",
-                text: response.message || "No se encontraron banners.",
-            });
-        }
-    } catch (error) {
-        Swal.fire({
-            icon: "error",
-            title: "Error al cargar los sliders",
-            text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
-        });
+    if (response.success) {
+      // Itera sobre los banners y los agrega al contenedor
+      response.banners.forEach((banner) => {
+        const sliderCard = createSliderCardBanner(banner); // Usar la función para crear la tarjeta
+        $("#sliderContainer").append(sliderCard);
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "No hay banners disponibles",
+        text: response.message || "No se encontraron banners.",
+      });
     }
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error al cargar los sliders",
+      text: "Hubo un problema al cargar los banners. Por favor, inténtelo nuevamente más tarde.",
+    });
+  }
 }
 // Función que crea el HTML del slider card
 function createSliderCardBanner(banner) {
-    return `
+  return `
     <div class="card col-12 col-md-12 shadow-lg border-0 p-4 mb-3" data-id="${banner.bann_ID}" data-orden="${banner.bann_Orden}">
       <div class="d-flex justify-content-between align-items-start mb-3">
         <h5 class="card-number mb-0">${banner.bann_Orden}</h5>
@@ -73,272 +73,269 @@ function createSliderCardBanner(banner) {
     </div>`;
 }
 async function loadCrearBanner() {
-    $("#saveCreateSlider").click(async function () {
-        const description = $("#createDescription").val();
-        const imageUrl = $("#createImageUrl").val();
+  $("#saveCreateSlider").click(async function () {
+    const description = $("#createDescription").val();
+    const imageUrl = $("#createImageUrl").val();
 
-        if (description && imageUrl) {
-            try {
-                const response = await $.ajax({
-                    type: "POST",
-                    url: "/Banner/InsertarBanner", // URL del controlador para crear el slider
-                    data: {
-                        description: description,
-                        imageUrl: imageUrl,
-                    },
-                });
+    if (description && imageUrl) {
+      try {
+        const response = await $.ajax({
+          type: "POST",
+          url: "/Banner/InsertarBanner", // URL del controlador para crear el slider
+          data: {
+            description: description,
+            imageUrl: imageUrl,
+          },
+        });
 
-                handleResponse(response); // Manejo de la respuesta
-            } catch (error) {
-                handleError(error);
-            }
-        } else {
-            showWarning("Por favor, complete todos los campos");
-        }
-    });
+        handleResponse(response); // Manejo de la respuesta
+      } catch (error) {
+        handleError(error);
+      }
+    } else {
+      showWarning("Por favor, complete todos los campos");
+    }
+  });
 }
 // Manejo de la respuesta exitosa
 function handleResponse(response) {
-    if (response.success) {
-        Swal.fire({
-            title: "¡Éxito!",
-            text: "Slider creado exitosamente",
-            icon: "success",
-            confirmButtonText: "Aceptar",
-        }).then(() => {
-            location.reload(); // Recargar la página o actualizar el contenido
-        });
-    } else {
-        showError("Hubo un error al crear el slider");
-    }
+  if (response.success) {
+    Swal.fire({
+      title: "¡Éxito!",
+      text: "Slider creado exitosamente",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      location.reload(); // Recargar la página o actualizar el contenido
+    });
+  } else {
+    showError("Hubo un error al crear el slider");
+  }
 }
 // Manejo de errores generales
 function handleError(error) {
-    showError("Hubo un error al intentar crear el slider");
+  showError("Hubo un error al intentar crear el slider");
 }
 // Mostrar error en un cuadro de diálogo
 function showError(message) {
-    Swal.fire({
-        title: "Error",
-        text: message,
-        icon: "error",
-        confirmButtonText: "Aceptar",
-    });
+  Swal.fire({
+    title: "Error",
+    text: message,
+    icon: "error",
+    confirmButtonText: "Aceptar",
+  });
 }
 // Mostrar advertencia
 function showWarning(message) {
-    Swal.fire({
-        title: "Advertencia",
-        text: message,
-        icon: "warning",
-        confirmButtonText: "Aceptar",
-    });
+  Swal.fire({
+    title: "Advertencia",
+    text: message,
+    icon: "warning",
+    confirmButtonText: "Aceptar",
+  });
 }
 
 async function loadEditarBanner() {
-    $("#editSliderModal").on("show.bs.modal", function (event) {
-        // Obtener los datos del botón que activó el modal
-        const button = $(event.relatedTarget);
-        const id = button.data("id");
-        const order = button.data("orden");
-        const description = button.data("description");
-        const imageUrl = button.data("image-url");
+  $("#editSliderModal").on("show.bs.modal", function (event) {
+    // Obtener los datos del botón que activó el modal
+    const button = $(event.relatedTarget);
+    const id = button.data("id");
+    const order = button.data("orden");
+    const description = button.data("description");
+    const imageUrl = button.data("image-url");
 
-        // Asignar los valores al modal
-        const modal = $(this);
-        modal.find("#editId").val(id);
-        modal.find("#editOrder").val(order);
-        modal.find("#editDescription").val(description);
-        modal.find("#editImageUrl").val(imageUrl);
-    });
+    // Asignar los valores al modal
+    const modal = $(this);
+    modal.find("#editId").val(id);
+    modal.find("#editOrder").val(order);
+    modal.find("#editDescription").val(description);
+    modal.find("#editImageUrl").val(imageUrl);
+  });
 
-    $("#saveEditSlider").click(async function () {
-        const description = $("#editDescription").val();
-        const imageUrl = $("#editImageUrl").val();
-        const order = $("#editOrder").val();
-        const id = $("#editId").val();
+  $("#saveEditSlider").click(async function () {
+    const description = $("#editDescription").val();
+    const imageUrl = $("#editImageUrl").val();
+    const order = $("#editOrder").val();
+    const id = $("#editId").val();
 
-        if (description && imageUrl) {
-            try {
-                const response = await $.ajax({
-                    type: "POST",
-                    url: "/Banner/ActualizarBanner",
-                    data: {
-                        id: id,
-                        orden: order,
-                        description: description,
-                        imageUrl: imageUrl,
-                    },
-                });
+    if (description && imageUrl) {
+      try {
+        const response = await $.ajax({
+          type: "POST",
+          url: "/Banner/ActualizarBanner",
+          data: {
+            id: id,
+            orden: order,
+            description: description,
+            imageUrl: imageUrl,
+          },
+        });
 
-                handleEditResponse(response);
-            } catch (error) {
-                handleError(error);
-            }
-        } else {
-            showWarning("Por favor, complete todos los campos antes de continuar.");
-        }
-    });
+        handleEditResponse(response);
+      } catch (error) {
+        handleError(error);
+      }
+    } else {
+      showWarning("Por favor, complete todos los campos antes de continuar.");
+    }
+  });
 }
 
 // Manejo de la respuesta exitosa para la actualización
 function handleEditResponse(response) {
-    if (response.success) {
-        Swal.fire({
-            icon: "success",
-            title: "¡Actualizado!",
-            text: "El slider se ha actualizado exitosamente.",
-            confirmButtonText: "Aceptar",
-        }).then(() => {
-            location.reload();
-        });
-    } else {
-        showError("No se pudo actualizar el slider. Inténtelo nuevamente.");
-    }
+  if (response.success) {
+    Swal.fire({
+      icon: "success",
+      title: "¡Actualizado!",
+      text: "El slider se ha actualizado exitosamente.",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      location.reload();
+    });
+  } else {
+    showError("No se pudo actualizar el slider. Inténtelo nuevamente.");
+  }
 }
 async function loadEliminarBanner() {
-    $(document).on("click", '[id^="btn-delete-"]', async function () {
-        const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-        console.log(`ID a eliminar: ${id}`);
+  $(document).on("click", '[id^="btn-delete-"]', async function () {
+    const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
+    console.log(`ID a eliminar: ${id}`);
 
-        // Mostrar mensaje de confirmación
-        const result = await Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, eliminar",
-            cancelButtonText: "Cancelar",
-        });
-
-        if (result.isConfirmed) {
-            // Realizar la eliminación
-            try {
-                const response = await eliminarBanner(id);
-                handleEliminarResponse(response);
-            } catch (error) {
-                handleError();
-            }
-        }
+    // Mostrar mensaje de confirmación
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     });
+
+    if (result.isConfirmed) {
+      // Realizar la eliminación
+      try {
+        const response = await eliminarBanner(id);
+        handleEliminarResponse(response);
+      } catch (error) {
+        handleError();
+      }
+    }
+  });
 }
 
 // Función para eliminar el banner
 async function eliminarBanner(id) {
-    return await $.ajax({
-        type: "POST",
-        url: "/Banner/EliminarBanner", // Ruta del controlador para la eliminación
-        data: { id: id },
-    });
+  return await $.ajax({
+    type: "POST",
+    url: "/Banner/EliminarBanner", // Ruta del controlador para la eliminación
+    data: { id: id },
+  });
 }
 
 // Manejo de la respuesta de eliminación
 function handleEliminarResponse(response) {
-    if (response.success) {
-        Swal.fire(
-            "¡Eliminado!",
-            "El elemento ha sido eliminado con éxito.",
-            "success"
-        ).then(() => {
-            location.reload(); // Recargar la página o actualizar el contenido dinámicamente
-        });
-    } else {
-        Swal.fire(
-            "Error",
-            "No se pudo eliminar el elemento. Inténtalo de nuevo.",
-            "error"
-        );
-    }
+  if (response.success) {
+    Swal.fire(
+      "¡Eliminado!",
+      "El elemento ha sido eliminado con éxito.",
+      "success"
+    ).then(() => {
+      location.reload(); // Recargar la página o actualizar el contenido dinámicamente
+    });
+  } else {
+    Swal.fire(
+      "Error",
+      "No se pudo eliminar el elemento. Inténtalo de nuevo.",
+      "error"
+    );
+  }
 }
 async function loadGuardarOrdenInfo() {
-    // Al hacer clic en el botón de guardar cambios
-    $("#saveOrder").click(async function () {
-        const result = await Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, ordenar",
-            cancelButtonText: "Cancelar",
-        });
-
-        if (result.isConfirmed) {
-            try {
-                const ordenData = await obtenerOrdenData();
-                console.log(ordenData);
-                await actualizarOrdenBanner(ordenData);
-            } catch (error) {
-                handleError();
-            }
-        }
+  // Al hacer clic en el botón de guardar cambios
+  $("#saveOrder").click(async function () {
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ordenar",
+      cancelButtonText: "Cancelar",
     });
+
+    if (result.isConfirmed) {
+      try {
+        const ordenData = await obtenerOrdenData();
+        console.log(ordenData);
+        await actualizarOrdenBanner(ordenData);
+      } catch (error) {
+        handleError();
+      }
+    }
+  });
 }
 
 // Obtener los datos de la orden
 async function obtenerOrdenData() {
-    const Ids = [];
-    const Orders = [];
-    const Descriptions = [];
-    const Urls = [];
-    const NewOrders = [];
+  const Ids = [];
+  const Orders = [];
+  const Descriptions = [];
+  const Urls = [];
+  const NewOrders = [];
 
-    $(".btn-link.text-primary").each(function () {
-        Ids.push($(this).data("id"));
-        Orders.push($(this).data("orden"));
-        Descriptions.push($(this).data("description"));
-        Urls.push($(this).data("image-url"));
-    });
+  $(".btn-link.text-primary").each(function () {
+    Ids.push($(this).data("id"));
+    Orders.push($(this).data("orden"));
+    Descriptions.push($(this).data("description"));
+    Urls.push($(this).data("image-url"));
+  });
 
-    $(".card").each(function () {
-        NewOrders.push($(this).find(".card-number").text().trim());
-    });
+  $(".card").each(function () {
+    NewOrders.push($(this).find(".card-number").text().trim());
+  });
 
-    const result = Ids.map((id, index) => ({
-        id: parseInt(id),
-        orden: parseInt(NewOrders[index]),
-        description: Descriptions[index].toString(),
-        imageUrl: Urls[index].toString(),
-    }));
+  const result = Ids.map((id, index) => ({
+    id: parseInt(id),
+    orden: parseInt(NewOrders[index]),
+    description: Descriptions[index].toString(),
+    imageUrl: Urls[index].toString(),
+  }));
 
-    return result;
+  return result;
 }
 
 // Actualizar el orden de los banners
 async function actualizarOrdenBanner(ordenData) {
-    const response = await $.ajax({
-        url: "/Banner/ActualizarOrdenBanner",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(ordenData),
-    });
+  const response = await $.ajax({
+    url: "/Banner/ActualizarOrdenBanner",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(ordenData),
+  });
 
-    handleActualizarResponse(response);
+  handleActualizarResponse(response);
 }
 
 // Manejo de la respuesta de actualización
 function handleActualizarResponse(response) {
-    if (response.success) {
-        Swal.fire({
-            icon: "success",
-            title: "¡Actualizado!",
-            text: "El Banner se ha actualizado exitosamente.",
-            confirmButtonText: "Aceptar",
-        }).then(() => {
-            location.reload();
-        });
-    } else {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "No se pudo actualizar el Banner. Inténtelo nuevamente.",
-            confirmButtonText: "Aceptar",
-        });
-    }
+  if (response.success) {
+    Swal.fire({
+      icon: "success",
+      title: "¡Actualizado!",
+      text: "El Banner se ha actualizado exitosamente.",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      location.reload();
+    });
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo actualizar el Banner. Inténtelo nuevamente.",
+      confirmButtonText: "Aceptar",
+    });
+  }
 }
-
-
-
