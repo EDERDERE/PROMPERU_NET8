@@ -41,7 +41,7 @@ body {
 }
 
 .header_btn {
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
     .header_btn img {
@@ -244,7 +244,7 @@ body {
 .description h3 {
     margin-top: 15px;
 }
-/* === Contenedor �Qu� es? === */
+/* === Contenedor ¿Qué es? === */
 .fs-12 {
     font-size: 12px;
 }
@@ -308,13 +308,13 @@ body {
     height: -webkit-fill-available;
 }
 
-/* === Etapas de inscripcion === */
+/* === Etapas de inscripción === */
 .container-inscripcion {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
 
-.inscripci�n-title {
+.inscripción-title {
     font-size: 23px;
     font-weight: 550;
 }
@@ -491,7 +491,7 @@ body {
 
 .button-test {
     padding: 12px 25px;
-    background-color: var(--color-primary);
+    background-color: #C3122C;
     margin-top: 40px;
     text-align: center;
     border-radius: 13px;
@@ -663,8 +663,8 @@ footer {
 }
 
 .button-outline {
-    border: 1px solid #0070BA;
-    color: #0070BA;
+    border: 1px solid #C3122C;
+    color: #C3122C;
     padding: 0.7rem 2rem;
     border-radius: 10px;
     margin-top: 10px;

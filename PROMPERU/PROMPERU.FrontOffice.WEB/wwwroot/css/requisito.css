@@ -42,7 +42,7 @@ body {
 }
 
 .header_btn {
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
     .header_btn img {
@@ -492,7 +492,7 @@ body {
 
 .button-test {
     padding: 12px 25px;
-    background-color: var(--color-primary);
+    background-color: #C3122C;
     margin-top: 40px;
     text-align: center;
     border-radius: 13px;
@@ -664,8 +664,8 @@ footer {
 }
 
 .button-outline {
-    border: 1px solid #0070BA;
-    color: #0070BA;
+    border: 1px solid #C3122C;
+    color: #C3122C;
     padding: 0.7rem 2rem;
     border-radius: 10px;
     margin-top: 10px;

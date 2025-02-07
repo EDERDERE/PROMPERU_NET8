@@ -1,6 +1,10 @@
 @import "../../shared/styles/variables.css";
 @import "../../shared/styles/header.css";
 
+:root {
+  font-size: 18px !important;
+}
+
 body {
   background-color: var(--color-background);
   margin: 0;
@@ -15,7 +19,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #0070BA !important;
+  background-color: #C3122C !important;
 }
 
 .header {
@@ -31,7 +35,7 @@ body {
 }
 
 .header_btn {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .header_btn img {
@@ -52,7 +56,7 @@ body {
 
 .main_nav li a {
   color: var(--color-text);
-  font-size: 16px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 20px;
 }
@@ -75,7 +79,7 @@ body {
 
 .hero .swiper-slide {
   text-align: center;
-  font-size: 18px;
+  font-size: 1.125rem;
   background: #fff;
   display: flex;
   justify-content: center;
@@ -153,11 +157,11 @@ body {
 }
 
 .fs-10 {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .fs-8 {
-  font-size: 8px;
+  font-size: 0.5rem;
   line-height: 10px;
   font-weight: 400;
 }
@@ -204,7 +208,7 @@ body {
 }
 /* === Contenedor ¿Qué es? === */
 .fs-12 {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .texto-que-es {
@@ -241,7 +245,7 @@ body {
 
 .text-requisitos {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 14.06px;
   color: var(--color-text);
   text-align: left;
@@ -280,7 +284,7 @@ body {
 .container-import .p-principal {
   color: rgb(110, 110, 110);
   text-align: center;
-  font-size: 11.5px;
+  font-size: 0.719rem;
 }
 
 .nav-items {
@@ -365,14 +369,14 @@ body {
 }
 
 .step-content p {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #717171;
   margin: 0;
   font-weight: normal;
 }
 
 .step-title {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #717171;
   font-weight: bold;
   margin-bottom: 2px;
@@ -404,12 +408,12 @@ body {
 }
 
 .cursos_swiper h4 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
 }
 
 .cursos_swiper p {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .cursos_swiper svg {
@@ -468,7 +472,7 @@ body {
 .button-test a {
   color: var(--color-white);
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1.063rem;
 }
 
 .button-test img {
@@ -520,7 +524,7 @@ body {
 }
 
 .testomnio_item .description {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #676767;
   text-align: center;
 }
@@ -747,6 +751,9 @@ footer {
   }
 }
 @media screen and (min-width: 992px) {
+  :root {
+    font-size: 12px !important;
+  }
   .main_nav {
     width: 80%;
     border-bottom-right-radius: 20px;
@@ -761,7 +768,7 @@ footer {
   }
 
   .main_nav li a {
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-text);
     font-size: 12px;
     font-weight: 500;
@@ -778,7 +785,7 @@ footer {
   }
 
   .hero .content p {
-    font-size: 30px;
+    font-size: 1.875rem;
   }
 
   .nav-items {
@@ -804,19 +811,19 @@ footer {
   }
 
   .quick_data h3 {
-    font-size: 14px;
+    font-size: 1.2rem;
   }
 
   .quick_data p {
-    font-size: 12px;
+    font-size: 1rem;
   }
 
   .title-que-es {
-    font-size: 40px;
+    font-size: 2.5rem;
   }
 
   .texto-que-es {
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 30px;
   }
 
@@ -825,7 +832,7 @@ footer {
   }
 
   .text-requisitos {
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 30px;
   }
 
@@ -838,7 +845,7 @@ footer {
     max-width: 900px;
     color: rgb(110, 110, 110);
     text-align: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     margin: 0 auto;
   }
 
@@ -854,15 +861,15 @@ footer {
   }
 
   .step-title {
-    font-size: 30px;
+    font-size: 1.875rem;
   }
 
   .step-content p {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .Button-Test a {
-    font-size: 20px;
+    font-size: 1.25rem;
     padding: 12px 22px;
   }
 
@@ -872,12 +879,12 @@ footer {
   }
 
   .cursos_swiper h4 {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
   }
 
   .cursos_swiper p {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .cursos_swiper svg {
