@@ -7,43 +7,45 @@
   loadGuardarOrdenCaso();
 });
 async function loadListarCasos() {
-    try {
-        // Realiza la llamada AJAX usando fetch en lugar de jQuery
-        const response = await $.ajax({
-            type: "GET", // Método GET para obtener los casos
-            url: "/Caso/ListarCasos", // URL del controlador que devuelve la lista de casos
-            dataType: "json",
-        });
+  try {
+    // Realiza la llamada AJAX usando fetch en lugar de jQuery
+    const response = await $.ajax({
+      type: "GET", // Método GET para obtener los casos
+      url: "/Caso/ListarCasos", // URL del controlador que devuelve la lista de casos
+      dataType: "json",
+    });
 
-        console.log(response);
-        // Limpia los contenedores antes de renderizar los casos
-        $("#sliderContainer").empty();
-        $("#tituloContainer").empty();
+    console.log(response);
+    // Limpia los contenedores antes de renderizar los casos
+    $("#sliderContainer").empty();
+    $("#tituloContainer").empty();
 
-        if (response.success) {
-            const casos = response.casos;
-            if (casos.length > 0) {
-                renderTituloCaso(casos[0]); // Renderiza el título del caso
-                renderSlidersCaso(casos);    // Renderiza los sliders de los casos
-            } else {
-                $("#sliderContainer").html("<p>No se encontraron Casos disponibles.</p>");
-            }
-        } else {
-            // Si no hay éxito en la respuesta, muestra un mensaje de error
-            Swal.fire({
-                icon: "error",
-                title: "No hay Casos disponibles",
-                text: response.message || "No se encontraron Casos.",
-            });
-        }
-    } catch (error) {
-        // En caso de error al realizar la llamada AJAX, muestra el error
-        Swal.fire({
-            icon: "error",
-            title: "Error al cargar los casos",
-            text: "Hubo un problema al cargar los Casos. Por favor, inténtelo nuevamente más tarde.",
-        });
+    if (response.success) {
+      const casos = response.casos;
+      if (casos.length > 0) {
+        renderTituloCaso(casos[0]); // Renderiza el título del caso
+        renderSlidersCaso(casos); // Renderiza los sliders de los casos
+      } else {
+        $("#sliderContainer").html(
+          "<p>No se encontraron Casos disponibles.</p>"
+        );
+      }
+    } else {
+      // Si no hay éxito en la respuesta, muestra un mensaje de error
+      Swal.fire({
+        icon: "error",
+        title: "No hay Casos disponibles",
+        text: response.message || "No se encontraron Casos.",
+      });
     }
+  } catch (error) {
+    // En caso de error al realizar la llamada AJAX, muestra el error
+    Swal.fire({
+      icon: "error",
+      title: "Error al cargar los casos",
+      text: "Hubo un problema al cargar los Casos. Por favor, inténtelo nuevamente más tarde.",
+    });
+  }
 }
 function renderTituloCaso(caso) {
   const tituloCard = `     
@@ -60,6 +62,7 @@ function renderTituloCaso(caso) {
                          data-urlboton="${caso.cexi_UrlBoton}"
                          data-iconboton="${caso.cexi_UrlIcon}"
                          data-descripcionSeccion="${caso.cexi_Descripcion}"
+                         data-urlbanner="${caso.cexi_UrlCabecera}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -105,8 +108,6 @@ function renderTituloCaso(caso) {
                     </div>
 
                     <input type="text" id="tituloVideo-${caso.cexi_ID}" class="form-control" placeholder="${caso.cexi_TituloVideo}" disabled>
-
-
                 </div>
 
                   <div class="col-md-6 my-3 ">
@@ -114,10 +115,17 @@ function renderTituloCaso(caso) {
                         <label for="tituloVideo-${caso.cexi_ID}" class="form-label fw-semibold">Descripcion Sección</label>                        
                     </div>
                     <textarea  id="tituloVideo-${caso.cexi_ID}" class="form-control" placeholder="${caso.cexi_Descripcion}" disabled></textarea>
-     
-
 
                 </div>
+                  <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="tituloVideo-${caso.cexi_ID}" class="form-label fw-semibold">URL del banner</label>                        
+                    </div>
+
+                    <input type="text" id="tituloVideo-${caso.cexi_ID}" class="form-control" placeholder="${caso.cexi_UrlCabecera}" disabled>
+                            </div>
+
+                
 
             </div>
     `;
@@ -150,7 +158,7 @@ function renderSlidersCaso(casos) {
                                 data-description="${caso.cexi_Descripcion}"
                                 data-urlicon="${caso.cexi_UrlIcon}"                    
                                 data-urlperfil="${caso.cexi_UrlPerfil}"
-                                data-urlcabecera="${caso.cexi_UrlCabecera}"                           
+                                data-urlcabecera="${caso.cexi_UrlVideo}" 
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -188,8 +196,8 @@ function renderSlidersCaso(casos) {
                     </div>
 
                     <div>
-                        <label for="urlCabecera-${caso.cexi_UrlCabecera}" class="form-label fw-semibold">URL cabecera</label>
-                        <input type="text" id="urlCabecera-${caso.cexi_UrlCabecera}" class="form-control" placeholder="${caso.cexi_UrlCabecera}" disabled>
+                        <label for="urlCabecera-${caso.cexi_UrlVideo}" class="form-label fw-semibold">URL del video</label>
+                        <input type="text" id="urlCabecera-${caso.cexi_UrlVideo}" class="form-control" placeholder="${caso.cexi_UrlVideo}" disabled>
                     </div>
 
             </div>
@@ -200,361 +208,378 @@ function renderSlidersCaso(casos) {
   $("#sliderContainer").append(slidersHTML);
 }
 async function loadCrearCaso() {
-    $("#saveCreateSlider").click(async function () {
-        // Recopilar datos del formulario
-        const casoData = {
-            nombre: $("#createNombre").val(),
-            description: $("#createDescription").val(),
-            urlIcon: $("#createUrlIcon").val(),
-            urlPerfil: $("#createUrlPerfil").val(),
-            urlCabecera: $("#createUrlCabecera").val(),
-        };
-        console.log(casoData);
+  $("#saveCreateSlider").click(async function () {
+    // Recopilar datos del formulario
+    const casoData = {
+      nombre: $("#createNombre").val(),
+      description: $("#createDescription").val(),
+      urlIcon: $("#createUrlIcon").val(),
+      urlPerfil: $("#createUrlPerfil").val(),
+      urlVideo: $("#createUrlCabecera").val(),
+    };
+    console.log(casoData);
 
-        // Validar si todos los campos están completos
-        if (Object.values(casoData).some((value) => !value.trim())) {
-            await Swal.fire({
-                title: "Advertencia",
-                text: "Por favor, complete todos los campos obligatorios.",
-                icon: "warning",
-                confirmButtonText: "Aceptar",
-            });
-            return;
-        }
+    // Validar si todos los campos están completos
+    if (Object.values(casoData).some((value) => !value.trim())) {
+      await Swal.fire({
+        title: "Advertencia",
+        text: "Por favor, complete todos los campos obligatorios.",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
 
-        try {
-            // Realizar la solicitud al servidor
-            const response = await $.ajax({
-                type: "POST",
-                url: "/Caso/InsertarCaso", // URL del controlador para crear el Caso
-                data: casoData,
-            });
+    try {
+      // Realizar la solicitud al servidor
+      const response = await $.ajax({
+        type: "POST",
+        url: "/Caso/InsertarCaso", // URL del controlador para crear el Caso
+        data: casoData,
+      });
 
-            // Manejar la respuesta
-            if (response.success) {
-                await Swal.fire({
-                    title: "¡Éxito!",
-                    text: "Caso creado exitosamente.",
-                    icon: "success",
-                    confirmButtonText: "Aceptar",
-                });
-                location.reload(); // Recargar la página para reflejar los cambios
-            } else {
-                await Swal.fire({
-                    title: "Error",
-                    text: response.message || "Hubo un error al crear el Caso.",
-                    icon: "error",
-                    confirmButtonText: "Aceptar",
-                });
-            }
-        } catch (error) {
-            // Manejar errores de la solicitud AJAX
-            console.error("Error al intentar crear el Caso:", error);
-            await Swal.fire({
-                title: "Error",
-                text: "Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.",
-                icon: "error",
-                confirmButtonText: "Aceptar",
-            });
-        }
-    });
+      // Manejar la respuesta
+      if (response.success) {
+        await Swal.fire({
+          title: "¡Éxito!",
+          text: "Caso creado exitosamente.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
+        location.reload(); // Recargar la página para reflejar los cambios
+      } else {
+        await Swal.fire({
+          title: "Error",
+          text: response.message || "Hubo un error al crear el Caso.",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        });
+      }
+    } catch (error) {
+      // Manejar errores de la solicitud AJAX
+      console.error("Error al intentar crear el Caso:", error);
+      await Swal.fire({
+        title: "Error",
+        text: "Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  });
 }
 async function loadEditarCaso() {
-    const assignModalValues = (modal, data) => {
-        Object.keys(data).forEach((key) => {
-            modal.find(`#${key}`).val(data[key]);
-        });
+  const assignModalValues = (modal, data) => {
+    Object.keys(data).forEach((key) => {
+      modal.find(`#${key}`).val(data[key]);
+    });
+  };
+
+  const showAlert = (type, title, text, callback) => {
+    Swal.fire({
+      icon: type,
+      title: title,
+      text: text,
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      if (callback) callback();
+    });
+  };
+
+  // Función para manejar el AJAX de manera asincrónica
+  const handleAjaxRequest = async (url, data, successMessage, errorMessage) => {
+    try {
+      const response = await $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+      });
+
+      if (response.success) {
+        showAlert("success", "¡Éxito!", successMessage, () =>
+          location.reload()
+        );
+      } else {
+        showAlert("error", "Error", errorMessage);
+      }
+    } catch (error) {
+      showAlert("error", "Error", "Hubo un error al procesar la solicitud.");
+    }
+  };
+
+  $("#editTitle").on("show.bs.modal", function (event) {
+    const button = $(event.relatedTarget);
+    const modalData = {
+      editIdTitulo: button.data("id"),
+      editTitulo: button.data("titulo"),
+      editNombreBoton: button.data("nombreboton"),
+      editUrlBoton: button.data("urlboton"),
+      editTituloVideo: button.data("titulovideo"),
+      editUrldelIcono: button.data("iconboton"),
+      editDescripcionSeccion: button.data("descripcionseccion"),
+      editbannerSeccion: button.data("urlbanner"),
     };
 
-    const showAlert = (type, title, text, callback) => {
-        Swal.fire({
-            icon: type,
-            title: title,
-            text: text,
-            confirmButtonText: "Aceptar",
-        }).then(() => {
-            if (callback) callback();
-        });
+    assignModalValues($(this), modalData);
+  });
+
+  $("#saveEditTitulo").click(function () {
+    const data = {
+      id: $("#editIdTitulo").val(),
+      titulo: $("#editTitulo").val(),
+      nombreBoton: $("#editNombreBoton").val(),
+      urlBoton: $("#editUrlBoton").val(),
+      tituloVideo: $("#editTituloVideo").val(),
+      urlIcon: $("#editUrldelIcono").val(),
+      description: $("#editDescripcionSeccion").val(),
+      urlCabecera: $("#editbannerSeccion").val(),
     };
 
-    // Función para manejar el AJAX de manera asincrónica
-    const handleAjaxRequest = async (url, data, successMessage, errorMessage) => {
-        try {
-            const response = await $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-            });
+    if (Object.values(data).every((value) => value)) {
+      handleAjaxRequest(
+        "/Caso/ActualizarCaso",
+        data,
+        "El Caso se ha actualizado exitosamente.",
+        "No se pudo actualizar el Caso."
+      );
+    } else {
+      showAlert(
+        "warning",
+        "Campos incompletos",
+        "Por favor, complete todos los campos antes de continuar."
+      );
+    }
+  });
 
-            if (response.success) {
-                showAlert("success", "¡Éxito!", successMessage, () => location.reload());
-            } else {
-                showAlert("error", "Error", errorMessage);
-            }
-        } catch (error) {
-            showAlert("error", "Error", "Hubo un error al procesar la solicitud.");
-        }
+  $("#editSliderModal").on("show.bs.modal", function (event) {
+    const button = $(event.relatedTarget);
+    const modalData = {
+      editId: button.data("id"),
+      editOrder: button.data("orden"),
+      editNombre: button.data("nombre"),
+      editDescription: button.data("description"),
+      editUrlIcon: button.data("urlicon"),
+      editUrlPerfil: button.data("urlperfil"),
+      editUrlCabecera: button.data("urlcabecera"),
     };
 
-    $("#editTitle").on("show.bs.modal", function (event) {
-        const button = $(event.relatedTarget);
-        const modalData = {
-            editIdTitulo: button.data("id"),
-            editTitulo: button.data("titulo"),
-            editNombreBoton: button.data("nombreboton"),
-            editUrlBoton: button.data("urlboton"),
-            editTituloVideo: button.data("titulovideo"),
-            editUrldelIcono: button.data("iconboton"),
-            editDescripcionSeccion: button.data("descripcionseccion"),
-        };
+    assignModalValues($(this), modalData);
+  });
 
-        assignModalValues($(this), modalData);
-    });
+  $("#saveEditSlider").click(function () {
+    const data = {
+      id: $("#editId").val(),
+      orden: $("#editOrder").val(),
+      nombre: $("#editNombre").val(),
+      description: $("#editDescription").val(),
+      urlIcon: $("#editUrlIcon").val(),
+      urlPerfil: $("#editUrlPerfil").val(),
+      urlCabecera: $("#editUrlBanner").val(),
+    };
 
-    $("#saveEditTitulo").click(function () {
-        const data = {
-            id: $("#editIdTitulo").val(),
-            titulo: $("#editTitulo").val(),
-            nombreBoton: $("#editNombreBoton").val(),
-            urlBoton: $("#editUrlBoton").val(),
-            tituloVideo: $("#editTituloVideo").val(),
-            urlIcon: $("#editUrlBoton").val(),
-            description: $("#editDescripcionSeccion").val(),
-        };
-
-        if (Object.values(data).every((value) => value)) {
-            handleAjaxRequest(
-                "/Caso/ActualizarCaso",
-                data,
-                "El Caso se ha actualizado exitosamente.",
-                "No se pudo actualizar el Caso."
-            );
-        } else {
-            showAlert(
-                "warning",
-                "Campos incompletos",
-                "Por favor, complete todos los campos antes de continuar."
-            );
-        }
-    });
-
-    $("#editSliderModal").on("show.bs.modal", function (event) {
-        const button = $(event.relatedTarget);
-        const modalData = {
-            editId: button.data("id"),
-            editOrder: button.data("orden"),
-            editNombre: button.data("nombre"),
-            editDescription: button.data("description"),
-            editUrlIcon: button.data("urlicon"),
-            editUrlPerfil: button.data("urlperfil"),
-            editUrlCabecera: button.data("urlcabecera"),
-        };
-
-        assignModalValues($(this), modalData);
-    });
-
-    $("#saveEditSlider").click(function () {
-        const data = {
-            id: $("#editId").val(),
-            orden: $("#editOrder").val(),
-            nombre: $("#editNombre").val(),
-            description: $("#editDescription").val(),
-            urlIcon: $("#editUrlIcon").val(),
-            urlPerfil: $("#editUrlPerfil").val(),
-            urlCabecera: $("#editUrlCabecera").val(),
-        };
-
-        if (Object.values(data).every((value) => value)) {
-            handleAjaxRequest(
-                "/Caso/ActualizarCaso",
-                data,
-                "El Caso se ha actualizado exitosamente.",
-                "No se pudo actualizar el Caso."
-            );
-        } else {
-            showAlert(
-                "warning",
-                "Campos incompletos",
-                "Por favor, complete todos los campos antes de continuar."
-            );
-        }
-    });
+    if (Object.values(data).every((value) => value)) {
+      handleAjaxRequest(
+        "/Caso/ActualizarCaso",
+        data,
+        "El Caso se ha actualizado exitosamente.",
+        "No se pudo actualizar el Caso."
+      );
+    } else {
+      showAlert(
+        "warning",
+        "Campos incompletos",
+        "Por favor, complete todos los campos antes de continuar."
+      );
+    }
+  });
 }
 async function loadEliminarCaso() {
-    // Función para mostrar alertas de éxito o error
-    const showAlert = (type, title, text) => {
-        return Swal.fire({
-            icon: type,
-            title: title,
-            text: text,
-            confirmButtonText: "Aceptar",
-        });
-    };
-
-    // Función para realizar la eliminación a través de AJAX
-    const eliminarCaso = async (id) => {
-        try {
-            const response = await $.ajax({
-                type: "POST",
-                url: "/Caso/EliminarCaso", // Ruta del controlador para la eliminación
-                data: { id: id },
-            });
-
-            if (response.success) {
-                await showAlert("success", "¡Eliminado!", "El Caso ha sido eliminado con éxito.");
-                location.reload(); // Recargar la página o actualizar el contenido dinámicamente
-            } else {
-                await showAlert("error", "Error", "No se pudo eliminar el Caso. Inténtalo de nuevo.");
-            }
-        } catch (error) {
-            await showAlert("error", "Error", "Hubo un error en el servidor al intentar eliminar el Caso.");
-        }
-    };
-
-    // Capturar clics en los botones de eliminación
-    $(document).on("click", '[id^="btn-delete-"]', function () {
-        const id = $(this).data("id"); // Obtener el ID del Caso a eliminar
-        console.log(`ID a eliminar: ${id}`);
-
-        // Confirmar eliminación con SweetAlert
-        Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, eliminar",
-            cancelButtonText: "Cancelar",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await eliminarCaso(id); // Llamar a la función para eliminar el Caso
-            }
-        });
+  // Función para mostrar alertas de éxito o error
+  const showAlert = (type, title, text) => {
+    return Swal.fire({
+      icon: type,
+      title: title,
+      text: text,
+      confirmButtonText: "Aceptar",
     });
+  };
+
+  // Función para realizar la eliminación a través de AJAX
+  const eliminarCaso = async (id) => {
+    try {
+      const response = await $.ajax({
+        type: "POST",
+        url: "/Caso/EliminarCaso", // Ruta del controlador para la eliminación
+        data: { id: id },
+      });
+
+      if (response.success) {
+        await showAlert(
+          "success",
+          "¡Eliminado!",
+          "El Caso ha sido eliminado con éxito."
+        );
+        location.reload(); // Recargar la página o actualizar el contenido dinámicamente
+      } else {
+        await showAlert(
+          "error",
+          "Error",
+          "No se pudo eliminar el Caso. Inténtalo de nuevo."
+        );
+      }
+    } catch (error) {
+      await showAlert(
+        "error",
+        "Error",
+        "Hubo un error en el servidor al intentar eliminar el Caso."
+      );
+    }
+  };
+
+  // Capturar clics en los botones de eliminación
+  $(document).on("click", '[id^="btn-delete-"]', function () {
+    const id = $(this).data("id"); // Obtener el ID del Caso a eliminar
+    console.log(`ID a eliminar: ${id}`);
+
+    // Confirmar eliminación con SweetAlert
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await eliminarCaso(id); // Llamar a la función para eliminar el Caso
+      }
+    });
+  });
 }
 async function loadGuardarOrdenCaso() {
-    // Función para mostrar alerta de éxito o error
-    const showAlert = (type, title, text, callback) => {
-        Swal.fire({
-            icon: type,
-            title: title,
-            text: text,
-            confirmButtonText: "Aceptar",
-        }).then(() => {
-            if (callback) callback();
-        });
-    };
-
-    // Función para recolectar datos de las cards
-    const obtenerDatosCards = () => {
-        const data = {
-            Ids: [],
-            Orders: [],
-            Nombres: [],
-            Descriptions: [],
-            UrlIcons: [],
-            UrlPerfiles: [],
-            UrlCabeceras: [],
-            NewOrders: [],
-        };
-
-        $(".btn-link.text-primary").each(function () {
-            data.Ids.push($(this).data("id"));
-            data.Orders.push($(this).data("orden"));
-            data.Nombres.push($(this).data("nombre"));
-            data.Descriptions.push($(this).data("description"));
-            data.UrlIcons.push($(this).data("urlicon"));
-            data.UrlPerfiles.push($(this).data("urlperfil"));
-            data.UrlCabeceras.push($(this).data("urlcabecera"));
-        });
-
-        $(".card").each(function () {
-            data.NewOrders.push($(this).find(".card-number").text().trim());
-        });
-
-        return data;
-    };
-
-    // Función para estructurar los datos para el servidor
-    const estructurarDatos = (data) => {
-        return data.Ids.map((id, index) => ({
-            id: parseInt(id),
-            orden: parseInt(data.NewOrders[index]),
-            nombre: data.Nombres[index].toString(),
-            description: data.Descriptions[index].toString(),
-            urlIcon: data.UrlIcons[index].toString(),
-            urlPerfil: data.UrlPerfiles[index].toString(),
-            urlCabecera: data.UrlCabeceras[index].toString(),
-        }));
-    };
-
-    // Función para realizar la solicitud AJAX de manera asincrónica
-    const realizarSolicitud = async (data) => {
-        try {
-            const response = await $.ajax({
-                url: "/Caso/ActualizarOrdenCaso",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
-            });
-
-            return response;
-        } catch (error) {
-            throw new Error("Hubo un error al intentar actualizar el Caso.");
-        }
-    };
-
-    // Al hacer clic en el botón de guardar cambios
-    $("#saveOrder").click(async function () {
-        const result = await Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Esta acción no se puede deshacer",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, ordenar",
-            cancelButtonText: "Cancelar",
-        });
-
-        if (result.isConfirmed) {
-            try {
-                console.log("guardar orden");
-
-                // Obtener los datos de las cards
-                const data = obtenerDatosCards();
-                const resultData = estructurarDatos(data);
-
-                // Mostrar el resultado en consola (o lo que necesites hacer con los datos)
-                console.log(resultData);
-                console.log(JSON.stringify(resultData));
-
-                // Realizar la solicitud AJAX para actualizar la orden
-                const response = await realizarSolicitud(resultData);
-
-                if (response.success) {
-                    showAlert(
-                        "success",
-                        "¡Actualizado!",
-                        "El Caso se ha actualizado exitosamente.",
-                        () => {
-                            location.reload(); // Recargar la página o actualizar el contenido
-                        }
-                    );
-                } else {
-                    showAlert(
-                        "error",
-                        "Error",
-                        "No se pudo actualizar el Caso. Inténtelo nuevamente."
-                    );
-                }
-            } catch (error) {
-                showAlert("error", "Error", error.message || "Ocurrió un error desconocido.");
-            }
-        }
+  // Función para mostrar alerta de éxito o error
+  const showAlert = (type, title, text, callback) => {
+    Swal.fire({
+      icon: type,
+      title: title,
+      text: text,
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      if (callback) callback();
     });
+  };
+
+  // Función para recolectar datos de las cards
+  const obtenerDatosCards = () => {
+    const data = {
+      Ids: [],
+      Orders: [],
+      Nombres: [],
+      Descriptions: [],
+      UrlIcons: [],
+      UrlPerfiles: [],
+      UrlCabeceras: [],
+      NewOrders: [],
+    };
+
+    $(".btn-link.text-primary").each(function () {
+      data.Ids.push($(this).data("id"));
+      data.Orders.push($(this).data("orden"));
+      data.Nombres.push($(this).data("nombre"));
+      data.Descriptions.push($(this).data("description"));
+      data.UrlIcons.push($(this).data("urlicon"));
+      data.UrlPerfiles.push($(this).data("urlperfil"));
+      data.UrlCabeceras.push($(this).data("urlcabecera"));
+    });
+
+    $(".card").each(function () {
+      data.NewOrders.push($(this).find(".card-number").text().trim());
+    });
+
+    return data;
+  };
+
+  // Función para estructurar los datos para el servidor
+  const estructurarDatos = (data) => {
+    return data.Ids.map((id, index) => ({
+      id: parseInt(id),
+      orden: parseInt(data.NewOrders[index]),
+      nombre: data.Nombres[index].toString(),
+      description: data.Descriptions[index].toString(),
+      urlIcon: data.UrlIcons[index].toString(),
+      urlPerfil: data.UrlPerfiles[index].toString(),
+      urlCabecera: data.UrlCabeceras[index].toString(),
+    }));
+  };
+
+  // Función para realizar la solicitud AJAX de manera asincrónica
+  const realizarSolicitud = async (data) => {
+    try {
+      const response = await $.ajax({
+        url: "/Caso/ActualizarOrdenCaso",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+      });
+
+      return response;
+    } catch (error) {
+      throw new Error("Hubo un error al intentar actualizar el Caso.");
+    }
+  };
+
+  // Al hacer clic en el botón de guardar cambios
+  $("#saveOrder").click(async function () {
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ordenar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        console.log("guardar orden");
+
+        // Obtener los datos de las cards
+        const data = obtenerDatosCards();
+        const resultData = estructurarDatos(data);
+
+        // Mostrar el resultado en consola (o lo que necesites hacer con los datos)
+        console.log(resultData);
+        console.log(JSON.stringify(resultData));
+
+        // Realizar la solicitud AJAX para actualizar la orden
+        const response = await realizarSolicitud(resultData);
+
+        if (response.success) {
+          showAlert(
+            "success",
+            "¡Actualizado!",
+            "El Caso se ha actualizado exitosamente.",
+            () => {
+              location.reload(); // Recargar la página o actualizar el contenido
+            }
+          );
+        } else {
+          showAlert(
+            "error",
+            "Error",
+            "No se pudo actualizar el Caso. Inténtelo nuevamente."
+          );
+        }
+      } catch (error) {
+        showAlert(
+          "error",
+          "Error",
+          error.message || "Ocurrió un error desconocido."
+        );
+      }
+    }
+  });
 }
-
-
-

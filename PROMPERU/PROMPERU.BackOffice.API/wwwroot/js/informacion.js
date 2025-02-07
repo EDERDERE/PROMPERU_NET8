@@ -54,7 +54,7 @@ function sliderCardInfo(informacion) {
             </div>
 
               <div class="mb-3">
-                <label for="createDescription-${informacion.info_ID}" class="form-label fw-semibold">Descripción de sección</label>
+                <label for="createDescription-${informacion.info_ID}" class="form-label fw-semibold">Descripción del banner</label>
                 <textarea id="createDescription-${informacion.info_ID}" class="form-control" rows="3" placeholder="${informacion.info_DescripcionBanner}" disabled></textarea>
             </div>
             
