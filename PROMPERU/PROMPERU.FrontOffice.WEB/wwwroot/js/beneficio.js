@@ -47,6 +47,14 @@ function renderBannerBeneficio(bene) {
     const banner = `    
  <div class="title">${bene.bene_Titulo}</div>
             <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn</p>
+            <div class="location-return align-items-center">
+            <a href="#" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
+                     alt="home"
+                     class="image-home" />
+            </a>
+            <a href="#" title="Calendario" class="text-white text-decoration-none"> &nbsp; / Beneficio</a>
+        </div>
       `;
     $('#bannerBeneficio').append(banner);
     cambiarImagenDinamica(bene.bene_URLImagen);

@@ -14,6 +14,10 @@ body {
   border-radius: 10px;
 }
 
+.btn-primary {
+  background-color: #0070BA !important;
+}
+
 .header {
   background-color: var(--color-text-bold);
 }
@@ -36,18 +40,19 @@ body {
 }
 
 .main_nav {
-  position: sticky;
-  top: var(--header-height);
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   background-color: var(--color-white);
   z-index: 9;
-  min-height: fit-content;
+  height: 100vh;
+  display: none;
 }
 
 .main_nav li a {
   color: var(--color-text);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 20px;
 }
@@ -135,13 +140,11 @@ body {
 
 /* === Contenedor Quick Data === */
 .quick_data {
-  width: fit-content;
-  height: 56px;
+  width: 100%;
   background: var(--color-primary);
-  padding: 1rem 2rem;
-  padding-left: 3rem;
-  border-bottom-left-radius: 20px;
-  max-width: 80%;
+  padding: 1rem;
+  border-bottom-left-radius: 0px;
+  max-width: 100%;
 }
 
 .item img {
@@ -159,13 +162,10 @@ body {
   font-weight: 400;
 }
 
-.quick_data .description {
-  min-width: 120px;
-}
 
 .texto-descriptivo-quick_data {
   overflow-wrap: break-word;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-top: -6px;
 }
 
@@ -496,9 +496,11 @@ body {
 
 .testomnios_swiper .swiper-wrapper {
   padding: 2rem 0;
+  padding-bottom: 4rem;
+  gap: 2rem;
 }
 .testomnios_swiper .swiper-wrapper .swiper-slide {
-  margin: 0 20px !important;
+  margin: 0 !important;
 }
 .testomnios_swiper .swiper-wrapper .swiper-slide.swiper-slide-active {
   scale: 1.1;
@@ -534,6 +536,13 @@ body {
   left: 50%;
   top: 100%;
   transform: translate(-50%, -50%);
+}
+.testomnio_item .container-linkedin{
+  bottom: -85px;
+}
+.testomnio_item .container-linkedin span{
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .testomnio_item .avatar img {
@@ -635,6 +644,17 @@ footer {
   width: 200px;
   margin: auto;
 }
+.testimonials_container .swiper-button-prev{
+  left: -2rem;
+}
+.testimonials_container .swiper-button-next{
+  right: -2rem;
+}
+.testimonials_container .swiper-button-prev::after,
+.testimonials_container .swiper-button-next::after{
+  font-size: 18px;
+  font-weight: 600;
+}
 
 @media screen and (min-width: 768px) {
   .logo_ministerio {
@@ -726,15 +746,26 @@ footer {
     font-size: 14px;
   }
 }
-
 @media screen and (min-width: 992px) {
   .main_nav {
     width: 80%;
     border-bottom-right-radius: 20px;
+    position: sticky;
+    top: var(--header-height);
+    left: 0;
+    background-color: var(--color-white);
+    z-index: 9;
+    min-height: fit-content;
+    display: block;
+    height: fit-content;
   }
 
   .main_nav li a {
     font-size: 16px;
+    color: var(--color-text);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
   }
 
   .hero {
@@ -757,6 +788,14 @@ footer {
   .quick_data {
     height: 120px;
     padding-left: 5rem;
+    width: fit-content;
+    background: var(--color-primary);
+    padding: 1rem 2rem;
+    border-bottom-left-radius: 20px;
+    max-width: 80%;
+  }
+  .quick_data .description {
+    min-width: 120px;
   }
 
   .quick_data img {

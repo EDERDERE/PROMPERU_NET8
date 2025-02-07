@@ -798,6 +798,14 @@ function renderSlideTestHome(testimonios) {
             <div class="avatar">
                 <img src="${test.test_UrlImagen}" alt="">
             </div>
+            <div class="text-center position-absolute start-50 translate-middle-x container-linkedin d-flex flex-column align-items-center justify-content-center">
+                <span>${test.test_Nombre} Hola mundo</span>
+                <a href="" class="text-primary text-decoration-none linkedin-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+      <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+    </svg>
+                </a>
+            </div>
         </div>
     </div>
         `;
@@ -810,7 +818,7 @@ function renderLogrosHome(logros) {
   let html = "";
   logros.forEach((logr) => {
     html += `
-           <div class="item d-flex align-items-center gap-2">
+           <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
             <img src="${logr.logr_UrlIcon}" alt="" />
             <div class="description text-white">
                 <h3 class="fs-10">${logr.logr_Nombre}</h3>
@@ -873,7 +881,7 @@ function renderMenuHome(menus) {
   // Genera los elementos del men� din�micamente
   let html = `
         <li class="home">
-            <a href="/Home/Index">
+            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none">
               <?xml version="1.0" ?><svg
                 fill="none"
                 height="20"
@@ -886,6 +894,7 @@ function renderMenuHome(menus) {
                   fill="#C41121"
                 />
               </svg>
+              <span class="d-block d-lg-none">Inicio</span>
             </a>
         </li>
     `;
@@ -902,6 +911,12 @@ function renderMenuHome(menus) {
   });
   $("#menuHome").append(html);
 }
+function openMenu() {
+  $(".main_nav").show("slow");
+}
+function closeMenu() {
+  $(".main_nav").hide("slow");
+}
 function renderLogoHome(logo) {
   const html = `
       <img
@@ -909,9 +924,14 @@ function renderLogoHome(logo) {
             alt="Logo Superior"
             class="logo-header"
           />
+          <button class="btn btn-transparent d-block d-lg-none text-white" id="openMenu" onclick="openMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+</svg>
+          </button>
           <a
             href=""
-            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1"
+            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-none d-lg-block"
           >
            ${logo.logo_NombreBoton}
             <img
@@ -1096,43 +1116,17 @@ function renderSliderRequisitoHome(requisitos) {
     if (requ.requ_Orden > 0) {
       slider += `
              <div class="btn-group col-12 col-md-6 p-3">
-            <button class="list-group-item d-flex align-items-center justify-content-between btn btn-light"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
+            <div class="list-group-item d-flex align-items-center justify-content-between w-100">
                 <div class="d-flex align-items-center w-100">
                     <img src="${requ.requ_URLIcon}"
                          alt="${requ.requ_Nombre}"
                          class="icon-img" />
                     <span class="text-requisitos w-100">${requ.requ_Nombre}</span>
                 </div>
-                <span class="bi-chevron-down">
-                    <svg width="10"
-                         height="11"
-                         viewBox="0 0 10 11"
-                         fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_40000240_376)">
-                            <path d="M1.05252 3.76229C0.869476 3.94535 0.869476 4.24215 1.05252 4.42521L4.16713 7.53979C4.71618 8.08884 5.60624 8.08898 6.15549 7.54016L9.2377 4.46034C9.42077 4.27728 9.42077 3.98048 9.2377 3.79743C9.05465 3.61437 8.75785 3.61437 8.57479 3.79743L5.49416 6.87805C5.31107 7.06115 5.0143 7.06115 4.83126 6.87805L1.71548 3.76229C1.53238 3.57924 1.23562 3.57924 1.05252 3.76229Z"
-                                  fill="#B2B2B2" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_40000240_376">
-                                <rect width="10"
-                                      height="10"
-                                      fill="white"
-                                      transform="translate(10 0.5) rotate(90)" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </span>
-            </button>
-            <ul class="dropdown-menu">
-                <li class="dropdown-texto">
-                    <p>
-                        ${requ.requ_Descripcion}
-                    </p>
-                </li>
-            </ul>
+                
+            </div>
+            
+            
         </div>
                  `;
     }
@@ -1275,7 +1269,7 @@ var swiper = new Swiper(".testomnios_swiper", {
     slidesPerView: 3,
     centeredSlides: true,
     initialSlide: 1,
-    spaceBetween: 80,
+    spaceBetween: 0,
     navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",

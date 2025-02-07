@@ -10,7 +10,7 @@ async function loadListarInformacion() {
             dataType: "json",
         });
 
-        console.log("Respuesta de información:", response);
+        console.log("Respuesta de informaciï¿½n:", response);
 
         limpiarContenedoresInfo();
 
@@ -23,7 +23,7 @@ async function loadListarInformacion() {
                 renderBannerInfo(info);
                 renderSeccionInfo(info);
             } else {
-                $("#seccionInfo").html("<p>No hay información de cursos disponibles.</p>");
+                $("#seccionInfo").html("<p>No hay informaciï¿½n de cursos disponibles.</p>");
             }
         } else {
             Swal.fire({
@@ -33,16 +33,16 @@ async function loadListarInformacion() {
             });
         }
     } catch (error) {
-        console.error("Error al cargar la información:", error);
+        console.error("Error al cargar la informaciï¿½n:", error);
 
         Swal.fire({
             icon: "error",
-            title: "Error al cargar la información",
-            text: "Hubo un problema al cargar los cursos. Por favor, inténtelo más tarde.",
+            title: "Error al cargar la informaciï¿½n",
+            text: "Hubo un problema al cargar los cursos. Por favor, intï¿½ntelo mï¿½s tarde.",
         });
     }
 }
-// Función para limpiar los contenedores antes de renderizar nueva información
+// Funciï¿½n para limpiar los contenedores antes de renderizar nueva informaciï¿½n
 function limpiarContenedoresInfo() {
     $("#banner").empty();
     $("#seccionInfo").empty();
@@ -52,7 +52,15 @@ function renderBannerInfo(info) {
     const banner = `
      <div class="title">${info.info_Titulo}</div>
         <p class="description">${info.info_Descripcion}</p>
-
+<div class="location-return align-items-center">
+            <a href="#" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
+                     alt="home"
+                     class="image-home" />
+            </a>
+            &nbsp;
+            <a href="#" title="Calendario"> &nbsp; / Informacion</a>
+        </div>
       `;
     $('#banner').append(banner);   
     cambiarImagenDinamica(info.info_URLPortada);
@@ -61,15 +69,17 @@ function renderSeccionInfo(info) {
     console.log('aaaaaaa',info,'ingreso a la seccion')
     const seccion = `
 
-        <h2 class="text-start title-que-es">${info.info_TituloSeccion}</h2>
-        <div class="col-12 col-md-5">
+        <h2 class="text-start title-que-es mb-3">
+            <span class="d-block mb-2">${info.info_TituloSeccion}</span>
             <div class="red-linear"></div>
+        </h2>
+        <div class="col-12 col-md-5">
             <p class="texto-que-es fs-12 mt-4">
                 ${info.info_Descripcion}
             </p>
         </div>
         <div class="col-12 col-md-7">
-            <div class="video_about rounded-3 overflow-hidden p-0">
+            <div class="video_about rounded-4 overflow-hidden p-0">
                 <iframe width="100%"
                         height="100%"
                         src="${info.info_URLVideo}"

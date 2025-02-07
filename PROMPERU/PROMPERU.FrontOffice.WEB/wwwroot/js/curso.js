@@ -45,6 +45,15 @@ function renderBannerCurso(curs) {
     const banner = `
       <div class="title">${curs.curs_Titulo}</div>
             <p class="description">${curs.curs_Descripcion}</p>
+            <div class="location-return align-items-center">
+            <a href="#" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
+                     alt="home"
+                     class="image-home" />
+            </a>
+            &nbsp;
+            <a href="#" title="Calendario"> &nbsp; / Curso</a>
+        </div>
       `;
     $('#banner').append(banner);
     cambiarImagenDinamica(curs.curs_UrlImagen);

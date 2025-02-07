@@ -66,6 +66,15 @@ function renderBannerEmpresa(egra) {
     const html = `    
   <div class="title">${egra.egra_Titulo}</div>
             <p class="description">${egra.egra_Descripcion}</p>
+            <div class="location-return align-items-center">
+            <a href="#" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
+                     alt="home"
+                     class="image-home" />
+            </a>
+            &nbsp;  
+            <a href="#" title="Calendario"> &nbsp; / Empresa</a>
+        </div>
       `;
     $('#bannerEmpresa').append(html);
    

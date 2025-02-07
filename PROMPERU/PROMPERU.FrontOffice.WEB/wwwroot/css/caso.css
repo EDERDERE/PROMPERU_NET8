@@ -23,6 +23,21 @@ body {
         min-height: var(--header-height);
     }
 
+    .location-return {
+    display: flex;
+}
+
+.image-home {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.location-return a {
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+}
+
 .bg-primary {
     background-color: var(--color-primary) !important;
 }

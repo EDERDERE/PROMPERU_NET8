@@ -42,6 +42,15 @@ function renderBannerCaso(caso) {
     const banner = `    
  <div class="title">${caso.cexi_Titulo}</div>
             <p class="description">${caso.cexi_Descripcion}</p>
+            <div class="location-return align-items-center">
+            <a href="#" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
+                     alt="home"
+                     class="image-home" />
+            </a>
+            &nbsp;  
+            <a href="#" title="Calendario"> &nbsp; / Caso</a>
+        </div>
       `;
     $('#bannerCaso').append(banner);
     cambiarImagenDinamica(caso.cexi_UrlCabecera);

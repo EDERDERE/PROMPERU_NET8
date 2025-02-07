@@ -31,7 +31,7 @@
           />
           <a
             href=""
-            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1"
+            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 "
           >
             Empezar mi test
             <img
@@ -41,9 +41,16 @@
           </a>
         </div>
       </div>
-      <nav class="main_nav py-2 px-3 px-md-5 overflow-y-hidden overflow-x-auto text-nowrap">
+      <nav class="main_nav py-2 px-4 px-md-5 overflow-y-hidden overflow-x-auto text-nowrap">
+        <div class="d-flex d-lg-none justify-content-end cursor-pointer"> 
+        <button class="btn btn-transparent" id="closeMenu" onclick="closeMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        </button>
+        </div>
         <ul
-          class="d-flex justify-content-between list-unstyled gap-4 align-items-center m-0"  
+          class="d-flex flex-column flex-lg-row justify-content-between list-unstyled gap-3 gap-lg-4 align-items-start align-items-lg-center m-lg-0 mb-3"  
           id="menuHome"
         >
           <li class="home">
@@ -71,6 +78,16 @@
           <li><a href="@Url.Action("Index", "Empresa")" class="text-decoration-none">Empresas</a></li>
           <li><a href="@Url.Action("Index", "FormularioContacto")" class="text-decoration-none">Contacto</a></li>
         </ul>
+         <a
+            href=""
+            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-block d-lg-none"
+          >
+            Empezar mi test
+            <img
+              src="../../shared/assets/icons/diagnostic.svg"
+              alt="icono de diagnostico"
+            />
+          </a>
       </nav>    
   </div>
       @RenderBody();

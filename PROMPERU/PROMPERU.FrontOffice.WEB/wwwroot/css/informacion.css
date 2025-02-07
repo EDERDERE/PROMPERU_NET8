@@ -26,6 +26,21 @@ body {
     background-color: var(--color-primary) !important;
 }
 
+.location-return {
+    display: flex;
+}
+
+.image-home {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.location-return a {
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+}
+
 .header_btn {
     font-size: 12px;
 }
@@ -784,6 +799,7 @@ footer {
 
     .title-que-es {
         font-size: 40px;
+        color: #3F3B3C; 
     }
 
     .texto-que-es {

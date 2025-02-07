@@ -60,7 +60,7 @@ function renderBannerContacto(fcon) {
         <p class="description">
            ${fcon.fcon_Descripcion}
         </p>
-        <div class="location-return">
+        <div class="location-return align-items-center">
             <a href="#" title="home" class="home-return">
                 <img src="${fcon.fcon_UrlImagen}"
                      alt="home"

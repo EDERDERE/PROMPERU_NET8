@@ -22,7 +22,20 @@ body {
     .header .container-fluid {
         min-height: var(--header-height);
     }
-
+    .location-return {
+        display: flex;
+    }
+    
+    .image-home {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    
+    .location-return a {
+        color: white;
+        font-size: 12px;
+        text-decoration: none;
+    }
 .bg-primary {
     background-color: var(--color-primary) !important;
 }
@@ -231,7 +244,7 @@ body {
 .description h3 {
     margin-top: 15px;
 }
-/* === Contenedor ¿Qué es? === */
+/* === Contenedor ï¿½Quï¿½ es? === */
 .fs-12 {
     font-size: 12px;
 }
@@ -301,7 +314,7 @@ body {
     padding: 20px;
 }
 
-.inscripción-title {
+.inscripciï¿½n-title {
     font-size: 23px;
     font-weight: 550;
 }

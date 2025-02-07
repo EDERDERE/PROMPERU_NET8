@@ -14,6 +14,20 @@ body {
     background-color: #C41321;
     border-radius: 10px;
 }
+.location-return {
+    display: flex;
+}
+
+.image-home {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.location-return a {
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+}
 
 .header {
     background-color: var(--color-text-bold);
