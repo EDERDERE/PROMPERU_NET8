@@ -31,7 +31,8 @@ function loadListarInscripcions() {
                             data-nombreboton="${inscripcion.insc_NombreBoton}"
                               data-contenido="${inscripcion.insc_Contenido}"
                              data-urliconboton="${inscripcion.insc_URLIconBoton}"
-                             data-urlimagen="imagen.jpg"
+                             data-urlimagen="${inscripcion.insc_URLImagen}"
+                              data-descripcion-seccion="${inscripcion.insc_Descripcion}"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -57,8 +58,7 @@ function loadListarInscripcions() {
                             <label for="contenido-${inscripcion.insc_ID}" class="form-label fw-semibold">Descripción</label>                           
                         </div>
 
-                        <textarea name="" id="contenido-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_Contenido}" rows="4"
-                                  disabled></textarea>
+                        <textarea name="" id="contenido-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_Contenido}" rows="4" disabled></textarea>
                     </div>
                     <div class="col-md-6 my-3 ">
                         <div class="d-flex justify-content-between">
@@ -76,6 +76,14 @@ function loadListarInscripcions() {
                   
                 </div>
                 <input type="text" id="urlimage-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_URLImagen}" disabled>
+              </div>
+
+                <div class="col-md-6 my-3 ">
+                  <div class="d-flex justify-content-between">
+                      <label for="contenido-${inscripcion.insc_ID}" class="form-label fw-semibold">Descripción Sección</label>                           
+                  </div>
+
+                  <textarea name="" id="contenido-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_Descripcion}" rows="4" disabled></textarea>
               </div>
 
                 
@@ -105,11 +113,12 @@ function loadListarInscripcions() {
                                 data-bs-target="#editSliderModal"
                                 data-id="${inscripcion.insc_ID}"  
                                 data-orden="${inscripcion.insc_Orden}" 
-                                 data-paso="${inscripcion.insc_Paso}"  
-                                  data-titulopaso="${inscripcion.insc_TituloPaso}"  
-                                   data-description="${inscripcion.insc_Descripcion}"  
-                                    data-urlimagen="${inscripcion.insc_URLImagen}"  
-                                
+                                data-paso="${inscripcion.insc_Paso}"  
+                                data-titulopaso="${inscripcion.insc_TituloPaso}"  
+                                data-description="${inscripcion.insc_Descripcion}"  
+                                data-urlimagen="${inscripcion.insc_URLImagen}"
+                               
+
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -237,8 +246,8 @@ function loadEditarInscripcion() {
     var nombreboton = button.data("nombreboton");
     var urlIconBoton = button.data("urliconboton");
     var urlImageBanner = button.data("urlimagen");
+    var descripcionSeccion = button.data("descripcion-seccion");
 
- 
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editForm").val(id);
@@ -247,25 +256,26 @@ function loadEditarInscripcion() {
     modal.find("#editNombreBoton").val(nombreboton);
     modal.find("#editUrlIcon").val(urlIconBoton);
     modal.find("#editUrlImageBanner").val(urlImageBanner);
+    modal.find("#editDescripcionSeccion").val(descripcionSeccion);
   });
   $("#saveEditTitulo").click(function () {
- 
     var idForm = $("#editForm").val();
     var titulo = $("#editTitulo").val();
     var contenido = $("#editContenido").val();
     var nombreBoton = $("#editNombreBoton").val();
     var urlIconBoton = $("#editUrlIcon").val();
     var urlImageBanner = $("#editUrlImageBanner").val();
-  
+    var descripcionSeccion = $("#editDescripcionSeccion").val();
+
     if (
       idForm &&
       titulo &&
       contenido &&
       nombreBoton &&
       urlIconBoton &&
-      urlImageBanner
+      urlImageBanner &&
+      descripcionSeccion
     ) {
-
       $.ajax({
         type: "POST",
         url: "/Inscripcion/ActualizarInscripcion", // URL del controlador para editar el slider
@@ -276,6 +286,7 @@ function loadEditarInscripcion() {
           nombreBoton: nombreBoton,
           urlIconBoton: urlIconBoton,
           urlImagen: urlImageBanner,
+          description: descripcionSeccion,
         },
         success: function (response) {
           console.log("actualzia inscripcion", response);
