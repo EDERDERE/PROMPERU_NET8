@@ -524,7 +524,7 @@ const home = {
       dataType: "json",
       success: function (response) {
         console.log("Respuesta del servidor:", response);
-
+  
         if (!response?.success) {
           Swal.fire({
             icon: "error",
@@ -533,14 +533,27 @@ const home = {
           });
           return;
         }
-
+  
         const banners = response.banners || [];
-
-        // Limpia el contenedor de banners solo si hay datos
         $("#sliderBannerHome").empty();
-
+  
         if (banners.length > 0) {
           renderSliderBannerHome(banners);
+  
+          // Esperar a que el DOM se actualice antes de inicializar Swiper
+          requestAnimationFrame(() => {
+            initSwiper(".mySwiper", {
+              direction: "vertical",
+              slidesPerView: 1,
+              autoplay: {
+                delay: 3000,
+              },
+              pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+              },
+            });
+          });
         } else {
           $("#sliderBannerHome").html(
             "<p>No se encontraron banners disponibles.</p>"
@@ -549,15 +562,15 @@ const home = {
       },
       error: function (xhr, status, error) {
         console.error("Error en AJAX:", status, error);
-
         Swal.fire({
           icon: "error",
           title: "Error al cargar los banners",
-          text: "Hubo un problema al obtener los banners. Intente nuevamente m�s tarde.",
+          text: "Hubo un problema al obtener los banners. Intente nuevamente más tarde.",
         });
       },
     });
   },
+  
   loadListarInscripcions: function () {
     $.ajax({
       type: "GET", // M�todo GET para obtener las inscripciones
@@ -1075,6 +1088,18 @@ function renderTituloBeneficioHome(bene) {
       `;
   $("#tituloBeneficioHome").append(html);
 }
+
+function initSwiper(selector, config) {
+  if (!$(selector).length) return;
+  if (window.swiperInstances && window.swiperInstances[selector]) {
+    window.swiperInstances[selector].destroy(true, true);
+  }
+
+
+  window.swiperInstances = window.swiperInstances || {};
+  window.swiperInstances[selector] = new Swiper(selector, config);
+}
+
 function renderPortadaBeneficioHome(bene) {
   const html = `
      <img src="${bene.bene_URLImagen}"
