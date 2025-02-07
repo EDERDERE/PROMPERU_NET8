@@ -23,7 +23,7 @@ namespace PROMPERU.BackOffice.API.Controllers
 
         public IActionResult Index()
         {
-            return View(); // Asegúrate de tener una vista asociada         
+            return View(); // Asegï¿½rate de tener una vista asociada         
         }
 
 
@@ -32,7 +32,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var informacions = await _informacionBL.ListarInformacionsAsync(); // Cambio a versión asincrónica
+                var informacions = await _informacionBL.ListarInformacionsAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (informacions != null && informacions.Any())
                 {
                     return Json(new
@@ -56,7 +56,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los informacions. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los informacions. Por favor, intï¿½ntelo nuevamente."
 
                 });
             }
@@ -80,7 +80,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Info_DescripcionBanner = informacionDto.descriptionBanner
                 };                
 
-                await _informacionBL.InsertarInformacionAsync(informacion, usuario, ip); // Llamada asincrónica
+                await _informacionBL.InsertarInformacionAsync(informacion, usuario, ip); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
@@ -107,7 +107,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Info_URLVideo = informacionDto.urlVideo,
                     Info_DescripcionBanner = informacionDto.descriptionBanner
                 };
-                await _informacionBL.ActualizarInformacionAsync(informacion, usuario, ip, id); // Llamada asincrónica
+                await _informacionBL.ActualizarInformacionAsync(informacion, usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace PROMPERU.BackOffice.API.Controllers
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _informacionBL.EliminarInformacionAsync(usuario, ip, id); // Llamada asincrónica
+                await _informacionBL.EliminarInformacionAsync(usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarInformacions");
             }
             catch (Exception ex)
@@ -139,8 +139,8 @@ namespace PROMPERU.BackOffice.API.Controllers
         //{
         //    try
         //    {
-        //        var banner = await _bannerBL.ObtenerBannerAsync(bannID); // Llamada asincrónica
-        //        return View(banner); // Asegúrate de tener una vista para mostrar un banner
+        //        var banner = await _bannerBL.ObtenerBannerAsync(bannID); // Llamada asincrï¿½nica
+        //        return View(banner); // Asegï¿½rate de tener una vista para mostrar un banner
         //    }
         //    catch (Exception ex)
         //    {
