@@ -500,7 +500,7 @@ async function loadGuardarOrdenCaso() {
             });
 
             return response;
-        } catch (xhr, status, error) {
+        } catch (error) {
             throw new Error("Hubo un error al intentar actualizar el Caso.");
         }
     };

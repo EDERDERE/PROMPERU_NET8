@@ -16,6 +16,7 @@ namespace PROMPERU.BL.Dtos
         public string urlImagen { get; set; }
         public string urlIcon { get; set; }
         public string nombreBoton { get; set; }
+        public string urlImagenBanner { get; set; }
 
     }   
 }

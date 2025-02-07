@@ -17,7 +17,7 @@ function renderTituloBeneficio(beneficio) {
                         data-titulo="${beneficio.bene_Titulo}"
                         data-urlimagen="${beneficio.bene_URLImagen}"
                         data-descripcionBanner="${beneficio.bene_Descripcion}"
-                        data-urlBanner="${beneficio.bene_URLIcon}"
+                        data-urlBanner="${beneficio.bene_URLImagenBanner}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -52,7 +52,7 @@ function renderTituloBeneficio(beneficio) {
                   <label for=""url-banner-${beneficio.bene_ID}" class="form-label fw-semibold">URL del banner</label>
                  
                 </div>
-                <input type="text" id=""url-banner-${beneficio.bene_ID}" class="form-control" placeholder="${beneficio.bene_URLIcon}" disabled>
+                <input type="text" id=""url-banner-${beneficio.bene_ID}" class="form-control" placeholder="${beneficio.bene_URLImagenBanner}" disabled>
 
               </div>
 
@@ -254,7 +254,7 @@ async function loadEditarBeneficio() {
                         id: id,
                         titulo: titulo,
                         urlImagen: urlImagen,
-                        urlIcon: urlBanner,
+                        urlImagenBanner: urlBanner,
                         description: descripcionBanner,
                     }
                 });

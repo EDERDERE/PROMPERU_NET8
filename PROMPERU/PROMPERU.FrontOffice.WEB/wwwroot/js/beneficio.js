@@ -46,9 +46,9 @@ function loadListarBeneficios() {
 function renderBannerBeneficio(bene) {
     const banner = `    
  <div class="title">${bene.bene_Titulo}</div>
-            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magn</p>
+            <p class="description">${bene.bene_Descripcion}</p>
             <div class="location-return align-items-center">
-            <a href="#" title="home" class="home-return">
+              <a href="#" title="home" class="home-return">
                 <img src="../../shared/assets/contactanos/home.svg"
                      alt="home"
                      class="image-home" />
@@ -57,7 +57,7 @@ function renderBannerBeneficio(bene) {
         </div>
       `;
     $('#bannerBeneficio').append(banner);
-    cambiarImagenDinamica(bene.bene_URLImagen);
+    cambiarImagenDinamica(bene.bene_URLImagenBanner);
 }
 function renderSliderBeneficio(beneficios) {
     let slidersHTML = '';
