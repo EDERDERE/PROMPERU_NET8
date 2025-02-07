@@ -79,24 +79,29 @@
                         <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción"
                             required></textarea>
                     </div>
-                   
+
                     <div>
                         <label for="editUrlVideo" class="form-label fw-semibold">URL del video</label>
                         <input type="text" id="editUrlVideo" class="form-control" placeholder="URL del video" required>
                     </div>
-                        <hr>
-                      <h5>Sección</h5>
+                    <hr>
+                    <h5>Sección</h5>
 
-                 <div class="mb-3">
+                    <div class="mb-3">
                         <label for="editTituloSection" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="editTituloSection" class="form-control" placeholder="Titulo" >
+                        <input type="text" id="editTituloSection" class="form-control" placeholder="Titulo">
                     </div>
 
                     <div class="mb-3">
                         <label for="editUrlPortada" class="form-label fw-semibold">URL del banner</label>
-                        <input type="text" id="editUrlPortada" class="form-control" placeholder="URL del banner"
-                            >
+                        <input type="text" id="editUrlPortada" class="form-control" placeholder="URL del banner">
                     </div>
+                           <div class="mb-3">
+                        <label for="editDescriptionSection" class="form-label">Descripción de sección</label>
+                        <textarea class="form-control" id="editDescriptionSection" rows="3" placeholder="Descripción"
+                            required></textarea>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -105,27 +110,6 @@
                     Cerrar
                 </button>
                 <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal de Confirmación para Eliminar -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title " id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar esta Informacion? Esta acción no se puede deshacer.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" id="confirmDeleteButton" class="btn btn-save">Eliminar</button>
             </div>
         </div>
     </div>

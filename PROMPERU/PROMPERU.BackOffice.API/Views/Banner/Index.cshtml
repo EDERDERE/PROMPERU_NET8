@@ -1,147 +1,67 @@
 ﻿<link href="~/css/banner.css" rel="stylesheet" />
 <script src="~/js/banner.js"></script>
 <!-- copiar esto -->
-    <!-- copiar esto -->
-      <div class="content overflow-x-scroll">
-        <div class="container">
-          <div class="row">
+<!-- copiar esto -->
+<div class="content overflow-x-scroll">
+    <div class="container">
+        <div class="row">
             <div class="breadcrumb px-3 col-12 d-flex align-items-center ">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mx-1" fill="currentColor"
-                class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                <path
-                  d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
-              </svg>
-              <a href="#!">
-                <span class="first-bread"> Mi Home</span>
-              </a>
-              <div class="px-2">
-                >
-              </div>
-              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mx-1" fill="currentColor"
+                    class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+                </svg>
                 <a href="#!">
-                  <span class="second-bread">Banner</span>
+                    <span class="first-bread"> Mi Home</span>
                 </a>
-              </div>
+                <div class="px-2">
+                    >
+                </div>
+                <div>
+                    <a href="#!">
+                        <span class="second-bread">Banner</span>
+                    </a>
+                </div>
             </div>
             <div class="col-12 mb-4  d-flex align-items-center justify-content-between ">
-              <div class="d-flex align-items-center gap-3">
-                <h2 class="title d-none d-md-block">Edición del Banner</h2>
-                <h2 class="title d-block d-md-none"> Banners</h2>
+                <div class="d-flex align-items-center gap-3">
+                    <h2 class="title d-none d-md-block">Edición del Banner</h2>
+                    <h2 class="title d-block d-md-none"> Banners</h2>
 
-              </div>
-              <div>
-
-                <button class="button-create d-flex align-items-center gap-2 fs-6" data-bs-toggle="modal"
-                  data-bs-target="#createSliderModal">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-plus-square" viewBox="0 0 16 16">
-                    <path
-                      d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                    <path
-                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                  </svg>
-                  Nuevo slider
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row cards-container mb-3" id="sliderContainer">
-
-                <div class="card col-12 col-md-12 shadow-lg border-0 p-4 mb-3">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h5 class="card-number mb-0"></h5>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-link text-danger p-0" data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmationModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
-                                    data-bs-target="#editSliderModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                                </svg>
-                            </button>
-
-                            <div class="sortable-handle d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Descripción</label>
-                        <textarea id="description-1" class="form-control" rows="3" placeholder="Descripción2"
-                                  disabled></textarea>
-                    </div>
-
-                    <div>
-                        <label for="image-url-1" class="form-label fw-semibold">URL de la imagen</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL de la Imagen" disabled>
-                    </div>
                 </div>
+                <div>
 
-                <div class="card col-12 col-md-12 shadow-lg border-0 p-4 mb-3">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h5 class="card-number mb-0"></h5>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-link text-danger p-0" data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmationModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
-                                    data-bs-target="#editSliderModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-                                </svg>
-                            </button>
-
-                            <div class="sortable-handle d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description-1" class="form-label fw-semibold">Descripción</label>
-                        <textarea id="description-1" class="form-control" rows="3" placeholder="Descripción2"
-                                  disabled></textarea>
-                    </div>
-
-                    <div>
-                        <label for="image-url-1" class="form-label fw-semibold">URL de la imagen</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="URL de la Imagen" disabled>
-                    </div>
+                    <button class="button-create d-flex align-items-center gap-2 fs-6" data-bs-toggle="modal"
+                        data-bs-target="#createSliderModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                        Nuevo slider
+                    </button>
                 </div>
             </div>
-
-          </div>
-          <div class="row mt-4">
-            <div class="col-12 text-end">
-              <button class="btn btn-save" id="saveOrder">Guardar</button>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- copiar esto -->
+        <div class="container">
+            <div class="row cards-container mb-3" id="sliderContainer">
+            </div>
+
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-end">
+                <button class="btn btn-save" id="saveOrder">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- copiar esto -->
 <!-- Modal para Crear Slider -->
 <!-- Modal para Crear Slider -->
 <div class="modal fade" id="createSliderModal" tabindex="-1" aria-labelledby="createSliderModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -153,11 +73,12 @@
                     <div class="mb-3">
                         <label for="createDescription" class="form-label">Descripción</label>
                         <textarea class="form-control" id="createDescription" rows="3" placeholder="Descripción"
-                                  required></textarea>
+                            maxlength="230" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="createImageUrl" class="form-label">URL de la Imagen</label>
-                        <input type="text" class="form-control" id="createImageUrl" placeholder="URL de la Imagen" required>
+                        <input type="text" class="form-control" id="createImageUrl" placeholder="URL de la Imagen"
+                            required>
                     </div>
                 </form>
             </div>
@@ -173,8 +94,7 @@
 </div>
 
 <!-- Modal para Editar Slider -->
-<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -193,12 +113,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="editDescription" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción"
-                                  required></textarea>
+                        <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción" required
+                            maxlength="230"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="editImageUrl" class="form-label">URL de la Imagen</label>
-                        <input type="text" class="form-control" id="editImageUrl" placeholder="URL de la Imagen" required>
+                        <input type="text" class="form-control" id="editImageUrl" placeholder="URL de la Imagen"
+                            required>
                     </div>
                 </form>
             </div>
@@ -215,7 +136,7 @@
 
 <!-- Modal de Confirmación para Eliminar -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
