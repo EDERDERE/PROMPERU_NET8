@@ -827,7 +827,7 @@ function renderSlideTestHome(testimonios) {
 
 }
 function renderLogrosHome(logros) {
-  // Genera los elementos del men� din�micamente
+
   let html = "";
   logros.forEach((logr) => {
     html += `
