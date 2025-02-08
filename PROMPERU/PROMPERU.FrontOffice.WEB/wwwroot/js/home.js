@@ -1201,7 +1201,7 @@ function renderBotonCursoHome(curso) {
 function renderSliderCursoHome(cursos) {
   let sliderCurso = "";
 
-  cursos.slice(0, 4).forEach((curs) => {
+  cursos.forEach((curs) => {
     if (curs.curs_Orden > 0) {
       sliderCurso += `
                 <div class="swiper-slide p-3">
