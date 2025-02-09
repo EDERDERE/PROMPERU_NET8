@@ -1,20 +1,18 @@
 $(document).ready(function () {
   loadListarTestimonio();
-  loadCrearPerfilEmpresarial();
+  loadCrearTestimonio();
   loadEditarTestimonio();
-  loadEliminarPerfilEmpresarial();
+  loadEliminarTestimonio();
 });
 
 function loadListarTestimonio() {
   $.ajax({
-    type: "GET", // Método GET para obtener los sliders
-    url: "/Testimonio/ListarTestimonios", // URL del controlador que devuelve la lista de sliders
-    // URL del controlador que devuelve la lista de sliders
+    type: "GET",
+    url: "/Testimonio/ListarTestimonios",
     dataType: "json",
     success: function (response) {
       console.log(response);
-      // Limpia el contenedor de sliders antes de renderizar
-      $("#tituloContainer").empty();
+      $("#sliderContainer").empty();
       if (response.success) {
         var requisito = response.testimonios[0];
         var tituloCard = `
@@ -42,15 +40,15 @@ function loadListarTestimonio() {
 
         response.testimonios.forEach((testimonio) => {
           console.log("lista Requisito", testimonio);
-          if (testimonio.pemp_ID >= 2) {
+          if (testimonio.test_ID >= 2) {
             var sliderCard = `
               <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <h5 class="card-number mb-0"></h5>
                     <div class="d-flex gap-2">
                         <button class="btn btn-link text-danger p-0"
-                        data-id="${testimonio.pemp_ID}"  
-                        id="btn-delete-${testimonio.pemp_ID}"
+                        data-id="${testimonio.test_ID}"  
+                        id="btn-delete-${testimonio.test_ID}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -59,9 +57,10 @@ function loadListarTestimonio() {
                         </button>
                         <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
                                 data-bs-target="#editSliderModal"
-                                data-id="${testimonio.pemp_ID}"
-                            data-description="${testimonio.pemp_Descripcion}"
-                              data-urlImagen="${testimonio.pemp_UrlImagen}"
+                                data-id="${testimonio.test_ID}"
+                            data-description="${testimonio.test_Descripcion}"
+                              data-urlImagen="${testimonio.test_UrlImagen}"
+                              data-icono="${testimonio.test_UrlIcon}"
                               >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -75,14 +74,18 @@ function loadListarTestimonio() {
 
                
                 <div class="mb-3">
-                    <label for="description-${testimonio.pemp_ID}" class="form-label fw-semibold">Descripción</label>
-                    <textarea id="description-${testimonio.pemp_ID}" class="form-control" rows="3" placeholder="${testimonio.pemp_Descripcion}"
+                    <label for="description-${testimonio.test_ID}" class="form-label fw-semibold">Descripción</label>
+                    <textarea id="description-${testimonio.test_ID}" class="form-control" rows="3" placeholder="${testimonio.test_Descripcion}"
                               disabled></textarea>
                 </div>
 
               <div class="mb-3">
-                <label for="icon-url-${testimonio.pemp_ID}" class="form-label fw-semibold">URL de imagen</label>
-                <input type="text"  id="icon-url-${testimonio.pemp_ID}" class="form-control" value="${testimonio.pemp_UrlImagen}" disabled>
+                <label for="icon-url-${testimonio.test_ID}" class="form-label fw-semibold">URL de imagen</label>
+                <input type="text"  id="icon-url-${testimonio.test_ID}" class="form-control" value="${testimonio.test_UrlImagen}" disabled>
+              </div>
+                <div class="mb-3">
+                <label for="icon-url-${testimonio.test_ID}" class="form-label fw-semibold">URL del Icono</label>
+                <input type="text"  id="icon-url-${testimonio.test_ID}" class="form-control" value="${testimonio.test_UrlIcon}" disabled>
               </div>
             </div>`;
           }
@@ -106,20 +109,20 @@ function loadListarTestimonio() {
     },
   });
 }
-function loadCrearPerfilEmpresarial() {
+function loadCrearTestimonio() {
   $("#saveCreateSlider").click(function () {
     var description = $("#createDescription").val();
     var imageUrl = $("#createImageUrl").val();
-    var nombre = $("#createNombre").val();
+    var urlIcon = $("#createIcon").val();
 
-    if (description && imageUrl && nombre) {
+    if (description && imageUrl && urlIcon) {
       $.ajax({
         type: "POST",
-        url: "/PerfilEmpresarial/InsertarPerfilEmpresarial",
+        url: "/Testimonio/InsertarTestimonio",
         data: {
-          description: description,
-          imageUrl: imageUrl,
-          nombre: nombre,
+          descripcion: description,
+          urlImagen: imageUrl,
+          urlIcon: urlIcon,
         },
         success: function (response) {
           console.log("Crear", response);
@@ -168,6 +171,8 @@ function loadEditarTestimonio() {
     var id = button.data("id"); // Obtener el ID
     var titulo = button.data("titulo");
 
+    console.log(titulo);
+
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editIdTitulo").val(id);
@@ -180,10 +185,10 @@ function loadEditarTestimonio() {
     if (id && titulo) {
       $.ajax({
         type: "POST",
-        url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial",
+        url: "/Testimonio/ActualizarTestimonio",
         data: {
           id: id,
-          titulo: titulo,
+          nombre: titulo,
         },
         success: function (response) {
           console.log("actualzia requisito", response);
@@ -231,30 +236,33 @@ function loadEditarTestimonio() {
     var id = button.data("id"); // Obtener el ID
     var description = button.data("description"); // Obtener la descripción
     var urlImagen = button.data("urlimagen");
+    var urlIcono = button.data("icono");
 
-    console.log(description, "nombre");
 
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editId").val(id);
-
     modal.find("#editDescription").val(description);
     modal.find("#editImageUrl").val(urlImagen);
+    modal.find("#editIcono").val(urlIcono);
   });
   $("#saveEditSlider").click(function () {
     var description = $("#editDescription").val();
     var id = $("#editId").val();
     var urlImagen = $("#editImageUrl").val();
+    var urlIcono = $("#editIcono").val();
 
-    if (description && urlImagen) {
+    if (description && urlImagen && urlIcono) {
       $.ajax({
         type: "POST",
-        url: "/PerfilEmpresarial/ActualizarPerfilEmpresarial",
+        url: "/Testimonio/ActualizarTestimonio",
         data: {
           id: id,
           descripcion: description,
           urlImagen: urlImagen,
+          urlIcon: urlIcono
         },
+        
         success: function (response) {
           console.log("actualzia requisito", response);
           // Manejo de la respuesta
@@ -295,7 +303,7 @@ function loadEditarTestimonio() {
     }
   });
 }
-function loadEliminarPerfilEmpresarial() {
+function loadEliminarTestimonio() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
     console.log(`ID a eliminar: ${id}`);
@@ -313,7 +321,7 @@ function loadEliminarPerfilEmpresarial() {
         // Enviar la solicitud AJAX para eliminar el elemento
         $.ajax({
           type: "POST",
-          url: "/PerfilEmpresarial/EliminarPerfilEmpresarial", // Ruta del controlador para la eliminación
+          url: "/Testimonio/EliminarTestimonio", // Ruta del controlador para la eliminación
           data: { id: id },
           success: function (response) {
             if (response.success) {

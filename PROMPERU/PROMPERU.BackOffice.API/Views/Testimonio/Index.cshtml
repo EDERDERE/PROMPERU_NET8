@@ -69,11 +69,7 @@
             </div>
             <div class="modal-body">
                 <form id="createSliderForm">
-                    <div class="mb-3">
-                        <label for="createNombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="createNombre" rows="3" placeholder="Descripción"
-                            required />
-                    </div>
+                   
                     <div class="mb-3">
                         <label for="createDescription" class="form-label">Descripción</label>
                         <textarea class="form-control" id="createDescription" rows="3" placeholder="Descripción"
@@ -83,6 +79,11 @@
                         <label for="createImageUrl" class="form-label">URL de la Imagen</label>
                         <input type="text" class="form-control" id="createImageUrl" placeholder="URL de la Imagen"
                             required>
+                    </div>
+                     <div class="mb-3">
+                        <label for="createIcon" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="createIcon" rows="3" placeholder="Descripción"
+                            required />
                     </div>
                 </form>
             </div>
@@ -111,11 +112,7 @@
                         <label for="editId" class="form-label">Id</label>
                         <input type="text" class="form-control" id="editId" placeholder="Id" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="editNombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editNombre" rows="3" placeholder="Descripción"
-                            required />
-                    </div>
+                   
                     <div class="mb-3">
                         <label for="editDescription" class="form-label">Descripción</label>
                         <textarea class="form-control" id="editDescription" rows="3" placeholder="Descripción"
@@ -124,6 +121,12 @@
                     <div class="mb-3">
                         <label for="editImageUrl" class="form-label">URL de la Imagen</label>
                         <input type="text" class="form-control" id="editImageUrl" placeholder="URL de la Imagen"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editIcono" class="form-label">URL del icono </label>
+                        <input type="text" class="form-control" id="editIcono" placeholder="URL del icono"
                             required>
                     </div>
                 </form>
@@ -158,5 +161,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editTitle" tabindex="-1" aria-labelledby="editTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSliderModalLabel">Editar Titulo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editTituloForm">
+                    <div class="mb-3" hidden>
+                        <label for="editIdTitulo" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="editIdTitulo" placeholder="Id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo</label>
+                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-modal
+            btn-close-modal" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-save" id="saveEditTitulo">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="../../shared/libraries/sortable/Sortable.min.js"></script>
 <script src="../../shared/js/moveCard.js"></script>

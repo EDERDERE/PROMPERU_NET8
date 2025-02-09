@@ -2,7 +2,7 @@ $(document).ready(function () {
   loadListarEmpresarial();
   loadCrearPerfilEmpresarial();
   loadEditarTestimonio();
-  loadEliminarPerfilEmpresarial();
+  loadEliminarTestimonio();
 });
 
 function loadListarEmpresarial() {
@@ -297,7 +297,7 @@ function loadEditarTestimonio() {
     }
   });
 }
-function loadEliminarPerfilEmpresarial() {
+function loadEliminarTestimonio() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
     console.log(`ID a eliminar: ${id}`);

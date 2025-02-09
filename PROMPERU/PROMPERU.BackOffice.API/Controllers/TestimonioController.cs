@@ -22,7 +22,7 @@ namespace PROMPERU.BackOffice.API.Controllers
 
         public IActionResult Index()
         {            
-          return View(); // Asegúrate de tener una vista asociada         
+          return View(); // Asegï¿½rate de tener una vista asociada         
         }
 
         [HttpGet]
@@ -30,7 +30,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var Testimonios = await _testimonioBL.ListarTestimoniosAsync(); // Cambio a versión asincrónica
+                var Testimonios = await _testimonioBL.ListarTestimoniosAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (Testimonios != null && Testimonios.Any())
                 {
                     return Json(new
@@ -54,7 +54,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Testimonios. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los Testimonios. Por favor, intï¿½ntelo nuevamente."
                   
                 });
             }
@@ -78,7 +78,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 
 
                 };
-                await _testimonioBL.InsertarTestimonioAsync(testimonio, usuario, ip); // Llamada asincrónica
+                await _testimonioBL.InsertarTestimonioAsync(testimonio, usuario, ip); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarTestimonios");
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Test_UrlImagen = testimonioDto.urlImagen
 
                 };
-                await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip, id); // Llamada asincrónica
+                await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarTestimonios");
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace PROMPERU.BackOffice.API.Controllers
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _testimonioBL.EliminarTestimonioAsync(usuario, ip, id); // Llamada asincrónica
+                await _testimonioBL.EliminarTestimonioAsync(usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarTestimonios");
             }
             catch (Exception ex)
@@ -137,8 +137,8 @@ namespace PROMPERU.BackOffice.API.Controllers
         //{
         //    try
         //    {
-        //        var Testimonio = await _TestimonioBL.ObtenerTestimonioAsync(bannID); // Llamada asincrónica
-        //        return View(Testimonio); // Asegúrate de tener una vista para mostrar un Testimonio
+        //        var Testimonio = await _TestimonioBL.ObtenerTestimonioAsync(bannID); // Llamada asincrï¿½nica
+        //        return View(Testimonio); // Asegï¿½rate de tener una vista para mostrar un Testimonio
         //    }
         //    catch (Exception ex)
         //    {
@@ -167,7 +167,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Test_UrlImagen = testimonioDto.urlImagen
 
                     };
-                    await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip,testimonio.Test_ID); // Llamada asincrónica
+                    await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip,testimonio.Test_ID); // Llamada asincrï¿½nica
                 }
                 return RedirectToAction("ListarTestimonios");
             }
