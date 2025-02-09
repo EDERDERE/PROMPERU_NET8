@@ -21,7 +21,7 @@ namespace PROMPERU.BackOffice.API.Controllers
 
         public IActionResult Index()
         {            
-          return View(); // Asegúrate de tener una vista asociada         
+          return View(); // Asegï¿½rate de tener una vista asociada         
         }
 
         [HttpGet]
@@ -29,7 +29,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
+                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (Logos != null && Logos.Any())
                 {
                     return Json(new
@@ -53,7 +53,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los Logos. Por favor, intï¿½ntelo nuevamente."
                   
                 });
             }
@@ -77,7 +77,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 
 
                 };
-                await _logoBL.InsertarLogoAsync(Logo, usuario, ip); // Llamada asincrónica
+                await _logoBL.InsertarLogoAsync(Logo, usuario, ip); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarLogos");
             }
             catch (Exception ex)
@@ -102,7 +102,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Logo_UrlPrincipal = logoDto.urlPrincipal,
                     Logo_UrlSecundario = logoDto.urlSecundario
                 };
-                await _logoBL.ActualizarLogoAsync(Logo, usuario, ip, id); // Llamada asincrónica
+                await _logoBL.ActualizarLogoAsync(Logo, usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarLogos");
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace PROMPERU.BackOffice.API.Controllers
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _logoBL.EliminarLogoAsync(usuario, ip, id); // Llamada asincrónica
+                await _logoBL.EliminarLogoAsync(usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarLogos");
             }
             catch (Exception ex)
@@ -135,8 +135,8 @@ namespace PROMPERU.BackOffice.API.Controllers
         //{
         //    try
         //    {
-        //        var Logo = await _LogoBL.ObtenerLogoAsync(bannID); // Llamada asincrónica
-        //        return View(Logo); // Asegúrate de tener una vista para mostrar un Logo
+        //        var Logo = await _LogoBL.ObtenerLogoAsync(bannID); // Llamada asincrï¿½nica
+        //        return View(Logo); // Asegï¿½rate de tener una vista para mostrar un Logo
         //    }
         //    catch (Exception ex)
         //    {
@@ -164,7 +164,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Logo_UrlPrincipal = logoDto.urlPrincipal,
                         Logo_UrlSecundario = logoDto.urlSecundario
                     };
-                    await _logoBL.ActualizarLogoAsync(logo, usuario, ip,logo.Logo_ID); // Llamada asincrónica
+                    await _logoBL.ActualizarLogoAsync(logo, usuario, ip,logo.Logo_ID); // Llamada asincrï¿½nica
                 }
                 return RedirectToAction("ListarLogos");
             }
