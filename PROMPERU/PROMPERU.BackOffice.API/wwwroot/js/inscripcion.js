@@ -153,7 +153,7 @@ function loadListarInscripcions() {
 
                 <div>
                     <label for="urlImagen-${inscripcion.insc_ID}" class="form-label fw-semibold">URL de la imagen</label>
-                    <input type="text" id="iurlImagen-${inscripcion.insc_ID}" class="form-control" placeholder="URL de la imagen" value="${inscripcion.insc_URLImagen}" disabled>
+                    <input type="text" id="iurlImagen-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_URLImagen}"  disabled>
                 </div>
             </div>
                             `;
@@ -355,7 +355,8 @@ function loadEditarInscripcion() {
     var paso = $("#editPaso").val();
     var orden = $("#editOrder").val();
     var id = $("#editId").val();
-    var urlImagen = $("#editId").val();
+    var urlImagen = $("#editUrlImagen").val();
+
 
     if (description && tituloPaso && paso && id) {
       $.ajax({
