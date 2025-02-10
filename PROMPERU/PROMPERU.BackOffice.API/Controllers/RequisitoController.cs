@@ -170,6 +170,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Requ_TituloSeccion = requisitoDto.tituloSeccion,
                         Requ_Descripcion = requisitoDto.description,
                         Requ_URLIcon = requisitoDto.urlIcon,
+                        Requ_Nombre = requisitoDto.nombre,
                         Requ_URLImagen = requisitoDto.urlImagen
                     };
                     await _requisitoBL.ActualizarRequisitoAsync(requisito, usuario, ip, requisito.Requ_ID); // Llamada asincrónica
