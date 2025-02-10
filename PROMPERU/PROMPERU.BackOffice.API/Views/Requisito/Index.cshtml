@@ -3,28 +3,11 @@
 <div class="content overflow-x-scroll">
     <div class="container">
         <div class="row">
-            <div class="breadcrumb px-3  col-12 d-flex align-items-center ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mx-1" fill="currentColor"
-                    class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
-                </svg>
-                <a href="#!">
-                    <span class="first-bread"> Mi Home</span>
-                </a>
-                <div class="px-2">
-                    >
-                </div>
-                <div>
-                    <a href="#!">
-                        <span class="second-bread">Requisitos</span>
-                    </a>
-                </div>
-            </div>
+           
             <div class="col-12 mb-4 d-flex align-items-center justify-content-between ">
                 <div class="d-flex align-items-center gap-3">
-                    <h2 class="title d-none d-md-block">Edición de requisitos</h2>
-                    <h2 class="title d-block d-md-none"> Requisitos</h2>
+                    <h2 class="title d-none d-md-block">Gestionar Requisito</h2>
+                    <h2 class="title d-block d-md-none"> Requisito</h2>
 
                 </div>
                 <div>
@@ -49,12 +32,12 @@
         </div>
         <div class="container">
             <div class="row cards-container px-2 px-md-0 " id="sliderContainer">
-            
+
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-12 text-end">
-                <button class="btn btn-save" id="saveOrder">Guardar Cambios</button>
+                <button class="btn btn-save" id="saveOrder">Actualizar Orden</button>
             </div>
         </div>
     </div>
@@ -70,26 +53,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                </div>
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="createNombre" class="form-label fw-semibold">Nombre</label>
+                        <label for="createNombre" class="form-label fw-semibold">Nombre*</label>
                         <input type="text" id="createNombre" class="form-control" placeholder="Nombre" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="createDescription" class="form-label fw-semibold">Descripción</label>
+                        <label for="createDescription" class="form-label fw-semibold">Descripción*</label>
                         <textarea id="createDescription" class="form-control" rows="3" placeholder="Descripción"
                             required></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="createUrlIcon" class="form-label fw-semibold">URL de ícono</label>
+                        <label for="createUrlIcon" class="form-label fw-semibold">URL de ícono*</label>
                         <input type="text" id="createUrlIcon" class="form-control" placeholder="URL de ícono" required>
                     </div>
 
-                      <div>
-                        <label for="createImagenUrl" class="form-label fw-semibold">URL de la imagen</label>
-                        <input type="text" id="createImagenUrl" class="form-control" placeholder="URL de ícono" required>
+                    <div>
+                        <label for="createImagenUrl" class="form-label fw-semibold">URL de la imagen*</label>
+                        <input type="text" id="createImagenUrl" class="form-control" placeholder="URL de ícono"
+                            required>
                     </div>
                 </form>
             </div>
@@ -114,28 +101,32 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                </div>
                 <form id="editTituloForm">
                     <div class="mb-3" hidden>
-                        <label for="editIdTitulo" class="form-label">Id</label>
+                        <label for="editIdTitulo" class="form-label">Id(*)</label>
                         <input type="text" class="form-control" id="editIdTitulo" placeholder="Id" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editTitulo" class="form-label fw-semibold">Titulo</label>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo*</label>
                         <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
                     </div>
                     <div class="mb-3 ">
                         <div class="d-flex justify-content-between">
                             <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">descripcion del
-                                banner</label>
-
+                                banner*</label>
                         </div>
-                        <input type="text" id="editDescripcion" class="form-control" required>
+
+                        <textarea class="form-control" id="editDescripcion" rows="3" placeholder="Descripción"
+                            maxlength="230" required></textarea>
                     </div>
 
                     <div class="mb-3 ">
                         <div class="d-flex justify-content-between">
                             <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">URL del
-                                banner</label>
+                                banner*</label>
 
                         </div>
                         <input type="text" id="editUrlImagen" class="form-control" required>
@@ -144,7 +135,7 @@
                     <div class="mb-3 ">
                         <div class="d-flex justify-content-between">
                             <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">Titulo
-                                seccion</label>
+                                seccion*</label>
 
                         </div>
                         <input type="text" id="editTituloSection" class="form-control" required>

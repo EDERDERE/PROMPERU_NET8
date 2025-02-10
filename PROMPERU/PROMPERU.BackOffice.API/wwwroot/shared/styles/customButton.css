@@ -5,3 +5,7 @@
   color: var(--color-blue-ligth) !important;
   background: transparent !important;
 }
+
+.message-input {
+  font-size: 13px !important; 
+}
