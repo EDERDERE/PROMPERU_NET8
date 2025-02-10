@@ -37,19 +37,19 @@ function loadListarLogo() {
                 </div>
 
                  <div class="col-md-6 mb-3">
-                      <label for="image-url-${logo.logr_ID}" class="form-label fw-semibold">URL icono del boton</label>
-                      <input type="text" id="image-url-${logo.logr_ID}" class="form-control" value="${logo.logo_UrlIconBoton}" disabled>
+                      <label for="image-url-${logo.logo_ID}" class="form-label fw-semibold">URL icono del boton</label>
+                      <input type="text" id="image-url-${logo.logo_ID}" class="form-control" value="${logo.logo_UrlIconBoton}" disabled>
                   </div>
 
 
                   <div class="col-md-6 mb-3">
-                      <label for="image-url-${logo.logr_ID}" class="form-label fw-semibold">Logo 1 PromPeru</label>
-                      <input type="text" id="image-url-${logo.logr_ID}" class="form-control" value="${logo.logo_UrlPrincipal}" disabled>
+                      <label for="image-url-${logo.logo_ID}" class="form-label fw-semibold">Logo 1 PromPeru</label>
+                      <input type="text" id="image-url-${logo.logo_ID}" class="form-control" value="${logo.logo_UrlPrincipal}" disabled>
                   </div>
 
                    <div class="col-md-6 mb-3">
-                      <label for="image-url-${logo.logr_ID}" class="form-label fw-semibold">Logo 2 Turismo</label>
-                      <input type="text" id="image-url-${logo.logr_ID}" class="form-control" value="${logo.logo_UrlSecundario}" disabled>
+                      <label for="image-url-${logo.logo_ID}" class="form-label fw-semibold">Logo 2 Turismo</label>
+                      <input type="text" id="image-url-${logo.logo_ID}" class="form-control" value="${logo.logo_UrlSecundario}" disabled>
                   </div>
 
                     `;
@@ -105,7 +105,7 @@ function loadEditarLogo() {
           nombreBoton: nombre,
           urlIconBoton: urlIcono,
           urlPrincipal: urlPrincipal,
-          urlPrincipal: urlSecundario,
+          urlSecundario: urlSecundario,
         },
         success: function (response) {
           console.log("actualzia requisito", response);
