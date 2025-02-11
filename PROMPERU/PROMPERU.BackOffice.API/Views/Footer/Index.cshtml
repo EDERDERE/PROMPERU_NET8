@@ -1,5 +1,270 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<link href="~/css/footer.css" rel="stylesheet" />
+<script src="~/js/footer.js"></script>
+<div class="content overflow-x-scroll">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb px-1 px-md-0 col-12 d-flex align-items-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill"
+                     viewBox="0 0 16 16">
+                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                </svg>
+                <a href="#!">
+                    <span class="first-bread"> Configuración</span>
+                </a>
+                <div class="px-2">
+                    >
+                </div>
+                <div>
+                    <a href="#!">
+                        <span class="second-bread">Footer</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 mb-4 px-2 px-lg-0 d-flex align-items-center justify-content-between ">
+                <div class="d-flex align-items-center gap-3">
+                    <h2 class="title d-none d-md-block">Edición de Footer </h2>
+                    <h2 class="title d-block d-md-none"> Footer</h2>
+
+                </div>             
+            </div>
+
+         
+        </div>
+        <div id="formfooter">
+            <div class="row ">
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Nombre </label>
+                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editSliderModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control " placeholder="Nombre " disabled>
+
+                </div>
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Contacto</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control " placeholder="Contacto" disabled>
+
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Ícono de contacto</label>
+
+                    </div>
+
+                    <input name="" id="image-url-1" class="form-control" placeholder="Ícono de contacto" disabled>
+
+
+                </div>
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Ubicación</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="Ubicación" disabled>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Ícono de ubicación</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="Ícono de ubicación" disabled>
+                </div>
+
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">URL del logo</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="URL del logo" disabled>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">Ayuda</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control mb-2" placeholder="Ayuda" disabled>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="Ayuda" disabled>
+                </div>
+
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">URL de íconos footer</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="URL de íconos footer" disabled>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">URL de íconos footer</label>
+
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="URL de íconos footer" disabled>
+
+                </div>
+
+                <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="image-url-1" class="form-label fw-semibold">URL del logo Perú</label>
+                    </div>
+                    <input type="text" id="image-url-1" class="form-control" placeholder="URL del logo Perú" disabled>
+                </div>
+            </div>
+        </div>
+
+                
+    </div>
+</div>
+
+<!-- Modal para Editar Slider -->
+<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSliderModalLabel">Editar Footer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createSliderForm">
+                    <div class="row ">
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editId" class="form-label fw-semibold">Id </label>
+
+                            </div>
+                            <input type="text" id="editId" class="form-control " placeholder="Nombre ">
+
+                        </div>
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editNombre" class="form-label fw-semibold">Nombre </label>
+
+                            </div>
+                            <input type="text" id="editNombre" class="form-control " placeholder="Nombre ">
+
+                        </div>
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editContacto" class="form-label fw-semibold">Contacto</label>
+
+                            </div>
+                            <input type="text" id="editContacto" class="form-control " placeholder="Contacto">
+
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editUrlContacto" class="form-label fw-semibold">Ícono de contacto</label>
+
+                            </div>
+
+                            <input name="" id="editUrlContacto" class="form-control" placeholder="Ícono de contacto">
+
+
+                        </div>
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editUbi" class="form-label fw-semibold">Ubicación</label>
+
+                            </div>
+                            <input type="text" id="editUbi" class="form-control" placeholder="Ubicación">
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editUrlUbi" class="form-label fw-semibold">Ícono de ubicación</label>
+
+                            </div>
+                            <input type="text" id="editUrlUbi" class="form-control" placeholder="Ícono de ubicación">
+                        </div>
+
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editUrlWhatssap" class="form-label fw-semibold">URL del logo</label>
+
+                            </div>
+                            <input type="text" id="editUrlWhatssap" class="form-control" placeholder="URL del logo">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editAyuda" class="form-label fw-semibold">Ayuda</label>
+
+                            </div>
+                            <input type="text" id="editComunicate" class="form-control mb-2" placeholder="Ayuda">
+                            <input type="text" id="editAyuda" class="form-control" placeholder="Ayuda">
+                        </div>
+
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editUrlMensaje" class="form-label fw-semibold">URL de íconos footer</label>
+
+                            </div>
+                            <input type="text" id="editUrlMensaje" class="form-control" placeholder="URL de íconos footer">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editLogoPrincipal" class="form-label fw-semibold">URL de íconos footer</label>
+
+                            </div>
+                            <input type="text" id="editLogoPrincipal" class="form-control" placeholder="URL de íconos footer">
+
+                        </div>
+
+                        <div class="col-md-6 my-3 ">
+                            <div class="d-flex justify-content-between">
+                                <label for="editLogoSecundario" class="form-label fw-semibold">URL del logo Perú</label>
+
+                            </div>
+                            <input type="text" id="editLogoSecundario" class="form-control" placeholder="URL del logo Perú">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-modal
+            btn-close-modal" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>

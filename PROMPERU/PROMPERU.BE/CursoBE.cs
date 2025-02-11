@@ -19,5 +19,6 @@
         public string Curs_UrlIcon { get; set; }
         public string Curs_UrlImagen { get; set; }
         public string Curs_LinkBoton { get; set; }
+        public string Curs_EsHabilitado { get; set; }
     }
 }
