@@ -9,12 +9,11 @@
 
 function loadListarCursos() {
   $.ajax({
-    type: "GET", // Método GET para obtener los sliders
-    url: "/Curso/ListarCursos", // URL del controlador que devuelve la lista de sliders
+    type: "GET",
+    url: "/Curso/ListarCursos",
     dataType: "json",
     success: function (response) {
       console.log(response);
-      // Limpia el contenedor de sliders antes de renderizar
       $("#sliderContainer").empty();
       $("#tituloContainer").empty();
       if (response.success) {
@@ -160,6 +159,8 @@ function renderSliders(cursos) {
                             data-urlimagen="${curso.curs_UrlImagen}"
                             data-nombreboton="${curso.curs_NombreBoton}"
                             data-urlicon="${curso.curs_UrlIcon}"
+                            data-brochurelink="${curso.curs_LinkBoton}"
+                            
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -272,8 +273,19 @@ function renderSliders(cursos) {
                     }" class="form-label fw-semibold">URL icono de boton</label>
                     <input type="text" id="urlIcon-${
                       curso.curs_ID
-                    }" class="form-control" placeholder="urlIcon-${
+                    }" class="form-control" placeholder="${
         curso.curs_UrlIcon
+      }" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="urlIcon-${
+                      curso.curs_ID
+                    }" class="form-label fw-semibold">URL Brochure</label>
+                    <input type="text" id="urlIcon-${
+                      curso.curs_ID
+                    }" class="form-control" placeholder="${
+        curso.curs_LinkBoton
       }" disabled>
                 </div>
 
@@ -300,7 +312,6 @@ function loadCrearCurso() {
       urlIcon: $("#createUrlIconBoton").val(),
     };
 
-    // Validar si todos los campos están completos
     if (Object.values(cursoData).some((value) => !value.trim())) {
       Swal.fire({
         title: "Advertencia",
@@ -311,7 +322,6 @@ function loadCrearCurso() {
       return;
     }
 
-    // Enviar datos al servidor
     $.ajax({
       type: "POST",
       url: "/Curso/InsertarCurso", // URL del controlador para crear el curso
@@ -644,7 +654,6 @@ function loadGuardarOrden() {
         console.log(resultData);
         console.log(JSON.stringify(resultData));
 
-        // Realizar la solicitud AJAX para actualizar la orden
         $.ajax({
           url: "/Curso/ActualizarOrdenCurso",
           type: "POST",
@@ -681,20 +690,19 @@ function loadGuardarOrden() {
   });
 }
 
-// Función para formatear la fecha
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
-  const dia = String(fecha.getDate()).padStart(2, "0"); // Día con dos dígitos
-  const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes con dos dígitos
-  const anio = fecha.getFullYear(); // Año completo
+  const dia = String(fecha.getDate()).padStart(2, "0");
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+  const anio = fecha.getFullYear();
 
-  return `${dia}/${mes}/${anio}`; // Cambia el formato según sea necesario
+  return `${dia}/${mes}/${anio}`;
 }
 function formatearFechaInversa(fechaISO) {
   const fecha = new Date(fechaISO);
-  const dia = String(fecha.getDate()).padStart(2, "0"); // Día con dos dígitos
-  const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes con dos dígitos
-  const anio = fecha.getFullYear(); // Año completo
+  const dia = String(fecha.getDate()).padStart(2, "0");
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+  const anio = fecha.getFullYear();
 
-  return `${anio}-${mes}-${dia}`; // Cambia el formato según sea necesario
+  return `${anio}-${mes}-${dia}`;
 }

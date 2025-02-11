@@ -152,7 +152,7 @@ function loadListarInscripcions() {
                 </div>
 
                 <div>
-                    <label for="urlImagen-${inscripcion.insc_ID}" class="form-label fw-semibold">URL de la imagen</label>
+                    <label for="urlImagen-${inscripcion.insc_ID}" class="form-label fw-semibold">URL del ícono</label>
                     <input type="text" id="iurlImagen-${inscripcion.insc_ID}" class="form-control" placeholder="${inscripcion.insc_URLImagen}"  disabled>
                 </div>
             </div>
