@@ -61,7 +61,7 @@ function renderBannerCurso(curs) {
 function renderTituloCurso(curs) {
 
     const tituloCurso = `
-      <h2>${curs.curs_TituloSeccion}</h2>
+      <h2 class="section_title">${curs.curs_TituloSeccion}</h2>
                     <div class="red-linear"></div>
       `;
     $('#banner').append(banner);    

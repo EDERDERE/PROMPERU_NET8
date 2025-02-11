@@ -69,7 +69,7 @@ function renderSeccionInfo(info) {
     console.log('aaaaaaa',info,'ingreso a la seccion')
     const seccion = `
 
-        <h2 class="text-start title-que-es mb-3">
+        <h2 class="text-start section_title mb-3">
             <span class="d-block mb-2">${info.info_TituloSeccion}</span>
             <div class="red-linear"></div>
         </h2>

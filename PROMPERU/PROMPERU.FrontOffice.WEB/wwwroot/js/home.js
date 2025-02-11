@@ -666,7 +666,7 @@ function renderContactoHome(fcont) {
   const html = `
                <div class="row mb-5">
             <div class="col-12">
-                <h2>${fcont.fcon_Titulo}</h2>
+                <h2 class="section_title">${fcont.fcon_Titulo}</h2>
                 <div class="red-linear"></div>
             </div>
         </div>
@@ -738,7 +738,7 @@ function renderContactoHome(fcont) {
 }
 function renderTituloEGHome(egra) {
   const html = `
-              <h2>${egra.egra_Titulo}</h2>
+              <h2 class="section_title">${egra.egra_Titulo}</h2>
                 <div class="red-linear"></div>
       `;
   $("#tituloEGHome").append(html);
@@ -768,7 +768,7 @@ function renderSliderEGHome(empresas) {
 }
 function renderTituloPEmpHome(pemp) {
   const html = `
-               <h2 class="text-start title-nuestro-requisitos">${pemp.pemp_Nombre}</h2>
+               <h2 class="text-start section_title">${pemp.pemp_Nombre}</h2>
       `;
   $("#tituloPEmpHome").append(html);
 }
@@ -788,7 +788,7 @@ function renderSlidePEmpHome(pemps) {
 function renderTituloTestHome(test) {
   const html = `
             <div class="col-12">
-                <h2>${test.test_Nombre}</h2>
+                <h2 class="section_title">${test.test_Nombre}</h2>
                 <div class="red-linear"></div>
             </div>
       `;
@@ -894,7 +894,7 @@ function renderMenuHome(menus) {
   // Genera los elementos del men� din�micamente
   let html = `
         <li class="home">
-            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none">
+            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none ${window.location.pathname === '/' || window.location.pathname === '/Home' || window.location.pathname.includes('/Home/') ? 'active' : ''}">
               <?xml version="1.0" ?><svg
                 fill="none"
                 height="20"
@@ -904,7 +904,7 @@ function renderMenuHome(menus) {
               >
                 <path
                   d="M10.5495 2.53189C11.3874 1.82531 12.6126 1.82531 13.4505 2.5319L20.2005 8.224C20.7074 8.65152 21 9.2809 21 9.94406V19.7468C21 20.7133 20.2165 21.4968 19.25 21.4968H15.75C14.7835 21.4968 14 20.7133 14 19.7468V14.2468C14 14.1088 13.8881 13.9968 13.75 13.9968H10.25C10.1119 13.9968 9.99999 14.1088 9.99999 14.2468V19.7468C9.99999 20.7133 9.2165 21.4968 8.25 21.4968H4.75C3.7835 21.4968 3 20.7133 3 19.7468V9.94406C3 9.2809 3.29255 8.65152 3.79952 8.224L10.5495 2.53189ZM12.4835 3.6786C12.2042 3.44307 11.7958 3.44307 11.5165 3.6786L4.76651 9.37071C4.59752 9.51321 4.5 9.72301 4.5 9.94406V19.7468C4.5 19.8849 4.61193 19.9968 4.75 19.9968H8.25C8.38807 19.9968 8.49999 19.8849 8.49999 19.7468V14.2468C8.49999 13.2803 9.2835 12.4968 10.25 12.4968H13.75C14.7165 12.4968 15.5 13.2803 15.5 14.2468V19.7468C15.5 19.8849 15.6119 19.9968 15.75 19.9968H19.25C19.3881 19.9968 19.5 19.8849 19.5 19.7468V9.94406C19.5 9.72301 19.4025 9.51321 19.2335 9.37071L12.4835 3.6786Z"
-                  fill="#C41121"
+                  fill="currentColor"
                 />
               </svg>
               <span class="d-block d-lg-none">Inicio</span>
@@ -916,7 +916,7 @@ function renderMenuHome(menus) {
             <li>
                 <a href="${
                   item.menu_UrlIconBoton || "#"
-                }" class="text-decoration-none">
+                }" class="text-decoration-none ${window.location.pathname.includes(item.menu_UrlIconBoton) ? 'active' : ''}">
                     ${item.menu_Nombre}
                 </a>
             </li>
@@ -957,7 +957,7 @@ function renderLogoHome(logo) {
 }
 function renderTituloInscHome(insc) {
   const html = `
-     <h2 class="text-start title-nuestro-requisitos">${insc.insc_Titulo}</h2>
+     <h2 class="text-start section_title">${insc.insc_Titulo}</h2>
       `;
   $("#tituloInscHome").append(html);
 }
@@ -1035,7 +1035,7 @@ function renderSliderBannerHome(banners) {
 }
 function renderTituloCasoHome(caso) {
   const html = `
-     <h2>${caso.cexi_Titulo}</h2>
+     <h2 class="section_title">${caso.cexi_Titulo}</h2>
                 <div class="red-linear"></div>     
       `;
   $("#tituloCasoHome").append(html);
@@ -1083,7 +1083,7 @@ function renderSliderCasoHome(casos) {
 }
 function renderTituloBeneficioHome(bene) {
   const html = `
-     <h2>${bene.bene_Titulo}</h2>
+     <h2 class="section_title">${bene.bene_Titulo}</h2>
                 <div class="red-linear"></div>     
       `;
   $("#tituloBeneficioHome").append(html);
@@ -1129,7 +1129,7 @@ function renderSliderBeneficioHome(beneficio) {
 }
 function renderTituloRequisitoHome(requ) {
   const tituloRequisitoHome = `
-     <h2 class="text-start title-nuestro-requisitos">${requ.requ_Titulo}</h2>
+     <h2 class="text-start section_title">${requ.requ_Titulo}</h2>
         <div class="red-linear"></div>
       `;
   $("#tituloRequisitoHome").append(tituloRequisitoHome);
@@ -1163,7 +1163,7 @@ function renderSeccionHome(info) {
   const seccion = `
     <div class="row">
         <div class="col-12 col-md-5" >
-            <h2 class="text-start title-que-es">${info.info_Titulo}</h2>
+            <h2 class="text-start section_title">${info.info_Titulo}</h2>
             <div class="red-linear"></div>
             <p class="texto-que-es fs-12 mt-4">
                ${info.info_Descripcion}
@@ -1185,7 +1185,7 @@ function renderSeccionHome(info) {
 }
 function renderTituloCursoHome(curso) {
   const tituloCursoHome = `
-     <h2>${curso.curs_Titulo}</h2>
+     <h2 class="section_title">${curso.curs_Titulo}</h2>
      <div class="red-linear"></div>
       `;
   $("#tituloCursoHome").append(tituloCursoHome);

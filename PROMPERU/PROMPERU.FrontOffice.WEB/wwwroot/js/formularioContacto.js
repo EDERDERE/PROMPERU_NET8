@@ -75,7 +75,7 @@ function renderBannerContacto(fcon) {
 function renderTituloSeccionContacto(fcon) {
     console.log('fcon secciono', fcon)
     const html = `    
-  <h2 class="text-start title-que-es">${fcon.fcon_TituloSeccion}</h2>
+  <h2 class="section_title">${fcon.fcon_TituloSeccion}</h2>
             <div class="red-linear"></div>
       `;
     $('#tituloSeccionContacto').append(html);
