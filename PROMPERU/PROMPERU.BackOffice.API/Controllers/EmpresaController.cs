@@ -26,7 +26,7 @@ namespace PROMPERU.BackOffice.API.Controllers
 
         public IActionResult Index()
         {            
-          return View(); // Asegúrate de tener una vista asociada         
+          return View(); // Asegï¿½rate de tener una vista asociada         
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var Empresas = await _empresaBL.ListarEmpresasAsync(); // Cambio a versión asincrónica
+                var Empresas = await _empresaBL.ListarEmpresasAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (Empresas != null && Empresas.Any())
                 {
                     return Json(new
@@ -58,7 +58,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Empresas. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los Empresas. Por favor, intï¿½ntelo nuevamente."
                   
                 });
             }
@@ -96,7 +96,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 
 
                 };
-                await _empresaBL.InsertarEmpresaAsync(empresa, usuario, ip); // Llamada asincrónica
+                await _empresaBL.InsertarEmpresaAsync(empresa, usuario, ip); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarEmpresas");
             }
             catch (Exception ex)
@@ -135,7 +135,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Egra_UrlBoton = empresaDto.urlBoton,
                     Egra_UrlLogo = empresaDto.urlLogo
                 };
-                await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip, id); // Llamada asincrónica
+                await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarEmpresas");
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace PROMPERU.BackOffice.API.Controllers
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                await _empresaBL.EliminarEmpresaAsync(usuario, ip, id); // Llamada asincrónica
+                await _empresaBL.EliminarEmpresaAsync(usuario, ip, id); // Llamada asincrï¿½nica
                 return RedirectToAction("ListarEmpresas");
             }
             catch (Exception ex)
@@ -168,8 +168,8 @@ namespace PROMPERU.BackOffice.API.Controllers
         //{
         //    try
         //    {
-        //        var Empresa = await _EmpresaBL.ObtenerEmpresaAsync(bannID); // Llamada asincrónica
-        //        return View(Empresa); // Asegúrate de tener una vista para mostrar un Empresa
+        //        var Empresa = await _EmpresaBL.ObtenerEmpresaAsync(bannID); // Llamada asincrï¿½nica
+        //        return View(Empresa); // Asegï¿½rate de tener una vista para mostrar un Empresa
         //    }
         //    catch (Exception ex)
         //    {
@@ -211,7 +211,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Egra_UrlBoton = empresaDto.urlBoton,
                         Egra_UrlLogo = empresaDto.urlLogo
                     };
-                    await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip,empresa.Egra_ID); // Llamada asincrónica
+                    await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip,empresa.Egra_ID); // Llamada asincrï¿½nica
                 }
                 return RedirectToAction("ListarEmpresas");
             }
@@ -225,7 +225,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var regions = await _regionBL.ListarRegionsAsync(); // Cambio a versión asincrónica
+                var regions = await _regionBL.ListarRegionsAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (regions != null && regions.Any())
                 {
                     return Json(new
@@ -249,7 +249,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Regiones. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los Regiones. Por favor, intï¿½ntelo nuevamente."
 
                 });
             }
@@ -258,7 +258,7 @@ namespace PROMPERU.BackOffice.API.Controllers
         {
             try
             {
-                var tipoEmpresas = await _tipoEmpresaBL.ListarTipoEmpresasAsync(); // Cambio a versión asincrónica
+                var tipoEmpresas = await _tipoEmpresaBL.ListarTipoEmpresasAsync(); // Cambio a versiï¿½n asincrï¿½nica
                 if (tipoEmpresas != null && tipoEmpresas.Any())
                 {
                     return Json(new
@@ -282,7 +282,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los TipoEmpresas. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los TipoEmpresas. Por favor, intï¿½ntelo nuevamente."
 
                 });
             }

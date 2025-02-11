@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
   console.log("Caso exito");
-  loadListarCasos();
-  loadCrearCaso();
-  loadEditarCaso();
-  loadEliminarCaso();
+  loadListarEmpresas();
+  loadCrearEmpresa();
+  loadEditarEmpresa();
+  loadEliminarEmpresa();
   loadGuardarOrdenCaso();
 });
-async function loadListarCasos() {
+async function loadListarEmpresas() {
   try {
     // Realiza la llamada AJAX usando fetch en lugar de jQuery
     const response = await $.ajax({
@@ -207,7 +207,7 @@ function renderSlidersCaso(casos) {
 
   $("#sliderContainer").append(slidersHTML);
 }
-async function loadCrearCaso() {
+async function loadCrearEmpresa() {
   $("#saveCreateSlider").click(async function () {
     // Recopilar datos del formulario
     const casoData = {
@@ -267,7 +267,7 @@ async function loadCrearCaso() {
     }
   });
 }
-async function loadEditarCaso() {
+async function loadEditarEmpresa() {
   const assignModalValues = (modal, data) => {
     Object.keys(data).forEach((key) => {
       modal.find(`#${key}`).val(data[key]);
@@ -392,7 +392,7 @@ async function loadEditarCaso() {
     }
   });
 }
-async function loadEliminarCaso() {
+async function loadEliminarEmpresa() {
   // Función para mostrar alertas de éxito o error
   const showAlert = (type, title, text) => {
     return Swal.fire({
