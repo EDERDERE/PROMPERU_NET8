@@ -57,7 +57,7 @@ function renderBannerCaso(caso) {
 }
 function renderTituloSeccionCaso(caso) {
     const tituloseccion = `   
-     <h2>${caso.cexi_TituloVideo}</h2>
+     <h2 class="section_title">${caso.cexi_TituloVideo}</h2>
                     <div class="red-linear"></div>
  `;
     $('#tituloSeccionCaso').append(tituloseccion);    

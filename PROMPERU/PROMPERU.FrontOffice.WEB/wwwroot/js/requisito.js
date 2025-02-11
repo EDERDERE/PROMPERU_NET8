@@ -67,7 +67,7 @@ function renderBannerRequisito(requ) {
 function renderTituloRequisito(requ) {
 
     const tituloRequisito = `
-     <h2>${requ.requ_TituloSeccion}</h2>
+     <h2 class="section_title">${requ.requ_TituloSeccion}</h2>
                     <div class="red-linear"></div>
       `;
     $('#banner').append(banner);    
