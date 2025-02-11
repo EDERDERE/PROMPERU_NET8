@@ -168,6 +168,9 @@
       min-height: 40px;
       border-bottom: 2px solid transparent;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .main_nav li a:hover{
       color: #C3122C;
@@ -179,5 +182,6 @@
     }
     .header_btn{
       font-size: 1rem;
+      margin-top: 0;
     }
   }
