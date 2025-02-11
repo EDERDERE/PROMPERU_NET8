@@ -158,11 +158,11 @@
       width: 100%;
     }
     .main_nav li a {
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 1.1rem;
+      font-weight: 600;
       margin: 0;
       color: #636466;
-      line-height: 1rem;
+      line-height: 1.1rem;
       text-align: center;
       text-decoration: none;
       min-height: 40px;
