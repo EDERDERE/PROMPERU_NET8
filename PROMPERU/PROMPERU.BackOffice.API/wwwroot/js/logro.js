@@ -188,7 +188,7 @@ async function loadEditarLogro() {
             id: id,
             nombre: nombre,
             descripcion: description,
-            imageUrl: imageUrl,
+            urlIcon: imageUrl,
           },
         });
 

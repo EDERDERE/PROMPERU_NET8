@@ -111,7 +111,6 @@ const home = {
 
         if (success) {
           if (logros.length > 0) {
-            // Renderizar los logros si hay disponibles
             renderLogrosHome(logros);
           } else {
             // Si no hay logros, mostrar un mensaje adecuado
@@ -524,7 +523,7 @@ const home = {
       dataType: "json",
       success: function (response) {
         console.log("Respuesta del servidor:", response);
-  
+
         if (!response?.success) {
           Swal.fire({
             icon: "error",
@@ -533,13 +532,13 @@ const home = {
           });
           return;
         }
-  
+
         const banners = response.banners || [];
         $("#sliderBannerHome").empty();
-  
+
         if (banners.length > 0) {
           renderSliderBannerHome(banners);
-  
+
           // Esperar a que el DOM se actualice antes de inicializar Swiper
           requestAnimationFrame(() => {
             initSwiper(".mySwiper", {
@@ -570,7 +569,7 @@ const home = {
       },
     });
   },
-  
+
   loadListarInscripcions: function () {
     $.ajax({
       type: "GET", // M�todo GET para obtener las inscripciones
@@ -824,17 +823,17 @@ function renderSlideTestHome(testimonios) {
         `;
   });
   $("#slideTestHome").append(html);
-
 }
 function renderLogrosHome(logros) {
-
   let html = "";
   logros.forEach((logr) => {
     html += `
            <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
             <img src="${logr.logr_UrlIcon}" alt="" />
             <div class="description text-white">
-                <h3 class="fs-10">${logr.logr_Nombre}</h3>
+                <div class="d-flex flex-row ">
+                  <h3 class="fs-10">${logr.logr_Nombre}</h3>
+                </div>
                 <p class="fs-8 texto-descriptivo-quick_data">
                    ${logr.logr_Descripcion}
                 </p>
@@ -894,7 +893,13 @@ function renderMenuHome(menus) {
   // Genera los elementos del men� din�micamente
   let html = `
         <li class="home">
-            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none ${window.location.pathname === '/' || window.location.pathname === '/Home' || window.location.pathname.includes('/Home/') ? 'active' : ''}">
+            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none ${
+              window.location.pathname === "/" ||
+              window.location.pathname === "/Home" ||
+              window.location.pathname.includes("/Home/")
+                ? "active"
+                : ""
+            }">
               <?xml version="1.0" ?><svg
                 fill="none"
                 height="20"
@@ -916,7 +921,9 @@ function renderMenuHome(menus) {
             <li>
                 <a href="${
                   item.menu_UrlIconBoton || "#"
-                }" class="text-decoration-none ${window.location.pathname.includes(item.menu_UrlIconBoton) ? 'active' : ''}">
+                }" class="text-decoration-none ${
+      window.location.pathname.includes(item.menu_UrlIconBoton) ? "active" : ""
+    }">
                     ${item.menu_Nombre}
                 </a>
             </li>
@@ -1094,7 +1101,6 @@ function initSwiper(selector, config) {
   if (window.swiperInstances && window.swiperInstances[selector]) {
     window.swiperInstances[selector].destroy(true, true);
   }
-
 
   window.swiperInstances = window.swiperInstances || {};
   window.swiperInstances[selector] = new Swiper(selector, config);
@@ -1290,32 +1296,32 @@ var swiper = new Swiper(".cursos_swiper", {
   },
 });
 var swiper = new Swiper(".testomnios_swiper", {
-    direction: "horizontal",
-    slidesPerView: 3,
-    centeredSlides: true,
-    initialSlide: 1,
-    spaceBetween: 0,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+  direction: "horizontal",
+  slidesPerView: 3,
+  centeredSlides: true,
+  initialSlide: 1,
+  spaceBetween: 0,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  breakpoints: {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 20,
     },
-    breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-        },
-        // when window width is >= 480px
-        480: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-        },
-        // when window width is >= 640px
-        640: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-        },
+    // when window width is >= 480px
+    480: {
+      slidesPerView: 2,
+      spaceBetween: 20,
     },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+  },
 });
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
