@@ -1,3 +1,5 @@
+@import "../shared/styles/variables.css";
+
 .hero {
   height: 236px;
 }
@@ -207,9 +209,25 @@
   height: -webkit-fill-available;
 }
 
+/* === Perfil Empresarial === */
+
+.perfil .max-image {
+  max-width: 210px;
+}
+
+.perfil .max-text {
+  max-width: 160px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 1.5rem 0 ;
+}
+
+
+
 /* === Etapas de inscripcion === */
 .container-inscripcion {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-helvetica);
   padding: 20px;
 }
 

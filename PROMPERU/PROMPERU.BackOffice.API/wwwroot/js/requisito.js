@@ -9,15 +9,12 @@
 
 function loadListarRequisitos() {
   $.ajax({
-    type: "GET", // Método GET para obtener los sliders
-    url: "/Requisito/ListarRequisitos", // URL del controlador que devuelve la lista de sliders
+    type: "GET", 
+    url: "/Requisito/ListarRequisitos",
     dataType: "json",
     success: function (response) {
-      console.log(response);
-      // Limpia el contenedor de sliders antes de renderizar
       $("#sliderContainer").empty();
       if (response.success) {
-        // Itera sobre la respuesta y crea las tarjetas dinámicamente
         console.log("obtener el tirulo Requisito", response.requisitos[0]);
         var requisito = response.requisitos[0];
         var tituloCard = `
@@ -30,7 +27,8 @@ function loadListarRequisitos() {
                         data-descripcion="${requisito.requ_Descripcion}"
                         data-tituloSeccion="${requisito.requ_TituloSeccion}"
                         data-urlImagen="${requisito.requ_URLImagen}"
-                        data-urlIcon="${requisito.requ_URLIcon}"
+                        data-iconoBoton="${requisito.requ_URLIcon}"
+                        data-nombreBoton="${requisito.requ_Nombre}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -64,7 +62,15 @@ function loadListarRequisitos() {
                     <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_TituloSeccion}" disabled>
                 </div>
 
-                 <div class="col-md-6 " style="display:none">
+                 <div class="col-md-6 " >
+                    <div class="d-flex justify-content-between">
+                        <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">Nombre  del boton</label>
+                    
+                    </div>
+                    <input type="text" id="titulo-${requisito.requ_ID}" class="form-control" placeholder="${requisito.requ_Nombre}" disabled>
+                </div>
+
+                   <div class="col-md-6 " >
                     <div class="d-flex justify-content-between">
                         <label for="titulo-${requisito.requ_ID}" class="form-label fw-semibold">URl del icono</label>
                     
@@ -226,6 +232,8 @@ function loadEditarRequisito() {
     var descripcion = button.data("descripcion");
     var tituloSeccion = button.data("tituloseccion");
     var urlImagen = button.data("urlimagen");
+    var nombreBoton = button.data("nombreboton");
+    var iconoBoton = button.data("iconoboton");
 
     // Asignar los valores al modal
     var modal = $(this);
@@ -234,24 +242,31 @@ function loadEditarRequisito() {
     modal.find("#editDescripcion").val(descripcion);
     modal.find("#editTituloSection").val(tituloSeccion);
     modal.find("#editUrlImagen").val(urlImagen);
+    modal.find("#editNombreBoton").val(nombreBoton);
+    modal.find("#editIconoBoton").val(iconoBoton);
   });
   $("#saveEditTitulo").click(function () {
-      var id = $("#editIdTitulo").val();
+    var id = $("#editIdTitulo").val();
     var titulo = $("#editTitulo").val();
     var descripcion = $("#editDescripcion").val();
     var tituloSeccion = $("#editTituloSection").val();
     var urlImagen = $("#editUrlImagen").val();
+    var nombreBoton =  $("#editNombreBoton").val();
+    var iconoBoton =  $("#editIconoBoton").val();
+
     console.log("editar modal titulo", id, titulo);
-    if (id && titulo && descripcion && tituloSeccion && urlImagen) {
+    if (id && titulo && descripcion && tituloSeccion && urlImagen && nombreBoton && iconoBoton) {
       $.ajax({
         type: "POST",
-        url: "/Requisito/ActualizarRequisito", // URL del controlador para editar el slider
+        url: "/Requisito/ActualizarRequisito", 
         data: {
           id: id,
           titulo: titulo,
           tituloSeccion: tituloSeccion,
           description: descripcion,
           urlImagen: urlImagen,
+          urlIcon: iconoBoton,
+          nombre: nombreBoton
         },
         success: function (response) {
           console.log("actualzia requisito", response);

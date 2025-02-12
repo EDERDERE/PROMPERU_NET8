@@ -407,11 +407,15 @@ const home = {
         const requisitos = response.requisitos || [];
 
         // Limpia los contenedores antes de renderizar
-        $("#tituloRequisitoHome, #sliderRequisitoHome").empty();
+        $(
+          "#tituloRequisitoHome, #sliderRequisitoHome",
+          "botonRequisitoHome"
+        ).empty();
 
         if (requisitos.length > 0) {
           renderTituloRequisitoHome(requisitos[0]); // Se corrigi� el typo en la funci�n
           renderSliderRequisitoHome(requisitos);
+          renderBotonRequisitosHome(requisitos[0]);
         } else {
           $("#sliderRequisitoHome").html(
             "<p>No se encontraron requisitos disponibles.</p>"
@@ -776,10 +780,11 @@ function renderSlidePEmpHome(pemps) {
   let html = "";
   pemps.slice(1, 5).forEach((pemp) => {
     html += `
-            <div class="col-6 col-md-3 text-center">
-                <img src="${pemp.pemp_UrlImagen}" alt="" class="img-fluid rounded-pill w-80">
-                <p class="mt-2">${pemp.pemp_Descripcion}</p>
-            </div>
+          <div class="col-6 col-md-3 d-flex flex-column align-items-center justify-content-center text-center">
+    <img src="${pemp.pemp_UrlImagen}" alt="" class="img-fluid rounded-pill max-image">
+    <p class="max-text ">${pemp.pemp_Descripcion}</p>
+</div>
+
         `;
   });
   $("#sliderPEmpHome").append(html);
@@ -981,10 +986,19 @@ function renderBotonInscHome(insc) {
   const html = `  
              <a href="">  ${insc.insc_NombreBoton}</a>
                     <img src="${insc.insc_URLIconBoton}"
-                         alt="" />
+                         alt="${insc.insc_URLIconBoton}" />
            
       `;
   $("#botonInscHome").append(html);
+}
+
+function renderBotonRequisitosHome(req) {
+  const html = `  
+             <a href="/Requisito/Index">  ${req.requ_Nombre}</a>
+                    <img src="${req.requ_URLIcon}" alt="${req.requ_URLIcon}" />
+           
+      `;
+  $("#botonRequisitoHome").append(html);
 }
 function renderSliderInscrHome(inscripcions) {
   let slider = "";
@@ -1167,9 +1181,9 @@ function renderSliderRequisitoHome(requisitos) {
 
   $("#sliderRequisitoHome").append(slider);
 }
- function getEmbedUrl(videoUrl) {
+function getEmbedUrl(videoUrl) {
   const url = new URL(videoUrl);
-  const videoId = url.searchParams.get("v"); 
+  const videoId = url.searchParams.get("v");
   return videoId ? `https://www.youtube.com/embed/${videoId}` : videoUrl;
 }
 

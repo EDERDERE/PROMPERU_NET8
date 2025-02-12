@@ -1,5 +1,6 @@
 
 @import "./singleHero.css";
+@import '../shared/styles/variables.css'
 
 /* === Contenedor Quick Data === */
 .quick_data {
@@ -849,5 +850,13 @@ footer {
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .requisitos_item .requisitos_description p{
+        color: var(--color-text);
+        max-width: 600px;
+        padding-left: 1rem;
+        margin-top: 1rem;
+        font-size: 1.1rem;
     }
 }
