@@ -86,13 +86,21 @@
                         <label for="createFechaFinal" class="form-label fw-semibold">Fecha Fin*</label>
                         <input type="date" id="createFechaFinal" class="form-control" placeholder="Fecha">
                     </div>
+                    <div class="mb-3">
+                        <label for="inputTipoEvento" class="form-label fw-semibold">Evento*</label>
+                        <select name="ubicacion" id="inputTipoEvento" class="form-select">
+                            <option selected>Seleccionar Evento</option>
+                            <option value="1">Perú</option>
+                            <option value="2">Cuzco</option>
+                            <option value="3">Lima</option>
+                        </select>
+                        
+                    </div>
 
                     <div class="mb-3">
-                        <label for="createModalidad" class="form-label fw-semibold">Modalidad*</label>
-                        <select class="form-select" id="createModalidad">
-                            <option selected>Modalidad...</option>
-                            <option value="Remoto">Remoto</option>
-                            <option value="Presencial">Presencial</option>
+                        <label for="inputTipoModalidad" class="form-label fw-semibold">Modalidad*</label>
+                        <select class="form-select" id="inputTipoModalidad">
+                            <option selected>Modalidad...</option>                    
                         </select>
                     </div>
                     <div class="mb-3">
@@ -192,13 +200,16 @@
                         <label for="editFechaFin" class="form-label fw-semibold">Fecha Fin*</label>
                         <input type="date" id="editFechaFin" class="form-control" placeholder="Fecha">
                     </div>
-
                     <div class="mb-3">
-                        <label for="editModalidad" class="form-label fw-semibold">Modalidad*</label>
-                        <select class="form-select" id="editModalidad">
-                            <option selected>Modalidad...</option>
-                            <option value="Remoto">Remoto</option>
-                            <option value="Presencial">Presencial</option>
+                        <label for="editTipoEvento" class="form-label fw-semibold">Evento*</label>
+                        <select class="form-select" id="editTipoEvento">
+                            <option selected>Evento...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTipoModalidad" class="form-label fw-semibold">Modalidad*</label>
+                        <select class="form-select" id="editTipoModalidad">
+                            <option selected>Modalidad...</option>                          
                         </select>
                     </div>
 

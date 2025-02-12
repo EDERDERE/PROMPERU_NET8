@@ -25,7 +25,11 @@ namespace PROMPERU.BL.Dtos
         public string urlIcon { get; set; }
         public string urlImagen { get; set; }
         public string linkBoton { get; set; }
-        public string esHabilitado { get; set; }
+        public int esHabilitado { get; set; }
+        public string evento { get; set; }
+        public int id_evento { get; set; }
+        public int id_modalidad { get; set; }
+
 
     }   
 }

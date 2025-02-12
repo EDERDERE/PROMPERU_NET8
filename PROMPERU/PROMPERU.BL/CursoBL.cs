@@ -89,6 +89,18 @@ namespace PROMPERU.BL
             }
         }
 
+        public async Task<List<TipoModalidadBE>> ListarTipoModalidadsAsync()
+        {
+            try
+            {
+                return await _cursoDA.ListarTipoModalidadsAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar los tipos de Modalidads", ex);
+            }
+        }
+
         //public async Task<DataTable> ObtenerReporteCursosAsync()
         //{
         //    try
@@ -101,4 +113,5 @@ namespace PROMPERU.BL
         //    }
         //}
     }
+
 }

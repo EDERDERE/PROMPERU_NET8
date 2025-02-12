@@ -19,6 +19,9 @@
         public string Curs_UrlIcon { get; set; }
         public string Curs_UrlImagen { get; set; }
         public string Curs_LinkBoton { get; set; }
-        public string Curs_EsHabilitado { get; set; }
+        public int Curs_EsHabilitado { get; set; }
+        public string Curs_Evento { get; set; }
+        public int Teve_ID { get; set; }
+        public int Tmod_ID { get; set; }
     }
 }
