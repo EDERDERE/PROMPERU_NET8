@@ -1,4 +1,5 @@
 @import "./singleHero.css";
+@import "../shared/styles/variables.css";
 /* === Contenedor Quick Data === */
 .quick_data {
     width: fit-content;
@@ -36,8 +37,7 @@
 }
 
 .quick_data .container {
-    width: 89.5%;
-    ;
+    width: 89.5%;;
     height: 56px;
     background-color: var(--color-primary);
     color: var(--color-white);
@@ -76,12 +76,13 @@
 }
 
 .texto-que-es {
-    font-family: var(--bs-body-font-family);
+    font-family: var(--font-helvetica);
     font-weight: 500;
     line-height: 20px;
     padding-right: 21px;
     text-align: left;
     color: #676767;
+    font-size: 1rem;
 }
 
 /* === Nuestro requisitos === */
@@ -605,8 +606,8 @@ footer {
     }
 
     .texto-que-es {
-        font-size: 24px;
-        line-height: 30px;
+        font-size: 1.5rem;
+        line-height: 2.5rem;
     }
 
     .video_about {

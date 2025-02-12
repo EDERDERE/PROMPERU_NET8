@@ -828,17 +828,19 @@ function renderLogrosHome(logros) {
   let html = "";
   logros.forEach((logr) => {
     html += `
-           <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
+         <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
             <img src="${logr.logr_UrlIcon}" alt="" />
-            <div class="description text-white">
-                <div class="d-flex flex-row ">
+          <div class="description text-white w-100">
+              <div class="d-flex flex-row align-items-center">
+                  <h4 class=" me-2">11</h4> 
                   <h3 class="fs-10">${logr.logr_Nombre}</h3>
-                </div>
-                <p class="fs-8 texto-descriptivo-quick_data">
-                   ${logr.logr_Descripcion}
-                </p>
-            </div>
+              </div>
+              <p class="fs-8 texto-descriptivo-quick_data">
+                  ${logr.logr_Descripcion}
+              </p>
+          </div>
         </div>
+
         `;
   });
   $("#logrosHome").append(html);
@@ -1165,10 +1167,18 @@ function renderSliderRequisitoHome(requisitos) {
 
   $("#sliderRequisitoHome").append(slider);
 }
+ function getEmbedUrl(videoUrl) {
+  const url = new URL(videoUrl);
+  const videoId = url.searchParams.get("v"); 
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : videoUrl;
+}
+
 function renderSeccionHome(info) {
+  const embedUrl = getEmbedUrl(info.info_URLVideo);
+
   const seccion = `
     <div class="row">
-        <div class="col-12 col-md-5" >
+        <div class="col-12 col-md-5">
             <h2 class="text-start section_title">${info.info_Titulo}</h2>
             <div class="red-linear"></div>
             <p class="texto-que-es fs-12 mt-4">
@@ -1179,16 +1189,17 @@ function renderSeccionHome(info) {
             <div class="video_about rounded-3 overflow-hidden p-0">
                 <iframe width="100%"
                 height="100%"
-                src="${info.info_URLVideo}"
+                src="${embedUrl}"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             </div>
         </div>
     </div>        
-      `;
+  `;
   $("#seccionHome").append(seccion);
 }
+
 function renderTituloCursoHome(curso) {
   const tituloCursoHome = `
      <h2 class="section_title">${curso.curs_Titulo}</h2>
