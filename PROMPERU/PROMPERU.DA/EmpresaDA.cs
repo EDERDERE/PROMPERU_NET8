@@ -197,6 +197,8 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Egra_RazonSocial", empresa.Egra_RazonSocial);
                     comando.Parameters.AddWithValue("@Egra_SegmentosAtendidos", empresa.Egra_SegmentosAtendidos);
                     comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Direccion);
+                    comando.Parameters.AddWithValue("@Temp_ID", empresa.ID_TipoEmpresa);
+                    comando.Parameters.AddWithValue("@Regi_ID", empresa.ID_Region);
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
@@ -267,8 +269,11 @@ namespace PROMPERU.DA
                         Egra_Mercados = reader["Egra_Mercados"] != DBNull.Value ? reader["Egra_Mercados"].ToString() : "",
                         Egra_RazonSocial = reader["Egra_RazonSocial"] != DBNull.Value ? reader["Egra_RazonSocial"].ToString() : "",
                         Egra_SegmentosAtendidos = reader["Egra_SegmentosAtendidos"] != DBNull.Value ? reader["Egra_SegmentosAtendidos"].ToString() : "",
-                        Egra_Direccion = reader["Egra_Direccion"] != DBNull.Value ? reader["Egra_Direccion"].ToString() : ""
-
+                        Egra_Direccion = reader["Egra_Direccion"] != DBNull.Value ? reader["Egra_Direccion"].ToString() : "",
+                        ID_TipoEmpresa = reader["ID_TipoEmpresa"] != DBNull.Value ? Convert.ToInt32(reader["ID_TipoEmpresa"]) : 0,
+                        TipoEmpresa = reader["TipoEmpresa"] != DBNull.Value ? reader["TipoEmpresa"].ToString() : "",
+                        ID_Region = reader["ID_Region"] != DBNull.Value ? Convert.ToInt32(reader["ID_Region"]) : 0,
+                        Region = reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "",
                     });
                 }
 

@@ -20,6 +20,10 @@
         public string Egra_Region { get; set; }
         public string Egra_RedesSociales { get; set; }
         public string Egra_SegmentosAtendidos { get; set; }
-        public string Egra_Direccion { get; set; } 
+        public string Egra_Direccion { get; set; }
+        public int ID_TipoEmpresa { get; set; }
+        public string TipoEmpresa { get; set; }
+        public int ID_Region { get; set; }
+        public string Region { get; set; }
     }
 }

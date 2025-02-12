@@ -47,7 +47,7 @@ function renderTituloCaso(empresa) {
        <div class="row ">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="titulo-${empresa.cexi_ID}" class="form-label fw-semibold">Nombre del boton</label>
+                        <label for="titulo-${empresa.egra_ID}" class="form-label fw-semibold">Nombre del boton</label>
                         <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
                          data-id="${empresa.egra_ID}"   
                          data-nombreboton="${empresa.egra_NombreBoton}" 
@@ -61,12 +61,12 @@ function renderTituloCaso(empresa) {
                             </svg>
                         </a>
                     </div>
-                        <input type="text" id="titulo-${empresa.cexi_ID}" class="form-control" placeholder="${empresa.egra_NombreBoton}" disabled>
+                        <input type="text" id="titulo-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_NombreBoton}" disabled>
                 </div>
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="nombreBoton-${empresa.cexi_ID}" class="form-label fw-semibold">Titulo</label> </div>
-                    <input type="text" id="nombreBoton-${empresa.cexi_ID}" class="form-control " placeholder="${empresa.egra_Titulo}"disabled>
+                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Titulo</label> </div>
+                    <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_Titulo}"disabled>
 
                 </div>
 
@@ -76,8 +76,8 @@ function renderTituloCaso(empresa) {
             <div class="row ">
                  <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="nombreBoton-${empresa.cexi_ID}" class="form-label fw-semibold">Icono del boton</label> </div>
-                    <input type="text" id="nombreBoton-${empresa.cexi_ID}" class="form-control " placeholder="${empresa.egra_UrlBoton}"disabled>
+                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Icono del boton</label> </div>
+                    <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_UrlBoton}"disabled>
 
                 </div>
               
@@ -91,9 +91,9 @@ function renderTituloCaso(empresa) {
 
                  <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="urlVideo-${empresa.cexi_ID}" class="form-label fw-semibold">Descripcion</label>                       
+                        <label for="urlVideo-${empresa.egra_ID}" class="form-label fw-semibold">Descripcion</label>                       
                     </div>
-                       <textarea  id="tituloVideo-${empresa.cexi_ID}" class="form-control" rows="3"  placeholder="${empresa.egra_Descripcion}" disabled></textarea>
+                       <textarea  id="tituloVideo-${empresa.egra_ID}" class="form-control" rows="3"  placeholder="${empresa.egra_Descripcion}" disabled></textarea>
 
                 </div>
 
@@ -115,8 +115,8 @@ function renderSlidersCaso(empresas) {
                     <h5 class="card-number mb-0">${empresa.egra_Orden}</h5>
                     <div class="d-flex gap-2">
                         <button class="btn btn-link text-danger p-0" 
-                         data-id="${empresa.cexi_ID}"   
-                          id="btn-delete-${empresa.cexi_ID}"
+                         data-id="${empresa.egra_ID}"   
+                          id="btn-delete-${empresa.egra_ID}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -149,23 +149,23 @@ function renderSlidersCaso(empresas) {
                 </div>
 
                    <div class="mb-3">
-                        <label for="nombre-${empresa.cexi_ID}" class="form-label fw-semibold">Nombre </label>
-                        <input type="text" id="nombre-${empresa.cexi_ID}" class="form-control" placeholder="${empresa.egra_NombreEmpresa}" disabled>
+                        <label for="nombre-${empresa.egra_ID}" class="form-label fw-semibold">Nombre </label>
+                        <input type="text" id="nombre-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_NombreEmpresa}" disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="description-${empresa.cexi_ID}" class="form-label fw-semibold">Descripción</label>
-                        <textarea id="description-${empresa.cexi_ID}" class="form-control" rows="3" placeholder="${empresa.egra_Descripcion}"
+                        <label for="description-${empresa.egra_ID}" class="form-label fw-semibold">Descripción</label>
+                        <textarea id="description-${empresa.egra_ID}" class="form-control" rows="3" placeholder="${empresa.egra_Descripcion}"
                                   disabled></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="urlIcon-${empresa.cexi_ID}" class="form-label fw-semibold">Correo</label>
-                        <input type="text" id="urlIcon-${empresa.cexi_ID}" class="form-control" placeholder="${empresa.egra_Correo}" disabled>
+                        <label for="urlIcon-${empresa.egra_ID}" class="form-label fw-semibold">Correo</label>
+                        <input type="text" id="urlIcon-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_Correo}" disabled>
                     </div>
 
                     <div class="mb-3">
-                        <label for="urlPerfil-${empresa.cexi_ID}" class="form-label fw-semibold">Logo de empresa</label>
-                        <input type="text" id="urlPerfil-${empresa.cexi_ID}" class="form-control" placeholder="${empresa.egra_UrlLogo}" disabled>
+                        <label for="urlPerfil-${empresa.egra_ID}" class="form-label fw-semibold">Logo de empresa</label>
+                        <input type="text" id="urlPerfil-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_UrlLogo}" disabled>
                     </div>
 
                  
@@ -293,6 +293,8 @@ async function loadEditarEmpresa() {
       nombreBoton: $("#editNombreBoton").val(),
       urlBoton: $("#editIconoBoton").val(),
       descripcion: $("#editDescripcion").val(),
+        id_tipoempresa: 1,
+      id_region:1
     };
 
     console.log(data);
