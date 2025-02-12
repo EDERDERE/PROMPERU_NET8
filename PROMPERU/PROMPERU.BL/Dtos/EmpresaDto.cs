@@ -27,6 +27,10 @@ namespace PROMPERU.BL.Dtos
         public string redesSociales { get; set; }
         public string segmentosAtendidos { get; set; }
         public string direccion { get; set; }
+        public int id_region { get; set; }
+        public int id_tipoempresa { get; set; }
 
-    }   
+
+
+    }
 }

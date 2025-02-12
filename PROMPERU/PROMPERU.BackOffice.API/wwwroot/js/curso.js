@@ -453,6 +453,9 @@ function loadEditarCurso() {
       tituloSeccion: $("#editTituloSeccion").val(),
       description: $("#editDescripcionSeccion").val(),
       urlImagen: $("#editUrlBanner").val(),
+        esHabilitado: 1,
+        id_evento: 1,
+      id_modalidad:1
     };
 
     console.log(data);
