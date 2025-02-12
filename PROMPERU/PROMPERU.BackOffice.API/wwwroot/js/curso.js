@@ -4,7 +4,11 @@
   loadCrearCurso();
   loadEditarCurso();
   loadEliminarCurso();
-  loadGuardarOrden();
+  loadGuardarOrdenCurso();
+  cargarTiposEvento("inputTipoEvento", "");
+  cargarTiposModalidad("inputTipoModalidad","");
+
+  
 });
 
 function loadListarCursos() {
@@ -156,11 +160,14 @@ function renderSliders(cursos) {
                               curso.curs_FechaFin
                             )}"
                             data-modalidad="${curso.curs_Modalidad}"
+                            data-evento="${curso.curs_Evento}"
+                            data-estado="${curso.curs_EsHabilitado}"
                             data-urlimagen="${curso.curs_UrlImagen}"
                             data-nombreboton="${curso.curs_NombreBoton}"
                             data-urlicon="${curso.curs_UrlIcon}"
                             data-brochurelink="${curso.curs_LinkBoton}"
-                            
+                            data_id_evento="${curso.teve_ID}"
+                             data_id_modalidad="${curso.tmod_ID}"
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -232,6 +239,25 @@ function renderSliders(cursos) {
       )}" disabled>
                 </div>
 
+                <div class="mb-3">
+    <label for="estado-${curso.curs_ID}" class="form-label fw-semibold">Estado</label>
+    <select class="form-select" id="estado-${curso.curs_ID}" disabled>
+        <option value="${curso.curs_ID}">
+            ${curso.curs_EsHabilitado === 1 ? "Habilitado" : "Deshabilitado"}
+        </option>
+    </select>
+</div>
+
+                  <div class="mb-3">
+                    <label for="evento-${
+          curso.curs_ID
+          }" class="form-label fw-semibold">Tipo Evento</label>
+                    <select class="form-select" id="evento-${curso.curs_ID
+          }" disabled>
+                        <option value="${curso.teve_ID}">${curso.curs_Evento
+      }</option>
+                    </select>
+                </div>
               
 
                 <div class="mb-3">
@@ -241,7 +267,7 @@ function renderSliders(cursos) {
                     <select class="form-select" id="modalidad-${
                       curso.curs_ID
                     }" disabled>
-                        <option value="${curso.curs_ID}">${
+                        <option value="${curso.tmod_ID}">${
         curso.curs_Modalidad
       }</option>
                     </select>
@@ -279,10 +305,10 @@ function renderSliders(cursos) {
                 </div>
 
                 <div class="mb-3">
-                    <label for="urlIcon-${
+                    <label for="linkBoton-${
                       curso.curs_ID
                     }" class="form-label fw-semibold">URL Brochure</label>
-                    <input type="text" id="urlIcon-${
+                    <input type="text" id="linkBoton-${
                       curso.curs_ID
                     }" class="form-control" placeholder="${
         curso.curs_LinkBoton
@@ -301,17 +327,20 @@ function loadCrearCurso() {
   $("#saveCreateSlider").click(function () {
     // Recopilar datos del formulario
     const cursoData = {
-      nombreCurso: $("#createCurso").val(),
+        nombreCurso: $("#createCurso").val(),
       objetivo: $("#createObjetivo").val(),
       description: $("#createDescription").val(),
       fechaInicio: $("#createFechaInicial").val(),
       fechaFin: $("#createFechaFinal").val(),
-      modalidad: $("#createModalidad").val(),
+        id_evento: $("#inputTipoEvento").val(),
+        id_modalidad: $("#inputTipoModalidad").val(),
+        esHabilitado: $("#createEstado").val(),
       urlImagen: $("#createUrlImagen").val(),
       nombreBoton: $("#createNombreBoton").val(),
-      urlIcon: $("#createUrlIconBoton").val(),
+        urlIcon: $("#createUrlIconBoton").val(),
+       linkBoton :$("#createBrochureUrl").val(),
     };
-
+    console.log('data crear',cursoData)
     if (Object.values(cursoData).some((value) => !value.trim())) {
       Swal.fire({
         title: "Advertencia",
@@ -443,7 +472,8 @@ function loadEditarCurso() {
     }
   });
 
-  $("#editSliderModal").on("show.bs.modal", function (event) {
+    $("#editSliderModal").on("show.bs.modal", function (event) {   
+
     const button = $(event.relatedTarget);
     const modalData = {
       editId: button.data("id"),
@@ -453,12 +483,19 @@ function loadEditarCurso() {
       editDescription: button.data("description"),
       editFechaInicio: button.data("fechainicio"),
       editFechaFin: button.data("fechafin"),
-      editModalidad: button.data("modalidad"),
+        editModalidad: button.data("modalidad"),
+        editEvento: button.data("evento"),
       editUrlImagen: button.data("urlimagen"),
       editNombreBoton: button.data("nombreboton"),
-      editUrlIcon: button.data("urlicon"),
-    };
-    assignModalValues($(this), modalData);
+        editUrlIcon: button.data("urlicon"),     
+        editEstado: button.data("estado"),
+        editBrochureUrl: button.data("brochurelink"),
+      };
+      console.log(modalData,'card');
+      assignModalValues($(this), modalData);
+        cargarTiposModalidad("editTipoModalidad", modalData.editModalidad); 
+        cargarTiposEvento("editTipoEvento", modalData.editEvento);  
+
   });
 
   $("#saveEditSlider").click(function () {
@@ -470,12 +507,15 @@ function loadEditarCurso() {
       description: $("#editDescription").val(),
       fechaInicio: $("#editFechaInicio").val(),
       fechaFin: $("#editFechaFin").val(),
-      modalidad: $("#editModalidad").val(),
+        id_modalidad: $("#editTipoModalidad").val(),
       urlImagen: $("#editUrlImagen").val(),
       nombreBoton: $("#editNombreBoton").val(),
-      urlIcon: $("#editUrlIcon").val(),
+        urlIcon: $("#editUrlIcon").val(),
+        id_evento: $("#editTipoEvento").val(),
+        esHabilitado: $("#editEstado").val(),
+        linkBoton: $("#editBrochureUrl").val(),
     };
-
+    console.log(data,'data')
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Curso/ActualizarCurso",
@@ -563,7 +603,7 @@ function loadEliminarCurso() {
   });
 }
 
-function loadGuardarOrden() {
+function loadGuardarOrdenCurso() {
   // Función para mostrar alerta de éxito o error
   const showAlert = (type, title, text, callback) => {
     Swal.fire({
@@ -591,6 +631,9 @@ function loadGuardarOrden() {
       NombreBotones: [],
       UrlIcons: [],
       NewOrders: [],
+        Eventos: [],
+        Estados: [],
+        Links: [],
     };
 
     $(".btn-link.text-primary").each(function () {
@@ -601,33 +644,40 @@ function loadGuardarOrden() {
       data.Descriptions.push($(this).data("description"));
       data.FechaInicios.push($(this).data("fechainicio"));
       data.FechaFinales.push($(this).data("fechafin"));
-      data.Modalidades.push($(this).data("modalidad"));
+      data.Modalidades.push($(this).data("id_modalidad"));
       data.UrlImagenes.push($(this).data("urlimagen"));
       data.NombreBotones.push($(this).data("nombreboton"));
-      data.UrlIcons.push($(this).data("urlicon"));
+     data.UrlIcons.push($(this).data("urlicon"));
+        data.Eventos.push($(this).data("id_evento"));
+        data.Estados.push($(this).data("id_estado"));
+        data.Links.push($(this).data("brochurelink"));
     });
 
     $(".card").each(function () {
       data.NewOrders.push($(this).find(".card-number").text().trim());
     });
-
+    
     return data;
   };
-
+  console.log()
   // Función para estructurar los datos para el servidor
-  const estructurarDatos = (data) => {
+    const estructurarDatos = (data) => {
+        console.log(data,'asdasdasd')
     return data.Ids.map((id, index) => ({
       id: parseInt(id),
       orden: parseInt(data.NewOrders[index]),
       nombreCurso: data.NombreCursos[index].toString(),
       objetivo: data.Objetivos[index].toString(),
       description: data.Descriptions[index].toString(),
-      modalidad: data.Modalidades[index].toString(),
       fechaInicio: data.FechaInicios[index].toString(),
       fechaFin: data.FechaFinales[index].toString(),
       nombreBoton: data.NombreBotones[index].toString(),
       UrlIcon: data.UrlIcons[index].toString(),
-      UrlImagen: data.UrlImagenes[index].toString(),
+        UrlImagen: data.UrlImagenes[index].toString(),
+        esHabilitado: parseInt(data.Estados[index]),
+        id_evento: parseInt(data.Eventos[index]),
+        id_modalidad: parseInt(data.Modalidades[index]),
+        linkBoton: data.Links[index].toString(),
     }));
   };
 
@@ -706,3 +756,137 @@ function formatearFechaInversa(fechaISO) {
 
   return `${anio}-${mes}-${dia}`;
 }
+
+//async function cargarTiposEvento() {
+//    try {
+//        const response = await $.ajax({
+//            url: "/Curso/ListarTipoEventos",
+//            type: "GET",
+//            dataType: "json",
+//        });
+
+//        console.log("Lista de tipos de eventos:", response);
+
+//        const select = $("#inputTipoEvento");
+//        select.empty().append("<option selected>Seleccione su tipo</option>");
+
+//        if (
+//            Array.isArray(response.tipoEventos) &&
+//            response.tipoEventos.length > 0
+//        ) {
+//            response.tipoEventos.forEach((tipo) => {
+//                select.append(new Option(tipo.teve_Nombre, tipo.teve_ID));
+//            });
+//        } else {
+//            select.append(
+//                "<option disabled>No hay tipos de eventos disponibles</option>"
+//            );
+//        }
+//    } catch (error) {
+//        console.error("Error al cargar los tipos de eventos:", error);
+//        $("#inputTipoEvento")
+//            .empty()
+//            .append("<option disabled>Error al cargar tipos de eventos</option>");
+
+//        Swal.fire({
+//            icon: "error",
+//            title: "Error",
+//            text: "Hubo un problema al cargar los tipos de eventos. Int�ntelo m�s tarde.",
+//        });
+//    }
+//}
+
+async function cargarTiposModalidad(selectElementId, Tipovalor) {
+    console.log(selectElementId, Tipovalor, 'cargarTiposModalidad');
+
+    try {
+        const response = await $.ajax({
+            url: "/Curso/ListarTipoModalidads",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de tipos de Modalidads:", response);
+
+        const select = $("#" + selectElementId);
+        select.empty().append("<option selected>Seleccione su tipo</option>");
+
+        if (
+            Array.isArray(response.tipoModalidads) &&
+            response.tipoModalidads.length > 0
+        ) {
+            response.tipoModalidads.forEach((tipo) => {
+                // If the current tipo.tmod_ID matches Tipovalor, mark it as selected
+                if (tipo.tmod_Nombre === Tipovalor) {
+                    select.append(new Option(tipo.tmod_Nombre, tipo.tmod_ID, true, true));
+                } else {
+                    select.append(new Option(tipo.tmod_Nombre, tipo.tmod_ID));
+                }
+            });
+
+        } else {
+            select.append(
+                "<option disabled>No hay tipos de Modalidads disponibles</option>"
+            );
+        }
+    } catch (error) {
+        console.error("Error al cargar los tipos de Modalidads:", error);
+        $("#" + selectElementId)
+            .empty()
+            .append("<option disabled>Error al cargar tipos de Modalidads</option>");
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar los tipos de Modalidads. Inténtelo más tarde.",
+        });
+    }
+}
+
+async function cargarTiposEvento(selectElementId, Tipovalor) {
+    console.log(selectElementId, Tipovalor, 'cargarTiposEvento');
+
+    try {
+        const response = await $.ajax({
+            url: "/Curso/ListarTipoEventos",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de tipos de Eventos:", response);
+
+        const select = $("#" + selectElementId);
+        select.empty().append("<option selected>Seleccione su tipo</option>");
+
+        if (
+            Array.isArray(response.tipoEventos) &&
+            response.tipoEventos.length > 0
+        ) {
+            response.tipoEventos.forEach((tipo) => {
+                // If the current tipo.tmod_ID matches Tipovalor, mark it as selected
+                if (tipo.teve_Nombre === Tipovalor) {
+                    select.append(new Option(tipo.teve_Nombre, tipo.teve_ID, true, true));
+                } else {
+                    select.append(new Option(tipo.teve_Nombre, tipo.teve_ID));
+                }
+            });
+
+        } else {
+            select.append(
+                "<option disabled>No hay tipos de Eventos disponibles</option>"
+            );
+        }
+    } catch (error) {
+        console.error("Error al cargar los tipos de Eventos:", error);
+        $("#" + selectElementId)
+            .empty()
+            .append("<option disabled>Error al cargar tipos de Eventos</option>");
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar los tipos de Eventos. Inténtelo más tarde.",
+        });
+    }
+}
+

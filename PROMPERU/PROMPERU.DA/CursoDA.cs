@@ -43,6 +43,9 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Curs_UrlIcon", curso.Curs_UrlIcon);
                 comando.Parameters.AddWithValue("@Curs_UrlImagen", curso.Curs_UrlImagen);
                 comando.Parameters.AddWithValue("@Curs_LinkBoton", curso.Curs_LinkBoton);
+                comando.Parameters.AddWithValue("@Curs_EsHabilitado", curso.Curs_EsHabilitado);
+                comando.Parameters.AddWithValue("@Teve_ID", curso.Teve_ID);
+                comando.Parameters.AddWithValue("@Tmod_ID", curso.Tmod_ID);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -102,7 +105,10 @@ namespace PROMPERU.DA
                         Curs_NombreBotonTitulo = reader["Curs_NombreBotonTitulo"] != DBNull.Value ? reader["Curs_NombreBotonTitulo"].ToString() : "",
                         Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
                         Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
-                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : ""
+                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : "",
+                        Teve_ID = reader["Teve_ID"] != DBNull.Value ? Convert.ToInt32(reader["Teve_ID"]) : 0,
+                        Tmod_ID = reader["Tmod_ID"] != DBNull.Value ? Convert.ToInt32(reader["Tmod_ID"]) : 0,
+
 
                     };
                 }
@@ -189,6 +195,9 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Curs_UrlIcon", curso.Curs_UrlIcon);
                     comando.Parameters.AddWithValue("@Curs_UrlImagen", curso.Curs_UrlImagen);
                     comando.Parameters.AddWithValue("@Curs_LinkBoton", curso.Curs_LinkBoton);
+                    comando.Parameters.AddWithValue("@Curs_EsHabilitado", curso.Curs_EsHabilitado);
+                    comando.Parameters.AddWithValue("@Teve_ID", curso.Teve_ID);
+                    comando.Parameters.AddWithValue("@Tmod_ID", curso.Tmod_ID);
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
@@ -258,7 +267,11 @@ namespace PROMPERU.DA
                         Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
                         Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
                         Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : "",
-                        Curs_EsHabilitado = reader["Curs_EsHabilitado"] != DBNull.Value ? reader["Curs_EsHabilitado"].ToString() : ""
+                        Curs_EsHabilitado = reader["Curs_EsHabilitado"] != DBNull.Value ? Convert.ToInt32(reader["Curs_EsHabilitado"]) : 0,
+                        Curs_Evento = reader["Curs_Evento"] != DBNull.Value ? reader["Curs_Evento"].ToString() : "",
+                        Teve_ID = reader["ID_Evento"] != DBNull.Value ? Convert.ToInt32(reader["ID_Evento"]) : 0,
+                        Tmod_ID = reader["ID_Modalidad"] != DBNull.Value ? Convert.ToInt32(reader["ID_Modalidad"]) : 0,
+
 
                     });
                 }
@@ -302,5 +315,36 @@ namespace PROMPERU.DA
             }
         }
 
+        public async Task<List<TipoModalidadBE>> ListarTipoModalidadsAsync()
+        {
+            try
+            {
+                var TipoModalidad = new List<TipoModalidadBE>();
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_TipoModalidad_LIS", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    TipoModalidad.Add(new TipoModalidadBE
+                    {
+                        Tmod_ID = reader["Tmod_ID"] != DBNull.Value ? Convert.ToInt32(reader["Tmod_ID"]) : 0,
+                        Tmod_Nombre = reader["Tmod_Nombre"] != DBNull.Value ? reader["Tmod_Nombre"].ToString() : ""
+
+                    });
+                }
+
+                return TipoModalidad;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Tipo Modalidads", ex);
+            }
+        }
     }
 }

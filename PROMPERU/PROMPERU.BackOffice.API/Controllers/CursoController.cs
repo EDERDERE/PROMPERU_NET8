@@ -86,7 +86,11 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Curs_FechaFin = cursoDto.fechaFin,
                     Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
                     Curs_UrlIcon = cursoDto.urlIcon,
-                    Curs_UrlImagen = cursoDto.urlImagen
+                    Curs_UrlImagen = cursoDto.urlImagen,
+                    Curs_LinkBoton = cursoDto.linkBoton,
+                    Curs_EsHabilitado = cursoDto.esHabilitado,
+                    Teve_ID = cursoDto.id_evento,
+                    Tmod_ID = cursoDto.id_modalidad
                 };
                 await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica
                 return RedirectToAction("ListarCursos");
@@ -118,11 +122,15 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Curs_Descripcion = cursoDto.description,
                     Curs_Modalidad = cursoDto.modalidad,
                     Curs_DuracionHoras = cursoDto.duracionHoras,
-                    Curs_FechaInicio = cursoDto.fechaInicio == DateTime.MinValue? (DateTime?)null : cursoDto.fechaInicio,
-                    Curs_FechaFin = cursoDto.fechaFin == DateTime.MinValue ? (DateTime?)null : cursoDto.fechaFin,
+                    Curs_FechaInicio = cursoDto.fechaInicio,
+                    Curs_FechaFin = cursoDto.fechaFin,
                     Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
                     Curs_UrlIcon = cursoDto.urlIcon,
-                    Curs_UrlImagen = cursoDto.urlImagen
+                    Curs_UrlImagen = cursoDto.urlImagen,
+                    Curs_LinkBoton = cursoDto.linkBoton,
+                    Curs_EsHabilitado = cursoDto.esHabilitado,
+                    Teve_ID = cursoDto.id_evento,
+                    Tmod_ID = cursoDto.id_modalidad
                 };
                 await _cursoBL.ActualizarCursoAsync(Curso, usuario, ip, id); // Llamada asincrónica
                 return RedirectToAction("ListarCursos");
@@ -195,7 +203,11 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Curs_FechaFin = cursoDto.fechaFin,
                         Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
                         Curs_UrlIcon = cursoDto.urlIcon,
-                        Curs_UrlImagen = cursoDto.urlImagen
+                        Curs_UrlImagen = cursoDto.urlImagen,
+                        Curs_LinkBoton = cursoDto.linkBoton,
+                        Curs_EsHabilitado = cursoDto.esHabilitado,
+                        Teve_ID = cursoDto.id_evento,
+                        Tmod_ID = cursoDto.id_modalidad
                     };
                     await _cursoBL.ActualizarCursoAsync(curso, usuario, ip, curso.Curs_ID); // Llamada asincrónica
                 }
@@ -207,6 +219,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return View("Error");
             }
         }
+        [HttpGet]
         public async Task<IActionResult> ListarTipoEventos()
         {
             try
@@ -236,6 +249,40 @@ namespace PROMPERU.BackOffice.API.Controllers
                 {
                     success = false,
                     message = "Ocurrió un error al intentar obtener los TipoEventos. Por favor, inténtelo nuevamente."
+
+                });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> ListarTipoModalidads()
+        {
+            try
+            {
+                var TipoModalidads = await _cursoBL.ListarTipoModalidadsAsync(); // Cambio a versión asincrónica
+                if (TipoModalidads != null && TipoModalidads.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "TipoModalidads obtenidos exitosamente.",
+                        TipoModalidads
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron TipoModalidads disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los TipoModalidads. Por favor, inténtelo nuevamente."
 
                 });
             }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PROMPERU.BE;
 using PROMPERU.BL;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
@@ -7,11 +8,13 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
     {
         private readonly ILogger<CalendarioController> _logger;    
         private readonly LogoBL _logoBL;
+        private readonly CursoBL _cursoBL;
 
-        public CalendarioController(ILogger<CalendarioController> logger, LogoBL logoBL)
+        public CalendarioController(ILogger<CalendarioController> logger, LogoBL logoBL, CursoBL cursoBL)
         {
             _logger = logger;
             _logoBL = logoBL;
+            _cursoBL = cursoBL;
         }
 
         public IActionResult Index()
@@ -19,19 +22,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
           return View(); // Asegúrate de tener una vista asociada         
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ListarLogos()
+        public async Task<IActionResult> ListarCursos()
         {
             try
             {
-                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versión asincrónica
-                if (Logos != null && Logos.Any())
+                var Cursos = await _cursoBL.ListarCursosAsync(); // Cambio a versión asincrónica
+                if (Cursos != null && Cursos.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Logos obtenidos exitosamente.",
-                        Logos
+                        message = "Cursos obtenidos exitosamente.",
+                        Cursos
                     });
                 }
                 else
@@ -39,7 +41,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Logos disponibles."
+                        message = "No se encontraron Cursos disponibles."
                     });
                 }
             }
@@ -48,10 +50,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Logos. Por favor, inténtelo nuevamente."
-                  
+                    message = "Ocurrió un error al intentar obtener los Cursos. Por favor, inténtelo nuevamente."
+
                 });
             }
-        }      
+        }
     }
 }
