@@ -166,8 +166,8 @@ function renderSliders(cursos) {
                             data-nombreboton="${curso.curs_NombreBoton}"
                             data-urlicon="${curso.curs_UrlIcon}"
                             data-brochurelink="${curso.curs_LinkBoton}"
-                            data_id_evento="${curso.teve_ID}"
-                             data_id_modalidad="${curso.tmod_ID}"
+                            data-id_evento="${curso.teve_ID}"
+                             data-id_modalidad="${curso.tmod_ID}"
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -649,7 +649,7 @@ function loadGuardarOrdenCurso() {
       data.NombreBotones.push($(this).data("nombreboton"));
      data.UrlIcons.push($(this).data("urlicon"));
         data.Eventos.push($(this).data("id_evento"));
-        data.Estados.push($(this).data("id_estado"));
+        data.Estados.push($(this).data("estado"));
         data.Links.push($(this).data("brochurelink"));
     });
 
