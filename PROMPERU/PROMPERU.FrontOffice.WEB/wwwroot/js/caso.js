@@ -65,7 +65,7 @@ function renderTituloSeccionCaso(caso) {
 function renderSliderCaso(casos) {
     let slidersHTML = '';
     casos.forEach((caso,index) => {       
-
+     
         if (caso.cexi_Orden > 0) {
             const isOrderReversed = index % 2 !== 0;
             slidersHTML +=

@@ -47,7 +47,11 @@
 
 
         </div>
-      
+        <div class="row mt-4">
+            <div class="col-12 text-end">
+                <button class="btn btn-save" id="saveOrder">Actualizar Orden</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -67,7 +71,7 @@
                         <input type="text" id="image-url-1" class="form-control" placeholder="Nombre">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="image-url-1" class="form-label fw-semibold">Url del icono</label>
                         <input type="text" id="image-url-1" class="form-control" placeholder="Url del icono">
                     </div>
@@ -108,7 +112,7 @@
                         <input type="text" id="editNombre" class="form-control" placeholder="Nombre">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="editRuta" class="form-label fw-semibold">Ruta</label>
                         <input type="text" id="editRuta" class="form-control" placeholder="Url del icono">
                     </div>
@@ -124,3 +128,5 @@
         </div>
     </div>
 </div>
+<script src="../../shared/libraries/sortable/Sortable.min.js"></script>
+<script src="../../shared/js/moveCard.js"></script>

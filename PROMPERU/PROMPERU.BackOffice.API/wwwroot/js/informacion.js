@@ -36,7 +36,7 @@ function sliderCardInfo(informacion) {
             </div>
             <div class="mb-3">
                 <label for="createDescription-${informacion.info_ID}" class="form-label fw-semibold">Descripción</label>
-                <textarea id="createDescription-${informacion.info_ID}" class="form-control" rows="3" placeholder="${informacion.info_Descripcion}" disabled></textarea>
+                <textarea id="createDescription-${informacion.info_ID}" class="form-control" rows="3" maxlength="250" placeholder="${informacion.info_Descripcion}" disabled></textarea>
             </div>
             <div>
                 <label for="image-urlVideo-${informacion.info_ID}" class="form-label fw-semibold">URL del video</label>
@@ -55,7 +55,7 @@ function sliderCardInfo(informacion) {
 
               <div class="mb-3">
                 <label for="createDescription-${informacion.info_ID}" class="form-label fw-semibold">Descripción del banner</label>
-                <textarea id="createDescription-${informacion.info_ID}" class="form-control" rows="3" placeholder="${informacion.info_DescripcionBanner}" disabled></textarea>
+                <textarea id="createDescription-${informacion.info_ID}" class="form-control" rows="3"  maxlength="250" placeholder="${informacion.info_DescripcionBanner}" disabled></textarea>
             </div>
             
         </div>`;

@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
   loadListarMenu();
-  loadEditarMenu();
+    loadEditarMenu();
+    loadGuardarOrdenMenu();
 
 });
 async function loadListarMenu() {
@@ -41,11 +42,12 @@ function createSliderCardMenu(menu) {
     return `
      <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
-                    <h5 class="card-number mb-0"></h5>
+                    <h5 class="card-number mb-0">${menu.menu_Orden}</h5>
                     <div class="d-flex gap-2">                      
                         <button class="btn btn-link text-primary p-0" data-bs-toggle="modal"
                                 data-bs-target="#editSliderModal"
                                 data-id="${menu.menu_ID}"
+                                data-orden="${menu.menu_Orden}"
                                 data-nombre="${menu.menu_Nombre}"
                                 data-ruta="${menu.menu_UrlIconBoton}"
                                 >
@@ -53,7 +55,12 @@ function createSliderCardMenu(menu) {
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                             </svg>
-                        </button>                       
+                        </button>  
+                         <div class="sortable-handle d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+            </svg>
+          </div>
                     </div>
                 </div>
 
@@ -62,7 +69,7 @@ function createSliderCardMenu(menu) {
                     <input type="text" id="${menu.menu_ID}" class="form-control" placeholder="${menu.menu_Nombre}" disabled>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" style="display:none">
                     <label for="${menu.menu_ID}" class="form-label fw-semibold">Ruta Menú</label>
                     <input type="text" id="${menu.menu_ID}" class="form-control" placeholder="${menu.menu_UrlIconBoton}" disabled>
                 </div>
@@ -71,7 +78,7 @@ function createSliderCardMenu(menu) {
             </div>
     `;
 }
-async function loadCrearLogro() {
+async function loadCrearMenu() {
   $("#saveCreateSlider").click(async function () {
     const description = $("#createDescription").val();
     const imageUrl = $("#createImageUrl").val();
@@ -191,7 +198,7 @@ function handleEditResponse(response) {
     showError("No se pudo actualizar el slider. Inténtelo nuevamente.");
   }
 }
-async function loadEliminarLogro() {
+async function loadEliminarMenu() {
   $(document).on("click", '[id^="btn-delete-"]', async function () {
     const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
     console.log(`ID a eliminar: ${id}`);
@@ -211,7 +218,7 @@ async function loadEliminarLogro() {
     if (result.isConfirmed) {
       // Realizar la eliminación
       try {
-        const response = await eliminarLogro(id);
+        const response = await eliminarMenu(id);
         handleEliminarResponse(response);
       } catch (error) {
         handleError();
@@ -221,7 +228,7 @@ async function loadEliminarLogro() {
 }
 
 // Función para eliminar el Menu
-async function eliminarLogro(id) {
+async function eliminarMenu(id) {
   return await $.ajax({
     type: "POST",
     url: "/Menu/EliminarMenu", // Ruta del controlador para la eliminación
@@ -247,7 +254,7 @@ function handleEliminarResponse(response) {
     );
   }
 }
-async function loadGuardarOrdenInfo() {
+async function loadGuardarOrdenMenu() {
   // Al hacer clic en el botón de guardar cambios
   $("#saveOrder").click(async function () {
     const result = await Swal.fire({
@@ -263,9 +270,9 @@ async function loadGuardarOrdenInfo() {
 
     if (result.isConfirmed) {
       try {
-        const ordenData = await obtenerOrdenData();
+        const ordenData = await obtenerOrdenDataMenu();
         console.log(ordenData);
-        await actualizarOrdenLogro(ordenData);
+        await actualizarOrdenMenu(ordenData);
       } catch (error) {
         handleError();
       }
@@ -274,18 +281,18 @@ async function loadGuardarOrdenInfo() {
 }
 
 // Obtener los datos de la orden
-async function obtenerOrdenData() {
+async function obtenerOrdenDataMenu() {
   const Ids = [];
   const Orders = [];
-  const Descriptions = [];
+ const Nombres = [];
   const Urls = [];
   const NewOrders = [];
 
   $(".btn-link.text-primary").each(function () {
     Ids.push($(this).data("id"));
     Orders.push($(this).data("orden"));
-    Descriptions.push($(this).data("description"));
-    Urls.push($(this).data("image-url"));
+    Nombres.push($(this).data("nombre"));
+    Urls.push($(this).data("ruta"));
   });
 
   $(".card").each(function () {
@@ -295,15 +302,15 @@ async function obtenerOrdenData() {
   const result = Ids.map((id, index) => ({
     id: parseInt(id),
     orden: parseInt(NewOrders[index]),
-    description: Descriptions[index].toString(),
-    imageUrl: Urls[index].toString(),
+    nombre: Nombres[index].toString(),
+    urlIconBoton: Urls[index].toString(),
   }));
 
   return result;
 }
 
 // Actualizar el orden de los Menus
-async function actualizarOrdenLogro(ordenData) {
+async function actualizarOrdenMenu(ordenData) {
   const response = await $.ajax({
     url: "/Menu/ActualizarOrdenMenu",
     type: "POST",

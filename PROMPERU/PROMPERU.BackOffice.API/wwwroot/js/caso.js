@@ -158,7 +158,7 @@ function renderSlidersCaso(casos) {
                                 data-description="${caso.cexi_Descripcion}"
                                 data-urlicon="${caso.cexi_UrlIcon}"                    
                                 data-urlperfil="${caso.cexi_UrlPerfil}"
-                                data-urlcabecera="${caso.cexi_UrlVideo}" 
+                                data-urlvideo="${caso.cexi_UrlVideo}" 
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -215,7 +215,7 @@ async function loadCrearCaso() {
       description: $("#createDescription").val(),
       urlIcon: $("#createUrlIcon").val(),
       urlPerfil: $("#createUrlPerfil").val(),
-      urlVideo: $("#createUrlCabecera").val(),
+      urlVideo: $("#createUrlVideo").val(),
     };
     console.log(casoData);
 
@@ -359,11 +359,13 @@ async function loadEditarCaso() {
       editDescription: button.data("description"),
       editUrlIcon: button.data("urlicon"),
       editUrlPerfil: button.data("urlperfil"),
-      editUrlCabecera: button.data("urlcabecera"),
+      editUrlVideo: button.data("urlvideo"),
     };
 
     assignModalValues($(this), modalData);
   });
+
+
 
   $("#saveEditSlider").click(function () {
     const data = {
@@ -373,9 +375,9 @@ async function loadEditarCaso() {
       description: $("#editDescription").val(),
       urlIcon: $("#editUrlIcon").val(),
       urlPerfil: $("#editUrlPerfil").val(),
-      urlCabecera: $("#editUrlBanner").val(),
+        urlVideo: $("#editUrlVideo").val(),
     };
-
+    console.log('guardar caso',data)
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Caso/ActualizarCaso",

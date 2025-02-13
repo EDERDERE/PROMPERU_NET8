@@ -10,7 +10,7 @@ namespace PROMPERU.BL.Dtos
     {
         public int id { get; set; }
         public string nombre { get; set; }
-        public string urlIconBoton { get; set; } 
-
+        public string urlIconBoton { get; set; }
+        public int orden { get; set; }
     }   
 }

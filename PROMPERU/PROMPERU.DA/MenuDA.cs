@@ -28,6 +28,7 @@ namespace PROMPERU.DA
                 };
 
                 comando.Parameters.AddWithValue("@Menu_Nombre", menu.Menu_Nombre);
+                comando.Parameters.AddWithValue("@Menu_Orden", menu.Menu_Orden);
                 comando.Parameters.AddWithValue("@Menu_UrlIconBoton", menu.Menu_UrlIconBoton);                               
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
@@ -74,6 +75,7 @@ namespace PROMPERU.DA
                     {
                         Menu_ID = reader["Menu_ID"] != DBNull.Value ? Convert.ToInt32(reader["Menu_ID"]) : 0,
                         Menu_Nombre = reader["Menu_Nombre"] != DBNull.Value ? reader["Menu_Nombre"].ToString() : "",
+                        Menu_Orden = reader["Menu_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Menu_Orden"]) : 0,
                         Menu_UrlIconBoton = reader["Menu_UrlIconBoton"] != DBNull.Value ? reader["Menu_UrlIconBoton"].ToString() : "",
                           
 
@@ -148,6 +150,7 @@ namespace PROMPERU.DA
                     // Parámetros del procedimiento almacenado
                     comando.Parameters.AddWithValue("@Menu_ID", menu.Menu_ID);
                     comando.Parameters.AddWithValue("@Menu_Nombre", menu.Menu_Nombre);
+                    comando.Parameters.AddWithValue("@Menu_Orden", menu.Menu_Orden);
                     comando.Parameters.AddWithValue("@Menu_UrlIconBoton", menu.Menu_UrlIconBoton);
                 
                     // Ejecución del comando
@@ -203,6 +206,7 @@ namespace PROMPERU.DA
                     Menus.Add(new MenuBE
                     {
                         Menu_ID = reader["Menu_ID"] != DBNull.Value ? Convert.ToInt32(reader["Menu_ID"]) : 0,
+                        Menu_Orden = reader["Menu_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Menu_Orden"]) : 0,
                         Menu_Nombre = reader["Menu_Nombre"] != DBNull.Value ? reader["Menu_Nombre"].ToString() : "",
                         Menu_UrlIconBoton = reader["Menu_UrlIconBoton"] != DBNull.Value ? reader["Menu_UrlIconBoton"].ToString() : "",
                       

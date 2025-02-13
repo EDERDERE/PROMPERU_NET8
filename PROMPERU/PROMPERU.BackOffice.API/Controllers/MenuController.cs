@@ -72,7 +72,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                 {
                      Menu_ID = menuDto.id,
                      Menu_Nombre = menuDto.nombre,
-                     Menu_UrlIconBoton = menuDto.urlIconBoton              
+                    Menu_Orden = menuDto.orden,
+                    Menu_UrlIconBoton = menuDto.urlIconBoton              
              
                 };
                 await _menuBL.InsertarMenuAsync(Menu, usuario, ip); // Llamada asincrónica
@@ -97,6 +98,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                    
                     Menu_ID = menuDto.id,
                     Menu_Nombre = menuDto.nombre,
+                    Menu_Orden = menuDto.orden,
                     Menu_UrlIconBoton = menuDto.urlIconBoton    
                    
                 };
@@ -158,6 +160,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     {
                         Menu_ID = menuDto.id,
                         Menu_Nombre = menuDto.nombre,
+                        Menu_Orden = menuDto.orden,
                         Menu_UrlIconBoton = menuDto.urlIconBoton
                     };
                     await _menuBL.ActualizarMenuAsync(Menu, usuario, ip,Menu.Menu_ID); // Llamada asincrónica

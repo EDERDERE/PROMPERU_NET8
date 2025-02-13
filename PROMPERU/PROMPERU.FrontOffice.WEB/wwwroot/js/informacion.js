@@ -3,11 +3,7 @@ $(document).ready(function () {
     loadListarInformacion(); 
 });
 
-function getEmbedUrl(videoUrl) {
-    const url = new URL(videoUrl);
-    const videoId = url.searchParams.get("v"); 
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : videoUrl;
-  }
+
 async function loadListarInformacion() {
     try {
         const response = await $.ajax({

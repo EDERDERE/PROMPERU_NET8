@@ -130,7 +130,7 @@ function loadListarRequisitos() {
 
                 <div class="mb-3">
                     <label for="description-${requisito.requ_ID}" class="form-label fw-semibold">Descripción</label>
-                    <textarea id="description-${requisito.requ_ID}" class="form-control" rows="3" placeholder="${requisito.requ_Descripcion}"
+                    <textarea id="description-${requisito.requ_ID}" class="form-control" rows="3"  maxlength="250" placeholder="${requisito.requ_Descripcion}"
                               disabled></textarea>
                 </div>
 

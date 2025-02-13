@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
   loadListarBanner();
-  loadCrearLogro();
-  loadEditarLogro();
-  loadEliminarLogro();
-  loadGuardarOrdenInfo();
+  loadCrearBanner();
+  loadEditarBanner();
+  loadEliminarBanner();
+  loadGuardarOrdenBanner();
 });
 async function loadListarBanner() {
   try {
@@ -64,7 +64,7 @@ function createSliderCardBanner(banner) {
       </div>
       <div class="mb-3">
         <label for="description-${banner.bann_ID}" class="form-label fw-semibold">Descripción</label>
-        <textarea id="description-${banner.bann_ID}" class="form-control" rows="3" placeholder="${banner.bann_Nombre}" disabled></textarea>
+        <textarea id="description-${banner.bann_ID}" class="form-control" rows="3"  maxlength="250" placeholder="${banner.bann_Nombre}" disabled></textarea>
       </div>
       <div>
         <label for="image-url-${banner.bann_ID}" class="form-label fw-semibold">URL de la imagen</label>
@@ -72,7 +72,7 @@ function createSliderCardBanner(banner) {
       </div>
     </div>`;
 }
-async function loadCrearLogro() {
+async function loadCrearBanner() {
   $("#saveCreateSlider").click(async function () {
     const description = $("#createDescription").val();
     const imageUrl = $("#createImageUrl").val();
@@ -135,7 +135,7 @@ function showWarning(message) {
   });
 }
 
-async function loadEditarLogro() {
+async function loadEditarBanner() {
   $("#editSliderModal").on("show.bs.modal", function (event) {
     // Obtener los datos del botón que activó el modal
     const button = $(event.relatedTarget);
@@ -196,7 +196,7 @@ function handleEditResponse(response) {
     showError("No se pudo actualizar el slider. Inténtelo nuevamente.");
   }
 }
-async function loadEliminarLogro() {
+async function loadEliminarBanner() {
   $(document).on("click", '[id^="btn-delete-"]', async function () {
     const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
     console.log(`ID a eliminar: ${id}`);
@@ -216,7 +216,8 @@ async function loadEliminarLogro() {
     if (result.isConfirmed) {
       // Realizar la eliminación
       try {
-        const response = await eliminarLogro(id);
+          const response = await eliminarBanner(id);
+          console.log(response);
         handleEliminarResponse(response);
       } catch (error) {
         handleError();
@@ -226,7 +227,7 @@ async function loadEliminarLogro() {
 }
 
 // Función para eliminar el banner
-async function eliminarLogro(id) {
+async function eliminarBanner(id) {
   return await $.ajax({
     type: "POST",
     url: "/Banner/EliminarBanner", // Ruta del controlador para la eliminación
@@ -245,14 +246,25 @@ function handleEliminarResponse(response) {
       location.reload(); // Recargar la página o actualizar el contenido dinámicamente
     });
   } else {
-    Swal.fire(
-      "Error",
-      "No se pudo eliminar el elemento. Inténtalo de nuevo.",
-      "error"
-    );
+      if (!response.success) {
+          Swal.fire(
+              "¡Eliminado!",
+              "El elemento ha sido eliminado con éxito.",
+              "success"
+          ).then(() => {
+              location.reload(); // Recargar la página o actualizar el contenido dinámicamente
+          });
+      } else {
+          Swal.fire(
+              "Error",
+              "No se pudo eliminar el elemento. Inténtalo de nuevo.",
+              "error"
+          );
+      }
+    
   }
 }
-async function loadGuardarOrdenInfo() {
+async function loadGuardarOrdenBanner() {
   // Al hacer clic en el botón de guardar cambios
   $("#saveOrder").click(async function () {
     const result = await Swal.fire({
@@ -270,7 +282,7 @@ async function loadGuardarOrdenInfo() {
       try {
         const ordenData = await obtenerOrdenData();
         console.log(ordenData);
-        await actualizarOrdenLogro(ordenData);
+        await actualizarOrdenBanner(ordenData);
       } catch (error) {
         handleError();
       }
@@ -308,7 +320,7 @@ async function obtenerOrdenData() {
 }
 
 // Actualizar el orden de los banners
-async function actualizarOrdenLogro(ordenData) {
+async function actualizarOrdenBanner(ordenData) {
   const response = await $.ajax({
     url: "/Banner/ActualizarOrdenBanner",
     type: "POST",
