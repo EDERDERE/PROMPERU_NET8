@@ -44,8 +44,9 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Egra_Mercados", empresa.Egra_Mercados);
                 comando.Parameters.AddWithValue("@Egra_RazonSocial", empresa.Egra_RazonSocial);
                 comando.Parameters.AddWithValue("@Egra_SegmentosAtendidos", empresa.Egra_SegmentosAtendidos);
-                comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Direccion);        
-
+                comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Direccion);
+                comando.Parameters.AddWithValue("@Temp_ID", empresa.ID_TipoEmpresa);
+                comando.Parameters.AddWithValue("@Regi_ID", empresa.ID_Region);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {

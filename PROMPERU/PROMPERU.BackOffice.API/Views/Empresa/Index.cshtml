@@ -37,7 +37,11 @@
         </div>
         <div class="row mt-4">
             <div class="col-12 text-end">
-                <button class="btn btn-save">Guardar Cambios</button>
+                <button class="btn btn-save" id="saveOrder">Guardar Cambios</button>
+            </div>
+            <div class="col-12 text-end">
+                <input type="text" id="nombreTabla" value="EmpresaGraduada" hidden />
+                <button class="btn btn-save" id="btnDescargar">Descargar Datos</button>
             </div>
         </div>
     </div>
@@ -45,7 +49,7 @@
 <!-- copiar esto -->
 <!-- Modal para Crear  -->
 <div class="modal fade" id="createSliderModal" tabindex="-1" aria-labelledby="createSliderModalLabel"
-    aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -54,24 +58,127 @@
             </div>
             <div class="modal-body">
                 <form id="createSliderForm">
-                    <div class="mb-3">
-                        <label for="createNombreEmpresa" class="form-label fw-semibold">Nombre </label>
-                        <input type="text" id="createNombreEmpresa" class="form-control" placeholder="" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="createDescripccionEmpresa" class="form-label fw-semibold">Descripción</label>
-                        <textarea id="createDescripccionEmpresa" class="form-control" rows="3" placeholder=""
-                            required></textarea>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createNombreComercial" class="form-label fw-semibold">Nombre Comercial</label>
+                                <input type="text" id="createNombreComercial" class="form-control" placeholder="Nombre Comercial">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="inputTipoRegion" class="form-label fw-semibold">Región</label>
+                                <select id="inputTipoRegion" class="form-select" aria-label="Default select example">
+                                    <option selected>Región</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="createCorreoEmpresa" class="form-label fw-semibold">Correo</label>
-                        <input type="text" id="createCorreoEmpresa" class="form-control" placeholder="" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createCorreo" class="form-label fw-semibold">Correo Electronico</label>
+                                <input type="text" id="createCorreo" class="form-control" placeholder="Correo Electronico">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createPagina" class="form-label fw-semibold">Página web</label>
+                                <input type="text" id="createPagina" class="form-control" placeholder="Página web">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="createLogoEmpresa" class="form-label fw-semibold">Logo de empresa</label>
-                        <input type="text" id="createLogoEmpresa" class="form-control" placeholder="" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createRuc" class="form-label fw-semibold">RUC</label>
+                                <input type="text" id="createRuc" class="form-control" placeholder="RUC">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createRedes" class="form-label fw-semibold">Redes sociales</label>
+                                <input type="text" id="createRedes" class="form-control" placeholder="RUC">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="inputTipoEmpresa" class="form-label fw-semibold">Tipo Empresa</label>
+                                <select id="inputTipoEmpresa" class="form-select" aria-label="Default select example">
+                                    <option selected>Empresa</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createCertificaciones" class="form-label fw-semibold">Certificaciones</label>
+                                <input type="text" id="createCertificaciones" class="form-control" placeholder="Certificaciones">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createUrlLogo" class="form-label fw-semibold">URL de la Logo</label>
+                                <input type="text" id="createUrlLogo" class="form-control" placeholder="URL de la Logo">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createMercados" class="form-label fw-semibold">Mercados</label>
+                                <input type="text" id="createMercados" class="form-control" placeholder="Mercados">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createRazon" class="form-label fw-semibold">Razon social</label>
+                                <input type="text" id="createRazon" class="form-control" placeholder="Razon social">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createSegmentos" class="form-label fw-semibold">Segmentos atendidos</label>
+                                <input type="text" id="createSegmentos" class="form-control" placeholder="Segmentos atendidos">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createDireccion" class="form-label fw-semibold">Dirección</label>
+                                <input type="text" id="createDireccion" class="form-control" placeholder="Dirección">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="createDescription" class="form-label fw-semibold">Descripccion</label>
+                                <input type="text" id="createDescription" class="form-control" placeholder="Discripcion">
+                            </div>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -90,44 +197,151 @@
 
 
 <!-- Modal para Editar Slider -->
-<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel" aria-hidden="true">
+<div class="modal fade" id="editSliderModal" tabindex="-1" aria-labelledby="editSliderModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editSliderModalLabel">Editar empresa </h5>
+                <h5 class="modal-title" id="editSliderModalLabel">Editar caso de éxito</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
-                </div>
                 <form id="createSliderForm">
-                    <div class="mb-3" hidden>
-                        <label for="editIdEmpresa" class="form-label fw-semibold">Id</label>
-                        <input type="text" id="editIdEmpresa" class="form-control" placeholder="Paso">
-                    </div>
-                    <div class="mb-3" hidden>
-                        <label for="editOrdenEmpresa" class="form-label fw-semibold">Id</label>
-                        <input type="text" id="editOrdenEmpresa" class="form-control" placeholder="Paso">
-                    </div>
-                    <div class="mb-3">
-                        <label for="editNombreEmpresa" class="form-label fw-semibold">Nombre* </label>
-                        <input type="text" id="editNombreEmpresa" class="form-control" placeholder="" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editDescripccionEmpresa" class="form-label fw-semibold">Descripción*</label>
-                        <textarea id="editDescripccionEmpresa" class="form-control" rows="3" placeholder=""
-                            required></textarea>
+                    <div class="row">
+                        <div class="col-md-6" hidden>
+                            <div class="mb-3">
+                                <label for="editId" class="form-label fw-semibold">Nombre Comercial</label>
+                                <input type="text" id="editIdEmpresa" class="form-control" placeholder="Nombre Comercial">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6" hidden>
+                            <div class="mb-3">
+                                <label for="editOrden" class="form-label fw-semibold">Nombre Comercial</label>
+                                <input type="text" id="editOrdenEmpresa" class="form-control" placeholder="Nombre Comercial">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editNombreComercial" class="form-label fw-semibold">Nombre Comercial</label>
+                                <input type="text" id="editNombreComercial" class="form-control" placeholder="Nombre Comercial">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editTipoRegion" class="form-label fw-semibold">Región</label>
+                                <select id="editTipoRegion" class="form-select" aria-label="Default select example">
+                                    <option selected>Región</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="editCorreoEmpresa" class="form-label fw-semibold">Correo*</label>
-                        <input type="text" id="editCorreoEmpresa" class="form-control" placeholder="" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editCorreo" class="form-label fw-semibold">Correo Electronico</label>
+                                <input type="text" id="editCorreo" class="form-control" placeholder="Correo Electronico">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editPagina" class="form-label fw-semibold">Página web</label>
+                                <input type="text" id="editPagina" class="form-control" placeholder="Página web">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="editLogoEmpresa" class="form-label fw-semibold">Logo de empresa*</label>
-                        <input type="text" id="editLogoEmpresa" class="form-control" placeholder="" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editRuc" class="form-label fw-semibold">RUC</label>
+                                <input type="text" id="editRuc" class="form-control" placeholder="RUC">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editRedes" class="form-label fw-semibold">Redes sociales</label>
+                                <input type="text" id="editRedes" class="form-control" placeholder="RUC">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editTipoEmpresa" class="form-label fw-semibold">Tipo Empresa</label>
+                                <select id="editTipoEmpresa" class="form-select" aria-label="Default select example">
+                                    <option selected>Empresa</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editCertificaciones" class="form-label fw-semibold">Certificaciones</label>
+                                <input type="text" id="editCertificaciones" class="form-control" placeholder="Certificaciones">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editUrlLogo" class="form-label fw-semibold">URL de la Logo</label>
+                                <input type="text" id="editUrlLogo" class="form-control" placeholder="URL de la Logo">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editMercados" class="form-label fw-semibold">Mercados</label>
+                                <input type="text" id="editMercados" class="form-control" placeholder="Mercados">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editRazon" class="form-label fw-semibold">Razon social</label>
+                                <input type="text" id="editRazon" class="form-control" placeholder="Razon social">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editSegmentos" class="form-label fw-semibold">Segmentos atendidos</label>
+                                <input type="text" id="editSegmentos" class="form-control" placeholder="Segmentos atendidos">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editDireccion" class="form-label fw-semibold">Dirección</label>
+                                <input type="text" id="editDireccion" class="form-control" placeholder="Dirección">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editDescription" class="form-label fw-semibold">Descripccion</label>
+                                <input type="text" id="editDescription" class="form-control" placeholder="Discripcion">
+                            </div>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -141,7 +355,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal de Confirmación para Eliminar -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
     aria-hidden="true">

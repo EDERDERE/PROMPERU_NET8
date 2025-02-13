@@ -72,6 +72,8 @@ builder.Services.AddScoped<RegionDA>();
 builder.Services.AddScoped<RegionBL>();
 builder.Services.AddScoped<TipoEmpresaDA>();
 builder.Services.AddScoped<TipoEmpresaBL>();
+builder.Services.AddScoped<DescargaDA>();
+builder.Services.AddScoped<DescargaBL>();
 
 
 var app = builder.Build();

@@ -92,8 +92,10 @@ namespace PROMPERU.BackOffice.API.Controllers
                      Egra_TipoEmpresa = empresaDto.tipoEmpresa,
                      Egra_Titulo=empresaDto.titulo,
                      Egra_UrlBoton=empresaDto.urlBoton,
-                     Egra_UrlLogo=empresaDto.urlLogo                   
-                
+                     Egra_UrlLogo=empresaDto.urlLogo,
+                    ID_Region = empresaDto.id_region,
+                    ID_TipoEmpresa = empresaDto.id_tipoempresa
+
 
                 };
                 await _empresaBL.InsertarEmpresaAsync(empresa, usuario, ip); // Llamada asincr�nica
@@ -211,7 +213,9 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Egra_TipoEmpresa = empresaDto.tipoEmpresa,
                         Egra_Titulo = empresaDto.titulo,
                         Egra_UrlBoton = empresaDto.urlBoton,
-                        Egra_UrlLogo = empresaDto.urlLogo
+                        Egra_UrlLogo = empresaDto.urlLogo,
+                        ID_Region = empresaDto.id_region,
+                        ID_TipoEmpresa = empresaDto.id_tipoempresa
                     };
                     await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip,empresa.Egra_ID); // Llamada asincr�nica
                 }
