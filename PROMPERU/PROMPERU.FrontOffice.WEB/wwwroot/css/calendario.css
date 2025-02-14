@@ -614,21 +614,7 @@ footer {
   gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
 }
-.button-outline {
-  border: 1px solid #0070ba;
-  color: #0070ba;
-  padding: 0.7rem 2rem;
-  border-radius: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-}
-.button-outline:hover {
-  background-color: #0070ba;
-  color: #fff;
-}
+
 .title_init {
   font-weight: bold;
 }

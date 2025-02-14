@@ -37,7 +37,22 @@
     margin: 0;
     font-family: var(--font-helvetica), sans-serif;
   }
-  
+  .button-outline {
+    border: 1px solid #C3122C;
+    color: #C3122C;
+    padding: 12px 25px;
+    border-radius: 13px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+    .button-outline:hover {
+        background-color: #C3122C;
+        color: #fff
+    } 
   .red-linear {
     content: "";
     width: 30px;
