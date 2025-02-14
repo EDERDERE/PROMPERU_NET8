@@ -444,6 +444,7 @@ const home = {
           if (beneficios.length > 0) {
             renderTituloBeneficioHome(beneficios[0]);
             renderPortadaBeneficioHome(beneficios[0]);
+            renderBotonCursoBeneficio()
             renderSliderBeneficioHome(beneficios);
           } else {
             $("#sliderBeneficioHome").html(
@@ -720,7 +721,7 @@ function renderContactoHome(fcont) {
 
                 <div class="btn-test">
                     <div class="button-test">
-                        <a href="">${fcont.fcon_NombreBoton}</a>
+                        <a href="/FormularioContacto/Index">${fcont.fcon_NombreBoton}</a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-chat-left-text" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                             <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
@@ -741,7 +742,7 @@ function renderTituloEGHome(egra) {
 }
 function renderBotonEGHome(egra) {
   const html = `
-              <a href="">${egra.egra_NombreBoton}</a>
+              <a href="/Empresa/Index">${egra.egra_NombreBoton}</a>
                 <img src="${egra.egra_UrlBoton}"
                      alt="" />
       `;
@@ -819,11 +820,10 @@ function renderLogrosHome(logros) {
   logros.forEach((logr) => {
     html += `
          <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
-            <img src="${logr.logr_UrlIcon}" alt="" />
+             <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
           <div class="description text-white w-100">
               <div class="items">
-                  <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
-                  <h3 class="p-1 m-1 ">${logr.logr_Nombre}</h3>
+                  <h3>${logr.logr_Nombre}</h3>
               </div>
               <p class="fs-8 texto-descriptivo-quick_data">
                   ${logr.logr_Descripcion}
@@ -1076,19 +1076,20 @@ function renderPortadaCasoHome(caso) {
 }
 function renderBotonCasoHome(caso) {
   const html = `
-           <a href="Caso/index"> ${caso.cexi_NombreBoton}</a>
+           <a href="/Caso/index"> ${caso.cexi_NombreBoton}</a>
                 <img src="${caso.cexi_UrlBoton}"
                      alt="" />
       `;
-  $("#botonCasoHome").append(html);
+  $("#botonCasoHome").html(html);
 }
 function renderSliderCasoHome(casos) {
   let slider = "";
   casos.slice(0, 5).forEach((caso, index) => {
-    if (caso.cexi_Orden > 0) {
+      if (caso.cexi_Orden > 0) {
+          const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
       const isActive = index === 1 ? "active" : "";
       slider += `
-                    <div class="video_item row ${isActive}" data-video="${caso.cexi_UrlVideo}">
+                    <div class="video_item row ${isActive}" data-video="${embedUrl}">
                         <div class="col-8">
                             <h4>${caso.cexi_Nombre}</h4>
                             <p>${caso.cexi_Descripcion}</p>
@@ -1129,6 +1130,15 @@ function renderPortadaBeneficioHome(bene) {
                      alt="" />
       `;
   $("#portadaBeneficioHome").append(html);
+}
+
+function renderBotonCursoBeneficio(beneficio) {
+  const botonCursoHome = `      
+            <a href="/Beneficio/Index">Ver todo los benificios </a>
+            <img src="../../shared/assets/home/etapas/empezar_test.svg"
+                 alt="" />      
+      `;
+  $("#botonBeneficios").append(botonCursoHome);
 }
 function renderSliderBeneficioHome(beneficio) {
   let slider = "";
@@ -1182,9 +1192,17 @@ function renderSliderRequisitoHome(requisitos) {
   $("#sliderRequisitoHome").append(slider);
 }
 function getEmbedUrl(videoUrl) {
-  const url = new URL(videoUrl);
-  const videoId = url.searchParams.get("v");
-  return videoId ? `https://www.youtube.com/embed/${videoId}` : videoUrl;
+    try {
+        const url = new URL(videoUrl);
+        if (url.hostname.includes("youtube.com") || url.hostname.includes("youtu.be")) {
+            const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+            if (videoId) {
+                return `https://www.youtube.com/embed/${videoId}`;
+            }
+        }
+    } catch (error) {
+    }
+    return "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Video de prueba (Rickroll 😆)
 }
 
 function renderSeccionHome(info) {
@@ -1233,7 +1251,7 @@ function renderSliderCursoHome(cursos) {
   let sliderCurso = "";
 
   cursos.forEach((curs) => {
-    if (curs.curs_Orden > 0) {
+      if (curs.curs_Orden > 0 && curs.curs_EsHabilitado != 0) {
       sliderCurso += `
                 <div class="swiper-slide p-3">
                     <div class="card rounded-4 overflow-hidden border-0 shadow-md">
@@ -1246,14 +1264,18 @@ function renderSliderCursoHome(cursos) {
                                         <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
                                         <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
                                     </svg>
-                                    <strong>Virtual en Vivo:</strong>
+                                    <strong>Horario:</strong>
                                     <span>Del ${obtenerDia(
                                       formatearFechaInversa(
                                         curs.curs_FechaInicio
                                       )
-                                    )} al ${obtenerDia(
+          )} de ${obtenerMes(
+              curs.curs_FechaInicio
+          )} al ${obtenerDia(
         formatearFechaInversa(curs.curs_FechaFin)
-      )} del ${obtenerAno(formatearFechaInversa(curs.curs_FechaFin))}</span>
+          )} de ${obtenerMes(
+              curs.curs_FechaFin
+          )} del ${obtenerAno(formatearFechaInversa(curs.curs_FechaFin))}</span>
                                 </p>
                                 <p class="d-flex align-items-center gap-1  mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0070BA" class="bi bi-clock-history" viewBox="0 0 16 16">
@@ -1261,7 +1283,7 @@ function renderSliderCursoHome(cursos) {
                                         <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
                                         <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
                                     </svg>
-                                    <strong>A tu ritmo:</strong>
+                                    <strong>Modalidad:</strong>
                                     <span>${curs.curs_Modalidad}</span>
                                 </p>
                                 <div class="d-flex justify-content-center">
@@ -1374,6 +1396,11 @@ function obtenerAno(fecha) {
   const fechaObj = new Date(fecha);
   return fechaObj.getFullYear();
 }
+function obtenerMes(fechaStr) {
+    const fecha = new Date(fechaStr);
+    const opciones = { month: "long" };
+    return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+}
 function renderSeleccionarVideo() {
   // Escuchar clic en cualquier elemento con la clase "video_item"
   $(".video_item").on("click", function () {
@@ -1392,7 +1419,9 @@ function renderSeleccionarVideo() {
 }
 function cambiarImagenDinamica(imagenUrl) {
   // Usamos jQuery para modificar el background-image
-  $(".hero").css("background-image", "url(" + imagenUrl + ")");
+    $(".hero").css("background-image", "url(" + imagenUrl + ")");
+
+
 }
 // Funci�n para mostrar mensajes de error con Swal
 function showErrorMessage(message) {

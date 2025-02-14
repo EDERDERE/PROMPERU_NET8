@@ -67,6 +67,7 @@ function renderSliderCaso(casos) {
     casos.forEach((caso,index) => {       
      
         if (caso.cexi_Orden > 0) {
+            const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
             const isOrderReversed = index % 2 !== 0;
             slidersHTML +=
                 `
@@ -81,7 +82,7 @@ function renderSliderCaso(casos) {
                     <iframe class="shadow"
                             width="100%"
                             height="340"
-                            src="${caso.cexi_UrlVideo}"
+                            src="${embedUrl}"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
