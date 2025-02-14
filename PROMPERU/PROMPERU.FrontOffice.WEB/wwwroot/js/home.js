@@ -1321,8 +1321,8 @@ var swiper = new Swiper(".testomnios_swiper", {
   initialSlide: 1,
   spaceBetween: 0,
   navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-testimonio-next",
+    prevEl: ".swiper-testimonio-prev",
   },
   breakpoints: {
     // when window width is >= 320px
