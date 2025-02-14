@@ -89,6 +89,7 @@
 .quick_data {
   width: 100%;
   background: var(--color-primary);
+  color: var(--color-white);
   padding: 1rem;
   border-bottom-left-radius: 0px;
   max-width: 100%;
@@ -249,7 +250,6 @@
 .container-import .p-principal {
   color: rgb(110, 110, 110);
   font-size: var(--font-size-mobile);
-
 }
 
 .nav-items {
@@ -267,8 +267,8 @@
   border-radius: 32px;
 }
 .step-indicator {
-  color: #c3132c !important;
-  font-weight: bold;
+  color: var(--red-primary) !important;
+  font-weight: 700;
 }
 
 .step:nth-child(even) {
@@ -325,12 +325,10 @@
   rotate: 45deg;
 }
 
-
 .exito_video {
   height: 380px;
   margin: auto;
 }
-
 
 .step-image img {
   width: 100%;
@@ -345,7 +343,7 @@
 }
 
 .step-content p {
-  font-size: 0.75rem;
+  font-size: var(--font-size-mobile);
   color: #717171;
   margin: 0;
   font-weight: normal;
@@ -781,7 +779,17 @@ footer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.1rem;
+  }
+
+  
+  .quick_data .items h3{
+    margin-bottom: 0.2rem;
+  }
+
+  .quick_data h4 {
+    font-size: var(--font-size-desktop-title);
+    color: var(--color-white);
   }
 
   .title-que-es {
@@ -831,8 +839,24 @@ footer {
   }
 
   .step-content p {
-    font-size: 1.25rem;
+    font-size: var(--font-size-desktop-paragrahp);
+    margin: .5rem 0;
   }
+
+  .step-indicator {
+    color: var(--red-primary);
+    font-weight: 700 !important;
+  }
+
+  .beneficio_item span {
+    font-weight: bold;
+    font-size: var(--font-size-desktop-md) !important;
+  }
+  
+  .beneficio_item p {
+    font-size: var(--font-size-desktop-paragrahp) !important;
+  }
+
 
   .Button-Test a {
     font-size: 1.25rem;
@@ -868,10 +892,9 @@ footer {
   }
 
   .texto-descriptivo-quick_data {
-
     font-size: var(--font-size-desktop-paragrahp);
   }
-  
+
   .cursos_swiper .button_brochure {
     border: 1px solid #0070ba;
     color: #0070ba;
@@ -895,9 +918,17 @@ footer {
     border-top-right-radius: 20px;
   }
 
+  .perfil .max-text {
+    max-width: 200px;
+    font-size: var(--font-size-desktop-paragrahp);
+  }
   .exito_video {
     height: 380px;
     margin: auto;
+  }
+
+  .container-inscripcion .step-title{
+    font-size: var(--font-size-desktop-md);
   }
 
   .video_list {
@@ -956,7 +987,7 @@ footer {
   }
 
   .beneficios {
-    height: 700px;
+    height: 500px;
   }
 
   .beneficio_item {

@@ -444,6 +444,7 @@ const home = {
           if (beneficios.length > 0) {
             renderTituloBeneficioHome(beneficios[0]);
             renderPortadaBeneficioHome(beneficios[0]);
+            renderBotonCursoBeneficio()
             renderSliderBeneficioHome(beneficios);
           } else {
             $("#sliderBeneficioHome").html(
@@ -819,11 +820,10 @@ function renderLogrosHome(logros) {
   logros.forEach((logr) => {
     html += `
          <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
-            <img src="${logr.logr_UrlIcon}" alt="" />
+             <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
           <div class="description text-white w-100">
               <div class="items">
-                  <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
-                  <h3 class="p-1 m-1 ">${logr.logr_Nombre}</h3>
+                  <h3>${logr.logr_Nombre}</h3>
               </div>
               <p class="fs-8 texto-descriptivo-quick_data">
                   ${logr.logr_Descripcion}
@@ -1124,6 +1124,15 @@ function renderPortadaBeneficioHome(bene) {
                      alt="" />
       `;
   $("#portadaBeneficioHome").append(html);
+}
+
+function renderBotonCursoBeneficio(beneficio) {
+  const botonCursoHome = `      
+            <a href="/Beneficio/Index">Ver todo los benificios </a>
+            <img src="../../shared/assets/home/etapas/empezar_test.svg"
+                 alt="" />      
+      `;
+  $("#botonBeneficios").append(botonCursoHome);
 }
 function renderSliderBeneficioHome(beneficio) {
   let slider = "";
