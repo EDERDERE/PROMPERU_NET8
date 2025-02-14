@@ -12,5 +12,13 @@
   --red-primary: #FF3737;
   --gray-primary: rgba(147, 141, 145, 0.11);
   --gray-bold: #433E39;
-  --font-helvetica: 'Helvetica Neue LT Std' 
+  --font-helvetica: 'Helvetica Neue LT Std';
+  --font-size-mobile: 1rem;
+  --font-size-mobile-sm: .8rem;
+  --font-size-mobile-title: 2rem;
+  --font-size-tablet: 1.5rem;
+  --font-size-desktop-paragrahp: 1.2rem;
+  --font-size-desktop-subtitle: 1.3rem;
+  --font-size-desktop: 2rem;
+  --font-size-desktop-title: 2.5rem;
 }

@@ -3,6 +3,10 @@
 .hero {
   height: 236px;
 }
+.hero .content p {
+  font-size: var(--font-size-mobile);
+  line-height: 14px;
+}
 
 .hero_bg {
   width: 100%;
@@ -105,10 +109,8 @@
   font-weight: 400;
 }
 
-
 .texto-descriptivo-quick_data {
   overflow-wrap: break-word;
-  /* overflow: hidden; */
   margin-top: -6px;
 }
 
@@ -123,12 +125,12 @@
   overflow-x: auto;
   overflow-y: hidden;
   box-sizing: content-box;
-  scrollbar-width: none; /* Oculta en Firefox */
-  -ms-overflow-style: none; /* Oculta en IE y Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .quick_data .container::-webkit-scrollbar {
-  display: none; /* Oculta en Chrome, Safari y Edge */
+  display: none;
 }
 
 .quick_data .container .item {
@@ -137,9 +139,23 @@
   margin-right: 6px;
   gap: 10px;
 }
+.quick_data h3 {
+  font-size: var(--font-size-mobile);
+}
 
+.quick_data p {
+  margin-top: 0.1rem;
+  font-size: var(--font-size-mobile-sm);
+  margin: 0 auto;
+}
 .quick_data .container .item .description {
   width: 101px;
+}
+
+.quick_data .items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .description h3 {
@@ -151,8 +167,8 @@
 }
 
 .texto-que-es {
-
-  font-weight: 500;
+  font-size: var(--font-size-mobile);
+  font-weight: normal;
   line-height: 20px;
   padding-right: 21px;
   text-align: left;
@@ -161,8 +177,8 @@
 
 /* === Nuestro requisitos === */
 .icon-img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 45px;
 }
 
 .list-group-item {
@@ -183,8 +199,8 @@
 }
 
 .text-requisitos {
-  font-weight: 300;
-  font-size: 0.75rem;
+  font-weight: normal;
+  font-size: var(--font-size-mobile);
   line-height: 14.06px;
   color: var(--color-text);
   text-align: left;
@@ -211,19 +227,13 @@
 
 /* === Perfil Empresarial === */
 
-.perfil .max-image {
-  max-width: 210px;
-}
-
 .perfil .max-text {
   max-width: 160px;
-  font-size: 1.1rem;
+  font-size: var(--font-size-mobile);
   font-weight: 500;
   color: var(--color-text);
-  margin: 1.5rem 0 ;
+  margin: 1.5rem 0;
 }
-
-
 
 /* === Etapas de inscripcion === */
 .container-inscripcion {
@@ -238,8 +248,8 @@
 
 .container-import .p-principal {
   color: rgb(110, 110, 110);
-  text-align: center;
-  font-size: 0.719rem;
+  font-size: var(--font-size-mobile);
+
 }
 
 .nav-items {
@@ -271,6 +281,10 @@
 
 .left-align {
   margin-right: 2rem;
+}
+
+.video_about {
+  height: 400px;
 }
 
 .step-content {
@@ -310,6 +324,13 @@
   background: #fff;
   rotate: 45deg;
 }
+
+
+.exito_video {
+  height: 380px;
+  margin: auto;
+}
+
 
 .step-image img {
   width: 100%;
@@ -427,7 +448,7 @@
 .button-test a {
   color: var(--color-white);
   text-decoration: none;
-  font-size: 1.063rem;
+  font-size: var(--font-size-mobile);
 }
 
 .button-test img {
@@ -464,10 +485,10 @@
 .testomnios_swiper .swiper-wrapper .swiper-slide.swiper-slide-active {
   scale: 1.1;
 }
-.testimonials_container .swiper-button-prev{
+.testimonials_container .swiper-button-prev {
   display: none;
 }
-.testimonials_container .swiper-button-next{
+.testimonials_container .swiper-button-next {
   display: none;
 }
 
@@ -502,10 +523,10 @@
   top: 100%;
   transform: translate(-50%, -50%);
 }
-.testomnio_item .container-linkedin{
+.testomnio_item .container-linkedin {
   bottom: -85px;
 }
-.testomnio_item .container-linkedin span{
+.testomnio_item .container-linkedin span {
   font-size: 12px;
   font-weight: 600;
 }
@@ -610,7 +631,6 @@ footer {
   margin: auto;
 }
 
-
 @media screen and (min-width: 768px) {
   .logo_ministerio {
     width: 200px;
@@ -648,6 +668,11 @@ footer {
   .Button-Test img {
     width: 15px;
     height: 15px;
+  }
+
+  .hero .content p {
+    font-size: var(--font-size-tablet);
+    line-height: 18px;
   }
 
   .graduated_companies {
@@ -702,8 +727,6 @@ footer {
   }
 }
 @media screen and (min-width: 992px) {
-  
-
   .hero {
     margin-top: -41px;
     height: 380px;
@@ -714,7 +737,8 @@ footer {
   }
 
   .hero .content p {
-    font-size: 1.875rem;
+    font-size: var(--font-size-desktop);
+    line-height: 28px;
   }
 
   .quick_data h4 {
@@ -745,12 +769,19 @@ footer {
   .quick_data h3 {
     font-size: 1.2rem;
     line-height: 20px;
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
   }
 
   .quick_data p {
-    font-size: 1rem;
+    font-size: var(--font-size-desktop-paragrahp);
     line-height: 1.2rem;
+  }
+
+  .quick_data .items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.7rem;
   }
 
   .title-que-es {
@@ -758,22 +789,22 @@ footer {
   }
 
   .texto-que-es {
-    font-size: 1.5rem;
+    font-size: var(--font-size-desktop-paragrahp);
     line-height: 30px;
   }
 
-  .video_about {
-    height: 400px;
-  }
-
   .text-requisitos {
-    font-size: 1.25rem;
+    font-size: var(--font-size-desktop-paragrahp);
     line-height: 30px;
   }
 
   .icon-img {
     width: 60px;
     height: 60px;
+  }
+
+  .perfil .max-image {
+    max-width: 210px;
   }
 
   .container-import .p-principal {
@@ -836,6 +867,11 @@ footer {
     color: #b2b2b2;
   }
 
+  .texto-descriptivo-quick_data {
+
+    font-size: var(--font-size-desktop-paragrahp);
+  }
+  
   .cursos_swiper .button_brochure {
     border: 1px solid #0070ba;
     color: #0070ba;
@@ -937,15 +973,15 @@ footer {
     font-size: 16px;
     color: #848484;
   }
-  .testimonials_container .swiper-button-prev{
-  left: -2rem;
-}
-.testimonials_container .swiper-button-next{
-  right: -2rem;
-}
-.testimonials_container .swiper-button-prev::after,
-.testimonials_container .swiper-button-next::after{
-  font-size: 18px;
-  font-weight: 600;
-}
+  .testimonials_container .swiper-button-prev {
+    left: -2rem;
+  }
+  .testimonials_container .swiper-button-next {
+    right: -2rem;
+  }
+  .testimonials_container .swiper-button-prev::after,
+  .testimonials_container .swiper-button-next::after {
+    font-size: 18px;
+    font-weight: 600;
+  }
 }

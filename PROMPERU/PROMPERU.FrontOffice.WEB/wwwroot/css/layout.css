@@ -100,6 +100,7 @@
     z-index: 9;
     height: 100vh;
     display: none;
+
     padding: 0 1.5rem;
   }
   
@@ -109,7 +110,7 @@
     justify-content: flex-start;
     margin: 0;
     color: #636466;
-    font-size: 1.2rem;
+    font-size: var(--font-size-mobile);
     line-height: 1.2rem;
     text-align: start;
     text-decoration: none;
@@ -124,7 +125,9 @@
   }
 
   .section_title{
-    font-size: 2.5rem;
+    height: auto;
+    line-height: normal;
+    font-size: var(--font-size-mobile-title);
     color: #403C3D;
   }
   
@@ -132,6 +135,12 @@
     :root {
       font-size: 12px !important;
     }
+
+    .section_title{
+      font-size: var(--font-size-desktop-title);
+      color: #403C3D;
+    }
+
     .main_nav {
       width: 100%;
       border-bottom-right-radius: 20px;

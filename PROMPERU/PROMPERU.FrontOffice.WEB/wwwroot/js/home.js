@@ -23,22 +23,16 @@ const home = {
       url: "/Logo/ListarLogos",
       dataType: "json",
       success: function ({ success, logos, message }) {
-        console.log("Respuesta de logos:", logos);
-
-        // Limpiar el contenedor de logos antes de renderizar
         const $logoHome = $("#logoHome");
         $logoHome.empty();
 
         if (success) {
           if (logos.length > 0) {
-            // Renderizar el primer logo disponible
             renderLogoHome(logos[0]);
           } else {
-            // Si no hay logos, mostrar un mensaje adecuado
             $logoHome.html("<p>No hay información de logos disponibles.</p>");
           }
         } else {
-          // Mostrar alerta de error si no hay logos disponibles
           Swal.fire({
             icon: "error",
             title: "No hay logos disponibles",
@@ -156,7 +150,7 @@ const home = {
           if (testimonios.length > 0) {
             // Renderizar el titulo y el slide de los testimonios
             renderTituloTestHome(testimonios[0]);
-                renderSlideTestHome(testimonios);
+            renderSlideTestHome(testimonios);
           } else {
             // Si no hay testimonios, mostrar un mensaje adecuado
             $slideTestHome.html(
@@ -543,7 +537,6 @@ const home = {
         if (banners.length > 0) {
           renderSliderBannerHome(banners);
 
-          // Esperar a que el DOM se actualice antes de inicializar Swiper
           requestAnimationFrame(() => {
             initSwiper(".mySwiper", {
               direction: "vertical",
@@ -828,9 +821,9 @@ function renderLogrosHome(logros) {
          <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
             <img src="${logr.logr_UrlIcon}" alt="" />
           <div class="description text-white w-100">
-              <div class="d-flex flex-row align-items-center">
-                  <h4 class=" me-2">11</h4> 
-                  <h3 class="fs-10">${logr.logr_Nombre}</h3>
+              <div class="items">
+                  <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
+                  <h3 class="p-1 m-1 ">${logr.logr_Nombre}</h3>
               </div>
               <p class="fs-8 texto-descriptivo-quick_data">
                   ${logr.logr_Descripcion}
@@ -937,7 +930,7 @@ function closeMenu() {
   $(".main_nav").hide("slow");
 }
 function renderLogoHome(logo) {
-    const html = `
+  const html = `
   <div class="d-flex align-items-center gap-2">
       <img
             src="${logo.logo_UrlPrincipal}"
@@ -1032,9 +1025,9 @@ function renderSliderBannerHome(banners) {
   let slider = "";
   banners.forEach((bann, index) => {
     if (bann.bann_Orden > 0) {
-      const isActive = index === 1 ? "active" : "";
+
       slider += `
-                  <div class="swiper-slide">
+              <div class="swiper-slide">
                 <picture class="hero_bg">
                     <source srcset="${bann.bann_URLImagen}" media="(min-width: 768px)" />
                     <source srcset="${bann.bann_URLImagen}" media="(min-width: 992px)" />
@@ -1064,7 +1057,7 @@ function renderTituloCasoHome(caso) {
   $("#tituloCasoHome").append(html);
 }
 function renderPortadaCasoHome(caso) {
-    const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
+  const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
   const html = `
           <iframe width="100%"
                         height="100%"
@@ -1386,9 +1379,9 @@ function renderSeleccionarVideo() {
 
     // Obtener la URL del video (puedes almacenar la URL en un atributo personalizado como "data-video")
     const videoURL = $(this).data("video");
- 
+
     // Actualizar el iframe con la nueva URL
-      $(".exito_video iframe").attr("src", getEmbedUrl(videoURL) );
+    $(".exito_video iframe").attr("src", getEmbedUrl(videoURL));
   });
 }
 function cambiarImagenDinamica(imagenUrl) {
