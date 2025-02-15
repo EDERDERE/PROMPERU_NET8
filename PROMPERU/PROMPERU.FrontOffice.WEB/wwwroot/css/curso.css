@@ -495,7 +495,7 @@ footer {
 }
 
     .title_init strong {
-        color: var(--color-primary);
+        color: #C4122F;
     }
 
 @media screen and (min-width: 768px) {
