@@ -50,49 +50,49 @@ function loadListarContacto() {
                 </div>
 
                  <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Correo Electronico</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_Correo}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Correo Electronico</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_Correo}" disabled>
               </div>
 
                 <div class="mb-3">
-                    <label for="description-${formularioContacto.test_ID}" class="form-label fw-semibold">Descripción</label>
-                    <textarea id="description-${formularioContacto.test_ID}" class="form-control" rows="3" placeholder="${formularioContacto.fcon_DescripcionSubTitulo}"
+                    <label for="description-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Descripción</label>
+                    <textarea id="description-${formularioContacto.fcon_ID}" class="form-control" rows="3" placeholder="${formularioContacto.fcon_Descripcion}"
                               disabled></textarea>
                 </div>
 
               <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Dirección</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_Direccion}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Dirección</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_Direccion}" disabled>
               </div>
 
                 <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Horario</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_Horario}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Horario</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_Horario}" disabled>
               </div>
                 <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Nombre del botón</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_NombreBoton}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Nombre del botón</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_NombreBoton}" disabled>
               </div>
 
               <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Titulo Izquierda</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_SubTitulo}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Titulo Izquierda</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_SubTitulo}" disabled>
               </div>
 
 
                 <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Titulo Derecha</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_SubTituloDos}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Titulo Derecha</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_SubTituloDos}" disabled>
               </div>
 
               <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Telefono</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_Telefono}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Telefono</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_Telefono}" disabled>
               </div>
 
               <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Titulo Principal</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_Titulo}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Titulo Principal</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_Titulo}" disabled>
               </div>
 
               <hr />
@@ -101,30 +101,30 @@ function loadListarContacto() {
 
 
               <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Descripcion Banner</label>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Descripcion Banner</label>
                
-                 <textarea id="description-${formularioContacto.test_ID}" class="form-control" rows="3" placeholder="${formularioContacto.fcon_Descripcion}"
+                 <textarea id="description-${formularioContacto.fcon_ID}" class="form-control" rows="3" placeholder="${formularioContacto.fcon_Descripcion}"
                               disabled></textarea>
               </div>
 
                <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Nombre Boton</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_NombreBotonDos}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Nombre Boton</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_NombreBotonDos}" disabled>
               </div>
 
                <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">Titulo</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_TituloSeccion}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">Titulo</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_TituloSeccion}" disabled>
               </div>
 
                <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">URL Imagen</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_UrlImagen}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">URL Imagen</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_UrlImagen}" disabled>
               </div>
 
                <div class="mb-3">
-                <label for="icon-url-${formularioContacto.test_ID}" class="form-label fw-semibold">URL politicas</label>
-                <input type="text"  id="icon-url-${formularioContacto.test_ID}" class="form-control" value="${formularioContacto.fcon_UrlPoliticas}" disabled>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">URL politicas</label>
+                <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_UrlPoliticas}" disabled>
               </div>
 
 
@@ -151,6 +151,16 @@ function loadListarContacto() {
 }
 
 function loadEditarContacto() {
+    const showAlert = (type, title, text, callback) => {
+        Swal.fire({
+            icon: type,
+            title: title,
+            text: text,
+            confirmButtonText: "Aceptar",
+        }).then(() => {
+            if (callback) callback();
+        });
+    };
   const assignModalValues = (modal, data) => {
     Object.keys(data).forEach((key) => {
       modal.find(`#${key}`).val(data[key] ?? "");
@@ -160,10 +170,10 @@ function loadEditarContacto() {
   const handleAjaxRequest = (url, data, successMessage, errorMessage) => {
     $.ajax({
       type: "POST",
-      url: url,
-      contentType: "application/json",
-      data: JSON.stringify(data),
-      success: function (response) {
+      url: url, 
+      data: data,
+        success: function (response) {
+          console.log('response',response)
         if (response.success) {
           showAlert("success", "¡Éxito!", successMessage, () =>
             location.reload()
@@ -183,8 +193,9 @@ function loadEditarContacto() {
 
     const modalData = {
       editIdContacto: button.data("id"),
-      editCorreo: button.data("correo"),
-      editDescripccion: button.data("descripcionsubtitulo"),
+        editCorreo: button.data("correo"),
+        editDescripccion: button.data("descripcion"),
+        editDescripccionSubtitulo: button.data("descripcionsubtitulo"),
       editDireccion: button.data("direccion"),
       editHorario: button.data("horario"),
       editNombreBoton: button.data("nombreboton"),
@@ -224,7 +235,7 @@ function loadEditarContacto() {
       urlIconBoton: "data",
       urlIconBotonDos: "data",
     };
-
+    console.log('gd',formularioContactoDto)
     if (
       Object.values(formularioContactoDto).every((value) => value.trim() !== "")
     ) {
