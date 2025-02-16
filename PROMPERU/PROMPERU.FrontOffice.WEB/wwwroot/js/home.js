@@ -712,6 +712,12 @@ function openMenu() {
 function closeMenu() {
   $(".main_nav").hide("slow");
 }
+
+window.addEventListener("resize", function () {
+  if (window.innerWidth >= 992) {
+    $(".main_nav").show(); 
+  }
+});
 function renderLogoHome(logo) {
   const html = `
   <div class="d-flex align-items-center gap-2">

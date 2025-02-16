@@ -1,11 +1,11 @@
-import {
-  loadListarLogos,
-  loadListarMenus,
-  loadListarFooters,
-} from "./layout.js";
+import { loadListFooters, loadListLogos, loadListMenus } from "./layout.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadListarLogos();
-  loadListarMenus();
-  loadListarFooters();
+
+  loadListLogos();
+  loadListMenus();
+  loadListFooters();
+
+
 });

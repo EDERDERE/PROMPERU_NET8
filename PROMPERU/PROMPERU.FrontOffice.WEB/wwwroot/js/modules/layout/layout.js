@@ -1,25 +1,24 @@
 import { fetchData } from "../../../shared/js/apiService.js";
 import { renderLogo, renderMenu, renderFooter } from "./render.js";
 
-export async function loadListarLogos() {
+export async function loadListLogos() {
   const data = await fetchData("/Logo/ListarLogos");
-  if (data && data.logos.length > 0) {
+  if (data?.logos?.length > 0) {
     renderLogo(data.logos[0]);
   }
 }
 
-export async function loadListarMenus() {
-  const data = await fetchData("/Menu/ListarMenus");
-  if (data && data.menus.length > 0) {
-    renderMenu(data.menus);
+export async function loadListMenus() {
+  const menuData = await fetchData("/Menu/ListarMenus");
+  const logoData = await fetchData("/Logo/ListarLogos");
+  if ((menuData?.menus?.length || logoData?.logos?.length) > 0) {
+    renderMenu(menuData.menus, logoData.logos[0]);
   }
 }
 
-export async function loadListarFooters() {
+export async function loadListFooters() {
   const data = await fetchData("/Footer/ListarFooters");
-
-  console.log(data, 'prueba')
-  if (data && data.footers.length > 0) {
+  if (data?.footers?.length > 0) {
     renderFooter(data.footers[0]);
   }
 }
