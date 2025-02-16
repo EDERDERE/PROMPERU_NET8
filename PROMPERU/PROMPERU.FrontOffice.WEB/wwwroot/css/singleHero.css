@@ -1,6 +1,5 @@
 .hero {
     height: auto;
-    background: url('../../shared/assets/cursos/hero.png');
     background-size: cover;
     display: flex;
     align-items: center;

@@ -5,7 +5,6 @@ $(document).ready(function () {
   home.loadListarBeneficios();
   home.loadListarCasos();
   home.loadListarBanners();
-  home.loadListarInscripcions();
   home.loadListarLogros();
   home.loadListarTestimonios();
   home.loadListarPerfilEmpresarials();
@@ -481,54 +480,7 @@ const home = {
     });
   },
 
-  loadListarInscripcions: function () {
-    $.ajax({
-      type: "GET", // M�todo GET para obtener las inscripciones
-      url: "/Inscripcion/ListarInscripcions", // URL del controlador que devuelve la lista de inscripciones
-      dataType: "json",
-      success: function (response) {
-        console.log("Respuesta del servidor:", response);
-
-        // Verificar si la respuesta es exitosa
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay inscripciones disponibles",
-            text: response?.message || "No se encontraron inscripciones.",
-          });
-          return;
-        }
-
-        const inscripcions = response.inscripcions || [];
-
-        // Limpia el contenedor de inscripciones antes de renderizar
-        $("#tituloInscHome").empty();
-        $("#descrInscrHome").empty();
-        $("#sliderInscrHome").empty();
-        $("#botonInscHome").empty();
-
-        if (inscripcions.length > 0) {
-          renderTituloInscHome(inscripcions[0]);
-          renderDescrInscrHome(inscripcions[0]);
-          renderBotonInscHome(inscripcions[0]);
-          renderSliderInscrHome(inscripcions);
-        } else {
-          $("#sliderInscrHome").html(
-            "<p>No se encontraron inscripciones disponibles.</p>"
-          );
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en AJAX:", status, error);
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al cargar las inscripciones",
-          text: "Hubo un problema al cargar las inscripciones. Por favor, int�ntelo nuevamente m�s tarde.",
-        });
-      },
-    });
-  },
+ 
 };
 function renderContactoHome(fcont) {
   const html = `
@@ -751,28 +703,7 @@ function renderLogoHome(logo) {
       `;
   $("#logoHome").append(html);
 }
-function renderTituloInscHome(insc) {
-  const html = `
-     <h2 class="text-start section_title">${insc.insc_Titulo}</h2>
-      `;
-  $("#tituloInscHome").append(html);
-}
-function renderDescrInscrHome(insc) {
-  const html = `  
-              ${insc.insc_Contenido}
-           
-      `;
-  $("#descrInscrHome").append(html);
-}
-function renderBotonInscHome(insc) {
-  const html = `  
-             <a href="">  ${insc.insc_NombreBoton}</a>
-                    <img src="${insc.insc_URLIconBoton}"
-                         alt="${insc.insc_URLIconBoton}" />
-           
-      `;
-  $("#botonInscHome").append(html);
-}
+
 
 function renderBotonRequisitosHome(req) {
   const html = `  
@@ -782,34 +713,7 @@ function renderBotonRequisitosHome(req) {
       `;
   $("#botonRequisitoHome").append(html);
 }
-function renderSliderInscrHome(inscripcions) {
-  let slider = "";
-  inscripcions.slice(0, 5).forEach((insc, index) => {
-    if (insc.insc_Orden > 0) {
-      const isActive = index === 1 ? "active" : "";
-      slider += `
-                <div class="step">
-                    <div class="step-image">
-                        <img src="${insc.insc_URLImagen}"
-                             alt="Paso 1" />
-                    </div>
-                    <div class="step-content ${
-                      index % 2 == 0 ? "left-align" : "right-align"
-                    }">
-                        <p class="step-indicator">PASO ${insc.insc_Paso}</p>
-                        <h3 class="step-title">${insc.insc_TituloPaso}</h3>
-                        <p class="p-p">
-                            ${insc.insc_Descripcion}
-                        </p>
-                    </div>
-                </div>
 
-                 `;
-    }
-  });
-
-  $("#sliderInscrHome").append(slider);
-}
 function renderSliderBannerHome(banners) {
   let slider = "";
   banners.forEach((bann, index) => {
