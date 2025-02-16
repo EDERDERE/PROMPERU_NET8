@@ -49,6 +49,9 @@ builder.Services.AddScoped<RegionDA>();
 builder.Services.AddScoped<RegionBL>();
 builder.Services.AddScoped<TipoEmpresaDA>();
 builder.Services.AddScoped<TipoEmpresaBL>();
+builder.Services.AddScoped<ContenidoInteractivoDA>();
+builder.Services.AddScoped<ContenidoInteractivoBL>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
