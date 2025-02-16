@@ -1,64 +1,45 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Promperú | Turismo In</title>
-    <link
-      rel="stylesheet"
-      href="../../shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../shared/libraries/swiper-11.2.0/swiper-bundle.min.css"
-    />
-       <link rel="stylesheet" href="~/css/layout.css">
-   <link href="~/css/home.css" rel="stylesheet" />
-       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-       <script src="~/shared/libraries/jquery-3.7.1/js/jquery.min.js"></script>
-  </head>
+<html lang="es">
 
-  <body>
-    <div class="d-flex flex-column">
-      <div class="header">
-        <div
-          class="container d-flex justify-content-between align-items-center px-3 px-md-5 h-100"
-          id="logoHome"
-        >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promperú | Turismo In</title>
+  <link rel="stylesheet" href="../../shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../shared/libraries/swiper-11.2.0/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="~/css/layout.css">
+  <link href="~/css/home.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="~/shared/libraries/jquery-3.7.1/js/jquery.min.js"></script>
+</head>
 
-        </div>
+<body>
+  <div class="d-flex flex-column">
+    <div class="header">
+      <div class="container d-flex justify-content-between align-items-center px-3 px-md-5 h-100" id="logoHome">
       </div>
-      <nav class="main_nav ">
-        <div class="d-flex d-lg-none justify-content-end cursor-pointer"> 
+    </div>
+    <nav class="main_nav ">
+      <div class="d-flex d-lg-none justify-content-end cursor-pointer">
         <button class="btn btn-transparent" id="closeMenu" onclick="closeMenu()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg"
+            viewBox="0 0 16 16">
+            <path
+              d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
           </svg>
         </button>
-        </div>
-        <ul
-          class="list-unstyled"  
-          id="menuHome"
-        >
-        </ul>
-         <a
-            href=""
-            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-block d-lg-none"
-          >
-            Empezar mi test
-            <img
-              src="../../shared/assets/icons/diagnostic.svg"
-              alt="icono de diagnostico"
-            />
-          </a>
-      </nav>    
+      </div>
+      <ul class="list-unstyled" id="menuHome">
+      </ul>
+    </nav>
   </div>
-      @RenderBody();
+  @RenderBody()
   <footer id="footerHome">
- 
+
   </footer>
-    <script src="../../shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="../../shared/libraries/swiper-11.2.0/swiper-bundle.min.js"></script>
-    <script src="~/js/home.js" defer></script>
-  </body>
+  <script src="../../shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="../../shared/libraries/swiper-11.2.0/swiper-bundle.min.js"></script>
+  <script src="~/js/home.js" defer></script>
+</body>
+
 </html>

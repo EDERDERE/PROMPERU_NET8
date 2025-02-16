@@ -467,15 +467,7 @@
             color: #403C3D;
         }
 
-footer {
-    background: #494949;
-}
 
-.logo_footer {
-    width: 100px;
-    background: #494949;
-    opacity: 0.5;
-}
 
 .logo_ministerio {
     width: 200px;
@@ -488,29 +480,14 @@ footer {
     grid-template-columns: repeat(2, 1fr);
 }
 
-.button-outline {
-    border: 1px solid #C3122C;
-    color: #C3122C;
-    padding: 0.7rem 2rem;
-    border-radius: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-}
 
-    .button-outline:hover {
-        background-color: #0070BA;
-        color: #fff
-    }
 
 .title_init {
     font-weight: bold;
 }
 
     .title_init strong {
-        color: var(--color-primary);
+        color: #C4122F;
     }
 
 @media screen and (min-width: 768px) {
