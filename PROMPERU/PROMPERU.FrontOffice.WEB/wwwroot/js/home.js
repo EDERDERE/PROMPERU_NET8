@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  home.loadListarLogos();
-  home.loadListarMenus();
   home.loadListarCursos();
   home.loadListarInformacion();
   home.loadListarRequisitos();
@@ -13,84 +11,9 @@ $(document).ready(function () {
   home.loadListarPerfilEmpresarials();
   home.loadListarFormularioContactos();
   home.loadListarEmpresaGraduadas();
-  home.loadListarFooters();
 });
 
 const home = {
-  loadListarLogos: function () {
-    $.ajax({
-      type: "GET",
-      url: "/Logo/ListarLogos",
-      dataType: "json",
-      success: function ({ success, logos, message }) {
-        const $logoHome = $("#logoHome");
-        $logoHome.empty();
-
-        if (success) {
-          if (logos.length > 0) {
-            renderLogoHome(logos[0]);
-          } else {
-            $logoHome.html("<p>No hay información de logos disponibles.</p>");
-          }
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "No hay logos disponibles",
-            text: message || "No se encontraron logos.",
-          });
-        }
-      },
-      error: function (xhr, status, error) {
-        // Manejo de errores con m�s detalles
-        Swal.fire({
-          icon: "error",
-          title: "Error al cargar los logos",
-          text: `Hubo un problema al cargar los logos. Error: ${error}. Por favor, int�ntelo nuevamente m�s tarde.`,
-        });
-        console.error("Error al cargar los logos:", status, error);
-      },
-    });
-  },
-  loadListarMenus: function () {
-    $.ajax({
-      type: "GET",
-      url: "/Menu/ListarMenus",
-      dataType: "json",
-      success: function ({ success, menus, message }) {
-        console.log("Respuesta de men�s:", menus);
-
-        // Limpiar el contenedor de men�s antes de renderizar
-        const $menuHome = $("#menuHome");
-        $menuHome.empty();
-
-        if (success) {
-          if (menus.length > 0) {
-            // Renderizar los men�s si hay disponibles
-            renderMenuHome(menus);
-          } else {
-            // Si no hay men�s, mostrar un mensaje adecuado
-            $menuHome.html("<p>No hay información de men�s disponibles.</p>");
-          }
-        } else {
-          // Mostrar alerta de error si no hay men�s disponibles
-          Swal.fire({
-            icon: "error",
-            title: "No hay men�s disponibles",
-            text: message || "No se encontraron men�s.",
-          });
-        }
-      },
-      error: function (xhr, status, error) {
-        // Manejo de errores con m�s detalles
-        Swal.fire({
-          icon: "error",
-          title: "Error al cargar los men�s",
-          text: `Hubo un problema al cargar los men�s. Error: ${error}. Por favor, int�ntelo nuevamente m�s tarde.`,
-        });
-        console.error("Error al cargar los men�s:", status, error);
-      },
-    });
-  },
   loadListarLogros: function () {
     $.ajax({
       type: "GET",
@@ -99,7 +22,6 @@ const home = {
       success: function ({ success, logros, message }) {
         console.log("Respuesta de logros:", logros);
 
-        // Limpiar el contenedor de logros antes de renderizar
         const $logrosHome = $("#logrosHome");
         $logrosHome.empty();
 
@@ -107,13 +29,11 @@ const home = {
           if (logros.length > 0) {
             renderLogrosHome(logros);
           } else {
-            // Si no hay logros, mostrar un mensaje adecuado
             $logrosHome.html(
               "<p>No hay información de logros disponibles.</p>"
             );
           }
         } else {
-          // Mostrar alerta de error si no se encuentran logros
           Swal.fire({
             icon: "error",
             title: "No hay logros disponibles",
@@ -121,8 +41,7 @@ const home = {
           });
         }
       },
-      error: function (xhr, status, error) {
-        // Manejo de errores con m�s detalles
+      error: function (status, error) {
         Swal.fire({
           icon: "error",
           title: "Error al cargar los logros",
@@ -140,7 +59,6 @@ const home = {
       success: function ({ success, testimonios, message }) {
         console.log("Respuesta de testimonios:", testimonios);
 
-        // Limpiar los contenedores antes de renderizar
         const $tituloTestHome = $("#tituloTestHome");
         const $slideTestHome = $("#slideTestHome");
         $tituloTestHome.empty();
@@ -148,17 +66,14 @@ const home = {
 
         if (success) {
           if (testimonios.length > 0) {
-            // Renderizar el titulo y el slide de los testimonios
             renderTituloTestHome(testimonios[0]);
             renderSlideTestHome(testimonios);
           } else {
-            // Si no hay testimonios, mostrar un mensaje adecuado
             $slideTestHome.html(
               "<p>No hay información de testimonios disponibles.</p>"
             );
           }
         } else {
-          // Mostrar alerta si no se encuentran testimonios
           Swal.fire({
             icon: "error",
             title: "No hay testimonios disponibles",
@@ -166,8 +81,7 @@ const home = {
           });
         }
       },
-      error: function (xhr, status, error) {
-        // Manejo de errores con m�s detalles
+      error: function (status, error) {
         Swal.fire({
           icon: "error",
           title: "Error al cargar los testimonios",
@@ -199,16 +113,16 @@ const home = {
         const perfilEmpresarials = response.perfilEmpresarials || [];
 
         if (perfilEmpresarials.length > 0) {
-          renderTituloPEmpHome(perfilEmpresarials[0]); // Renderiza el t�tulo con el primer elemento
-          renderSlidePEmpHome(perfilEmpresarials); // Renderiza los sliders
+          renderTituloPEmpHome(perfilEmpresarials[0]);
+          renderSlidePEmpHome(perfilEmpresarials);
         } else {
           $("#sliderPEmpHome").html(
             "<p>No hay información de testimonios disponibles.</p>"
           );
         }
       },
-      error: function (xhr, status, error) {
-        console.error("Error en AJAX:", status, error); // Log en consola para debugging
+      error: function (status, error) {
+        console.error("Error en AJAX:", status, error);
 
         Swal.fire({
           icon: "error",
@@ -225,7 +139,7 @@ const home = {
       dataType: "json",
       success: function (response) {
         console.log("Respuesta del servidor:", response);
-        $("#contactoHome").empty(); // Limpia el contenedor antes de renderizar
+        $("#contactoHome").empty();
 
         if (!response?.success) {
           Swal.fire({
@@ -239,7 +153,7 @@ const home = {
         const formularioContactos = response.formularioContactos || [];
 
         if (formularioContactos.length > 0) {
-          renderContactoHome(formularioContactos[0]); // Renderiza el primer contacto
+          renderContactoHome(formularioContactos[0]);
         } else {
           $("#contactoHome").html(
             "<p>No hay información de contacto disponible.</p>"
@@ -247,7 +161,7 @@ const home = {
         }
       },
       error: function (xhr, status, error) {
-        console.error("Error en AJAX:", status, error); // Log en consola para debugging
+        console.error("Error en AJAX:", status, error);
 
         Swal.fire({
           icon: "error",
@@ -444,7 +358,7 @@ const home = {
           if (beneficios.length > 0) {
             renderTituloBeneficioHome(beneficios[0]);
             renderPortadaBeneficioHome(beneficios[0]);
-            renderBotonCursoBeneficio()
+            renderBotonCursoBeneficio();
             renderSliderBeneficioHome(beneficios);
           } else {
             $("#sliderBeneficioHome").html(
@@ -487,14 +401,13 @@ const home = {
 
         const casos = response.casos || [];
 
-        // Limpia los contenedores antes de renderizar
         $(
           "#tituloCasoHome, #sliderCasoHome, #portadaCasoHome, #botonCasoHome"
         ).empty();
 
         if (casos.length > 0) {
           renderTituloCasoHome(casos[0]);
-          renderPortadaCasoHome(casos[0]);
+          renderPortadaCasoHome(casos[1]);
           renderBotonCasoHome(casos[0]);
           renderSliderCasoHome(casos);
           renderSeleccionarVideo();
@@ -616,48 +529,6 @@ const home = {
       },
     });
   },
-  loadListarFooters: function () {
-    $.ajax({
-      type: "GET", // M�todo GET para obtener los footers
-      url: "/Footer/ListarFooters", // URL del controlador que devuelve la lista de footers
-      dataType: "json",
-      success: function (response) {
-        console.log("Respuesta del servidor:", response);
-
-        // Verificar si la respuesta es exitosa
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay footers disponibles",
-            text: response?.message || "No se encontraron footers.",
-          });
-          return;
-        }
-
-        const footers = response?.footers || [];
-
-        // Limpia el contenedor de footers antes de renderizar
-        $("#footerHome").empty();
-
-        if (footers.length > 0) {
-          renderFooterHome(footers[0]);
-        } else {
-          $("#footerHome").html(
-            "<p>No se encontraron footers disponibles.</p>"
-          );
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en AJAX:", status, error);
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al cargar los footers",
-          text: "Hubo un problema al cargar los footers. Por favor, int�ntelo nuevamente m�s tarde.",
-        });
-      },
-    });
-  },
 };
 function renderContactoHome(fcont) {
   const html = `
@@ -749,9 +620,8 @@ function renderBotonEGHome(egra) {
   $("#botonEGHome").append(html);
 }
 function renderSliderEGHome(empresas) {
-  // Genera los elementos del men� din�micamente
   let html = "";
-  empresas.slice(1, 5).forEach((egra) => {
+  empresas.slice(1, 7).forEach((egra) => {
     html += `
               <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
                 <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
@@ -835,100 +705,7 @@ function renderLogrosHome(logros) {
   });
   $("#logrosHome").append(html);
 }
-function renderFooterHome(foot) {
-  const html = `
-  <div class="logo_footer mb-4">
-    <div class="container py-3">
-    <img src="${foot.foot_UrlLogoPrincipal}" alt="" class="img-fluid">
-    </div>
-  </div>
-      <div class="container pt-4 pb-5">
-      <div class="row">
-        <div class="col-12 col-md-8 text-white">
-          <h4 class="mb-3 fs-5"> ${foot.foot_Nombre}</h4>
-          <p class="d-flex align-items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
-            </svg>
-            ${foot.foot_Contacto}
-          </p>
-          <p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-              <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-            </svg>
-            ${foot.foot_Ubicacion}
-          </p>
-        </div>
-        <div class="col-12 col-md-4 text-white text-center text-md-end">
-          <strong>${foot.foot_Ayuda}</strong>
-          <p class="mb-5">Comunicate con nosotros</p>
-          <div class="d-flex gap-3 justify-content-center justify-content-md-end mb-5">
-            <a href="" class="text-white text-decoration-none">
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
-              </svg>
-            </a>
-            <a href="" class="text-white text-decoration-none">
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
-              </svg>
-            </a>
-          </div>
-          
-        </div>
-        <div class="d-flex align-items-end gap-2 justify-content-between">
-          <span class="text-white">Copyright 2024 PROMPERÚ</span>
-<div class="logo_ministerio">
-            <img src="${foot.foot_UrlLogoSecundario}" alt="" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-      `;
-  $("#footerHome").append(html);
-}
-function renderMenuHome(menus) {
-  // Genera los elementos del men� din�micamente
-  let html = `
-        <li class="home">
-            <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none ${
-              window.location.pathname === "/" ||
-              window.location.pathname === "/Home" ||
-              window.location.pathname.includes("/Home/")
-                ? "active"
-                : ""
-            }">
-              <?xml version="1.0" ?><svg
-                fill="none"
-                height="20"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10.5495 2.53189C11.3874 1.82531 12.6126 1.82531 13.4505 2.5319L20.2005 8.224C20.7074 8.65152 21 9.2809 21 9.94406V19.7468C21 20.7133 20.2165 21.4968 19.25 21.4968H15.75C14.7835 21.4968 14 20.7133 14 19.7468V14.2468C14 14.1088 13.8881 13.9968 13.75 13.9968H10.25C10.1119 13.9968 9.99999 14.1088 9.99999 14.2468V19.7468C9.99999 20.7133 9.2165 21.4968 8.25 21.4968H4.75C3.7835 21.4968 3 20.7133 3 19.7468V9.94406C3 9.2809 3.29255 8.65152 3.79952 8.224L10.5495 2.53189ZM12.4835 3.6786C12.2042 3.44307 11.7958 3.44307 11.5165 3.6786L4.76651 9.37071C4.59752 9.51321 4.5 9.72301 4.5 9.94406V19.7468C4.5 19.8849 4.61193 19.9968 4.75 19.9968H8.25C8.38807 19.9968 8.49999 19.8849 8.49999 19.7468V14.2468C8.49999 13.2803 9.2835 12.4968 10.25 12.4968H13.75C14.7165 12.4968 15.5 13.2803 15.5 14.2468V19.7468C15.5 19.8849 15.6119 19.9968 15.75 19.9968H19.25C19.3881 19.9968 19.5 19.8849 19.5 19.7468V9.94406C19.5 9.72301 19.4025 9.51321 19.2335 9.37071L12.4835 3.6786Z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span class="d-block d-lg-none">Inicio</span>
-            </a>
-        </li>
-    `;
-  menus.forEach((item) => {
-    html += `
-            <li>
-                <a href="${
-                  item.menu_UrlIconBoton || "#"
-                }" class="text-decoration-none ${
-      window.location.pathname.includes(item.menu_UrlIconBoton) ? "active" : ""
-    }">
-                    ${item.menu_Nombre}
-                </a>
-            </li>
-        `;
-  });
-  $("#menuHome").append(html);
-}
+
 function openMenu() {
   $(".main_nav").show("slow");
 }
@@ -1031,7 +808,6 @@ function renderSliderBannerHome(banners) {
   let slider = "";
   banners.forEach((bann, index) => {
     if (bann.bann_Orden > 0) {
-
       slider += `
               <div class="swiper-slide">
                 <picture class="hero_bg">
@@ -1085,8 +861,8 @@ function renderBotonCasoHome(caso) {
 function renderSliderCasoHome(casos) {
   let slider = "";
   casos.slice(0, 5).forEach((caso, index) => {
-      if (caso.cexi_Orden > 0) {
-          const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
+    if (caso.cexi_Orden > 0) {
+      const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
       const isActive = index === 1 ? "active" : "";
       slider += `
                     <div class="video_item row ${isActive}" data-video="${embedUrl}">
@@ -1192,17 +968,20 @@ function renderSliderRequisitoHome(requisitos) {
   $("#sliderRequisitoHome").append(slider);
 }
 function getEmbedUrl(videoUrl) {
-    try {
-        const url = new URL(videoUrl);
-        if (url.hostname.includes("youtube.com") || url.hostname.includes("youtu.be")) {
-            const videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
-            if (videoId) {
-                return `https://www.youtube.com/embed/${videoId}`;
-            }
-        }
-    } catch (error) {
+  try {
+    const url = new URL(videoUrl);
+    if (
+      url.hostname.includes("youtube.com") ||
+      url.hostname.includes("youtu.be")
+    ) {
+      const videoId =
+        url.searchParams.get("v") || url.pathname.split("/").pop();
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
     }
-    return "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Video de prueba (Rickroll 😆)
+  } catch (error) {}
+  return "https://www.youtube.com/embed/dQw4w9WgXcQ";
 }
 
 function renderSeccionHome(info) {
@@ -1251,7 +1030,7 @@ function renderSliderCursoHome(cursos) {
   let sliderCurso = "";
 
   cursos.forEach((curs) => {
-      if (curs.curs_Orden > 0 && curs.curs_EsHabilitado != 0) {
+    if (curs.curs_Orden > 0 && curs.curs_EsHabilitado != 0) {
       sliderCurso += `
                 <div class="swiper-slide p-3">
                     <div class="card rounded-4 overflow-hidden border-0 shadow-md">
@@ -1269,13 +1048,13 @@ function renderSliderCursoHome(cursos) {
                                       formatearFechaInversa(
                                         curs.curs_FechaInicio
                                       )
-          )} de ${obtenerMes(
-              curs.curs_FechaInicio
-          )} al ${obtenerDia(
+                                    )} de ${obtenerMes(
+        curs.curs_FechaInicio
+      )} al ${obtenerDia(
         formatearFechaInversa(curs.curs_FechaFin)
-          )} de ${obtenerMes(
-              curs.curs_FechaFin
-          )} del ${obtenerAno(formatearFechaInversa(curs.curs_FechaFin))}</span>
+      )} de ${obtenerMes(curs.curs_FechaFin)} del ${obtenerAno(
+        formatearFechaInversa(curs.curs_FechaFin)
+      )}</span>
                                 </p>
                                 <p class="d-flex align-items-center gap-1  mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0070BA" class="bi bi-clock-history" viewBox="0 0 16 16">
@@ -1397,9 +1176,9 @@ function obtenerAno(fecha) {
   return fechaObj.getFullYear();
 }
 function obtenerMes(fechaStr) {
-    const fecha = new Date(fechaStr);
-    const opciones = { month: "long" };
-    return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+  const fecha = new Date(fechaStr);
+  const opciones = { month: "long" };
+  return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
 }
 function renderSeleccionarVideo() {
   // Escuchar clic en cualquier elemento con la clase "video_item"
@@ -1419,9 +1198,7 @@ function renderSeleccionarVideo() {
 }
 function cambiarImagenDinamica(imagenUrl) {
   // Usamos jQuery para modificar el background-image
-    $(".hero").css("background-image", "url(" + imagenUrl + ")");
-
-
+  $(".hero").css("background-image", "url(" + imagenUrl + ")");
 }
 // Funci�n para mostrar mensajes de error con Swal
 function showErrorMessage(message) {

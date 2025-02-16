@@ -611,31 +611,7 @@
   color: #403c3d;
 }
 
-footer {
-  background: #494949;
-}
-
-.logo_footer {
-  width: 100%;
-  background: #454344;
-  opacity: 0.5;
-}
-.logo_footer img {
-  width: 100px;
-}
-
-.logo_ministerio {
-  width: 200px;
-  margin: auto;
-}
-
 @media screen and (min-width: 768px) {
-  .logo_ministerio {
-    width: 200px;
-    margin: 0;
-    margin-left: auto;
-  }
-
   .step {
     flex-direction: row;
     align-items: center;
@@ -782,8 +758,7 @@ footer {
     margin-bottom: 0.1rem;
   }
 
-  
-  .quick_data .items h3{
+  .quick_data .items h3 {
     margin-bottom: 0.2rem;
   }
 
@@ -840,7 +815,7 @@ footer {
 
   .step-content p {
     font-size: var(--font-size-desktop-paragrahp);
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 
   .step-indicator {
@@ -852,11 +827,10 @@ footer {
     font-weight: bold;
     font-size: var(--font-size-desktop-md) !important;
   }
-  
+
   .beneficio_item p {
     font-size: var(--font-size-desktop-paragrahp) !important;
   }
-
 
   .Button-Test a {
     font-size: 1.25rem;
@@ -927,7 +901,7 @@ footer {
     margin: auto;
   }
 
-  .container-inscripcion .step-title{
+  .container-inscripcion .step-title {
     font-size: var(--font-size-desktop-md);
   }
 

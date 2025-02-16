@@ -596,18 +596,6 @@ body {
 .contacto .data p span {
   color: #403c3d;
 }
-footer {
-  background: #494949;
-}
-.logo_footer {
-  width: 100px;
-  background: #494949;
-  opacity: 0.5;
-}
-.logo_ministerio {
-  width: 200px;
-  margin: auto;
-}
 
 .cursos_grid {
   display: grid;
@@ -787,11 +775,6 @@ footer {
     gap: 1.5rem;
   }
 
-  .logo_ministerio {
-    width: 200px;
-    margin: 0;
-    margin-left: auto;
-  }
   .step {
     flex-direction: row;
     align-items: center;

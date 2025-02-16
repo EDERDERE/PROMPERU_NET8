@@ -1,0 +1,52 @@
+
+
+.logo_footer {
+  width: 100%;
+  background: var(--color-gray-2);
+}
+
+.logo_footer .help {
+  max-width: 170px;
+  text-align: justify;
+}
+
+.logo_footer .header {
+}
+
+.logo_content {
+  background-color: var( --color-gray);
+}
+.logo_footer img {
+  width: 100px;
+}
+
+.logo_ministerio {
+  width: 200px;
+
+}
+
+.help-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo_content .footer {
+  border-top: 1px solid var(--color-gray-3);
+}
+
+@media (min-width: 992px) {
+  .logo_footer .help {
+    max-width: 100%;
+  }
+
+  .help-section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 0rem;
+  }
+
+
+}

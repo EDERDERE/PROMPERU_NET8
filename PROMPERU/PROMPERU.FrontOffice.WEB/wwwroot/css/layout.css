@@ -1,5 +1,6 @@
 @import "../../shared/styles/variables.css";
 @import "../../shared/styles/header.css";
+@import "footer.css";
 
 
 @font-face {
@@ -145,6 +146,9 @@
     font-size: var(--font-size-mobile-title);
     color: #403C3D;
   }
+
+
+
   
   @media (min-width: 992px) {
     :root {
@@ -157,6 +161,7 @@
     }
 
     .main_nav {
+      list-style: none;
       width: 100%;
       border-bottom-right-radius: 20px;
       position: sticky;
@@ -171,6 +176,7 @@
       max-width: 90%;
     }
     .main_nav ul{
+      list-style: none;
       width: 100%;
       max-width: 1320px;
       margin: 0 auto;

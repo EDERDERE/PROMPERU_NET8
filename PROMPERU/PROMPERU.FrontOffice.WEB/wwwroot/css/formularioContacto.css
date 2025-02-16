@@ -469,10 +469,6 @@
 
 
 
-.logo_ministerio {
-    width: 200px;
-    margin: auto;
-}
 
 .cursos_grid {
     display: grid;
@@ -514,11 +510,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .logo_ministerio {
-        width: 200px;
-        margin: 0;
-        margin-left: auto;
-    }
+
 
     .step {
         flex-direction: row;
