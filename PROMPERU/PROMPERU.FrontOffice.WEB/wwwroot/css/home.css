@@ -1,5 +1,5 @@
 @import "../shared/styles/variables.css";
-
+@import "./etapasInscripcion.css";
 
 .hero {
   height: 236px;
@@ -238,7 +238,7 @@
 }
 
 /* === Etapas de inscripcion === */
-.container-inscripcion {
+/* .container-inscripcion {
   font-family: var(--font-helvetica);
   padding: 20px;
 }
@@ -284,10 +284,6 @@
   margin-right: 2rem;
 }
 
-.video_about {
-  height: 400px;
-}
-
 .step-content {
   flex: 1;
   text-align: left;
@@ -324,11 +320,6 @@
   border-top: 1px solid #e4e5d8;
   background: #fff;
   rotate: 45deg;
-}
-
-.exito_video {
-  height: 380px;
-  margin: auto;
 }
 
 .step-image img {
@@ -380,6 +371,17 @@
   width: 50%;
   height: 50%;
   object-fit: contain;
+} */
+
+/* === Etapas de inscripcion === */
+
+.video_about {
+  height: 400px;
+}
+
+.exito_video {
+  height: 380px;
+  margin: auto;
 }
 
 .cursos_swiper h4 {

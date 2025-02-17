@@ -8,6 +8,11 @@
   font-weight: 550;
 }
 
+.container-import {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .container-import .p-principal {
   color: rgb(110, 110, 110);
   font-size: var(--font-size-mobile);
@@ -86,11 +91,6 @@
   rotate: 45deg;
 }
 
-.exito_video {
-  height: 380px;
-  margin: auto;
-}
-
 .step-image img {
   width: 100%;
   max-width: 300px;
@@ -152,7 +152,7 @@
     margin: 0 auto;
   }
 
-  
+
   .step {
     flex-direction: row;
     align-items: center;
