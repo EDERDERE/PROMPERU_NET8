@@ -161,7 +161,7 @@ body {
   .list-unstyled {
     list-style: none;
     padding-left: 2.1rem;
-}
+  }
 
   .section_title {
     font-size: var(--font-size-desktop-title);

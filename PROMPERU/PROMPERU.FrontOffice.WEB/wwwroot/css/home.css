@@ -615,7 +615,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .step {
+  /* .step {
     flex-direction: row;
     align-items: center;
   }
@@ -635,7 +635,7 @@
 
   .p-p {
     font-size: 16px;
-  }
+  } */
 
   .Button-Test {
     font-size: 18px;

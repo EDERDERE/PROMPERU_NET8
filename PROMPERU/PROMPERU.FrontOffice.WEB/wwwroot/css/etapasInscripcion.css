@@ -11,6 +11,7 @@
 .container-import {
   max-width: 800px;
   margin: 0 auto;
+
 }
 
 .container-import .p-principal {
@@ -27,6 +28,8 @@
 
 .step {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 6px;
   padding: 15px;
@@ -38,16 +41,9 @@
 }
 
 .step:nth-child(even) {
-  flex-direction: row-reverse;
+  flex-direction: column;
 }
 
-.right-align {
-  margin-left: 2rem;
-}
-
-.left-align {
-  margin-right: 2rem;
-}
 
 .video_about {
   height: 400px;
@@ -63,33 +59,7 @@
   position: relative;
 }
 
-.right-align::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -26px;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border-left: 1px solid #e4e5d8;
-  border-bottom: 1px solid #e4e5d8;
-  background: #fff;
-  rotate: 45deg;
-}
 
-.left-align::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -6px;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border-right: 1px solid #e4e5d8;
-  border-top: 1px solid #e4e5d8;
-  background: #fff;
-  rotate: 45deg;
-}
 
 .step-image img {
   width: 100%;
@@ -148,7 +118,7 @@
     max-width: 900px;
     color: rgb(110, 110, 110);
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 0 auto;
   }
 
@@ -168,11 +138,53 @@
   }
 
   .step-title {
-    font-size: 22px;
+    font-size: var(--font-size-desktop-paragrahp);
   }
+
+  .right-align {
+    margin-left: 2rem;
+  }
+  
+  .left-align {
+    margin-right: 2rem;
+  }
+  
 
   .step-content p {
     font-size: var(--font-size-desktop-paragrahp);
     margin: 0.5rem 0;
+  }
+
+  .step:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+
+  .right-align::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -26px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-left: 1px solid #e4e5d8;
+    border-bottom: 1px solid #e4e5d8;
+    background: #fff;
+    rotate: 45deg;
+  }
+  
+  .left-align::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-right: 1px solid #e4e5d8;
+    border-top: 1px solid #e4e5d8;
+    background: #fff;
+    rotate: 45deg;
   }
 }
