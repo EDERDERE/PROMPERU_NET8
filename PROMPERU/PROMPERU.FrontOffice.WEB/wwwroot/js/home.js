@@ -260,32 +260,22 @@ const home = {
         console.log("Respuesta del servidor:", response);
 
         if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay cursos disponibles",
-            text: response?.message || "No se encontraron cursos.",
-          });
-          return;
+          console.warn('no hay cursos disponibles')
         }
 
         const cursos = response.cursos || [];
 
-        // Limpia los contenedores antes de renderizar
+
         $("#tituloCursoHome, #botonCursoHome, #sliderCursoHome").empty();
 
         if (cursos.length > 0) {
           renderTituloCursoHome(cursos[0]);
           renderBotonCursoHome(cursos[0]);
           renderSliderCursoHome(cursos);
-        } else {
-          $("#sliderCursoHome").html(
-            "<p>No se encontraron cursos disponibles.</p>"
-          );
         }
       },
-      error: function (xhr, status, error) {
+      error: function ( status, error) {
         console.error("Error en AJAX:", status, error);
-
         Swal.fire({
           icon: "error",
           title: "Error al cargar los cursos",
@@ -342,12 +332,11 @@ const home = {
   },
   loadListarBeneficios: function () {
     $.ajax({
-      type: "GET", // M�todo GET para obtener los sliders
-      url: "/Beneficio/ListarBeneficios", // URL del controlador que devuelve la lista de sliders
+      type: "GET",
+      url: "/Beneficio/ListarBeneficios",
       dataType: "json",
       success: function (response) {
         console.log(response);
-        // Limpia el contenedor de sliders antes de renderizar
         $("#tituloBeneficioHome").empty();
         $("#sliderBeneficioHome").empty();
         $("#portadaBeneficioHome").empty();
@@ -479,8 +468,6 @@ const home = {
       },
     });
   },
-
- 
 };
 function renderContactoHome(fcont) {
   const html = `
@@ -575,11 +562,24 @@ function renderSliderEGHome(empresas) {
   let html = "";
   empresas.slice(1, 7).forEach((egra) => {
     html += `
-              <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
-                <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
-                <h4>${egra.egra_NombreEmpresa}</h4>
-                <a href="#">${egra.egra_Correo}</a>
-                <span>${egra.egra_Descripcion}</span>
+            <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
+              <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
+              <h4>${egra.egra_NombreEmpresa}</h4>
+              <a href="mailto:${egra.egra_Correo}">${egra.egra_Correo}</a>
+              <span>${egra.egra_Descripcion}</span>
+              <span>${egra.egra_Correo}</span>
+              <span>${egra.egra_RUC}</span>
+              <span>${egra.tipoEmpresa}</span>
+              <span>${egra.egra_RazonSocial}</span>
+              <span>${egra.egra_RUC}</span>
+              <span>${egra.egra_Mercados}</span>
+              <span>${egra.egra_Certificaciones}</span>
+              <span>${egra.egra_Direccion}</span>
+              <span>${egra.region}</span>
+              <span>${egra.egra_PaginaWeb}</span>
+              <span>${egra.egra_RedesSociales}</span>
+              <span>${egra.egra_SegmentosAtendidos}</span>
+              <span>${egra.egra_Titulo}</span>
             </div>
         `;
   });
@@ -627,10 +627,16 @@ function renderSlideTestHome(testimonios) {
                     <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z" />
                 </svg>
             </span>
+             
             <p class="description">${test.test_Descripcion}</p>
             <div class="avatar">
                 <img src="${test.test_UrlImagen}" alt="">
-            </div>           
+            </div>
+            <div class="info-testimony">
+              <h5>Jose Perez</h5>
+              <p>IMB Consulting - Lima </p>
+            </div>
+           
         </div>
     </div>
         `;
@@ -667,7 +673,7 @@ function closeMenu() {
 
 window.addEventListener("resize", function () {
   if (window.innerWidth >= 992) {
-    $(".main_nav").show(); 
+    $(".main_nav").show();
   }
 });
 function renderLogoHome(logo) {
@@ -703,7 +709,6 @@ function renderLogoHome(logo) {
       `;
   $("#logoHome").append(html);
 }
-
 
 function renderBotonRequisitosHome(req) {
   const html = `  
@@ -812,8 +817,8 @@ function initSwiper(selector, config) {
 function renderPortadaBeneficioHome(bene) {
   const html = `
      <img src="${bene.bene_URLImagen}"
-                     class="img-fluid rounded-4 h-100"
-                     alt="" />
+      class="img-fluid rounded-4 image-benefits"
+      alt="" />
       `;
   $("#portadaBeneficioHome").append(html);
 }
