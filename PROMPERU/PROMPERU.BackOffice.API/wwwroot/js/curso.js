@@ -6,7 +6,8 @@
   loadEliminarCurso();
   loadGuardarOrdenCurso();
   cargarTiposEvento("inputTipoEvento", "");
-  cargarTiposModalidad("inputTipoModalidad","");
+/*  cargarTiposModalidad("inputTipoModalidad","");*/
+  cargarTiposModalidad("modalidadContainer", []);
 
   
 });
@@ -61,6 +62,8 @@ function renderTitulo(curso) {
                             data-urliconboton="${curso.curs_UrlIconBoton}"
                             data-tituloSeccion="${curso.curs_TituloSeccion}"
                             data-descripcionSeccion="${curso.curs_Descripcion}"
+                              data-titulocalendario="${curso.curs_TituloCalendario}"
+                            data-descripcioncalendario="${curso.curs_DescripcionCalendario}"
                             data-urlBanner="${curso.curs_UrlImagen}"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -123,6 +126,29 @@ function renderTitulo(curso) {
 
               </div>
             </div>
+                <hr>
+
+            <div class="row">
+              <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for="titulo-seccion-${curso.curs_ID}" class="form-label fw-semibold">Titulo Calendario</label>
+
+                </div>
+                <input type="text" id="titulo-seccion-${curso.curs_ID}" class="form-control" placeholder="${curso.curs_TituloCalendario}" disabled>
+
+              </div>
+
+              <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for="descripcion-banner-${curso.curs_ID}" class="form-label fw-semibold">Descripción Calendario</label>
+
+                </div>
+                <textarea id="descripcion-banner-${curso.curs_ID}" class="form-control" rows="3" placeholder="${curso.curs_DescripcionCalendario}"
+                  disabled></textarea>
+
+              </div>
+              
+            </div>
                 `;
   $("#tituloContainer").append(tituloCard);
 }
@@ -131,7 +157,38 @@ function renderSliders(cursos) {
   let slidersHTML = "";
 
   cursos.forEach((curso) => {
-    if (curso.curs_Orden > 0) {
+      if (curso.curs_Orden > 0) {
+          const listModalidad = curso.tipoModalidadList;
+          console.log('listModalidad', listModalidad)
+
+          let modalidadesHTML = listModalidad
+              .map((modalidad) => {
+                  let fechaContainer = "";
+
+                  if (modalidad.tmod_ID === 2 || modalidad.tmod_ID === 3) {
+                      fechaContainer = `
+              <div class="row mt-2" id="fechaContainer_${modalidad.tmod_ID}">
+                <div class="col">
+                  <input type="text" id="fechaInicio_${modalidad.fechaInicio}" class="form-control" placeholder="${formatearFecha(modalidad.fechaInicio)}" disabled>
+                </div>
+                <div class="col">
+                  <input type="text" id="fechaFin_${modalidad.fechaFin}" class="form-control" placeholder="${formatearFecha(modalidad.fechaFin)}" disabled>
+                </div>
+              </div>`;
+                  }
+
+                  return `
+            <div class="form-check" >
+              <input class="form-check-input modalidad-checkbox" type="checkbox" id="modalidad_${modalidad.tmod_ID}" value="${modalidad.tmod_ID}" checked disabled>
+              <label class="form-check-label" for="modalidad_${modalidad.tmod_ID}">
+                ${modalidad.tmod_Nombre}
+              </label>
+              ${fechaContainer}
+            </div>`;
+              })
+              .join("");
+
+
       slidersHTML += `
             <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -168,6 +225,7 @@ function renderSliders(cursos) {
                             data-brochurelink="${curso.curs_LinkBoton}"
                             data-id_evento="${curso.teve_ID}"
                              data-id_modalidad="${curso.tmod_ID}"
+                             data-listModalidad='${JSON.stringify(curso.tipoModalidadList)}'
                                 >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -193,17 +251,7 @@ function renderSliders(cursos) {
                     }" class="form-control" placeholder="${
         curso.curs_NombreCurso
       }" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="objetivo-${
-                      curso.curs_ID
-                    }" class="form-label fw-semibold">Objetivo del curso</label>
-                    <input type="text" id="objetivo-${
-                      curso.curs_ID
-                    }" class="form-control" placeholder="${curso.curs_Objetivo}"
-                           disabled>
-                </div>
+                </div>            
 
                 <div class="mb-3">
                     <label for="description-${
@@ -217,27 +265,7 @@ function renderSliders(cursos) {
                               disabled></textarea>
                 </div>
 
-                   <div class="mb-3">
-                    <label for="fechaInicio-${
-                      curso.curs_ID
-                    }" class="form-label fw-semibold">Fecha Inicio</label>
-                    <input type="text" id="fechaInicio-${
-                      curso.curs_ID
-                    }" class="form-control" value="${formatearFecha(
-        curso.curs_FechaInicio
-      )}" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="fechaFin-${
-                      curso.curs_ID
-                    }" class="form-label fw-semibold">Fecha Fin</label>
-                    <input type="text" id="fechaFin-${
-                      curso.curs_ID
-                    }" class="form-control" placeholder="${formatearFecha(
-        curso.curs_FechaFin
-      )}" disabled>
-                </div>
+                  
 
                 <div class="mb-3">
     <label for="estado-${curso.curs_ID}" class="form-label fw-semibold">Estado</label>
@@ -257,22 +285,14 @@ function renderSliders(cursos) {
                         <option value="${curso.teve_ID}">${curso.curs_Evento
       }</option>
                     </select>
-                </div>
-              
-
+                </div>                         
                 <div class="mb-3">
-                    <label for="modalidad-${
-                      curso.curs_ID
-                    }" class="form-label fw-semibold">Modalidad</label>
-                    <select class="form-select" id="modalidad-${
-                      curso.curs_ID
-                    }" disabled>
-                        <option value="${curso.tmod_ID}">${
-        curso.curs_Modalidad
-      }</option>
-                    </select>
-                </div>
-
+            <label class="form-label fw-semibold">Modalidad*</label>
+            <div id="modalidadContainer2">
+              ${modalidadesHTML}
+            </div>
+          </div>
+               
                 <div class="mb-3">
                     <label for="urlImagen-${
                       curso.curs_ID
@@ -327,13 +347,12 @@ function loadCrearCurso() {
   $("#saveCreateSlider").click(function () {
     // Recopilar datos del formulario
     const cursoData = {
-        nombreCurso: $("#createCurso").val(),
-      objetivo: $("#createObjetivo").val(),
-      description: $("#createDescription").val(),
-      fechaInicio: $("#createFechaInicial").val(),
-      fechaFin: $("#createFechaFinal").val(),
+        nombreCurso: $("#createCurso").val().trim(),   
+        description: $("#createDescription").val().trim(),
+        //fechaInicio: $("#createFechaInicial").val().trim(),
+        //fechaFin: $("#createFechaFinal").val().trim(),
         id_evento: $("#inputTipoEvento").val(),
-        id_modalidad: $("#inputTipoModalidad").val(),
+        //id_modalidad: $("#inputTipoModalidad").val(),
         esHabilitado: $("#createEstado").val(),
       urlImagen: $("#createUrlImagen").val(),
       nombreBoton: $("#createNombreBoton").val(),
@@ -351,10 +370,52 @@ function loadCrearCurso() {
       return;
     }
 
+      // Obtener modalidades seleccionadas
+      let modalidadesSeleccionadas = getSelectedModalities();
+      let validadcionmodalidadesSeleccionadas = getSelectedModalities();
+      console.log('data modalidadesSeleccionadas 1', modalidadesSeleccionadas)
+      console.log('data validadcionmodalidadesSeleccionadas 1', validadcionmodalidadesSeleccionadas.splice(1,3))
+      // Validar que al menos una modalidad esté seleccionada
+      if (modalidadesSeleccionadas.length === 0) {
+          Swal.fire({
+              title: "Advertencia",
+              text: "Debe seleccionar al menos una modalidad.",
+              icon: "warning",
+              confirmButtonText: "Aceptar",
+          });
+          return;
+      }
+
+      // Validar las fechas en cada modalidad
+      for (let modalidad of validadcionmodalidadesSeleccionadas.splice(1,3)) {
+          if (!modalidad.fechaInicio || !modalidad.fechaFin) {
+              Swal.fire({
+                  title: "Error en modalidades",
+                  text: "Todas las modalidades seleccionadas deben tener fechas de inicio y fin.",
+                  icon: "error",
+                  confirmButtonText: "Aceptar",
+              });
+              return;
+          }
+
+          if (modalidad.fechaInicio > modalidad.fechaFin) {
+              Swal.fire({
+                  title: "Error en fechas de modalidad",
+                  text: `La fecha de inicio de la modalidad con ID ${modalidad.id} no puede ser posterior a su fecha final.`,
+                  icon: "error",
+                  confirmButtonText: "Aceptar",
+              });
+              return;
+          }
+      }
+
     $.ajax({
       type: "POST",
       url: "/Curso/InsertarCurso", // URL del controlador para crear el curso
-      data: cursoData,
+        data: {
+            cursoDto: cursoData, // Datos del curso
+            modalidadesSeleccionadas: modalidadesSeleccionadas // Datos de las modalidades seleccionadas
+        },
       success: function (response) {
         if (response.success) {
           Swal.fire({
@@ -405,6 +466,8 @@ function loadEditarCurso() {
     });
   };
 
+    
+
   const handleAjaxRequest = (url, data, successMessage, errorMessage) => {
     $.ajax({
       type: "POST",
@@ -429,12 +492,14 @@ function loadEditarCurso() {
     const button = $(event.relatedTarget);
     const modalData = {
       editIdTitulo: button.data("id"),
-      editTitulo: button.data("titulo"),
+        editTitulo: button.data("titulo"),
+        editTituloCalendario: button.data("titulocalendario"),
       editNombreBotonTitulo: button.data("nombrebotontitulo"),
       editUrlBoton: button.data("urliconboton"),
 
       editTituloSeccion: button.data("tituloseccion"),
-      editDescripcionSeccion: button.data("descripcionseccion"),
+        editDescripcionSeccion: button.data("descripcionseccion"),
+        editDescripcionCalendario: button.data("descripcioncalendario"),
       editUrlBanner: button.data("urlbanner"),
     };
 
@@ -455,7 +520,9 @@ function loadEditarCurso() {
       urlImagen: $("#editUrlBanner").val(),
         esHabilitado: 1,
         id_evento: 1,
-      id_modalidad:1
+        id_modalidad: 1,
+        TituloCalendario: $("#editTituloCalendario").val(),
+        descriptionCalendario: $("#editDescripcionCalendario").val(),
     };
 
     console.log(data);
@@ -486,38 +553,67 @@ function loadEditarCurso() {
       editDescription: button.data("description"),
       editFechaInicio: button.data("fechainicio"),
       editFechaFin: button.data("fechafin"),
-        editModalidad: button.data("modalidad"),
         editEvento: button.data("evento"),
       editUrlImagen: button.data("urlimagen"),
       editNombreBoton: button.data("nombreboton"),
         editUrlIcon: button.data("urlicon"),     
         editEstado: button.data("estado"),
         editBrochureUrl: button.data("brochurelink"),
+        editarModalidadContainer: button.data("listModalidad")
+
       };
+
+        // Manejo seguro de listmodalidad (parseo de JSON si es válido)
+        try {
+            modalData.editarModalidadContainer = JSON.parse(button.attr("data-listmodalidad") || "[]");
+        } catch (e) {
+            console.error("Error al parsear listmodalidad:", e);
+            modalData.editarModalidadContainer = [];
+        }
+
+
       console.log(modalData,'card');
       assignModalValues($(this), modalData);
-        cargarTiposModalidad("editTipoModalidad", modalData.editModalidad); 
-        cargarTiposEvento("editTipoEvento", modalData.editEvento);  
+  
+        cargarTiposEvento("editTipoEvento", modalData.editEvento);
 
+        cargarTiposModalidad("editarModalidadContainer", modalData.editarModalidadContainer);
+    
   });
 
-  $("#saveEditSlider").click(function () {
+    $("#saveEditSlider").click(function () {
+
+        const modalidadList = [];
+        const container = $("#editarModalidadContainer"); // Solo buscar dentro de este contenedor
+
+        // Obtener todas las modalidades seleccionadas dentro del contenedor
+        container.find(".modalidad-checkbox:checked").each(function () {
+            const modalidadId = $(this).val();
+            const fechaInicio = container.find(`#fechaInicio_${modalidadId}`).val();
+            const fechaFin = container.find(`#fechaFin_${modalidadId}`).val();
+
+            modalidadList.push({
+                tmod_ID: parseInt(modalidadId),
+                fechaInicio: fechaInicio || null,
+                fechaFin: fechaFin || null
+            });
+        });
+
     const data = {
       id: $("#editId").val(),
       orden: $("#editOrder").val(),
-      nombreCurso: $("#editNombreCurso").val(),
-      objetivo: $("#editObjetivo").val(),
-      description: $("#editDescription").val(),
-      fechaInicio: $("#editFechaInicio").val(),
-      fechaFin: $("#editFechaFin").val(),
-        id_modalidad: $("#editTipoModalidad").val(),
+      nombreCurso: $("#editNombreCurso").val(),    
+      description: $("#editDescription").val(),  
       urlImagen: $("#editUrlImagen").val(),
       nombreBoton: $("#editNombreBoton").val(),
         urlIcon: $("#editUrlIcon").val(),
         id_evento: $("#editTipoEvento").val(),
         esHabilitado: $("#editEstado").val(),
         linkBoton: $("#editBrochureUrl").val(),
-    };
+        ModalidadList: modalidadList,
+      };
+
+      
     console.log(data,'data')
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
@@ -642,11 +738,8 @@ function loadGuardarOrdenCurso() {
     $(".btn-link.text-primary").each(function () {
       data.Ids.push($(this).data("id"));
       data.Orders.push($(this).data("orden"));
-      data.NombreCursos.push($(this).data("nombrecurso"));
-      data.Objetivos.push($(this).data("objetivo"));
-      data.Descriptions.push($(this).data("description"));
-      data.FechaInicios.push($(this).data("fechainicio"));
-      data.FechaFinales.push($(this).data("fechafin"));
+      data.NombreCursos.push($(this).data("nombrecurso"));   
+      data.Descriptions.push($(this).data("description"));  
       data.Modalidades.push($(this).data("id_modalidad"));
       data.UrlImagenes.push($(this).data("urlimagen"));
       data.NombreBotones.push($(this).data("nombreboton"));
@@ -670,10 +763,7 @@ function loadGuardarOrdenCurso() {
       id: parseInt(id),
       orden: parseInt(data.NewOrders[index]),
       nombreCurso: data.NombreCursos[index].toString(),
-      objetivo: data.Objetivos[index].toString(),
       description: data.Descriptions[index].toString(),
-      fechaInicio: data.FechaInicios[index].toString(),
-      fechaFin: data.FechaFinales[index].toString(),
       nombreBoton: data.NombreBotones[index].toString(),
       UrlIcon: data.UrlIcons[index].toString(),
         UrlImagen: data.UrlImagenes[index].toString(),
@@ -760,92 +850,6 @@ function formatearFechaInversa(fechaISO) {
   return `${anio}-${mes}-${dia}`;
 }
 
-//async function cargarTiposEvento() {
-//    try {
-//        const response = await $.ajax({
-//            url: "/Curso/ListarTipoEventos",
-//            type: "GET",
-//            dataType: "json",
-//        });
-
-//        console.log("Lista de tipos de eventos:", response);
-
-//        const select = $("#inputTipoEvento");
-//        select.empty().append("<option selected>Seleccione su tipo</option>");
-
-//        if (
-//            Array.isArray(response.tipoEventos) &&
-//            response.tipoEventos.length > 0
-//        ) {
-//            response.tipoEventos.forEach((tipo) => {
-//                select.append(new Option(tipo.teve_Nombre, tipo.teve_ID));
-//            });
-//        } else {
-//            select.append(
-//                "<option disabled>No hay tipos de eventos disponibles</option>"
-//            );
-//        }
-//    } catch (error) {
-//        console.error("Error al cargar los tipos de eventos:", error);
-//        $("#inputTipoEvento")
-//            .empty()
-//            .append("<option disabled>Error al cargar tipos de eventos</option>");
-
-//        Swal.fire({
-//            icon: "error",
-//            title: "Error",
-//            text: "Hubo un problema al cargar los tipos de eventos. Int�ntelo m�s tarde.",
-//        });
-//    }
-//}
-
-async function cargarTiposModalidad(selectElementId, Tipovalor) {
-    console.log(selectElementId, Tipovalor, 'cargarTiposModalidad');
-
-    try {
-        const response = await $.ajax({
-            url: "/Curso/ListarTipoModalidads",
-            type: "GET",
-            dataType: "json",
-        });
-
-        console.log("Lista de tipos de Modalidads:", response);
-
-        const select = $("#" + selectElementId);
-        select.empty().append("<option selected>Seleccione su tipo</option>");
-
-        if (
-            Array.isArray(response.tipoModalidads) &&
-            response.tipoModalidads.length > 0
-        ) {
-            response.tipoModalidads.forEach((tipo) => {
-                // If the current tipo.tmod_ID matches Tipovalor, mark it as selected
-                if (tipo.tmod_Nombre === Tipovalor) {
-                    select.append(new Option(tipo.tmod_Nombre, tipo.tmod_ID, true, true));
-                } else {
-                    select.append(new Option(tipo.tmod_Nombre, tipo.tmod_ID));
-                }
-            });
-
-        } else {
-            select.append(
-                "<option disabled>No hay tipos de Modalidads disponibles</option>"
-            );
-        }
-    } catch (error) {
-        console.error("Error al cargar los tipos de Modalidads:", error);
-        $("#" + selectElementId)
-            .empty()
-            .append("<option disabled>Error al cargar tipos de Modalidads</option>");
-
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Hubo un problema al cargar los tipos de Modalidads. Inténtelo más tarde.",
-        });
-    }
-}
-
 async function cargarTiposEvento(selectElementId, Tipovalor) {
     console.log(selectElementId, Tipovalor, 'cargarTiposEvento');
 
@@ -893,3 +897,110 @@ async function cargarTiposEvento(selectElementId, Tipovalor) {
     }
 }
 
+async function cargarTiposModalidad(containerId, Tipovalor) {
+    console.log(containerId, Tipovalor, "Ingresó a la función cargarTiposModalidad");
+
+    try {
+        const response = await $.ajax({
+            url: "/Curso/ListarTipoModalidads",
+            type: "GET",
+            dataType: "json",
+        });
+
+        console.log("Lista de tipos de Modalidads:", response);
+
+        const container = $("#" + containerId);
+        container.empty(); // Limpiar antes de cargar nuevos datos
+
+        if (!Array.isArray(response.tipoModalidads) || response.tipoModalidads.length === 0) {
+            container.append("<p>No hay tipos de Modalidads disponibles</p>");
+            return;
+        }
+
+        // Mapear Tipovalor para una búsqueda rápida
+        const modalidadMap = Array.isArray(Tipovalor)
+            ? Tipovalor.reduce((acc, cur) => {
+                acc[cur.tmod_ID] = cur;
+                return acc;
+            }, {})
+            : {};
+
+        // Filtrar modalidades si el contenedor es editarModalidadContainer
+        const modalidadesFiltradas = containerId === "editarModalidadContainer"
+            ? response.tipoModalidads.filter(tipo => modalidadMap[tipo.tmod_ID])
+            : response.tipoModalidads;
+
+        if (modalidadesFiltradas.length === 0) {
+            container.append("<p>No hay modalidades seleccionadas</p>");
+            return;
+        }
+
+        // Determinar si los checkboxes deben estar deshabilitados
+        const isDisabled = containerId === "editarModalidadContainer" ? "disabled" : "";
+
+        const htmlContent = modalidadesFiltradas.reduce((html, tipo) => {
+            const modalidad = modalidadMap[tipo.tmod_ID];
+            const isChecked = modalidad ? "checked" : "";
+            const mostrarFechas = [2, 3].includes(tipo.tmod_ID);
+
+            // Si la modalidad existe en Tipovalor, obtener fechas
+            const fechaInicio = modalidad ? modalidad.fechaInicio : "";
+            const fechaFin = modalidad ? modalidad.fechaFin : "";
+
+            return html + `
+                <div class="form-check">
+                    <input class="form-check-input modalidad-checkbox" type="checkbox" 
+                        id="modalidad_${tipo.tmod_ID}" 
+                        value="${tipo.tmod_ID}" 
+                        ${isChecked} ${isDisabled}>
+                    <label class="form-check-label" for="modalidad_${tipo.tmod_ID}">
+                        ${tipo.tmod_Nombre}
+                    </label>   
+                    
+                    ${mostrarFechas ? `
+                    <div class="row mt-2" id="fechaContainer_${tipo.tmod_ID}">
+                        <div class="col">
+                            <input type="date" id="fechaInicio_${tipo.tmod_ID}" class="form-control" value="${formatearFechaInversa(fechaInicio)}" placeholder="Fecha Inicio" >
+                        </div>
+                        <div class="col">
+                            <input type="date" id="fechaFin_${tipo.tmod_ID}" class="form-control" value="${formatearFechaInversa(fechaFin)}" placeholder="Fecha Fin" >
+                        </div>
+                    </div>` : ""}
+                </div>
+            `;
+        }, "");
+
+        container.append(htmlContent);
+    } catch (error) {
+        console.error("Error al cargar los tipos de Modalidads:", error);
+        $("#" + containerId).empty().append("<p>Error al cargar tipos de Modalidads</p>");
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un problema al cargar los tipos de Modalidads. Inténtelo más tarde.",
+        });
+    }
+}
+
+
+
+function getSelectedModalities() {
+    console.log('getSelectedModalities')
+    let modalidades = [];
+    document.querySelectorAll("#modalidadContainer .form-check-input:checked").forEach((checkbox) => {
+        let modalidad = {
+            tmod_ID: checkbox.value
+        };
+
+        // Verifica si existen los inputs de fecha antes de acceder a su valor
+        let fechaInicioInput = document.getElementById(`fechaInicio_${checkbox.value}`);
+        let fechaFinInput = document.getElementById(`fechaFin_${checkbox.value}`);
+
+        modalidad.fechaInicio = fechaInicioInput ? fechaInicioInput.value : null;
+        modalidad.fechaFin = fechaFinInput ? fechaFinInput.value : null;
+
+        modalidades.push(modalidad);
+    });
+    return modalidades;
+}

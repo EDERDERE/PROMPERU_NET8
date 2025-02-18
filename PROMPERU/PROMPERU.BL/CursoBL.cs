@@ -10,11 +10,12 @@ namespace PROMPERU.BL
     {
         //private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly CursoDA _cursoDA;
-
+        private readonly CursoModalidadDA _cursoModalidadDA;
         // Constructor con inyección de dependencias
-        public CursoBL(CursoDA cursoDA)
+        public CursoBL(CursoDA cursoDA,CursoModalidadDA cursoModalidadDA)
         {
             _cursoDA = cursoDA ?? throw new ArgumentNullException(nameof(CursoDA));
+            _cursoModalidadDA = cursoModalidadDA ?? throw new ArgumentNullException(nameof(CursoModalidadDA));
         }
 
         public async Task<CursoBE> InsertarCursoAsync(CursoBE curso, string usuario, string ip)
@@ -112,6 +113,8 @@ namespace PROMPERU.BL
         //        throw new Exception("Error en la lógica de negocio al generar el reporte de los Cursos", ex);
         //    }
         //}
+
+       
     }
 
 }

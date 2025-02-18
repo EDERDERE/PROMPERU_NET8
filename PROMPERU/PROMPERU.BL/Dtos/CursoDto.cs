@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PROMPERU.BE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,11 @@ namespace PROMPERU.BL.Dtos
         public string urlImagen { get; set; }
         public string linkBoton { get; set; }
         public int esHabilitado { get; set; }
-        public string evento { get; set; }
+        public string tituloCalendario { get; set; }
         public int id_evento { get; set; }
         public int id_modalidad { get; set; }
-
-
+        public string descriptionCalendario { get; set; }
+        public List<TipoModalidadBE> ModalidadList { get; set; }
     }   
+
 }

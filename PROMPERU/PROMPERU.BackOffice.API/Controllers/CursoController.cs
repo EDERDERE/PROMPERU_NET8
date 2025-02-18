@@ -62,12 +62,12 @@ namespace PROMPERU.BackOffice.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertarCurso(CursoDto cursoDto)
+        public async Task<IActionResult> InsertarCurso(CursoDto cursoDto,List<TipoModalidadBE> modalidadesSeleccionadas)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
-                string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente
+                string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente         
 
                 var curso = new CursoBE
                 {
@@ -82,17 +82,23 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Curs_Descripcion = cursoDto.description,
                     Curs_Modalidad = cursoDto.modalidad,
                     Curs_DuracionHoras = cursoDto.duracionHoras,
-                    Curs_FechaInicio = cursoDto.fechaInicio,
-                    Curs_FechaFin = cursoDto.fechaFin,
+                    Curs_FechaInicio = null,
+                    Curs_FechaFin = null,
                     Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
                     Curs_UrlIcon = cursoDto.urlIcon,
                     Curs_UrlImagen = cursoDto.urlImagen,
                     Curs_LinkBoton = cursoDto.linkBoton,
                     Curs_EsHabilitado = cursoDto.esHabilitado,
                     Teve_ID = cursoDto.id_evento,
-                    Tmod_ID = cursoDto.id_modalidad
+                    Tmod_ID = 0,
+                    Curs_TituloCalendario = cursoDto.tituloCalendario,
+                    Curs_DescripcionCalendario = cursoDto.descriptionCalendario,
+                    TipoModalidadList = modalidadesSeleccionadas
                 };
-                await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica
+
+
+                await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica           
+
                 return RedirectToAction("ListarCursos");
             }
             catch (Exception ex)
@@ -130,7 +136,10 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Curs_LinkBoton = cursoDto.linkBoton,
                     Curs_EsHabilitado = cursoDto.esHabilitado,
                     Teve_ID = cursoDto.id_evento,
-                    Tmod_ID = cursoDto.id_modalidad
+                    Tmod_ID = cursoDto.id_modalidad,
+                    Curs_TituloCalendario = cursoDto.tituloCalendario,
+                    Curs_DescripcionCalendario = cursoDto.descriptionCalendario,
+                    TipoModalidadList = cursoDto.ModalidadList
                 };
                 await _cursoBL.ActualizarCursoAsync(Curso, usuario, ip, id); // Llamada asincrónica
                 return RedirectToAction("ListarCursos");
@@ -207,7 +216,9 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Curs_LinkBoton = cursoDto.linkBoton,
                         Curs_EsHabilitado = cursoDto.esHabilitado,
                         Teve_ID = cursoDto.id_evento,
-                        Tmod_ID = cursoDto.id_modalidad
+                        Tmod_ID = cursoDto.id_modalidad,
+                        Curs_TituloCalendario = cursoDto.tituloCalendario,
+                        Curs_DescripcionCalendario = cursoDto.descriptionCalendario
                     };
                     await _cursoBL.ActualizarCursoAsync(curso, usuario, ip, curso.Curs_ID); // Llamada asincrónica
                 }

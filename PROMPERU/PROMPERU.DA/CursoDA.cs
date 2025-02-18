@@ -9,11 +9,13 @@ namespace PROMPERU.DA
     {
         private readonly ConexionDB _conexionDB;
         private readonly AuditoriaDA _auditoriaDA;
+        private readonly CursoModalidadDA _cursoModalidadDA;
 
-        public CursoDA(ConexionDB conexionDB,AuditoriaDA auditoriaDA)
+        public CursoDA(ConexionDB conexionDB,AuditoriaDA auditoriaDA,CursoModalidadDA cursoModalidadDA)
         {
             _conexionDB = conexionDB;
             _auditoriaDA = auditoriaDA;
+            _cursoModalidadDA = cursoModalidadDA;
         }
 
         // Inserta un nuevo Curso y devuelve la fila creada
@@ -33,9 +35,9 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                 comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                 comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
-                comando.Parameters.AddWithValue("@Curs_Objetivo", curso.Curs_Objetivo);
+                comando.Parameters.AddWithValue("@Curs_DescripcionCalendario", curso.Curs_DescripcionCalendario);
                 comando.Parameters.AddWithValue("@Curs_Descripcion", curso.Curs_Descripcion);
-                comando.Parameters.AddWithValue("@Curs_Modalidad", curso.Curs_Modalidad);
+                comando.Parameters.AddWithValue("@Curs_TituloCalendario", curso.Curs_TituloCalendario);
                 comando.Parameters.AddWithValue("@Curs_DuracionHoras", curso.Curs_DuracionHoras);
                 comando.Parameters.AddWithValue("@Curs_FechaInicio", curso.Curs_FechaInicio);
                 comando.Parameters.AddWithValue("@Curs_FechaFin", curso.Curs_FechaFin);
@@ -59,6 +61,12 @@ namespace PROMPERU.DA
 
                 if (nuevoID > 0)
                 {
+                    foreach (var item in curso.TipoModalidadList)
+                    {
+                        item.Curs_ID = nuevoID;
+                        await _cursoModalidadDA.RegistrarCursoModalidadAsync(item);
+                    }                 
+
                     await _auditoriaDA.RegistrarAuditoriaAsync(usuario, "I","Curso", ip, nuevoID);
                 }
 
@@ -185,12 +193,12 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                     comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                     comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
-                    comando.Parameters.AddWithValue("@Curs_Objetivo", curso.Curs_Objetivo);
+                    comando.Parameters.AddWithValue("@Curs_DescripcionCalendario", curso.Curs_DescripcionCalendario);
                     comando.Parameters.AddWithValue("@Curs_Descripcion", curso.Curs_Descripcion);
-                    comando.Parameters.AddWithValue("@Curs_Modalidad", curso.Curs_Modalidad);
+                    comando.Parameters.AddWithValue("@Curs_TituloCalendario", curso.Curs_TituloCalendario);
                     comando.Parameters.AddWithValue("@Curs_DuracionHoras", curso.Curs_DuracionHoras);
-                    comando.Parameters.AddWithValue("@Curs_FechaInicio", curso.Curs_FechaInicio);
-                    comando.Parameters.AddWithValue("@Curs_FechaFin", curso.Curs_FechaFin);
+                    //comando.Parameters.AddWithValue("@Curs_FechaInicio", (object)curso.Curs_FechaInicio ?? DBNull.Value);
+                    //comando.Parameters.AddWithValue("@Curs_FechaFin", (object)curso.Curs_FechaFin ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@Curs_NombreBotonTitulo", curso.Curs_NombreBotonTitulo);
                     comando.Parameters.AddWithValue("@Curs_UrlIcon", curso.Curs_UrlIcon);
                     comando.Parameters.AddWithValue("@Curs_UrlImagen", curso.Curs_UrlImagen);
@@ -203,6 +211,16 @@ namespace PROMPERU.DA
 
                     if (filasAfectadas > 0)
                     {
+                        if (curso.TipoModalidadList != null)
+                        {
+                            foreach (var item in curso.TipoModalidadList)
+                            {
+                                item.Curs_ID = curso.Curs_ID;
+                                await _cursoModalidadDA.ActualizarCursoModalidadAsync(item);
+                            }
+                        }                      
+
+
                         // Registrar la auditoría
                         //await _auditoriaDA.RegistrarAuditoriaAsync(usuario, "E","Curso", ip, id);
                         await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "E", "Curso", ip, id, conexion, (SqlTransaction)transaccion);
@@ -237,6 +255,7 @@ namespace PROMPERU.DA
             try
             {
                 var Cursos = new List<CursoBE>();
+                var modalidades = new List<TipoModalidadBE>();
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
                 await using var comando = new SqlCommand("USP_Curso_LIS", conexion)
@@ -257,12 +276,12 @@ namespace PROMPERU.DA
                         Curs_NombreBoton = reader["Curs_NombreBoton"] != DBNull.Value ? reader["Curs_NombreBoton"].ToString() : "",
                         Curs_UrlIconBoton = reader["Curs_UrlIconBoton"] != DBNull.Value ? reader["Curs_UrlIconBoton"].ToString() : "",
                         Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
-                        Curs_Objetivo = reader["Curs_Objetivo"] != DBNull.Value ? reader["Curs_Objetivo"].ToString() : "",
+                        Curs_DescripcionCalendario = reader["Curs_DescripcionCalendario"] != DBNull.Value ? reader["Curs_DescripcionCalendario"].ToString() : "",
                         Curs_Descripcion = reader["Curs_Descripcion"] != DBNull.Value ? reader["Curs_Descripcion"].ToString() : "",
-                        Curs_Modalidad = reader["Curs_Modalidad"] != DBNull.Value ? reader["Curs_Modalidad"].ToString() : "",
+                        Curs_TituloCalendario = reader["Curs_TituloCalendario"] != DBNull.Value ? reader["Curs_TituloCalendario"].ToString() : "",
                         Curs_DuracionHoras = reader["Curs_DuracionHoras"] != DBNull.Value ? Convert.ToInt32(reader["Curs_DuracionHoras"]) : 0,
-                        Curs_FechaInicio = reader["Curs_FechaInicio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Curs_FechaInicio"]),
-                        Curs_FechaFin = reader["Curs_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Curs_FechaFin"]),
+                        //Curs_FechaInicio = reader["Curs_FechaInicio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Curs_FechaInicio"]),
+                        //Curs_FechaFin = reader["Curs_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Curs_FechaFin"]),
                         Curs_NombreBotonTitulo = reader["Curs_NombreBotonTitulo"] != DBNull.Value ? reader["Curs_NombreBotonTitulo"].ToString() : "",
                         Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
                         Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
@@ -270,10 +289,34 @@ namespace PROMPERU.DA
                         Curs_EsHabilitado = reader["Curs_EsHabilitado"] != DBNull.Value ? Convert.ToInt32(reader["Curs_EsHabilitado"]) : 0,
                         Curs_Evento = reader["Curs_Evento"] != DBNull.Value ? reader["Curs_Evento"].ToString() : "",
                         Teve_ID = reader["ID_Evento"] != DBNull.Value ? Convert.ToInt32(reader["ID_Evento"]) : 0,
-                        Tmod_ID = reader["ID_Modalidad"] != DBNull.Value ? Convert.ToInt32(reader["ID_Modalidad"]) : 0,
+                        TipoModalidadList = new List<TipoModalidadBE>()
 
 
                     });
+                }
+                // Pasar al segundo conjunto de resultados
+                if (await reader.NextResultAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        modalidades.Add(new TipoModalidadBE
+                        {
+                            Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
+                            Tmod_ID = reader["Tmod_ID"] != DBNull.Value ? Convert.ToInt32(reader["Tmod_ID"]) : 0,
+                            FechaInicio = reader["Cmod_FechaInicio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaInicio"]),
+                            FechaFin = reader["Cmod_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaFin"]),
+                            Tmod_Nombre = reader["Tmod_Nombre"] != DBNull.Value ? (reader["Tmod_Nombre"]).ToString() : "",
+                        });
+                    }
+                }
+                // **Asociar las modalidades a los cursos correspondientes**
+                var cursosDict = Cursos.ToDictionary(c => c.Curs_ID); // Para acceso rápido
+                foreach (var modalidad in modalidades)
+                {
+                    if (cursosDict.TryGetValue(modalidad.Curs_ID, out var curso))
+                    {
+                        curso.TipoModalidadList.Add(modalidad);
+                    }
                 }
 
                 return Cursos;

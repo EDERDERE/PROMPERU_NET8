@@ -64,29 +64,23 @@
                     <div class="mb-3">
                         <label for="createCurso" class="form-label fw-semibold">Curso*</label>
                         <input type="text" id="createCurso" class="form-control" placeholder="Curso">
-                    </div>
+                    </div>                 
 
                     <div class="mb-3">
-                        <label for="createObjetivo" class="form-label fw-semibold">Objetivo del curso*</label>
-                        <input type="text" id="createObjetivo" class="form-control"
-                            placeholder="Escriba el objetivo del curso">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="createDescription" class="form-label fw-semibold">Logros esperados*</label>
+                        <label for="createDescription" class="form-label fw-semibold">Descripción*</label>
                         <textarea id="createDescription" class="form-control" rows="3"
-                            placeholder="Logros esperados"></textarea>
+                            placeholder="Descripcion"></textarea>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="createFechaInicial" class="form-label fw-semibold">Fecha Inicial*</label>
                         <input type="date" id="createFechaInicial" class="form-control" placeholder="Fecha">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="createFechaFinal" class="form-label fw-semibold">Fecha Fin*</label>
                         <input type="date" id="createFechaFinal" class="form-control" placeholder="Fecha">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" >
                         <label for="inputTipoEvento" class="form-label fw-semibold">Evento*</label>
                         <select name="ubicacion" id="inputTipoEvento" class="form-select">
                             <option selected>Seleccionar Evento</option>
@@ -96,10 +90,14 @@
                         </select>
                         
                     </div>
-
                     <div class="mb-3">
+                        <label class="form-label fw-semibold">Modalidad*</label>
+                        <div id="modalidadContainer"></div>
+                    </div>
+
+                    <div class="mb-3" style="display:none">
                         <label for="inputTipoModalidad" class="form-label fw-semibold">Modalidad*</label>
-                        <select class="form-select" id="inputTipoModalidad">
+                        <select class="form-select" id="inputTipoModalidad" multiple>
                             <option selected>Modalidad...</option>                    
                         </select>
                     </div>
@@ -131,8 +129,7 @@
                     <div class="mb-3">
                         <label for="createBrochureUrl" class="form-label fw-semibold">URL del brochure*</label>
                         <input type="text" id="createBrochureUrl" class="form-control" placeholder="URL del brochure">
-                    </div>
-
+                    </div>                  
 
                 </form>
             </div>
@@ -179,7 +176,7 @@
                         <input type="text" id="editNombreCurso" class="form-control" placeholder="Curso">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="editObjetivo" class="form-label fw-semibold">Objetivo del curso*</label>
                         <input type="text" id="editObjetivo" class="form-control"
                             placeholder="Escriba el objetivo del curso">
@@ -191,12 +188,12 @@
                             placeholder="Logros esperados"></textarea>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="editFechaInicio" class="form-label fw-semibold">Fecha Inicio*</label>
                         <input type="date" id="editFechaInicio" class="form-control" placeholder="Fecha">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" style="display:none">
                         <label for="editFechaFin" class="form-label fw-semibold">Fecha Fin*</label>
                         <input type="date" id="editFechaFin" class="form-control" placeholder="Fecha">
                     </div>
@@ -207,10 +204,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="editTipoModalidad" class="form-label fw-semibold">Modalidad*</label>
-                        <select class="form-select" id="editTipoModalidad">
-                            <option selected>Modalidad...</option>                          
-                        </select>
+                        <label class="form-label fw-semibold">Modalidad*</label>
+                        <div id="editarModalidadContainer"></div>
                     </div>
 
                     <div class="mb-3">
@@ -345,6 +340,30 @@
 
                     </div>
 
+                    <hr>
+
+                    <div class="col-md-12 my-3 ">
+                        <div class="d-flex justify-content-between">
+                            <label for="editTituloCalendario" class="form-label fw-semibold">Titulo del Calendario</label>
+
+                        </div>
+                        <input type="text" id="editTituloCalendario" class="form-control"
+                               placeholder="Titulo de la calendario">
+
+                    </div>
+
+                    <div class="col-md-12 my-3 ">
+                        <div class="d-flex justify-content-between">
+                            <label for="editDescripcionCalendario" class="form-label fw-semibold">
+                                Descripción del
+                                Calendario
+                            </label>
+
+                        </div>
+                        <textarea id="editDescripcionCalendario" class="form-control" rows="3"
+                                  placeholder="Descripcion calendario"></textarea>
+
+                    </div>
 
                 </form>
             </div>

@@ -23,5 +23,9 @@
         public string Curs_Evento { get; set; }
         public int Teve_ID { get; set; }
         public int Tmod_ID { get; set; }
+        public string Curs_TituloCalendario { get; set; }
+        public string Curs_DescripcionCalendario { get; set; }
+        public List<TipoModalidadBE> TipoModalidadList { get; set; }
+     
     }
 }
