@@ -1,32 +1,22 @@
 ﻿<link href="~/css/formulariocontacto.css" rel="stylesheet" />
-<script src="~/js/formulariocontacto.js"></script>
+<script type="module" src="~/js/modules/shared/regions/index.js"></script>
+<script type="module" src="~/js/modules/shared/typeCompany/index.js"></script>
+<script type="module" src="~/js/modules/contacto/index.js"></script>
 <div class="hero">
     <div class="container" id="bannerContacto">
-        <div class="title">Contáctanos</div>
-        <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magn
-        </p>
-        <div class="location-return">
-            <a href="#" title="home" class="home-return">
-                <img src="../../shared/assets/contactanos/home.svg"
-                     alt="home"
-                     class="image-home" />
-            </a>
-            &nbsp;
-            <a href="#" > &nbsp; / Contactanos</a>
-        </div>
+        
     </div>
 </div>
 <!-- Container ¿Tienes más consultas? -->
 <div class="container mt-5">
     <div class="row">
-        <div class="col-12 col-md-12" id="tituloSeccionContacto">
-            <h2 class="text-start title-que-es">¿Tienes más consultas?</h2>
-            <div class="red-linear"></div>
+        <div class="d-flex mx-auto flex-column w-auto" id="tituloSeccionContacto">
+            
         </div>
-        <div class="col-12 col-md-12 mt-5">
-            <div class="col-10 col-lg-7 mx-auto">
+        <div class="row my-5 contacto mx-auto">
+            <div class="col-12 col-lg-6 description mt-auto" id="descripcionContacto">
+            </div>
+            <div class="col-12 col-lg-6 card p-5 border-0 rounded-4">
                 <form class="row">
                     <div class="col-12 col-lg-6 mb-3">
                         <label for="inputName"
@@ -109,8 +99,8 @@
                         </div>
                     </div>
                     <div class="col-12 mb-5">
-                        <div class="col-8 col-lg-3 mx-auto" id="botonContacto">
-                            <button type="submit" class="btn btn-primary">
+                        <div class="d-flex justify-content-center align-items-center" id="botonContacto">
+                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
                                 Enviar mensajes
                                 <svg width="17"
                                      height="16"
