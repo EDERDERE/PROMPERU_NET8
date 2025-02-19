@@ -1,4 +1,5 @@
 <link href="~/css/calendario.css" rel="stylesheet" />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 <main>
     <div class="hero">
         <div class="container">
@@ -107,13 +108,7 @@
                   </div>
                 </div>
                 <div class="calendar mb-5" id="calendar-view">
-                  <div class="calendar-header">
-                    <button onclick="prevMonth()">◀</button>
-                    <h2 id="monthYear"></h2>
-                    <button onclick="nextMonth()">▶</button>
-                  </div>
-                  <div class="weekdays" id="weekdays"></div>
-                  <div class="grid" id="calendarGrid"></div>
+                 <div id="calendar"></div> 
                 </div>
                 <div id="grid-view" class="mb-5">
                   <div class="event_grid" id="event-grid"></div>

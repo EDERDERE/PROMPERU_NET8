@@ -2,7 +2,6 @@ import { fetchData } from "../../../shared/js/apiService.js";
 import { renderBannerContacto, renderTituloSeccionContacto, renderPoliticaContacto, renderBotonContacto, renderDescripcionContacto, renderDataContacto } from "./render.js";
 
 export async function loadContacto() {
-  limpiarContenedores();
   try {
     const data = await fetchData("/FormularioContacto/ListarFormularioContactos");
     if (data.success && Array.isArray(data.formularioContactos)) {
@@ -36,11 +35,4 @@ export async function loadContacto() {
             text: "Hubo un problema al cargar los formularios de contacto. Inténtelo más tarde.",
         });
   }
-}
-
-function limpiarContenedores() {
-    $("#bannerContacto").empty();
-    $("#tituloSeccionContacto").empty();
-    $("#politicaContacto").empty();
-    $("#botonContacto").empty();
 }
