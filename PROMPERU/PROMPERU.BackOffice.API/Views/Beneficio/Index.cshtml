@@ -108,12 +108,13 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="createNombre" class="form-label fw-semibold">Nombre*</label>
-                        <input type="text" id="createNombre" class="form-control" placeholder="Nombre">
+                        <label for="createNombre" class="form-label fw-semibold">Nombre**</label>
+                        <input type="text" id="createNombre" maxlength="50" class="form-control" placeholder="Nombre">
                     </div>
 
 
@@ -125,8 +126,8 @@
                     </div>
 
                     <div>
-                        <label for="createUrlIcon" class="form-label fw-semibold">URL del icono*</label>
-                        <input type="text" id="createUrlIcon" class="form-control" placeholder="URL del icono">
+                        <label for="createUrlIcon" class="form-label fw-semibold">URL del Icono*</label>
+                        <input type="text" id="createUrlIcon" maxlength="250" class="form-control" placeholder="URL del icono">
                     </div>
                 </form>
             </div>
@@ -154,7 +155,8 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3" hidden>
@@ -166,8 +168,8 @@
                         <input type="text" id="editOrder" class="form-control" placeholder="Nombre">
                     </div>
                     <div class="mb-3">
-                        <label for="editNombre" class="form-label fw-semibold">Nombre*</label>
-                        <input type="text" id="editNombre" class="form-control" placeholder="Nombre">
+                        <label for="editNombre" class="form-label fw-semibold">Nombre**</label>
+                        <input type="text" id="editNombre" maxlength="50" class="form-control" placeholder="Nombre">
                     </div>
 
 
@@ -179,8 +181,8 @@
                     </div>
 
                     <div>
-                        <label for="editUrlIcon" class="form-label fw-semibold">URL del icono*</label>
-                        <input type="text" id="editUrlIcon" class="form-control" placeholder="URL del icono">
+                        <label for="editUrlIcon" class="form-label fw-semibold">URL del Icono*</label>
+                        <input type="text" id="editUrlIcon" maxlength="250" class="form-control" placeholder="URL del icono">
                     </div>
                 </form>
             </div>
@@ -229,19 +231,20 @@
                 <form id="editSliderForm">
 
                     <div class="alert alert-primary message-input" role="alert">
-                        Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                        Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                        Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                     </div>
                     <div class="mb-3" hidden>
                         <label for="editIdTitulo" class="form-label fw-semibold">Id</label>
                         <input type="text" id="editIdTitulo" class="form-control" placeholder="Id">
                     </div>
                     <div class="mb-3">
-                        <label for="editTitulo" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="editTitulo" maxlength="50" class="form-control" placeholder="Titulo" required>
                     </div>
                     <div class="mb-3">
                         <label for="editUrlImagen" class="form-label fw-semibold">
-                            URL*
+                            URL de la Imagen*
                         </label>
                         <input type="text" id="editUrlImagen" class="form-control" placeholder="URL
                     " required>
@@ -249,7 +252,7 @@
                     <div class=" my-3 ">
                         <div class="d-flex justify-content-between">
                             <label for="ediDescripcionBanner" class="form-label fw-semibold">Descripción del
-                                banner*</label>
+                                Banner*</label>
 
                         </div>
                         <textarea id="ediDescripcionBanner" class="form-control" rows="3" maxlength="250"
@@ -259,10 +262,10 @@
 
                     <div class=" my-3 ">
                         <div class="d-flex justify-content-between">
-                            <label for="editUrlBanner" class="form-label fw-semibold">URL del banner*</label>
+                            <label for="editUrlBanner" class="form-label fw-semibold">URL del Banner*</label>
 
                         </div>
-                        <input type="text" id="editUrlBanner" class="form-control" placeholder="URL del banner">
+                        <input type="text" id="editUrlBanner" maxlength="250" class="form-control" placeholder="URL del banner">
 
                     </div>
 

@@ -6,6 +6,7 @@ using PROMPERU.BL;
 using PROMPERU.BL.Dtos;
 using PROMPERU.DA;
 using System.Diagnostics;
+using static PROMPERU.BE.UbigeoBE;
 
 namespace PROMPERU.BackOffice.API.Controllers
 {
@@ -15,13 +16,15 @@ namespace PROMPERU.BackOffice.API.Controllers
         private readonly ILogger<EmpresaController> _logger;
         private readonly EmpresaBL _empresaBL;
         private readonly RegionBL _regionBL;
+        private readonly UbigeoBL _ubigeoBL;
         private readonly TipoEmpresaBL _tipoEmpresaBL;
-        public EmpresaController(ILogger<EmpresaController> logger, EmpresaBL empresaBL, RegionBL regionBL,TipoEmpresaBL tipoEmpresaBL )
+        public EmpresaController(ILogger<EmpresaController> logger, EmpresaBL empresaBL, RegionBL regionBL,TipoEmpresaBL tipoEmpresaBL,UbigeoBL ubigeoBL )
         {
             _logger = logger;
             _empresaBL = empresaBL;
             _regionBL = regionBL;
             _tipoEmpresaBL = tipoEmpresaBL;
+            _ubigeoBL = ubigeoBL;
         }
 
         public IActionResult Index()
@@ -80,7 +83,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                      Egra_Correo = empresaDto.correo,
                      Egra_Descripcion = empresaDto.descripcion,
                      Egra_Direccion =   empresaDto.direccion,
-                     Egra_Mercados = empresaDto.mercados,
+                    Egra_MercadosSegmentosAtendidos = empresaDto.mercados,
                      Egra_NombreBoton   = empresaDto.nombreBoton,
                      Egra_NombreEmpresa = empresaDto.nombreEmpresa,
                      Egra_PaginaWeb=empresaDto.paginaWeb,
@@ -123,7 +126,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Egra_Correo = empresaDto.correo,
                     Egra_Descripcion = empresaDto.descripcion,
                     Egra_Direccion = empresaDto.direccion,
-                    Egra_Mercados = empresaDto.mercados,
+                    Egra_MercadosSegmentosAtendidos = empresaDto.mercados,
                     Egra_NombreBoton = empresaDto.nombreBoton,
                     Egra_NombreEmpresa = empresaDto.nombreEmpresa,
                     Egra_PaginaWeb = empresaDto.paginaWeb,
@@ -201,7 +204,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Egra_Correo = empresaDto.correo,
                         Egra_Descripcion = empresaDto.descripcion,
                         Egra_Direccion = empresaDto.direccion,
-                        Egra_Mercados = empresaDto.mercados,
+                        Egra_MercadosSegmentosAtendidos = empresaDto.mercados,
                         Egra_NombreBoton = empresaDto.nombreBoton,
                         Egra_NombreEmpresa = empresaDto.nombreEmpresa,
                         Egra_PaginaWeb = empresaDto.paginaWeb,
@@ -259,6 +262,40 @@ namespace PROMPERU.BackOffice.API.Controllers
 
                 });
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> ObtenerRegiones(int regiID)
+        {
+            try
+            {
+                var regions = await _ubigeoBL.ObtenerRegionesPorIDAsync(regiID); // Llamada asincr�nica
+                if (regions != null && regions.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Regiones obtenidos exitosamente.",
+                        regions
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron Regiones disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurri� un error al intentar obtener los Regiones. Por favor, int�ntelo nuevamente."
+
+                });
+            }       
         }
         public async Task<IActionResult> ListarTipoEmpresas()
         {

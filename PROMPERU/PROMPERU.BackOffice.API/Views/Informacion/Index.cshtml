@@ -49,7 +49,9 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios. <br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios. <br>
+                    Los campos que tienen (***) aceptan hasta 100 caracteres y son obligatorios.
                 </div>
                 <form id="editSliderForm">
                     <div class="mb-3" hidden>
@@ -57,8 +59,8 @@
                         <input type="text" id="editId" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editTitulo" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="editTitulo" maxlength="50" class="form-control" placeholder="¿Que es?" required>
                     </div>
                     <div class="mb-3">
                         <label for="editDescription" class="form-label">Descripción*</label>
@@ -68,19 +70,19 @@
 
                     <div>
                         <label for="editUrlVideo" class="form-label fw-semibold">URL del video*</label>
-                        <input type="text" id="editUrlVideo" class="form-control" placeholder="URL del video" required>
+                        <input type="text" id="editUrlVideo" maxlength="250" class="form-control" placeholder="URL del video" required>
                     </div>
                     <hr>
                     <h5>Sección</h5>
 
                     <div class="mb-3">
-                        <label for="editTituloSection" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="editTituloSection" class="form-control" placeholder="Titulo">
+                        <label for="editTituloSection" class="form-label fw-semibold">Titulo***</label>
+                        <input type="text" id="editTituloSection" maxlength="100" class="form-control" placeholder="Titulo">
                     </div>
 
                     <div class="mb-3">
                         <label for="editUrlPortada" class="form-label fw-semibold">URL del banner*</label>
-                        <input type="text" id="editUrlPortada" class="form-control" placeholder="URL del banner">
+                        <input type="text" id="editUrlPortada" maxlength="250" class="form-control" placeholder="URL del banner">
                     </div>
                     <div class="mb-3">
                         <label for="editDescriptionSection" class="form-label fw-semibold">Descripción del banner*</label>

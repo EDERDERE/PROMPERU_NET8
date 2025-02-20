@@ -58,30 +58,31 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="createCurso" class="form-label fw-semibold">Curso*</label>
-                        <input type="text" id="createCurso" class="form-control" placeholder="Curso">
+                        <label for="createCurso" class="form-label fw-semibold">Curso**</label>
+                        <input type="text" id="createCurso" maxlength="50"  class="form-control" placeholder="Curso">
                     </div>                 
 
                     <div class="mb-3">
                         <label for="createDescription" class="form-label fw-semibold">Descripción*</label>
-                        <textarea id="createDescription" class="form-control" rows="3"
+                        <textarea id="createDescription" maxlength="250" class="form-control" rows="3"
                             placeholder="Descripcion"></textarea>
                     </div>
 
                     <div class="mb-3" style="display:none">
-                        <label for="createFechaInicial" class="form-label fw-semibold">Fecha Inicial*</label>
+                        <label for="createFechaInicial" class="form-label fw-semibold">Fecha Inicial</label>
                         <input type="date" id="createFechaInicial" class="form-control" placeholder="Fecha">
                     </div>
                     <div class="mb-3" style="display:none">
-                        <label for="createFechaFinal" class="form-label fw-semibold">Fecha Fin*</label>
+                        <label for="createFechaFinal" class="form-label fw-semibold">Fecha Fin</label>
                         <input type="date" id="createFechaFinal" class="form-control" placeholder="Fecha">
                     </div>
                     <div class="mb-3" >
-                        <label for="inputTipoEvento" class="form-label fw-semibold">Evento*</label>
+                        <label for="inputTipoEvento" class="form-label fw-semibold">Tipo Evento</label>
                         <select name="ubicacion" id="inputTipoEvento" class="form-select">
                             <option selected>Seleccionar Evento</option>
                             <option value="1">Perú</option>
@@ -91,18 +92,12 @@
                         
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Modalidad*</label>
+                        <label class="form-label fw-semibold">Tipo Modalidad</label>
                         <div id="modalidadContainer"></div>
                     </div>
-
-                    <div class="mb-3" style="display:none">
-                        <label for="inputTipoModalidad" class="form-label fw-semibold">Modalidad*</label>
-                        <select class="form-select" id="inputTipoModalidad" multiple>
-                            <option selected>Modalidad...</option>                    
-                        </select>
-                    </div>
+                 
                     <div class="mb-3">
-                        <label for="createEstado" class="form-label fw-semibold">Estado*</label>
+                        <label for="createEstado" class="form-label fw-semibold">Estado</label>
                         <select class="form-select" id="createEstado">
                             <option selected>Estado</option>
                             <option value="1">Habilitado</option>
@@ -110,25 +105,25 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="createUrlImagen" class="form-label fw-semibold">URL de la imagen*</label>
-                        <input type="text" id="createUrlImagen" class="form-control" placeholder="URL de la imagen">
+                        <label for="createUrlImagen" class="form-label fw-semibold">URL de la Imagen*</label>
+                        <input type="text" id="createUrlImagen" maxlength="250" class="form-control" placeholder="URL de la imagen">
                     </div>
                     <div class="mb-3">
-                        <label for="createNombreBoton" class="form-label fw-semibold">Nombre del botón*</label>
-                        <input type="text" id="createNombreBoton" class="form-control custom-button"
+                        <label for="createNombreBoton" class="form-label fw-semibold">Nombre del botón**</label>
+                        <input type="text" id="createNombreBoton" maxlength="50" class="form-control custom-button"
                             placeholder="Escriba el Nombre del botón">
                     </div>
 
                     <div class="mb-3">
-                        <label for="createUrlIconBoton" class="form-label fw-semibold">URL icono de boton*</label>
-                        <input type="text" id="createUrlIconBoton" class="form-control"
+                        <label for="createUrlIconBoton" class="form-label fw-semibold">URL Icono de Boton*</label>
+                        <input type="text" id="createUrlIconBoton" maxlength="250" class="form-control"
                             placeholder="URL icono de boton">
                     </div>
 
 
                     <div class="mb-3">
-                        <label for="createBrochureUrl" class="form-label fw-semibold">URL del brochure*</label>
-                        <input type="text" id="createBrochureUrl" class="form-control" placeholder="URL del brochure">
+                        <label for="createBrochureUrl" class="form-label fw-semibold">URL del Brochure*</label>
+                        <input type="text" id="createBrochureUrl" maxlength="250" class="form-control" placeholder="URL del brochure">
                     </div>                  
 
                 </form>
@@ -160,7 +155,8 @@
             <div class="modal-body">
 
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3" hidden>
@@ -172,44 +168,38 @@
                         <input type="text" class="form-control" id="editOrder" placeholder="Id" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editNombreCurso" class="form-label fw-semibold">Curso*</label>
-                        <input type="text" id="editNombreCurso" class="form-control" placeholder="Curso">
-                    </div>
-
-                    <div class="mb-3" style="display:none">
-                        <label for="editObjetivo" class="form-label fw-semibold">Objetivo del curso*</label>
-                        <input type="text" id="editObjetivo" class="form-control"
-                            placeholder="Escriba el objetivo del curso">
-                    </div>
+                        <label for="editNombreCurso" class="form-label fw-semibold">Curso**</label>
+                        <input type="text" id="editNombreCurso" maxlength="50" class="form-control" placeholder="Curso">
+                    </div>              
 
                     <div class="mb-3">
-                        <label for="editDescription" class="form-label fw-semibold">Logros esperados*</label>
-                        <textarea id="editDescription" class="form-control" rows="3"
+                        <label for="editDescription" class="form-label fw-semibold">Descripción*</label>
+                        <textarea id="editDescription" class="form-control" rows="3" maxlength="250"
                             placeholder="Logros esperados"></textarea>
                     </div>
 
                     <div class="mb-3" style="display:none">
-                        <label for="editFechaInicio" class="form-label fw-semibold">Fecha Inicio*</label>
+                        <label for="editFechaInicio" class="form-label fw-semibold">Fecha Inicio</label>
                         <input type="date" id="editFechaInicio" class="form-control" placeholder="Fecha">
                     </div>
 
                     <div class="mb-3" style="display:none">
-                        <label for="editFechaFin" class="form-label fw-semibold">Fecha Fin*</label>
+                        <label for="editFechaFin" class="form-label fw-semibold">Fecha Fin</label>
                         <input type="date" id="editFechaFin" class="form-control" placeholder="Fecha">
                     </div>
                     <div class="mb-3">
-                        <label for="editTipoEvento" class="form-label fw-semibold">Evento*</label>
+                        <label for="editTipoEvento" class="form-label fw-semibold">Tipo Evento</label>
                         <select class="form-select" id="editTipoEvento">
                             <option selected>Evento...</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Modalidad*</label>
+                        <label class="form-label fw-semibold">Tipo Modalidad</label>
                         <div id="editarModalidadContainer"></div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editEstado" class="form-label fw-semibold">Estado*</label>
+                        <label for="editEstado" class="form-label fw-semibold">Estado</label>
                         <select class="form-select" id="editEstado">
                             <option selected>Estado</option>
                             <option value="1">Habilitado</option>
@@ -219,23 +209,23 @@
 
 
                     <div class="mb-3">
-                        <label for="editUrlImagen" class="form-label fw-semibold">URL de la imagen*</label>
-                        <input type="text" id="editUrlImagen" class="form-control" placeholder="URL de la imagen">
+                        <label for="editUrlImagen" class="form-label fw-semibold">URL de la Imagen*</label>
+                        <input type="text" id="editUrlImagen"  maxlength="250" class="form-control" placeholder="URL de la imagen">
                     </div>
                     <div class="mb-3">
-                        <label for="editNombreBoton" class="form-label fw-semibold">Nombre del botón*</label>
-                        <input type="text" id="editNombreBoton" class="form-control custom-button"
+                        <label for="editNombreBoton" class="form-label fw-semibold">Nombre del Botón**</label>
+                        <input type="text" id="editNombreBoton" maxlength="50" class="form-control custom-button"
                             placeholder="Escriba el Nombre del botón">
                     </div>
 
                     <div class="mb-3">
-                        <label for="editUrlIcon" class="form-label fw-semibold">URL icono de boton*</label>
-                        <input type="text" id="editUrlIcon" class="form-control" placeholder="URL icono de boton">
+                        <label for="editUrlIcon" class="form-label fw-semibold">URL Icono de Boton*</label>
+                        <input type="text" id="editUrlIcon" maxlength="250" class="form-control" placeholder="URL icono de boton">
                     </div>
 
                     <div class="mb-3">
-                        <label for="editBrochureUrl" class="form-label fw-semibold">URL del brochure*</label>
-                        <input type="text" id="editBrochureUrl" class="form-control" placeholder="URL del brochure">
+                        <label for="editBrochureUrl" class="form-label fw-semibold">URL del Brochure*</label>
+                        <input type="text" id="editBrochureUrl" maxlength="250" class="form-control" placeholder="URL del brochure">
                     </div>
                 </form>
             </div>
@@ -282,29 +272,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                </div>
                 <form id="editSliderForm">
                     <div class="mb-3" hidden>
                         <label for="editIdTitulo" class="form-label">Id</label>
                         <input type="text" class="form-control" id="editIdTitulo" placeholder="Id" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editTitulo" class="form-label fw-semibold">Titulo</label>
-                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="editTitulo" maxlength="50" class="form-control" placeholder="Titulo" required>
                     </div>
                     <div class="mb-3">
                         <label for="editNombreBotonTitulo" class="form-label fw-semibold">
-                            Nombre del botón
+                            Nombre del Botón**
                         </label>
-                        <input type="text" id="editNombreBotonTitulo" class="form-control" placeholder="Nombre del botón
+                        <input type="text" id="editNombreBotonTitulo" maxlength="50" class="form-control" placeholder="Nombre del botón
                     " required>
                     </div>
 
                     <div class="mb-3">
                         <label for="editUrlBoton" class="form-label fw-semibold">
-                            URL ícono de botón
+                            URL Icono del Botón*
 
                         </label>
-                        <input type="text" id="editUrlBoton" class="form-control" placeholder="URL ícono de botón "
+                        <input type="text" id="editUrlBoton" maxlength="250" class="form-control" placeholder="URL ícono de botón "
                             required>
                     </div>
 
@@ -312,10 +306,10 @@
 
                     <div class="col-md-12 my-3 ">
                         <div class="d-flex justify-content-between">
-                            <label for="editTituloSeccion" class="form-label fw-semibold">Titulo de la seccion</label>
+                            <label for="editTituloSeccion"  class="form-label fw-semibold">Título de la Seccion**</label>
 
                         </div>
-                        <input type="text" id="editTituloSeccion" class="form-control"
+                        <input type="text" id="editTituloSeccion" maxlength="50" class="form-control"
                             placeholder="Titulo de la seccion">
 
                     </div>
@@ -323,20 +317,20 @@
                     <div class="col-md-12 my-3 ">
                         <div class="d-flex justify-content-between">
                             <label for="editDescripcionSeccion" class="form-label fw-semibold">Descripción del
-                                banner</label>
+                                Banner*</label>
 
                         </div>
-                        <textarea id="editDescripcionSeccion" class="form-control" rows="3"
+                        <textarea id="editDescripcionSeccion" class="form-control" rows="3" maxlength="250"
                             placeholder="Logros esperados"></textarea>
 
                     </div>
 
                     <div class="col-md-12 my-3 ">
                         <div class="d-flex justify-content-between">
-                            <label for="editUrlBanner" class="form-label fw-semibold">URL del banner</label>
+                            <label for="editUrlBanner" class="form-label fw-semibold">URL del Banner*</label>
 
                         </div>
-                        <input type="text" id="editUrlBanner" class="form-control" placeholder="URL del banner">
+                        <input type="text" id="editUrlBanner" maxlength="250" class="form-control" placeholder="URL del banner">
 
                     </div>
 
@@ -344,10 +338,10 @@
 
                     <div class="col-md-12 my-3 ">
                         <div class="d-flex justify-content-between">
-                            <label for="editTituloCalendario" class="form-label fw-semibold">Titulo del Calendario</label>
+                            <label for="editTituloCalendario" class="form-label fw-semibold">Título del Calendario**</label>
 
                         </div>
-                        <input type="text" id="editTituloCalendario" class="form-control"
+                        <input type="text" id="editTituloCalendario" maxlength="50" class="form-control"
                                placeholder="Titulo de la calendario">
 
                     </div>
@@ -356,11 +350,11 @@
                         <div class="d-flex justify-content-between">
                             <label for="editDescripcionCalendario" class="form-label fw-semibold">
                                 Descripción del
-                                Calendario
+                                Calendario*
                             </label>
 
                         </div>
-                        <textarea id="editDescripcionCalendario" class="form-control" rows="3"
+                        <textarea id="editDescripcionCalendario" class="form-control" rows="3" maxlength="250"
                                   placeholder="Descripcion calendario"></textarea>
 
                     </div>
@@ -378,66 +372,6 @@
     </div>
 </div>
 
-
-<!-- Modal para nombre de boton  -->
-
-
-<div class="modal fade" id="editNameButton" tabindex="-1" aria-labelledby="editNameButton" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editSliderModalLabel">Editar Nombre del Botón</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editSliderForm">
-
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-modal
-                btn-close-modal" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-                <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<!-- Modal para Url icono de boton  -->
-
-
-<div class="modal fade" id="editIconButton" tabindex="-1" aria-labelledby="editIconButton" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editSliderModalLabel">
-                    Editar URL ícono de botón
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editSliderForm">
-
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-modal
-                    btn-close-modal" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-                <button type="button" class="btn btn-save" id="saveEditSlider">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="../../shared/libraries/sortable/Sortable.min.js"></script>
 <script src="../../shared/js/moveCard.js"></script>
