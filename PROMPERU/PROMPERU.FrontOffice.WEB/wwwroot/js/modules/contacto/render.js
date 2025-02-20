@@ -1,6 +1,8 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
 export function renderBannerContacto(contacto) {
+
+
   renderTemplate(
     "bannerContacto",
     (data) => `
@@ -9,17 +11,18 @@ export function renderBannerContacto(contacto) {
            ${data.fcon_Descripcion}
         </p>
         <div class="location-return align-items-center">
-            <a href="#" title="home" class="home-return">
-                <img src="${data.fcon_UrlImagen}"
+            <a href="/Home/Index" title="home" class="home-return">
+                <img src="../../shared/assets/contactanos/home.svg"
                      alt="home"
                      class="image-home" />
             </a>
             &nbsp;
-            <a href="#" title="Calendario"> &nbsp; / Contactanos</a>
+            <a href="#!" > &nbsp; / Contactanos</a>
         </div>
     `,
     contacto
   );
+  cambiarImagenDinamica(contacto.fcon_UrlImagen);
 }
 
 export function renderTituloSeccionContacto(contacto) {

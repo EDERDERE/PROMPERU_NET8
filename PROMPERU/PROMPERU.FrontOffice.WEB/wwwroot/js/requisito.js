@@ -53,11 +53,11 @@ function renderBannerRequisito(requ) {
        <div class="title">${requ.requ_Titulo}</div>
             <p class="description">${requ.requ_Descripcion}</p>
             <div class="location-return align-items-center">
-            <a href="#" title="home" class="home-return">
+            <a href="/Home/Index" title="home" class="home-return">
                 <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
             </a>
             &nbsp;
-            <a href="#" title="Calendario"> &nbsp; / Requisito</a>
+            <a href="#!" title="Calendario"> &nbsp; / Requisito</a>
         </div>
       `;
   $("#banner").append(banner);

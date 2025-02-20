@@ -4,10 +4,10 @@
   loadCrearEmpresa();
   loadEditarEmpresa();
   loadEliminarEmpresa();
-    loadGuardarOrdenEmpresa();
-    cargarTiposEmpresa("inputTipoEmpresa","");
-    cargarTiposRegion("inputTipoRegion", "");
- DescargaEmpresa()
+  loadGuardarOrdenEmpresa();
+  cargarTiposEmpresa("inputTipoEmpresa", "");
+  cargarTiposRegion("inputTipoRegion", "");
+  DescargaEmpresa();
 });
 async function loadListarEmpresas() {
   try {
@@ -32,16 +32,16 @@ async function loadListarEmpresas() {
     } else {
       Swal.fire({
         icon: "error",
-          title: "No hay Empresa disponibles",
-          text: response.message || "No se encontraron Empresa.",
+        title: "No hay Empresa disponibles",
+        text: response.message || "No se encontraron Empresa.",
       });
     }
   } catch (error) {
     console.error(error);
     Swal.fire({
       icon: "error",
-        title: "Error al cargar los Empresa",
-        text: "Hubo un problema al cargar los Empresa. Por favor, inténtelo nuevamente más tarde.",
+      title: "Error al cargar los Empresa",
+      text: "Hubo un problema al cargar los Empresa. Por favor, inténtelo nuevamente más tarde.",
     });
   }
 }
@@ -57,6 +57,7 @@ function renderTituloEmpresa(empresa) {
                          data-titulo="${empresa.egra_Titulo}" 
                          data-urlboton="${empresa.egra_UrlBoton}"
                           data-descripcion="${empresa.egra_Descripcion}"
+                          data-urlBanner="${empresa.egra_UrlLogo}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -100,6 +101,14 @@ function renderTituloEmpresa(empresa) {
 
                 </div>
 
+                   <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="urlVideo-${empresa.egra_ID}" class="form-label fw-semibold">URL banner</label>                       
+                    </div>
+                       <input type="text" id="nombreBoton-${empresa.egra_UrlLogo}" class="form-control " placeholder="${empresa.egra_UrlLogo}"disabled>
+
+                </div>
+
                 
 
             </div>
@@ -110,8 +119,8 @@ function renderSlidersEmpresa(empresas) {
   console.log(empresas);
   let slidersHTML = "";
 
-    empresas.forEach((egra) => {
-        if (egra.egra_Orden >= 1) {
+  empresas.forEach((egra) => {
+    if (egra.egra_Orden >= 1) {
       slidersHTML += `
                 <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
               <div class="d-flex justify-content-between align-items-start mb-3">
@@ -291,24 +300,23 @@ function renderSlidersEmpresa(empresas) {
 }
 async function loadCrearEmpresa() {
   $("#saveCreateSlider").click(async function () {
-
     const empresaData = {
-        nombreEmpresa: $("#createNombreComercial").val(),
-        id_region: $("#inputTipoRegion").val(),
-        correo: $("#createCorreo").val(),
-        paginaWeb: $("#createPagina").val(),
-        rUC: $("#createRuc").val(),
-        redesSociales: $("#createRedes").val(),
-        id_tipoempresa: $("#inputTipoEmpresa").val(),
-        certificaciones: $("#createCertificaciones").val(),
-        urlLogo: $("#createUrlLogo").val(),
-        mercados: $("#createMercados").val(),
-        razonSocial: $("#createRazon").val(),
-        segmentosAtendidos: $("#createSegmentos").val(),
-        direccion: $("#createDireccion").val(), 
-        descripcion: $("#createDescription").val()
+      nombreEmpresa: $("#createNombreComercial").val(),
+      id_region: $("#inputTipoRegion").val(),
+      correo: $("#createCorreo").val(),
+      paginaWeb: $("#createPagina").val(),
+      rUC: $("#createRuc").val(),
+      redesSociales: $("#createRedes").val(),
+      id_tipoempresa: $("#inputTipoEmpresa").val(),
+      certificaciones: $("#createCertificaciones").val(),
+      urlLogo: $("#createUrlLogo").val(),
+      mercados: $("#createMercados").val(),
+      razonSocial: $("#createRazon").val(),
+      segmentosAtendidos: $("#createSegmentos").val(),
+      direccion: $("#createDireccion").val(),
+      descripcion: $("#createDescription").val(),
     };
-      console.log(empresaData,'empresaData')
+    console.log(empresaData, "empresaData");
     if (Object.values(empresaData).some((value) => !value.trim())) {
       await Swal.fire({
         title: "Advertencia",
@@ -403,6 +411,7 @@ async function loadEditarEmpresa() {
       editNombreBoton: button.data("nombreboton"),
       editIconoBoton: button.data("urlboton"),
       editDescripcion: button.data("descripcion"),
+      editUrlBannerSeccion: button.data("urlbanner"),
     };
 
     assignModalValues($(this), modalData);
@@ -415,8 +424,9 @@ async function loadEditarEmpresa() {
       nombreBoton: $("#editNombreBoton").val(),
       urlBoton: $("#editIconoBoton").val(),
       descripcion: $("#editDescripcion").val(),
-        id_tipoempresa: 1,
-      id_region:1
+      id_tipoempresa: 1,
+      id_region: 1,
+      urlLogo: $('#editUrlBannerSeccion').val()
     };
 
     console.log(data);
@@ -438,53 +448,51 @@ async function loadEditarEmpresa() {
   });
 
   $("#editSliderModal").on("show.bs.modal", function (event) {
- 
-
     const button = $(event.relatedTarget);
     const modalData = {
       editIdEmpresa: button.data("id"),
       editOrdenEmpresa: button.data("orden"),
-        editNombreComercial: button.data("nombrecomercial"),
-        editTipoRegion: button.data("idregion"),
-        editCorreo: button.data("correo"),
-        editPagina: button.data("pagina"),
-        editRuc: button.data("ruc"),
-        editRedes: button.data("redes"),
-        editTipoEmpresa: button.data("idempresa"),
-        editUrlLogo: button.data("urllogo"),
-        editMercados: button.data("mercados"),
-        editRazon: button.data("razon"),
-        editSegmentos: button.data("segmentos"),
-        editCertificaciones: button.data("certificaciones"),
-        editDireccion: button.data("direccion"),
-        editDescription: button.data("descripcion"), 
+      editNombreComercial: button.data("nombrecomercial"),
+      editTipoRegion: button.data("idregion"),
+      editCorreo: button.data("correo"),
+      editPagina: button.data("pagina"),
+      editRuc: button.data("ruc"),
+      editRedes: button.data("redes"),
+      editTipoEmpresa: button.data("idempresa"),
+      editUrlLogo: button.data("urllogo"),
+      editMercados: button.data("mercados"),
+      editRazon: button.data("razon"),
+      editSegmentos: button.data("segmentos"),
+      editCertificaciones: button.data("certificaciones"),
+      editDireccion: button.data("direccion"),
+      editDescription: button.data("descripcion"),
     };
 
-      console.log(modalData,'modalData');
+    console.log(modalData, "modalData");
 
-      assignModalValues($(this), modalData);
-      cargarTiposEmpresa("editTipoEmpresa", modalData.editTipoEmpresa);
-      cargarTiposRegion("editTipoRegion", modalData.editTipoRegion);  
+    assignModalValues($(this), modalData);
+    cargarTiposEmpresa("editTipoEmpresa", modalData.editTipoEmpresa);
+    cargarTiposRegion("editTipoRegion", modalData.editTipoRegion);
   });
 
   $("#saveEditSlider").click(function () {
     const data = {
       id: $("#editIdEmpresa").val(),
-        orden: $("#editOrdenEmpresa").val(),
-        nombreEmpresa: $("#editNombreComercial").val(),
-        id_region: $("#editTipoRegion").val(),
-        correo: $("#editCorreo").val(),
-        paginaWeb: $("#editPagina").val(),
-        rUC: $("#editRuc").val(),
-        redesSociales: $("#editRedes").val(),
-        id_tipoempresa: $("#editTipoEmpresa").val(),
-        certificaciones: $("#editCertificaciones").val(),
-        urlLogo: $("#editUrlLogo").val(),
-        mercados: $("#editMercados").val(),
-        razonSocial: $("#editRazon").val(),
-        segmentosAtendidos: $("#editSegmentos").val(),
-        direccion: $("#editDireccion").val(),    
-        descripcion: $("#editDescription").val(),     
+      orden: $("#editOrdenEmpresa").val(),
+      nombreEmpresa: $("#editNombreComercial").val(),
+      id_region: $("#editTipoRegion").val(),
+      correo: $("#editCorreo").val(),
+      paginaWeb: $("#editPagina").val(),
+      rUC: $("#editRuc").val(),
+      redesSociales: $("#editRedes").val(),
+      id_tipoempresa: $("#editTipoEmpresa").val(),
+      certificaciones: $("#editCertificaciones").val(),
+      urlLogo: $("#editUrlLogo").val(),
+      mercados: $("#editMercados").val(),
+      razonSocial: $("#editRazon").val(),
+      segmentosAtendidos: $("#editSegmentos").val(),
+      direccion: $("#editDireccion").val(),
+      descripcion: $("#editDescription").val(),
     };
 
     if (Object.values(data).every((value) => value)) {
@@ -504,7 +512,6 @@ async function loadEditarEmpresa() {
   });
 }
 async function loadEliminarEmpresa() {
- 
   const showAlert = (type, title, text) => {
     return Swal.fire({
       icon: type,
@@ -584,42 +591,42 @@ async function loadGuardarOrdenEmpresa() {
   // Función para recolectar datos de las cards
   const obtenerDatosCards = () => {
     const data = {
-        Ids: [],
-        Orders: [],
-        Descriptions: [],
-        Nombres: [],
-        IdRegions: [],
-        Correos: [],
-        Paginas: [],
-        Rucs: [],
-        Redes: [],
-        IdEmpresas: [],
-        Certificaciones: [],
-        Razones: [],
-        Mercados: [],
-        UrlLogos: [],
-        Segmentos: [],
-        Direcciones: [],
-        NewOrders: [],
+      Ids: [],
+      Orders: [],
+      Descriptions: [],
+      Nombres: [],
+      IdRegions: [],
+      Correos: [],
+      Paginas: [],
+      Rucs: [],
+      Redes: [],
+      IdEmpresas: [],
+      Certificaciones: [],
+      Razones: [],
+      Mercados: [],
+      UrlLogos: [],
+      Segmentos: [],
+      Direcciones: [],
+      NewOrders: [],
     };
 
     $(".btn-link.text-primary").each(function () {
-        data.Ids.push($(this).data("id"));
-        data.Orders.push($(this).data("orden"));
-        data.Descriptions.push($(this).data("descripcion"));
-        data.Nombres.push($(this).data("nombrecomercial"));
-        data.IdRegions.push($(this).data("idregion"));
-        data.Correos.push($(this).data("correo"));
-        data.Paginas.push($(this).data("pagina"));
-        data.Rucs.push($(this).data("ruc"));
-        data.Redes.push($(this).data("redes"));
-        data.IdEmpresas.push($(this).data("idempresa"));
-        data.Certificaciones.push($(this).data("certificaciones"));
-        data.Razones.push($(this).data("razon"));
-        data.Mercados.push($(this).data("mercados"));
-        data.UrlLogos.push($(this).data("urllogo"));
-        data.Segmentos.push($(this).data("segmentos"));
-        data.Direcciones.push($(this).data("direccion"));
+      data.Ids.push($(this).data("id"));
+      data.Orders.push($(this).data("orden"));
+      data.Descriptions.push($(this).data("descripcion"));
+      data.Nombres.push($(this).data("nombrecomercial"));
+      data.IdRegions.push($(this).data("idregion"));
+      data.Correos.push($(this).data("correo"));
+      data.Paginas.push($(this).data("pagina"));
+      data.Rucs.push($(this).data("ruc"));
+      data.Redes.push($(this).data("redes"));
+      data.IdEmpresas.push($(this).data("idempresa"));
+      data.Certificaciones.push($(this).data("certificaciones"));
+      data.Razones.push($(this).data("razon"));
+      data.Mercados.push($(this).data("mercados"));
+      data.UrlLogos.push($(this).data("urllogo"));
+      data.Segmentos.push($(this).data("segmentos"));
+      data.Direcciones.push($(this).data("direccion"));
     });
 
     $(".card").each(function () {
@@ -632,22 +639,22 @@ async function loadGuardarOrdenEmpresa() {
   // Función para estructurar los datos para el servidor
   const estructurarDatos = (data) => {
     return data.Ids.map((id, index) => ({
-        id: parseInt(id),
-        orden: parseInt(data.NewOrders[index]),  // Utilizar NewOrders o el valor de Orders si no existe NewOrders
-        nombreEmpresa: data.Nombres[index].toString(),
-        descripcion: data.Descriptions[index].toString(),
-        id_region: parseInt(data.IdRegions[index]),
-        correo: data.Correos[index].toString(),
-        paginaWeb: data.Paginas[index].toString(),
-        rUC: data.Rucs[index].toString(),
-        redesSociales: data.Redes[index].toString(),
-        id_tipoempresa: parseInt(data.IdEmpresas[index]),
-        certificaciones: data.Certificaciones[index].toString(),
-        razonSocial: data.Razones[index].toString(),
-        mercados: data.Mercados[index].toString(),
-        urlLogo: data.UrlLogos[index].toString(),
-        segmentos: data.Segmentos[index].toString(),
-        direccion: data.Direcciones[index].toString(),
+      id: parseInt(id),
+      orden: parseInt(data.NewOrders[index]), // Utilizar NewOrders o el valor de Orders si no existe NewOrders
+      nombreEmpresa: data.Nombres[index].toString(),
+      descripcion: data.Descriptions[index].toString(),
+      id_region: parseInt(data.IdRegions[index]),
+      correo: data.Correos[index].toString(),
+      paginaWeb: data.Paginas[index].toString(),
+      rUC: data.Rucs[index].toString(),
+      redesSociales: data.Redes[index].toString(),
+      id_tipoempresa: parseInt(data.IdEmpresas[index]),
+      certificaciones: data.Certificaciones[index].toString(),
+      razonSocial: data.Razones[index].toString(),
+      mercados: data.Mercados[index].toString(),
+      urlLogo: data.UrlLogos[index].toString(),
+      segmentos: data.Segmentos[index].toString(),
+      direccion: data.Direcciones[index].toString(),
     }));
   };
 
@@ -723,144 +730,138 @@ async function loadGuardarOrdenEmpresa() {
 }
 
 async function cargarTiposEmpresa(selectElementId, Tipovalor) {
-    console.log(selectElementId, Tipovalor, 'cargarTiposEmpresa');
+  console.log(selectElementId, Tipovalor, "cargarTiposEmpresa");
 
-    try {
-        const response = await $.ajax({
-            url: "/Empresa/ListarTipoEmpresas",
-            type: "GET",
-            dataType: "json",
-        });
+  try {
+    const response = await $.ajax({
+      url: "/Empresa/ListarTipoEmpresas",
+      type: "GET",
+      dataType: "json",
+    });
 
-        console.log("Lista de tipos de Empresas:", response);
+    console.log("Lista de tipos de Empresas:", response);
 
-        const select = $("#" + selectElementId);
-        select.empty().append("<option selected>Seleccione su tipo</option>");
+    const select = $("#" + selectElementId);
+    select.empty().append("<option selected>Seleccione su tipo</option>");
 
-        if (
-            Array.isArray(response.tipoEmpresas) &&
-            response.tipoEmpresas.length > 0
-        ) {
-            response.tipoEmpresas.forEach((tipo) => {                
-                if (tipo.temp_ID === Tipovalor) {
-                    select.append(new Option(tipo.temp_Nombre, tipo.temp_ID, true, true));
-                } else {
-                    select.append(new Option(tipo.temp_Nombre, tipo.temp_ID));
-                }
-            });
-
+    if (
+      Array.isArray(response.tipoEmpresas) &&
+      response.tipoEmpresas.length > 0
+    ) {
+      response.tipoEmpresas.forEach((tipo) => {
+        if (tipo.temp_ID === Tipovalor) {
+          select.append(new Option(tipo.temp_Nombre, tipo.temp_ID, true, true));
         } else {
-            select.append(
-                "<option disabled>No hay tipos de Empresas disponibles</option>"
-            );
+          select.append(new Option(tipo.temp_Nombre, tipo.temp_ID));
         }
-    } catch (error) {
-        console.error("Error al cargar los tipos de Empresas:", error);
-        $("#" + selectElementId)
-            .empty()
-            .append("<option disabled>Error al cargar tipos de Empresas</option>");
-
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Hubo un problema al cargar los tipos de Empresas. Inténtelo más tarde.",
-        });
+      });
+    } else {
+      select.append(
+        "<option disabled>No hay tipos de Empresas disponibles</option>"
+      );
     }
+  } catch (error) {
+    console.error("Error al cargar los tipos de Empresas:", error);
+    $("#" + selectElementId)
+      .empty()
+      .append("<option disabled>Error al cargar tipos de Empresas</option>");
+
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Hubo un problema al cargar los tipos de Empresas. Inténtelo más tarde.",
+    });
+  }
 }
 async function cargarTiposRegion(selectElementId, Tipovalor) {
-    console.log(selectElementId, Tipovalor, 'cargarTiposRegion');
+  console.log(selectElementId, Tipovalor, "cargarTiposRegion");
 
-    try {
-        const response = await $.ajax({
-            url: "/Empresa/ListarRegiones",
-            type: "GET",
-            dataType: "json",
-        });
+  try {
+    const response = await $.ajax({
+      url: "/Empresa/ListarRegiones",
+      type: "GET",
+      dataType: "json",
+    });
 
-        console.log("Lista de tipos de Regions:", response);
+    console.log("Lista de tipos de Regions:", response);
 
-        const select = $("#" + selectElementId);
-        select.empty().append("<option selected>Seleccione su tipo</option>");
+    const select = $("#" + selectElementId);
+    select.empty().append("<option selected>Seleccione su tipo</option>");
 
-        if (
-            Array.isArray(response.regions) &&
-            response.regions.length > 0
-        ) {
-            response.regions.forEach((tipo) => {
-          
-                // If the current tipo.tmod_ID matches Tipovalor, mark it as selected
-                if (tipo.regi_ID === Tipovalor) {
-                    select.append(new Option(tipo.regi_Nombre, tipo.regi_ID, true, true));
-                } else {
-                    select.append(new Option(tipo.regi_Nombre, tipo.regi_ID));
-                }
-            });
-
+    if (Array.isArray(response.regions) && response.regions.length > 0) {
+      response.regions.forEach((tipo) => {
+        // If the current tipo.tmod_ID matches Tipovalor, mark it as selected
+        if (tipo.regi_ID === Tipovalor) {
+          select.append(new Option(tipo.regi_Nombre, tipo.regi_ID, true, true));
         } else {
-            select.append(
-                "<option disabled>No hay tipos de Regions disponibles</option>"
-            );
+          select.append(new Option(tipo.regi_Nombre, tipo.regi_ID));
         }
-    } catch (error) {
-        console.error("Error al cargar los tipos de Regions:", error);
-        $("#" + selectElementId)
-            .empty()
-            .append("<option disabled>Error al cargar tipos de Regions</option>");
-
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Hubo un problema al cargar los tipos de Regions. Inténtelo más tarde.",
-        });
+      });
+    } else {
+      select.append(
+        "<option disabled>No hay tipos de Regions disponibles</option>"
+      );
     }
+  } catch (error) {
+    console.error("Error al cargar los tipos de Regions:", error);
+    $("#" + selectElementId)
+      .empty()
+      .append("<option disabled>Error al cargar tipos de Regions</option>");
+
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Hubo un problema al cargar los tipos de Regions. Inténtelo más tarde.",
+    });
+  }
 }
 function DescargaEmpresa() {
-    $("#btnDescargar").click(function () {
-        let tabla = $("#nombreTabla").val();
+  $("#btnDescargar").click(function () {
+    let tabla = $("#nombreTabla").val();
 
-        if (!tabla) {
-            alert("Ingrese el nombre de la tabla.");
-            return;
+    if (!tabla) {
+      alert("Ingrese el nombre de la tabla.");
+      return;
+    }
+
+    $.ajax({
+      url: "/Descarga/DescargarDatos",
+      type: "GET",
+      data: { tabla: tabla },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          exportToCSV(response.data, tabla);
+        } else {
+          alert("Error: " + response.message);
         }
-
-        $.ajax({
-            url: "/Descarga/DescargarDatos",
-            type: "GET",
-            data: { tabla: tabla },
-            dataType: "json",
-            success: function (response) {
-                if (response.success) {
-                    exportToCSV(response.data, tabla);
-                } else {
-                    alert("Error: " + response.message);
-                }
-            },
-            error: function () {
-                alert("Hubo un error.");
-            }
-        });
+      },
+      error: function () {
+        alert("Hubo un error.");
+      },
     });
+  });
 }
 
 function exportToCSV(data, tabla) {
-    if (data.length === 0) {
-        alert("No hay datos.");
-        return;
-    }
+  if (data.length === 0) {
+    alert("No hay datos.");
+    return;
+  }
 
-    let csvContent = "";
-    let headers = Object.keys(data[0]).join(",") + "\n";
-    csvContent += headers;
+  let csvContent = "";
+  let headers = Object.keys(data[0]).join(",") + "\n";
+  csvContent += headers;
 
-    data.forEach(row => {
-        csvContent += Object.values(row).join(",") + "\n";
-    });
+  data.forEach((row) => {
+    csvContent += Object.values(row).join(",") + "\n";
+  });
 
-    let blob = new Blob([csvContent], { type: "text/xlsx" });
-    let link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${tabla}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  let blob = new Blob([csvContent], { type: "text/xlsx" });
+  let link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${tabla}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }

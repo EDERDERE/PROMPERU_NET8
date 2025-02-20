@@ -1045,7 +1045,6 @@ function renderSeleccionarVideo() {
   });
 }
 function cambiarImagenDinamica(imagenUrl) {
-  // Usamos jQuery para modificar el background-image
   $(".hero").css("background-image", "url(" + imagenUrl + ")");
 }
 // Funci�n para mostrar mensajes de error con Swal

@@ -58,7 +58,7 @@ export function renderInscription(inscriptions) {
            <div class="title">${firstInscription.insc_Titulo}</div>
             <p class="description">${firstInscription.insc_Descripcion}</p>
             <div class="location-return align-items-center">
-            <a href="#" title="home" class="home-return">
+            <a href="/Home/Index" title="home" class="home-return">
                 <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
             </a>
             &nbsp;

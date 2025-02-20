@@ -1,23 +1,26 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
 export function renderBannerEmpresa(empresa) {
+  
+
   renderTemplate(
     "bannerEmpresa",
     (data) => `
       <div class="title">${data.egra_NombreEmpresa}</div>
       <p class="description">${data.egra_Descripcion}</p>
       <div class="location-return align-items-center">
-          <a href="#" title="home" class="home-return">
+          <a href="/Home/Index" title="home" class="home-return">
               <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
           </a>
           &nbsp;
-          <a href="#" title="Empresas"> &nbsp; / Empresas</a>
+          <a href="Home/Index" title="Empresas"> &nbsp; / Empresas</a>
       </div>
     `,
     empresa
   );
-}
 
+  cambiarImagenDinamica(empresa.egra_UrlLogo);
+}
 
 export function renderSliderEmpresa(empresas) {
   renderTemplate(
