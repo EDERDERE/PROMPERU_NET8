@@ -1,8 +1,6 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
-export function renderBannerContacto(contacto) {
-
-
+export function renderContacto(contacto) {
   renderTemplate(
     "bannerContacto",
     (data) => `
@@ -23,9 +21,7 @@ export function renderBannerContacto(contacto) {
     contacto
   );
   cambiarImagenDinamica(contacto.fcon_UrlImagen);
-}
 
-export function renderTituloSeccionContacto(contacto) {
   renderTemplate(
     "tituloSeccionContacto",
     (data) => `
@@ -34,9 +30,7 @@ export function renderTituloSeccionContacto(contacto) {
     `,
     contacto
   );
-}
 
-export function renderPoliticaContacto(contacto) {
   renderTemplate(
     "politicaContacto",
     (data) => `    
@@ -45,9 +39,7 @@ export function renderPoliticaContacto(contacto) {
       `,
     contacto
   );
-}
 
-export function renderBotonContacto(contacto) {
   renderTemplate(
     "botonContacto",
     (data) => `
@@ -69,9 +61,7 @@ export function renderBotonContacto(contacto) {
     `,
     contacto
   );
-}
 
-export function renderDescripcionContacto(contacto) {
   renderTemplate(
     "descripcionContacto",
     (data) => `
@@ -89,9 +79,7 @@ export function renderDescripcionContacto(contacto) {
     `,
     contacto
   );
-}
 
-export function renderDataContacto(contacto) {
   renderTemplate(
     "dataContacto",
     (data) => `

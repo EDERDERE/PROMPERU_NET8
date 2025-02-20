@@ -1,17 +1,19 @@
 ﻿<link href="~/css/formulariocontacto.css" rel="stylesheet" />
 <script type="module" src="~/js/modules/shared/regions/index.js"></script>
+
+<script type="module" src="~/js/modules/seccion/index.js" defer></script>
 <script type="module" src="~/js/modules/shared/typeCompany/index.js"></script>
 <script type="module" src="~/js/modules/contacto/index.js"></script>
 <div class="hero">
     <div class="container" id="bannerContacto">
-        
+
     </div>
 </div>
 <!-- Container ¿Tienes más consultas? -->
 <div class="container mt-5">
     <div class="row">
         <div class="d-flex mx-auto flex-column w-auto" id="tituloSeccionContacto">
-            
+
         </div>
         <div class="row my-5 contacto mx-auto">
             <div class="col-12 col-lg-6 description mt-auto" id="descripcionContacto">
@@ -19,51 +21,30 @@
             <div class="col-12 col-lg-6 card p-5 border-0 rounded-4">
                 <form class="row">
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputName"
-                               class="form-label text-primary fw-semibold">Nombres</label>
-                        <input type="text"
-                               class="form-control"
-                               id="inputName"
-                               placeholder="ingrese sus nombres" />
+                        <label for="inputName" class="form-label text-primary fw-semibold">Nombres</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="ingrese sus nombres" />
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputApellido"
-                               class="form-label text-primary fw-semibold">Apellidos</label>
-                        <input type="text"
-                               class="form-control"
-                               id="inputApellido"
-                               placeholder="ingrese sus apellidos" />
+                        <label for="inputApellido" class="form-label text-primary fw-semibold">Apellidos</label>
+                        <input type="text" class="form-control" id="inputApellido"
+                            placeholder="ingrese sus apellidos" />
                     </div>
                     <div class="col-12 mb-3">
-                        <label for="inputEmail"
-                               class="form-label text-primary fw-semibold">Correo electrónico</label>
-                        <input type="email"
-                               class="form-control"
-                               id="inputEmail"
-                               placeholder="ingrese sus N°" />
+                        <label for="inputEmail" class="form-label text-primary fw-semibold">Correo electrónico</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="ingrese sus N°" />
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputCelular"
-                               class="form-label text-primary fw-semibold">Celular</label>
-                        <input type="email"
-                               class="form-control"
-                               id="inputCelular"
-                               placeholder="ingrese sus nombres" />
+                        <label for="inputCelular" class="form-label text-primary fw-semibold">Celular</label>
+                        <input type="email" class="form-control" id="inputCelular" placeholder="ingrese sus nombres" />
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputRuc"
-                               class="form-label text-primary fw-semibold">Ruc</label>
-                        <input type="email"
-                               class="form-control"
-                               id="inputRuc"
-                               placeholder="ingrese sus nombres" />
+                        <label for="inputRuc" class="form-label text-primary fw-semibold">Ruc</label>
+                        <input type="email" class="form-control" id="inputRuc" placeholder="ingrese sus nombres" />
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputTipoEmpresa"
-                               class="form-label text-primary fw-semibold">Tipo de empresa</label>
-                        <select class="form-select"
-                                aria-label="Default select example"
-                                id="inputTipoEmpresa">
+                        <label for="inputTipoEmpresa" class="form-label text-primary fw-semibold">Tipo de
+                            empresa</label>
+                        <select class="form-select" aria-label="Default select example" id="inputTipoEmpresa">
                             <option selected>seleccione su tipo</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -71,11 +52,8 @@
                         </select>
                     </div>
                     <div class="col-12 col-lg-6 mb-3">
-                        <label for="inputName"
-                               class="form-label text-primary fw-semibold">Región</label>
-                        <select class="form-select"
-                                aria-label="Default select example"
-                                id="inputRegion">
+                        <label for="inputName" class="form-label text-primary fw-semibold">Región</label>
+                        <select class="form-select" aria-label="Default select example" id="inputRegion">
                             <option selected>seleccione a su región</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -83,35 +61,30 @@
                         </select>
                     </div>
                     <div class="col-12 mb-3">
-                        <label for="validationTextarea"
-                               class="form-label text-primary fw-semibold">Dejanos tu mensaje aquí</label>
-                        <textarea class="form-control"
-                                  placeholder="ingrese su mensaje"
-                                  id="validationTextarea"></textarea>
+                        <label for="validationTextarea" class="form-label text-primary fw-semibold">Dejanos tu mensaje
+                            aquí</label>
+                        <textarea class="form-control" placeholder="ingrese su mensaje"
+                            id="validationTextarea"></textarea>
                         <div class="mt-3 form-check">
-                            <input type="checkbox"
-                                   class="form-check-input"
-                                   id="exampleCheck1" />
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                             <label class="form-check-label" for="exampleCheck1" id="politicaContacto">
                                 Al darle clic en "enviar mensaje"
-                                <a href="#" class="link-underline-light" target="_blank">acepto la politica de protección de datos personales</a>
+                                <a href="#" class="link-underline-light" target="_blank">acepto la politica de
+                                    protección de datos personales</a>
                             </label>
                         </div>
                     </div>
                     <div class="col-12 mb-5">
                         <div class="d-flex justify-content-center align-items-center" id="botonContacto">
-                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">
+                            <button type="submit"
+                                class="btn btn-primary d-flex justify-content-center align-items-center">
                                 Enviar mensajes
-                                <svg width="17"
-                                     height="16"
-                                     viewBox="0 0 17 16"
-                                     fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8.08358 8.00008H3.0156M2.87195 8.66442L2.03465 11.1656C1.57607 12.5354 1.34678 13.2203 1.51133 13.6421C1.65422 14.0084 1.96113 14.2861 2.33983 14.3918C2.77592 14.5135 3.43459 14.2171 4.75192 13.6243L13.1972 9.82391C14.4831 9.24525 15.126 8.956 15.3247 8.55408C15.4973 8.20491 15.4973 7.79517 15.3247 7.446C15.126 7.04417 14.4831 6.75483 13.1972 6.17621L4.73736 2.36927C3.42399 1.77826 2.76732 1.48276 2.33166 1.60398C1.95331 1.70926 1.64643 1.98621 1.50304 2.35182C1.33793 2.77281 1.56477 3.45626 2.01846 4.82314L2.87357 7.3995C2.95149 7.63425 2.99046 7.75167 3.00583 7.87167C3.01948 7.97825 3.01934 8.08608 3.00542 8.19258C2.98973 8.31258 2.95047 8.42983 2.87195 8.66442Z"
-                                          stroke="white"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round" />
+                                <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8.08358 8.00008H3.0156M2.87195 8.66442L2.03465 11.1656C1.57607 12.5354 1.34678 13.2203 1.51133 13.6421C1.65422 14.0084 1.96113 14.2861 2.33983 14.3918C2.77592 14.5135 3.43459 14.2171 4.75192 13.6243L13.1972 9.82391C14.4831 9.24525 15.126 8.956 15.3247 8.55408C15.4973 8.20491 15.4973 7.79517 15.3247 7.446C15.126 7.04417 14.4831 6.75483 13.1972 6.17621L4.73736 2.36927C3.42399 1.77826 2.76732 1.48276 2.33166 1.60398C1.95331 1.70926 1.64643 1.98621 1.50304 2.35182C1.33793 2.77281 1.56477 3.45626 2.01846 4.82314L2.87357 7.3995C2.95149 7.63425 2.99046 7.75167 3.00583 7.87167C3.01948 7.97825 3.01934 8.08608 3.00542 8.19258C2.98973 8.31258 2.95047 8.42983 2.87195 8.66442Z"
+                                        stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </button>
                         </div>
@@ -121,20 +94,6 @@
         </div>
     </div>
 </div>
-               <div class="py-5 bg-white">
-            <h2 class="text-center title_init mb-5 mt-5">¿Te gustaria acceder a nuevos conocimientos? <br><strong>Inicia Ahora</strong></h2>
-            <div class="d-flex justify-content-center align-items-center gap-3">
-                <a href="" class="btn button-outline m-0">
-                    Ver calendario de cursos
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0070BA" class="bi bi-calendar4-week" viewBox="0 0 16 16">
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
-                        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
-                    </svg>
-                </a>
-                <div class="button-test m-0 mb-5a">
-                    <a href="">Empezar mi test</a>
-                    <img src="../../shared/assets/home/etapas/empezar_test.svg"
-                         alt="" />
-                </div>
-            </div>
-        </div>
+<div id="callToAction">
+
+</div>
