@@ -52,29 +52,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                </div>
                 <form id="editTituloForm">
                     <div class="mb-3" hidden>
                         <label for="editIdLogo" class="form-label">Id</label>
                         <input type="text" class="form-control" id="editIdLogo" placeholder="Id" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editNombreBoton" class="form-label fw-semibold">Nombre del boton</label>
-                        <input type="text" id="editNombreBoton" class="form-control" placeholder="" required>
+                        <label for="editNombreBoton" class="form-label fw-semibold">Nombre del boton**</label>
+                        <input type="text" id="editNombreBoton" maxlength="50" class="form-control" placeholder="" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editIconoBoton" class="form-label fw-semibold">URL icono del boton</label>
-                        <input type="text" id="editIconoBoton" class="form-control" placeholder="" required>
+                        <label for="editIconoBoton" class="form-label fw-semibold">URL icono del Boton*</label>
+                        <input type="text" id="editIconoBoton" maxlength="250" class="form-control" placeholder="" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editLogo1" class="form-label fw-semibold">Logo 1 PromPeru</label>
-                        <input type="text" id="editLogo1" class="form-control" placeholder="" required>
+                        <label for="editLogo1" class="form-label fw-semibold">Logo 1 PromPeru*</label>
+                        <input type="text" id="editLogo1" maxlength="250" class="form-control" placeholder="" required>
                     </div>
 
                      <div class="mb-3">
-                        <label for="editLogo2" class="form-label fw-semibold">Logo 2 Turismo</label>
-                        <input type="text" id="editLogo2" class="form-control" placeholder="" required>
+                        <label for="editLogo2" class="form-label fw-semibold">Logo 2 Turismo*</label>
+                        <input type="text" id="editLogo2" maxlength="250" class="form-control" placeholder="" required>
                     </div>
 
 

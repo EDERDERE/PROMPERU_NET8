@@ -65,15 +65,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                </div>
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="image-url-1" class="form-label fw-semibold">Nombre</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Nombre">
+                        <label for="image-url-1" class="form-label fw-semibold">Nombre**</label>
+                        <input type="text" id="image-url-1" maxlength="50" class="form-control" placeholder="Nombre">
                     </div>
 
                     <div class="mb-3" style="display:none">
-                        <label for="image-url-1" class="form-label fw-semibold">Url del icono</label>
-                        <input type="text" id="image-url-1" class="form-control" placeholder="Url del icono">
+                        <label for="image-url-1" class="form-label fw-semibold">Url del Icono*</label>
+                        <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="Url del icono">
                     </div>
                 </form>
             </div>
@@ -101,6 +105,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                </div>
                 <form id="createSliderForm">
                     <div class="mb-3" hidden>
                         <label for="editId" class="form-label fw-semibold">Id Menú</label>
@@ -108,8 +116,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="editNombre" class="form-label fw-semibold">Nombre Menú</label>
-                        <input type="text" id="editNombre" class="form-control" placeholder="Nombre">
+                        <label for="editNombre" class="form-label fw-semibold">Nombre**</label>
+                        <input type="text" id="editNombre" maxlength="50" class="form-control" placeholder="Nombre">
                     </div>
 
                     <div class="mb-3" style="display:none">

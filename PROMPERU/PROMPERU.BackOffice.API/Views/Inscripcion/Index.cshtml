@@ -54,28 +54,29 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3">
-                        <label for="createPaso" class="form-label fw-semibold">Paso*</label>
-                        <input type="text" id="createPaso" class="form-control" placeholder="Paso" required>
+                        <label for="createPaso" class="form-label fw-semibold">Paso</label>
+                        <input type="number" id="createPaso" class="form-control" placeholder="Paso" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="createTitulo" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="createTitulo" class="form-control" placeholder="Titulo" required>
+                        <label for="createTitulo" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="createTitulo" maxlength="50" class="form-control" placeholder="Titulo" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="createDescription" class="form-label fw-semibold">Descripción*</label>
-                        <textarea id="createDescription" class="form-control" rows="3" placeholder="Descripción"
+                        <textarea id="createDescription" maxlength="250" class="form-control" rows="3" placeholder="Descripción"
                             required></textarea>
                     </div>
 
                     <div>
-                        <label for="createUrlImagen" class="form-label fw-semibold">URL del ícono*</label>
-                        <input type="text" id="createUrlImagen" class="form-control" placeholder="URL del ícono"
+                        <label for="createUrlImagen" class="form-label fw-semibold">URL del Icono*</label>
+                        <input type="text" id="createUrlImagen" maxlength="250" class="form-control" placeholder="URL del ícono"
                             required>
                     </div>
                 </form>
@@ -104,7 +105,8 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="createSliderForm">
                     <div class="mb-3" hidden>
@@ -116,24 +118,24 @@
                         <input type="text" class="form-control" id="editOrder" placeholder="Orden" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editPaso" class="form-label fw-semibold">Paso*</label>
-                        <input type="text" id="editPaso" class="form-control" placeholder="Paso" required>
+                        <label for="editPaso" class="form-label fw-semibold">Paso</label>
+                        <input type="number" id="editPaso" class="form-control" placeholder="Paso" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editTituloPaso" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="editTituloPaso" class="form-control" placeholder="Titulo" required>
+                        <label for="editTituloPaso" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="editTituloPaso" maxlength="50" class="form-control" placeholder="Titulo" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="editDescription" class="form-label fw-semibold">Descripción*</label>
-                        <textarea id="editDescription" class="form-control" rows="3" placeholder="Descripción"
+                        <textarea id="editDescription" maxlength="250" class="form-control" rows="3" placeholder="Descripción"
                             required></textarea>
                     </div>
 
                     <div>
-                        <label for="editUrlImagen" class="form-label fw-semibold">URL del ícono*</label>
-                        <input type="text" id="editUrlImagen" class="form-control" placeholder="URL del ícono"
+                        <label for="editUrlImagen" class="form-label fw-semibold">URL del Icono*</label>
+                        <input type="text" id="editUrlImagen" maxlength="250" class="form-control" placeholder="URL del ícono"
                             required>
                     </div>
                 </form>
@@ -182,7 +184,8 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary message-input" role="alert">
-                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
                 </div>
                 <form id="editSliderForm">
                     <div class="mb-3" hidden>
@@ -190,38 +193,38 @@
                         <input type="text" id="editForm" class="form-control" placeholder="¿Que es?" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editTitulo" class="form-label fw-semibold">Titulo*</label>
-                        <input type="text" id="editTitulo" class="form-control" placeholder="¿Que es?" required>
+                        <label for="editTitulo" class="form-label fw-semibold">Titulo**</label>
+                        <input type="text" id="editTitulo" maxlength="50" class="form-control" placeholder="¿Que es?" required>
                     </div>
                     <div class="mb-3">
                         <label for="editNombreBoton" class="form-label fw-semibold">
-                            Nombre del botón*
+                            Nombre del Botón**
                         </label>
-                        <input type="text" id="editNombreBoton" class="form-control" placeholder="Nombre del botón
+                        <input type="text" id="editNombreBoton" maxlength="50" class="form-control" placeholder="Nombre del botón
                         " required>
                     </div>
                     <div class="mb-3">
                         <label for="editContenido" class="form-label fw-semibold">
                             Descripción*
                         </label>
-                        <textarea name="" id="editContenido" class="form-control" placeholder="Descripción" rows="3"
+                        <textarea name="" id="editContenido" maxlength="250" class="form-control" placeholder="Descripción" rows="3"
                             required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="editUrlIcon" class="form-label fw-semibold">
-                            URL ícono de botón*
+                            URL Icono del Botón*
 
                         </label>
-                        <input type="text" id="editUrlIcon" class="form-control" placeholder="URL ícono de botón "
+                        <input type="text" id="editUrlIcon" maxlength="250" class="form-control" placeholder="URL ícono de botón "
                             required>
                     </div>
 
                     <hr>
                     <div class="mb-3 ">
                         <div class="d-flex justify-content-between">
-                            <label for="editUrlImageBanner" class="form-label fw-semibold">URL del banner*</label>
+                            <label for="editUrlImageBanner" class="form-label fw-semibold">URL del Banner*</label>
                         </div>
-                        <input type="text" id="editUrlImageBanner" class="form-control" placeholder="URL del banner">
+                        <input type="text" id="editUrlImageBanner" maxlength="250" class="form-control" placeholder="URL del banner">
 
                     </div>
 
@@ -229,7 +232,7 @@
                         <label for="editDescripcionSeccion" class="form-label fw-semibold">
                             Descripción Sección*
                         </label>
-                        <textarea name="" id="editDescripcionSeccion" class="form-control" placeholder="Descripción" rows="3"
+                        <textarea name="" id="editDescripcionSeccion" maxlength="250" class="form-control" placeholder="Descripción" rows="3"
                             required></textarea>
                     </div>
                     

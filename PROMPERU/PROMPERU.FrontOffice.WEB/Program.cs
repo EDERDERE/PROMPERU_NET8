@@ -52,6 +52,8 @@ builder.Services.AddScoped<TipoEmpresaBL>();
 builder.Services.AddScoped<ContenidoInteractivoDA>();
 builder.Services.AddScoped<ContenidoInteractivoBL>();
 builder.Services.AddScoped<CursoModalidadDA>();
+builder.Services.AddScoped<UbigeoDA>();
+builder.Services.AddScoped<UbigeoBL>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

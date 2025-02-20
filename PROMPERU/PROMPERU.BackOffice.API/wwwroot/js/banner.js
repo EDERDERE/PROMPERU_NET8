@@ -67,8 +67,8 @@ function createSliderCardBanner(banner) {
         <textarea id="description-${banner.bann_ID}" class="form-control" rows="3"  maxlength="250" placeholder="${banner.bann_Nombre}" disabled></textarea>
       </div>
       <div>
-        <label for="image-url-${banner.bann_ID}" class="form-label fw-semibold">URL de la imagen</label>
-        <input type="text" id="image-url-${banner.bann_ID}" class="form-control" value="${banner.bann_URLImagen}" disabled>
+        <label for="image-url-${banner.bann_ID}" class="form-label fw-semibold">URL de la Imagen</label>
+        <input type="text" id="image-url-${banner.bann_ID}" class="form-control" maxlength="250" value="${banner.bann_URLImagen}" disabled>
       </div>
     </div>`;
 }

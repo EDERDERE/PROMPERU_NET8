@@ -47,10 +47,10 @@
                 </div>
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Contacto</label>
+                        <label for="image-url-1" class="form-label fw-semibold">Contacto**</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control " placeholder="Contacto" disabled>
+                    <input type="text" id="image-url-1" maxlength="50" class="form-control " placeholder="Contacto" disabled>
 
                 </div>
             </div>
@@ -58,20 +58,20 @@
             <div class="row ">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Ícono de contacto</label>
+                        <label for="image-url-1" class="form-label fw-semibold">Ícono de Contacto</label>
 
                     </div>
 
-                    <input name="" id="image-url-1" class="form-control" placeholder="Ícono de contacto" disabled>
+                    <input name="" id="image-url-1" maxlength="250" class="form-control" placeholder="Ícono de contacto" disabled>
 
 
                 </div>
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Ubicación</label>
+                        <label for="image-url-1" class="form-label fw-semibold">Ubicación*</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Ubicación" disabled>
+                    <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="Ubicación" disabled>
                 </div>
 
 
@@ -80,18 +80,18 @@
             <div class="row">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Ícono de ubicación</label>
+                        <label for="image-url-1" class="form-label fw-semibold">Ícono de Ubicación</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Ícono de ubicación" disabled>
+                    <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="Ícono de ubicación" disabled>
                 </div>
 
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">URL del logo</label>
+                        <label for="image-url-1" class="form-label fw-semibold">URL del logo*</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL del logo" disabled>
+                    <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="URL del logo" disabled>
                 </div>
             </div>
 
@@ -99,37 +99,37 @@
             <div class="row">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">Ayuda</label>
+                        <label for="image-url-1" class="form-label fw-semibold">Ayuda**</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control mb-2" placeholder="Ayuda" disabled>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="Ayuda" disabled>
+                    <input type="text" id="image-url-1" maxlength="50" class="form-control mb-2" placeholder="Ayuda" disabled>
+                    <input type="text" id="image-url-1" maxlength="50" class="form-control" placeholder="Ayuda" disabled>
                 </div>
 
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">URL de íconos footer</label>
+                        <label for="image-url-1" class="form-label fw-semibold">URL de Iconos Footer</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL de íconos footer" disabled>
+                    <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="URL de íconos footer" disabled>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">URL de íconos footer</label>
+                        <label for="image-url-1" class="form-label fw-semibold">URL de Iconos Footer*</label>
 
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL de íconos footer" disabled>
+                    <input type="text" id="image-url-1" maxlength="250"  class="form-control" placeholder="URL de íconos footer" disabled>
 
                 </div>
 
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="image-url-1" class="form-label fw-semibold">URL del logo Perú</label>
+                        <label for="image-url-1" class="form-label fw-semibold">URL del logo Perú*</label>
                     </div>
-                    <input type="text" id="image-url-1" class="form-control" placeholder="URL del logo Perú" disabled>
+                    <input type="text" id="image-url-1" maxlength="250" class="form-control" placeholder="URL del logo Perú" disabled>
                 </div>
             </div>
         </div>
@@ -148,6 +148,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                 <div class="alert alert-primary message-input" role="alert">
+                    Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
+                    Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                </div>
                 <form id="createSliderForm">
                     <div class="row ">
                         <div class="col-md-6 my-3 " hidden>
@@ -160,18 +164,18 @@
                         </div>
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editNombre" class="form-label fw-semibold">Nombre </label>
+                                <label for="editNombre" maxlength="50" class="form-label fw-semibold">Nombre** </label>
 
                             </div>
-                            <input type="text" id="editNombre" class="form-control " placeholder="Nombre ">
+                            <input type="text" id="editNombre" maxlength="50" class="form-control " placeholder="Nombre ">
 
                         </div>
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editContacto" class="form-label fw-semibold">Contacto</label>
+                                <label for="editContacto" class="form-label fw-semibold">Contacto**</label>
 
                             </div>
-                            <input type="text" id="editContacto" class="form-control " placeholder="Contacto">
+                            <input type="text" id="editContacto" maxlength="50" class="form-control " placeholder="Contacto">
 
                         </div>
                     </div>
@@ -179,17 +183,17 @@
                     <div class="row ">
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editUrlContacto" class="form-label fw-semibold">Ícono de contacto</label>
+                                <label for="editUrlContacto" class="form-label fw-semibold">Ícono de Contacto*</label>
 
                             </div>
 
-                            <input name="" id="editUrlContacto" class="form-control" placeholder="Ícono de contacto">
+                            <input name="" id="editUrlContacto" maxlength="250"  class="form-control" placeholder="Ícono de contacto">
 
 
                         </div>
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editUbi" class="form-label fw-semibold">Ubicación</label>
+                                <label for="editUbi" maxlength="250" class="form-label fw-semibold">Ubicación*</label>
 
                             </div>
                             <input type="text" id="editUbi" class="form-control" placeholder="Ubicación">
@@ -202,18 +206,18 @@
                     <div class="row">
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editUrlUbi" class="form-label fw-semibold">Ícono de ubicación</label>
+                                <label for="editUrlUbi" class="form-label fw-semibold">Ícono de Ubicación*</label>
 
                             </div>
-                            <input type="text" id="editUrlUbi" class="form-control" placeholder="Ícono de ubicación">
+                            <input type="text" id="editUrlUbi" maxlength="250" class="form-control" placeholder="Ícono de ubicación">
                         </div>
 
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editUrlWhatssap" class="form-label fw-semibold">URL del logo</label>
+                                <label for="editUrlWhatssap" class="form-label fw-semibold">URL del Logo*</label>
 
                             </div>
-                            <input type="text" id="editUrlWhatssap" class="form-control" placeholder="URL del logo">
+                            <input type="text" id="editUrlWhatssap" maxlength="250" class="form-control" placeholder="URL del logo">
                         </div>
                     </div>
 
@@ -221,35 +225,35 @@
                     <div class="row">
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editAyuda" class="form-label fw-semibold">Ayuda</label>
+                                <label for="editAyuda" class="form-label fw-semibold">Ayuda**</label>
 
                             </div>
                             <input type="text" id="editComunicate" class="form-control mb-2" placeholder="Ayuda">
-                            <input type="text" id="editAyuda" class="form-control" placeholder="Ayuda">
+                            <input type="text" id="editAyuda" maxlength="50" class="form-control" placeholder="Ayuda">
                         </div>
 
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editUrlMensaje" class="form-label fw-semibold">URL de íconos footer</label>
+                                <label for="editUrlMensaje" class="form-label fw-semibold">URL de Iconos Footer*</label>
 
                             </div>
-                            <input type="text" id="editUrlMensaje" class="form-control" placeholder="URL de íconos footer">
+                            <input type="text" id="editUrlMensaje" maxlength="250"  class="form-control" placeholder="URL de íconos footer">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editLogoPrincipal" class="form-label fw-semibold">URL de íconos footer</label>
+                                <label for="editLogoPrincipal" class="form-label fw-semibold">URL de Iconos Footer*</label>
 
                             </div>
-                            <input type="text" id="editLogoPrincipal" class="form-control" placeholder="URL de íconos footer">
+                            <input type="text" id="editLogoPrincipal" maxlength="250" class="form-control" placeholder="URL de íconos footer">
 
                         </div>
 
                         <div class="col-md-6 my-3 ">
                             <div class="d-flex justify-content-between">
-                                <label for="editLogoSecundario" class="form-label fw-semibold">URL del logo Perú</label>
+                                <label for="editLogoSecundario" maxlength="250" class="form-label fw-semibold">URL del logo Perú*</label>
 
                             </div>
                             <input type="text" id="editLogoSecundario" class="form-control" placeholder="URL del logo Perú">
