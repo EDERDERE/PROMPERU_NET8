@@ -74,8 +74,9 @@ namespace PROMPERU.BackOffice.API.Controllers
                      Test_Nombre = testimonioDto.nombre,
                      Test_Descripcion = testimonioDto.descripcion,
                      Test_UrlIcon = testimonioDto.urlIcon,
-                     Test_UrlImagen = testimonioDto.urlImagen
-                
+                     Test_UrlImagen = testimonioDto.urlImagen,                 
+                    Test_NombreEmpresa = testimonioDto.empresa
+
 
                 };
                 await _testimonioBL.InsertarTestimonioAsync(testimonio, usuario, ip); // Llamada asincr�nica
@@ -101,7 +102,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Test_Nombre = testimonioDto.nombre,
                     Test_Descripcion = testimonioDto.descripcion,
                     Test_UrlIcon = testimonioDto.urlIcon,
-                    Test_UrlImagen = testimonioDto.urlImagen
+                    Test_UrlImagen = testimonioDto.urlImagen,
+                    Test_NombreEmpresa = testimonioDto.empresa
 
                 };
                 await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip, id); // Llamada asincr�nica
@@ -164,7 +166,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Test_Nombre = testimonioDto.nombre,
                         Test_Descripcion = testimonioDto.descripcion,
                         Test_UrlIcon = testimonioDto.urlIcon,
-                        Test_UrlImagen = testimonioDto.urlImagen
+                        Test_UrlImagen = testimonioDto.urlImagen,
+                        Test_NombreEmpresa = testimonioDto.empresa
 
                     };
                     await _testimonioBL.ActualizarTestimonioAsync(testimonio, usuario, ip,testimonio.Test_ID); // Llamada asincr�nica

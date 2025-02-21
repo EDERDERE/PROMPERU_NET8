@@ -885,31 +885,16 @@ async function cargarTiposRegion(selectElementId, Tipovalor) {
   }
 }
 function DescargaEmpresa() {
-  $("#btnDescargar").click(function () {
-    let tabla = $("#nombreTabla").val();
+    $("#btnDescargar").click(function () {
+        let tabla = $("#nombreTabla").val();
 
-    if (!tabla) {
-      alert("Ingrese el nombre de la tabla.");
-      return;
-    }
-
-    $.ajax({
-      url: "/Descarga/DescargarDatos",
-      type: "GET",
-      data: { tabla: tabla },
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          exportToCSV(response.data, tabla);
-        } else {
-          alert("Error: " + response.message);
+        if (!tabla) {
+            alert("Ingrese el nombre de la tabla.");
+            return;
         }
-      },
-      error: function () {
-        alert("Hubo un error.");
-      },
+
+        window.location.href = "/Descarga/DescargarDatos?tabla=" + encodeURIComponent(tabla);
     });
-  });
 }
 
 function exportToCSV(data, tabla) {

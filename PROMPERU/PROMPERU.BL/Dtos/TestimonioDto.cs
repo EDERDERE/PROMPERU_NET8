@@ -12,7 +12,8 @@ namespace PROMPERU.BL.Dtos
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string urlIcon { get; set; }
-        public string urlImagen { get; set; }
+        public string urlImagen { get; set; } 
+        public string empresa { get; set; }
 
     }   
 }

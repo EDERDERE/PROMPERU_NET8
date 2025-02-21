@@ -31,6 +31,7 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Test_Descripcion", testimonio.Test_Descripcion);
                 comando.Parameters.AddWithValue("@Test_UrlIcon", testimonio.Test_UrlIcon);
                 comando.Parameters.AddWithValue("@Test_UrlImagen", testimonio.Test_UrlImagen);
+                comando.Parameters.AddWithValue("@Test_NombreEmpresa", testimonio.Test_NombreEmpresa);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -154,6 +155,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Test_Descripcion", Testimonio.Test_Descripcion);
                     comando.Parameters.AddWithValue("@Test_UrlIcon", Testimonio.Test_UrlIcon);
                     comando.Parameters.AddWithValue("@Test_UrlImagen", Testimonio.Test_UrlImagen);
+                    comando.Parameters.AddWithValue("@Test_NombreEmpresa", Testimonio.Test_NombreEmpresa);
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 

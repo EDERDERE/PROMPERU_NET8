@@ -61,6 +61,8 @@ function loadListarTestimonio() {
                             data-description="${testimonio.test_Descripcion}"
                               data-urlImagen="${testimonio.test_UrlImagen}"
                               data-icono="${testimonio.test_UrlIcon}"
+                               data-nombre="${testimonio.test_Nombre}"
+                                data-empresa="${testimonio.test_NombreEmpresa}"
                               >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -71,8 +73,15 @@ function loadListarTestimonio() {
                        
                     </div>
                 </div>
-
-               
+                  <div class="mb-3">
+                <label for="icon-url-${testimonio.test_ID}" class="form-label fw-semibold">Nombre</label>
+                <input type="text"  id="icon-url-${testimonio.test_ID}" class="form-control" value="${testimonio.test_Nombre}" disabled>
+              </div>
+                <div class="mb-3">
+                <label for="icon-url-${testimonio.test_ID}" class="form-label fw-semibold">Nombre Empresa</label>
+                <input type="text"  id="icon-url-${testimonio.test_ID}" class="form-control" value="${testimonio.test_NombreEmpresa}" disabled>
+              </div>
+              
                 <div class="mb-3">
                     <label for="description-${testimonio.test_ID}" class="form-label fw-semibold">Descripción</label>
                     <textarea id="description-${testimonio.test_ID}" class="form-control" rows="3" placeholder="${testimonio.test_Descripcion}"
@@ -114,7 +123,8 @@ function loadCrearTestimonio() {
     var description = $("#createDescription").val();
     var imageUrl = $("#createImageUrl").val();
     var urlIcon = $("#createIcon").val();
-
+      var nombre = $("#createNombre").val();
+      var empresa = $("#createEmpresa").val();
     if (description && imageUrl && urlIcon) {
       $.ajax({
         type: "POST",
@@ -122,7 +132,9 @@ function loadCrearTestimonio() {
         data: {
           descripcion: description,
           urlImagen: imageUrl,
-          urlIcon: urlIcon,
+            urlIcon: urlIcon,
+            nombre: nombre,
+          empresa:empresa
         },
         success: function (response) {
           console.log("Crear", response);
@@ -237,21 +249,25 @@ function loadEditarTestimonio() {
     var description = button.data("description"); // Obtener la descripción
     var urlImagen = button.data("urlimagen");
     var urlIcono = button.data("icono");
-
+      var nombre = button.data("nombre");
+      var empresa = button.data("empresa");
 
     // Asignar los valores al modal
     var modal = $(this);
     modal.find("#editId").val(id);
     modal.find("#editDescription").val(description);
     modal.find("#editImageUrl").val(urlImagen);
-    modal.find("#editIcono").val(urlIcono);
+      modal.find("#editIcono").val(urlIcono);
+      modal.find("#editNombre").val(nombre);
+      modal.find("#editEmpresa").val(empresa);
   });
   $("#saveEditSlider").click(function () {
     var description = $("#editDescription").val();
     var id = $("#editId").val();
     var urlImagen = $("#editImageUrl").val();
     var urlIcono = $("#editIcono").val();
-
+      var nombre = $("#editNombre").val();
+      var empresa = $("#editEmpresa").val();
     if (description && urlImagen && urlIcono) {
       $.ajax({
         type: "POST",
@@ -260,7 +276,9 @@ function loadEditarTestimonio() {
           id: id,
           descripcion: description,
           urlImagen: urlImagen,
-          urlIcon: urlIcono
+            urlIcon: urlIcono,
+          nombre:nombre,
+          empresa:empresa
         },
         
         success: function (response) {

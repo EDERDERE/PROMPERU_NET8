@@ -16,11 +16,11 @@ namespace PROMPERU.DA
             _auditoriaDA = auditoriaDA;
         }
 
-        public async Task<List<Dictionary<string, object>>> ObtenerDatosAsync(string tabla)
+        public async Task<DataTable> ObtenerDatosAsync(string tabla)
         {
             try
             {
-                List<Dictionary<string, object>> listaDatos = new();               
+                var dt = new DataTable();
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
                 await using var comando = new SqlCommand("USP_DatosGenericos_RPT", conexion)
@@ -28,27 +28,18 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
                 comando.Parameters.AddWithValue("@Tabla", tabla);
+
                 await using var reader = await comando.ExecuteReaderAsync();
+                dt.Load(reader); // Carga los datos directamente en el DataTable
 
-                while (await reader.ReadAsync())
-                {
-                    Dictionary<string, object> fila = new();
-
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        fila[reader.GetName(i)] = reader[i]?.ToString() ?? "";
-                    }
-
-                    listaDatos.Add(fila);
-                }
-
-                return listaDatos;
+                return dt;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los Descargas", ex);
+                throw new Exception("Error al obtener los datos de la tabla.", ex);
             }
         }
+
 
     }
 }

@@ -1,12 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BackOffice.API.Filters;
-using PROMPERU.BackOffice.API.Models;
-using PROMPERU.BE;
 using PROMPERU.BL;
-using PROMPERU.BL.Dtos;
-using PROMPERU.DA;
-using System.Diagnostics;
-
 namespace PROMPERU.BackOffice.API.Controllers
 {
     [SessionCheck]
@@ -36,14 +30,11 @@ namespace PROMPERU.BackOffice.API.Controllers
 
             try
             {
-                var datos = await _descargaBL.ObtenerDatosAsync(tabla);
+                byte[] archivoExcel = await _descargaBL.GenerarExcelAsync(tabla);
 
-                if (datos.Count == 0)
-                {
-                    return Json(new { success = false, message = "No hay datos disponibles." });
-                }
-
-                return Json(new { success = true, data = datos });
+                return File(archivoExcel,
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            $"{tabla}.xlsx");
             }
             catch
             {

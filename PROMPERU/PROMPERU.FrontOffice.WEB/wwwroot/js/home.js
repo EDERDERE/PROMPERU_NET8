@@ -576,11 +576,12 @@ function renderSlideTestHome(testimonios) {
   $("#slideTestHome").append(html);
 }
 function renderLogrosHome(logros) {
+    console.log('renderLogrosHome', logros)
   let html = "";
   logros.forEach((logr) => {
     html += `
          <div class="item d-block d-lg-flex align-items-center gap-2 text-center text-lg-start w-100">
-             <h4 class="m-0 p-0 pt-1 me-md-2">11</h4> 
+             <h4 class="m-0 p-0 pt-1 me-md-2">${logr.logr_Contador}</h4> 
           <div class="description text-white w-100">
               <div class="items">
                   <h3>${logr.logr_Nombre}</h3>

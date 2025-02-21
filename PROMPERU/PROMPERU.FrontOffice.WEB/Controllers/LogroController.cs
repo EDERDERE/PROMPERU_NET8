@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.BL.Dtos;
+using PROMPERU.DA;
 
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
@@ -11,11 +12,15 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
     {
         private readonly ILogger<LogroController> _logger;    
         private readonly LogroBL _logroBL;
+        private readonly EmpresaBL _empresaBL;
+        private readonly CursoBL _cursoBL;
 
-        public LogroController(ILogger<LogroController> logger, LogroBL logroBL)
+        public LogroController(ILogger<LogroController> logger, LogroBL logroBL,EmpresaBL empresaBL,CursoBL cursoBL)
         {
             _logger = logger;
             _logroBL = logroBL;
+            _empresaBL = empresaBL;
+            _cursoBL = cursoBL;
         }
 
         public IActionResult Index()
@@ -29,13 +34,33 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             try
             {
                 var Logros = await _logroBL.ListarLogrosAsync(); // Cambio a versión asincrónica
+                var listEmpresasGraduadas = await _empresaBL.ListarEmpresasAsync(); 
+                var listCursos = (await _cursoBL.ListarCursosAsync()).Where(x => x.Curs_EsHabilitado == 1).ToList(); 
+                
                 if (Logros != null && Logros.Any())
                 {
+                    // Contadores
+                    int countEmpresasGraduadas = listEmpresasGraduadas?.Count ?? 0;
+                    int countTestRealizados = 99;
+                    int countCursosActuales = listCursos?.Count ?? 0;
+
+                    // Mapeo de logros con el nuevo campo "contado"
+                    var logrosConContador = Logros.Select(l => new
+                    {
+                        l.Logr_ID,
+                        l.Logr_Nombre,
+                        l.Logr_Descripcion,
+                        l.Logr_UrlIcon,
+                        Logr_Contador = l.Logr_Nombre.Contains("Empresas Graduadas") ? countEmpresasGraduadas :
+                                  l.Logr_Nombre.Contains("Test Realizados") ? countTestRealizados :
+                                  l.Logr_Nombre.Contains("Cursos Actuales") ? countCursosActuales : 0
+                    }).ToList();
+
                     return Json(new
                     {
                         success = true,
                         message = "Logros obtenidos exitosamente.",
-                        Logros
+                        Logros = logrosConContador
                     });
                 }
                 else
