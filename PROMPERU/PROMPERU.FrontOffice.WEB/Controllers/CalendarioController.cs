@@ -30,7 +30,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 var cursos = await _cursoBL.ListarCursosAsync();
 
                 var cursosFiltrados = cursos
-                    .Where(c => c.Curs_EsHabilitado == 1) // Filtramos solo los cursos habilitados
+                    .Where(c =>  c.Curs_EsHabilitado == 1) // Filtramos solo los cursos habilitados
                     .Select(c => new CursoBE
                     {
                         Curs_ID = c.Curs_ID,
