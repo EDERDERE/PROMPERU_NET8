@@ -1,5 +1,7 @@
 <link href="~/css/calendario.css" rel="stylesheet" />
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+<script type="module" src="~/js/modules/calendario/index.js"></script>
 <main>
     <div class="hero">
         <div class="container">
@@ -68,6 +70,7 @@
                         <option value="3">Tipo 3</option>
                       </select>
                     </div>
+                <div class="d-flex align-items-center justify-content-center w-100">
                     <div
                       id="option-calendario"
                       class="ms-4 cursor-pointer view_switch active"
@@ -105,6 +108,8 @@
                         />
                       </svg>
                     </div>
+                    </div>
+
                   </div>
                 </div>
                 <div class="calendar mb-5" id="calendar-view">
@@ -174,4 +179,4 @@
     </div>
 </main>
 
-<script src="~/js/calendario.js"></script>
+<!-- <script src="~/js/calendario.js"></script> -->
