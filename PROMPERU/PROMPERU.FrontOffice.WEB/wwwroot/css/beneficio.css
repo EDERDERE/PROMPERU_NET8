@@ -352,7 +352,6 @@
 
 
 
-
 .cursos_grid {
   display: grid;
   gap: 1rem;
@@ -416,6 +415,8 @@
 .beneficio_item {
   border: 0;
   position: relative;
+  display: flex;
+  
 }
 .beneficio_item h3 {
   font-weight: bold;
@@ -445,8 +446,17 @@
 }
 .beneficio_item .content h4, .beneficio_item .content p {
   color: #fff;
+  font-size: var(--font-size-desktop-md);
+  min-height: 50px;;
+
 }
 
+.beneficio_item .content p {
+  color: #fff;
+  min-height: 100px;
+  font-size: var(--font-size-desktop-paragrahp);
+  padding: 0;
+}
 .beneficio_item .content h4 img{
   filter: brightness(0) invert(1);
 }

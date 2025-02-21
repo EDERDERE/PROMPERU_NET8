@@ -305,24 +305,6 @@
 }
 
 
-.beneficios {
-  height: fit-content;
-}
-
-.beneficio_item {
-  border-bottom: 1px solid #848484;
-  margin-bottom: 1rem;
-}
-
-.beneficio_item h3 {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.beneficio_item p {
-  font-size: 14px;
-  color: #848484;
-}
 
 .testomnio_item {
   border-radius: 20px;
@@ -641,24 +623,6 @@
     color: var(--color-primary);
   }
 
-  .beneficios {
-    height: 700px;
-  }
-
-  .beneficio_item {
-    border-bottom: 1px solid #848484;
-    margin-bottom: 1rem;
-  }
-
-  .beneficio_item h3 {
-    font-weight: bold;
-    font-size: 24px;
-  }
-
-  .beneficio_item p {
-    font-size: 16px;
-    color: #848484;
-  }
 
   .cursos_grid {
     display: grid;

@@ -1,5 +1,5 @@
 import { fetchData } from "../../../shared/js/apiService.js";
-import { loadCalendar, initCalendarViews, renderEventCards } from "./render.js";
+import { loadCalendar, initCalendarViews, renderEventCards, renderBannerCalendario } from "./render.js";
 
 export async function loadCalendario() {
   try {
@@ -39,6 +39,8 @@ export async function loadCalendario() {
 
               loadCalendar([...dates]);
               renderEventCards(dates);
+              console.log(cursos[0])
+              renderBannerCalendario(cursos[0])
           } else {
               $('#sliderContainer').html('<p>No se encontraron cursos disponibles.</p>');
           }

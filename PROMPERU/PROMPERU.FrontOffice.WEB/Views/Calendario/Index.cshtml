@@ -1,182 +1,108 @@
 <link href="~/css/calendario.css" rel="stylesheet" />
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script type="module" src="~/js/modules/seccion/index.js" defer></script>
 
 <script type="module" src="~/js/modules/calendario/index.js"></script>
 <main>
-    <div class="hero">
-        <div class="container">
-          <div class="title">Calendario</div>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magn
-          </p>
-          <div class="location-return">
-            <a href="#" title="home" class="home-return">
-              <img
-                src="../../shared/assets/contactanos/home.svg"
-                alt="home"
-                class="image-home"
-              />
-            </a>
-            &nbsp;
-            <a href="Home/Index" title="Calendario"> &nbsp; / Calendario</a>
-          </div>
-        </div>
+  <div class="hero">
+    <div class="container" id="bannerCalendario"></div>
+  </div>
+
+
+  <div class="container mt-5 mb-5">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <h2 class="text-start title-que-es">Calendario</h2>
+        <div class="red-linear"></div>
       </div>
-
-      <!-- Container ¿Tienes más consultas? -->
-      <div class="container mt-5 mb-5">
-        <div class="row">
-          <div class="col-12 col-md-12">
-            <h2 class="text-start title-que-es">Calendario</h2>
-            <div class="red-linear"></div>
-          </div>
-          <div class="col-12 col-md-12 mt-5">
-            <div class="col-12 mx-auto">
-              <div class="my-5">
-                <div class="calendario_container">
-                  <div
-                    class="calendario_filtros d-flex gap-2 w-100 align-items-end mb-5 flex-column flex-md-row"
-                  >
-                    <div class="w-100">
-                      <label class="form-label text-primary">Año:</label>
-                      <select class="form-select" aria-label="Selecionar año">
-                        <option selected>Todos</option>
-                        <option value="1">2025</option>
-                        <option value="2">2024</option>
-                        <option value="3">2023</option>
-                      </select>
-                    </div>
-                    <div class="w-100">
-                      <label class="form-label text-primary">Mes:</label>
-                      <select class="form-select" aria-label="Selecionar mes">
-                        <option selected>Todos</option>
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                      </select>
-                    </div>
-                    <div class="w-100">
-                      <label class="form-label text-primary"
-                        >Tipo de Eventos:</label
-                      >
-                      <select
-                        class="form-select"
-                        aria-label="Selecionar tipo de evento"
-                      >
-                        <option selected>Todos</option>
-                        <option value="1">Tipo 1</option>
-                        <option value="2">Tipo 2</option>
-                        <option value="3">Tipo 3</option>
-                      </select>
-                    </div>
+      <div class="col-12 col-md-12 mt-5">
+        <div class="col-12 mx-auto">
+          <div class="my-5">
+            <div class="calendario_container">
+              <div class="calendario_filtros d-flex gap-2 w-100 align-items-end mb-5 flex-column flex-md-row">
+                <div class="w-100">
+                  <label class="form-label text-primary">Año:</label>
+                  <select class="form-select" aria-label="Selecionar año">
+                    <option selected>Todos</option>
+                    <option value="1">2025</option>
+                    <option value="2">2024</option>
+                    <option value="3">2023</option>
+                  </select>
+                </div>
+                <div class="w-100">
+                  <label class="form-label text-primary">Mes:</label>
+                  <select class="form-select" aria-label="Selecionar mes">
+                    <option selected>Todos</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                  </select>
+                </div>
+                <div class="w-100">
+                  <label class="form-label text-primary">Tipo de Eventos:</label>
+                  <select class="form-select" aria-label="Selecionar tipo de evento">
+                    <option selected>Todos</option>
+                    <option value="1">Tipo 1</option>
+                    <option value="2">Tipo 2</option>
+                    <option value="3">Tipo 3</option>
+                  </select>
+                </div>
                 <div class="d-flex align-items-center justify-content-center w-100">
-                    <div
-                      id="option-calendario"
-                      class="ms-4 cursor-pointer view_switch active"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        fill="currentColor"
-                        class="bi bi-calendar-week"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"
-                        />
-                        <path
-                          d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      id="option-grid"
-                      class="ms-4 cursor-pointer view_switch"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        fill="currentColor"
-                        class="bi bi-grid"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"
-                        />
-                      </svg>
-                    </div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="calendar mb-5" id="calendar-view">
-                 <div id="calendar"></div> 
-                </div>
-                <div id="grid-view" class="mb-5">
-                  <div class="event_grid" id="event-grid"></div>
-                </div>
-                <h2 class="text-center title_init mb-5">
-                  ¿Te gustaria acceder a nuevos conocimientos? <br /><strong
-                    >Inicia Ahora</strong
-                  >
-                </h2>
-                <div
-                  class="d-flex justify-content-center align-items-center gap-3"
-                >
-                  <a href="" class="btn button-outline m-0">
-                    Ver cursos
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="#0070BA"
-                      class="bi bi-calendar4-week"
-                      viewBox="0 0 16 16"
-                    >
+                  <div id="option-calendario" class="ms-4 cursor-pointer view_switch active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                      class="bi bi-calendar-week" viewBox="0 0 16 16">
                       <path
-                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"
-                      />
+                        d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
                       <path
-                        d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"
-                      />
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                     </svg>
-                  </a>
-                  <div class="button-test m-0">
-                    <a href="">Empezar mi test</a>
-                    <img
-                      src="../../shared/assets/home/etapas/empezar_test.svg"
-                      alt=""
-                    />
+                  </div>
+                  <div id="option-grid" class="ms-4 cursor-pointer view_switch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                      class="bi bi-grid" viewBox="0 0 16 16">
+                      <path
+                        d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z" />
+                    </svg>
                   </div>
                 </div>
+
               </div>
             </div>
+            <div class="calendar mb-5" id="calendar-view">
+              <div id="calendar"></div>
+            </div>
+            <div id="grid-view" class="mb-5">
+              <div class="event_grid" id="event-grid"></div>
+            </div>
+
+
           </div>
         </div>
       </div>
     </div>
-    <div class="event_modal" id="event-modal">
-      <div class="overlay"></div>
-      <div class="modal_content d-flex flex-column">
-        <h3 class="text-center text-primary mb-4 modal_titulo"></h3>
-        <p>
-          <strong>Tipo:</strong>
-          <span class="modal_tipo"></span>
-        </p>
-        <p>
-          <strong>Descripción:</strong>
-          <span class="modal_descripcion"></span>
-        </p>
-        <p>
-          <strong>Descripción 2:</strong>
-          <span class="modal_descripcion2"></span>
-        </p>
-        <button type="" class="close m-auto btn btn-primary">Cerrar</button>
-      </div>
+  </div>
+  </div>
+
+  <div id="callToAction"></div>
+  <div class="event_modal" id="event-modal">
+    <div class="overlay"></div>
+    <div class="modal_content d-flex flex-column">
+      <h3 class="text-center text-primary mb-4 modal_titulo"></h3>
+      <p>
+        <strong>Tipo:</strong>
+        <span class="modal_tipo"></span>
+      </p>
+      <p>
+        <strong>Descripción:</strong>
+        <span class="modal_descripcion"></span>
+      </p>
+      <p>
+        <strong>Descripción 2:</strong>
+        <span class="modal_descripcion2"></span>
+      </p>
+      <button type="" class="close m-auto btn btn-primary">Cerrar</button>
     </div>
+  </div>
 </main>
 
 <!-- <script src="~/js/calendario.js"></script> -->

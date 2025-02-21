@@ -1,90 +1,6 @@
 @import "../shared/styles/variables.css";
 @import "./etapasInscripcion.css";
-
-.hero {
-  height: 236px;
-}
-.hero .content p {
-  font-size: var(--font-size-mobile);
-  line-height: 14px;
-}
-
-.hero_bg {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-
-.hero .swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.hero .swiper-slide {
-  text-align: center;
-  font-size: 1.125rem;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero .swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-
-.hero .swiper-slide .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.28);
-}
-
-.hero .swiper-slide .container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: start;
-  padding: .7rem;
-  padding-right: 10rem;
-  font-size: 16px;
-  font-weight: medium;
-}
-
-.hero .swiper-pagination .swiper-pagination-bullet {
-  background: #fff;
-  opacity: 1;
-  margin-top: 10px;
-}
-
-.hero
-  .swiper-pagination
-  .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: var(--color-primary);
-  position: relative;
-}
-
-.hero
-  .swiper-pagination
-  .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
-  content: "";
-  width: calc(100% + 6px);
-  height: calc(100% + 6px);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid var(--color-primary);
-  border-radius: 50%;
-}
+@import "./home/heroHome.css";
 
 /* === Contenedor Quick Data === */
 .quick_data {
@@ -237,143 +153,7 @@
   margin: 1.5rem 0;
 }
 
-/* === Etapas de inscripcion === */
-/* .container-inscripcion {
-  font-family: var(--font-helvetica);
-  padding: 20px;
-}
 
-.inscripción-title {
-  font-size: 23px;
-  font-weight: 550;
-}
-
-.container-import .p-principal {
-  color: rgb(110, 110, 110);
-  font-size: var(--font-size-mobile);
-}
-
-.nav-items {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  line-height: 1.5;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 15px;
-  border-radius: 32px;
-}
-.step-indicator {
-  color: var(--red-primary) !important;
-  font-weight: 700;
-}
-
-.step:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-.right-align {
-  margin-left: 2rem;
-}
-
-.left-align {
-  margin-right: 2rem;
-}
-
-.step-content {
-  flex: 1;
-  text-align: left;
-  width: 100%;
-  border: 1px solid #e4e5d8;
-  padding: 1rem;
-  border-radius: 30px;
-  position: relative;
-}
-
-.right-align::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -26px;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border-left: 1px solid #e4e5d8;
-  border-bottom: 1px solid #e4e5d8;
-  background: #fff;
-  rotate: 45deg;
-}
-
-.left-align::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -6px;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border-right: 1px solid #e4e5d8;
-  border-top: 1px solid #e4e5d8;
-  background: #fff;
-  rotate: 45deg;
-}
-
-.step-image img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  object-fit: cover;
-}
-
-.step-content .step_indicator {
-  color: #c3132c;
-  font-weight: bold;
-}
-
-.step-content p {
-  font-size: var(--font-size-mobile);
-  color: #717171;
-  margin: 0;
-  font-weight: normal;
-}
-
-.step-title {
-  font-size: 1.125rem;
-  color: #717171;
-  font-weight: bold;
-  margin-bottom: 2px;
-  width: 100%;
-}
-
-.step-content strong {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.step .step-image {
-  width: 80px;
-  height: 80px;
-  background-color: #c3132c;
-  border-radius: 50%;
-  position: relative;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.step .step-image img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
-  object-fit: contain;
-} */
-
-/* === Etapas de inscripcion === */
 
 .video_about {
   height: 400px;
@@ -624,11 +404,6 @@
 
 @media screen and (min-width: 768px) {
 
-  .hero .content p {
-    font-size: var(--font-size-tablet);
-    line-height: 18px;
-  }
-
   .graduated_companies {
     display: grid;
     gap: 1rem;
@@ -686,19 +461,6 @@
   }
 }
 @media screen and (min-width: 992px) {
-  .hero {
-    margin-top: -41px;
-    height: 380px;
-  }
-
-  .hero .content {
-    max-width: 600px;
-  }
-
-  .hero .content p {
-    font-size: var(--font-size-desktop);
-    line-height: 28px;
-  }
 
   .quick_data h4 {
     color: var(--color-white);

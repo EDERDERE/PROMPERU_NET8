@@ -30,8 +30,8 @@ export function renderInscription(inscriptions) {
     "sliderInscription",
     (data) =>
       data
-        .filter((insc) => insc.insc_Orden >= 1) 
-        .slice(0, 5) 
+        .filter((insc) => insc.insc_Orden >= 1)
+        .slice(0, 5)
         .map(
           (insc, index) => `
           <div class="step">
@@ -39,8 +39,8 @@ export function renderInscription(inscriptions) {
               <img src="${insc.insc_URLImagen}" alt="Paso ${insc.insc_Paso}" />
             </div>
              <div class="step-content ${
-                      index % 2 !== 0 ? "left-align" : "right-align"
-                    }">
+               index % 2 !== 0 ? "left-align" : "right-align"
+             }">
               <p class="step-indicator">PASO ${insc.insc_Paso}</p>
               <h3 class="step-title">${insc.insc_TituloPaso}</h3>
               <p class="p-p">${insc.insc_Descripcion}</p>
@@ -62,7 +62,7 @@ export function renderInscription(inscriptions) {
                 <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
             </a>
             &nbsp;
-            <a href="#" title="Calendario"> &nbsp; / Inscripción</a>
+            <a href="#!" title="Calendario"> &nbsp; / Inscripción</a>
         </div>
     `,
     firstInscription

@@ -6,7 +6,6 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-
 .text-primary {
   color: #0070ba !important;
 }
@@ -184,7 +183,7 @@
   border-radius: 10px;
   margin: 5px !important;
 }
-.fc-col-header-cell-cushion{
+.fc-col-header-cell-cushion {
   text-decoration: none;
   color: #000;
 }

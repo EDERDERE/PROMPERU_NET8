@@ -13,13 +13,13 @@ export function renderBannerEmpresa(empresa) {
               <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
           </a>
           &nbsp;
-          <a href="Home/Index" title="Empresas"> &nbsp; / Empresas</a>
+          <a href="#!" title="Empresas"> &nbsp; / Empresas</a>
       </div>
     `,
     empresa
   );
 
-  cambiarImagenDinamica(empresa.egra_UrlLogo);
+  cambiarImagenDinamica(empresa.egra_Imagen);
 }
 
 export function renderSliderEmpresa(empresas) {

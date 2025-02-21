@@ -305,63 +305,6 @@
 }
 
 
-.beneficios {
-  height: fit-content;
-}
-
-.beneficio_item {
-  border-bottom: 1px solid #848484;
-  margin-bottom: 1rem;
-}
-
-.beneficio_item h3 {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.beneficio_item p {
-  font-size: 14px;
-  color: #848484;
-}
-
-.testomnio_item {
-  border-radius: 20px;
-  padding: 1.5rem 1rem;
-  position: relative;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-}
-
-.testomnio_item .quote {
-  color: #c41321;
-  margin: auto;
-}
-
-.testomnio_item .description {
-  font-size: 12px;
-  color: #676767;
-  text-align: center;
-}
-
-.testomnio_item .avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: auto;
-  background: #e1e8f8;
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translate(-50%, -50%);
-}
-
-.testomnio_item .avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 10px;
-}
 
 
 .cursos_grid {
@@ -579,25 +522,6 @@
 
   .video_list .video_item.active p {
     color: var(--color-primary);
-  }
-
-  .beneficios {
-    height: 700px;
-  }
-
-  .beneficio_item {
-    border-bottom: 1px solid #848484;
-    margin-bottom: 1rem;
-  }
-
-  .beneficio_item h3 {
-    font-weight: bold;
-    font-size: 24px;
-  }
-
-  .beneficio_item p {
-    font-size: 16px;
-    color: #848484;
   }
 
   .cursos_grid {

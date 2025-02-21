@@ -1,5 +1,28 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
+
+export function renderBannerCalendario(calendar) {
+  
+
+  renderTemplate(
+    "bannerCalendario",
+    (data) => `
+      <div class="title">${data.curs_TituloCalendario}</div>
+      <p class="description">${data.curs_DescripcionCalendario}</p>
+      <div class="location-return align-items-center">
+          <a href="/Home/Index" title="home" class="home-return">
+              <img src="../../shared/assets/contactanos/home.svg" alt="home" class="image-home" />
+          </a>
+          &nbsp;
+          <a href="#!" title="Calendario"> &nbsp; / Calendario</a>
+      </div>
+    `,
+    calendar
+  );
+
+  cambiarImagenDinamica(calendar.curs_UrlImagen);
+}
+
 export function loadCalendar(cursos){
   console.log(cursos)
     const eventos = Object.groupBy(cursos, function(){

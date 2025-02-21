@@ -1,0 +1,112 @@
+.hero {
+  height: 236px;
+}
+.hero .content p {
+  font-size: var(--font-size-mobile);
+  line-height: 14px;
+}
+
+.hero_bg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.hero .swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.hero .swiper-slide {
+  text-align: center;
+  font-size: 1.125rem;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.hero .swiper-slide .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.28);
+}
+
+.hero .swiper-slide .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: start;
+  padding: .7rem;
+  padding-right: 10rem;
+  font-size: 16px;
+  font-weight: medium;
+}
+
+.hero .swiper-pagination .swiper-pagination-bullet {
+  background: #fff;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.hero
+  .swiper-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  position: relative;
+}
+
+.hero
+  .swiper-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+  content: "";
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+}
+
+
+
+@media screen and (min-width: 768px)  {
+
+  .hero .content p {
+    font-size: var(--font-size-tablet);
+    line-height: 18px;
+  }
+}
+
+
+@media screen and (min-width: 992px) {
+  .hero {
+    margin-top: -41px;
+    height: 380px;
+  }
+
+  .hero .content {
+    max-width: 600px;
+  }
+
+  .hero .content p {
+    font-size: var(--font-size-desktop);
+    line-height: 28px;
+  }
+
+}

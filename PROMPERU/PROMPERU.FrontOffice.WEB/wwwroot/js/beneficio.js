@@ -67,7 +67,7 @@ function renderSliderBeneficio(beneficios) {
   beneficios.forEach((bene, index) => {
     if (bene.bene_Orden > 0) {
       slidersHTML += `
-                          <div class="col-12 col-md-6 p-3 beneficio_item">
+                  <div class="col-12 col-md-4 p-3 beneficio_item">
                     <div class="card rounded-4 overflow-hidden border-0 shadow">
                         <img src="../../shared/assets/beneficios/beneficios_item.png" alt="" class="img-fluid main_card_img">
                         <div class="content p-4">
