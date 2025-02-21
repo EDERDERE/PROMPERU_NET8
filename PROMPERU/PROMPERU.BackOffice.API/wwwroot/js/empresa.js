@@ -654,14 +654,18 @@ async function loadGuardarOrdenEmpresa() {
       Correos: [],
       Paginas: [],
       Rucs: [],
-      Redes: [],
+        Redes: [],
+        RedesDos: [],
+        RedesTres: [],
+        RedesCuatro: [],
       IdEmpresas: [],
       Certificaciones: [],
       Razones: [],
       Mercados: [],
-      UrlLogos: [],
-      Segmentos: [],
-      Direcciones: [],
+      UrlLogos: [],     
+        Direcciones: [],
+        Celulares: [],
+        CelularesDos: [],
       NewOrders: [],
     };
 
@@ -674,14 +678,18 @@ async function loadGuardarOrdenEmpresa() {
       data.Correos.push($(this).data("correo"));
       data.Paginas.push($(this).data("pagina"));
       data.Rucs.push($(this).data("ruc"));
-      data.Redes.push($(this).data("redes"));
+        data.Redes.push($(this).data("redes"));
+        data.RedesDos.push($(this).data("redesdos"));
+        data.RedesTres.push($(this).data("redestres"));
+        data.RedesCuatro.push($(this).data("redescuatro"));
       data.IdEmpresas.push($(this).data("idempresa"));
       data.Certificaciones.push($(this).data("certificaciones"));
       data.Razones.push($(this).data("razon"));
       data.Mercados.push($(this).data("mercados"));
       data.UrlLogos.push($(this).data("urllogo"));
-      data.Segmentos.push($(this).data("segmentos"));
       data.Direcciones.push($(this).data("direccion"));
+        data.Celulares.push($(this).data("celular"));
+        data.CelularesDos.push($(this).data("celulardos"));
     });
 
     $(".card").each(function () {
@@ -702,14 +710,20 @@ async function loadGuardarOrdenEmpresa() {
       correo: data.Correos[index].toString(),
       paginaWeb: data.Paginas[index].toString(),
       rUC: data.Rucs[index].toString(),
-      redesSociales: data.Redes[index].toString(),
+        redesSociales: data.Redes[index].toString(),
+        redesSocialesDos: data.RedesDos[index].toString(),
+        redesSocialesTres: data.RedesTres[index].toString(),
+        redesSocialesCuatro: data.RedesCuatro[index].toString(),
       id_tipoempresa: parseInt(data.IdEmpresas[index]),
       certificaciones: data.Certificaciones[index].toString(),
       razonSocial: data.Razones[index].toString(),
       mercados: data.Mercados[index].toString(),
       urlLogo: data.UrlLogos[index].toString(),
-      segmentos: data.Segmentos[index].toString(),
-      direccion: data.Direcciones[index].toString(),
+        direccion: data.Direcciones[index].toString(),
+        celular: data.Celulares[index].toString(),
+        celularDos: data.CelularesDos[index].toString(),
+        id_provincia: 1,
+      id_distrito:1
     }));
   };
 
