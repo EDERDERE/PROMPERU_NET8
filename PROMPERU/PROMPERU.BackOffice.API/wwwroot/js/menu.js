@@ -9,7 +9,7 @@ async function loadListarMenu() {
     // Realiza la solicitud AJAX de forma asíncrona
     const response = await $.ajax({
       type: "GET",
-      url: "/Menu/ListarMenus",
+      url: "/Login/Login",
       dataType: "json",
     });
 

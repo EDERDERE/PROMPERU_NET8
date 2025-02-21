@@ -3,7 +3,7 @@
   loadCrearBanner();
   loadEditarBanner();
   loadEliminarBanner();
-  loadGuardarOrdenBanner();
+    loadGuardarOrdenBanner();
 });
 async function loadListarBanner() {
   try {

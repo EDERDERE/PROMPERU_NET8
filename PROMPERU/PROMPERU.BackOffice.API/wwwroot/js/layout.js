@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
+    loadLogo();
   loadMenu();
   setActiveMenuItem();
   loadCerrarSesion();
-  setActiveMainButtons();
+    setActiveMainButtons();
+    
 });
 
 async function mostrarAlerta(
@@ -137,4 +139,53 @@ function setActiveMenuItem() {
       link.parentElement.classList.remove("active");
     }
   });
+}
+async function loadLogo() {
+    try {
+        // Realiza la solicitud AJAX de forma asíncrona
+        const response = await $.ajax({
+            type: "GET",
+            url: "/Login/ListarLogos",
+            dataType: "json",
+        });
+
+        console.log('response', response);
+        $("#logoHome").empty();
+
+        if (response.success) {
+            // Itera sobre los Menus y los agrega al contenedor
+            response.logos.forEach((logo) => {
+                const html = renderLogo(logo); // Usar la función para crear la tarjeta
+                $("#logoHome").append(html);
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "No hay Menus disponibles",
+                text: response.message || "No se encontraron Menus.",
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error al cargar los sliders",
+            text: "Hubo un problema al cargar los Menus. Por favor, inténtelo nuevamente más tarde.",
+        });
+    }
+}
+
+function renderLogo(data) {
+    console.log(data)
+    return `
+      <div class="d-flex align-items-center gap-2">
+        <img src="${data.logo_UrlPrincipal}" alt="Logo Superior" class="logo-header"/>
+        <span class="separator mx-2 text-white">|</span>
+        <img src="${data.logo_UrlSecundario}" alt="Logo Inferior" class="logo-header"/>
+      </div>
+      <button class="btn btn-transparent d-block d-lg-none text-white" id="openMenu" onclick="openMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+      </button>     
+    `;
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BackOffice.API.Filters;
 using PROMPERU.BackOffice.API.Models;
+using PROMPERU.BE;
 using PROMPERU.BL;
 using System.Diagnostics;
 
@@ -13,11 +14,14 @@ namespace PROMPERU.BackOffice.API.Controllers
     {
         private readonly ILogger<LoginController> _logger;
         private readonly UsuarioBL _UsuarioBL;
+        private readonly LogoBL _logoBL;
 
-        public LoginController(ILogger<LoginController> logger,UsuarioBL usuarioBL)
+
+        public LoginController(ILogger<LoginController> logger,UsuarioBL usuarioBL, LogoBL logoBL)
         {
             _logger = logger;
             _UsuarioBL = usuarioBL;
+            _logoBL = logoBL;
         }
 
         public IActionResult Index()
@@ -56,6 +60,40 @@ namespace PROMPERU.BackOffice.API.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Especificamos el esquema
             HttpContext.Session.Clear();
             return Json(new { success = true });
+        }
+        [HttpGet]
+        public async Task<IActionResult> ListarLogos()
+        {
+            try
+            {
+                var Logos = await _logoBL.ListarLogosAsync(); // Cambio a versi?n asincr?nica
+                if (Logos != null && Logos.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Logos obtenidos exitosamente.",
+                        Logos
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron Logos disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurri? un error al intentar obtener los Logos. Por favor, int?ntelo nuevamente."
+
+                });
+            }
         }
     }
 }
