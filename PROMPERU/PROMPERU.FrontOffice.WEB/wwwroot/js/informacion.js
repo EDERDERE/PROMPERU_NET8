@@ -45,7 +45,7 @@ async function loadListarInformacion() {
     });
   }
 }
-// Funci�n para limpiar los contenedores antes de renderizar nueva informaci�n
+
 function limpiarContenedoresInfo() {
   $("#banner").empty();
   $("#seccionInfo").empty();
@@ -70,19 +70,35 @@ function renderBannerInfo(info) {
 }
 function renderSeccionInfo(info) {
   const embedUrl = getEmbedUrl(info.info_URLVideo);
-  console.log("aaaaaaa", info, "ingreso a la seccion");
   const seccion = `
 
-        <h2 class="text-start section_title mb-3">
-            <span class="d-block mb-2">${info.info_TituloSeccion}</span>
-            <div class="red-linear"></div>
-        </h2>
+      <div class="col-12 d-md-none pb-5">
+        <div class="video_about rounded-4 overflow-hidden p-0">
+            <iframe width="100%"
+                    height="100%"
+                    src="${embedUrl}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <h2 class="text-start section_title mb-3">
+        <span class="d-block mb-2">${info.info_TituloSeccion}</span>
+        <div class="red-linear"></div>
+    </h2>
+
+    <!-- Video en mobile (arriba) -->
+
+    <div class="row">
         <div class="col-12 col-md-5">
             <p class="texto-que-es fs-12 mt-4">
                 ${info.info_DescripcionBanner}
             </p>
         </div>
-        <div class="col-12 col-md-7">
+
+        <!-- Video en desktop (abajo) -->
+        <div class="col-12 col-md-7 d-none d-md-block">
             <div class="video_about rounded-4 overflow-hidden p-0">
                 <iframe width="100%"
                         height="100%"
@@ -92,6 +108,8 @@ function renderSeccionInfo(info) {
                         allowfullscreen></iframe>
             </div>
         </div>
-      `;
+    </div>
+  `;
+
   $("#seccionInfo").append(seccion);
 }

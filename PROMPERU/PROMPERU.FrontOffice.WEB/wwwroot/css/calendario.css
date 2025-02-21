@@ -6,12 +6,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-.title_init {
-  font-weight: bold;
-}
-.title_init strong {
-  color: var(--color-primary);
-}
+
 .text-primary {
   color: #0070ba !important;
 }

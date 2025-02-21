@@ -1,6 +1,17 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
 export function renderCallToAction(data) {
+  const currentPath = window.location.pathname;
+
+  const isCoursePage = currentPath.includes("/Curso/Index");
+  const buttonText = isCoursePage
+    ? data.cint_NombreBotonTerciario
+    : data.cint_NombreBotonPrincipal;
+  const buttonHref = isCoursePage ? "/Calendario/Index" : "/Curso/Index";
+  const buttonIcon = isCoursePage
+    ? data.cint_UrlIconoBotonTerciario
+    : data.cint_UrlIconoBotonPrincipal;
+
   renderTemplate(
     "callToAction",
     (content) => `
@@ -9,11 +20,11 @@ export function renderCallToAction(data) {
               ${content.cint_Titulo} <br><strong>${content.cint_Subtitulo}</strong>
           </h2>
           <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
-              <a href="/Calendario/Index" class="btn button-outline m-0 px-3 py-2  w-md-auto text-center">
-                  ${content.cint_NombreBotonTerciario}
-                  <img src="${content.cint_UrlIconoBotonPrincipal}" alt="" />
+              <a href="${buttonHref}" class="button-outline btn-section text-center">
+                  ${buttonText}
+                  <img src="${buttonIcon}" alt="" />
               </a>
-              <div class="button-test m-0 px-5 px-md-4  text-center">
+              <div class="button-test btn-section text-center">
                   <a href="#!">${content.cint_NombreBotonSecundario}</a>
                   <img src="${content.cint_UrlIconoBotonSecundario}" alt="" />
               </div>

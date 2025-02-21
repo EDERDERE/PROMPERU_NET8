@@ -260,11 +260,10 @@ const home = {
         console.log("Respuesta del servidor:", response);
 
         if (!response?.success) {
-          console.warn('no hay cursos disponibles')
+          console.warn("no hay cursos disponibles");
         }
 
         const cursos = response.cursos || [];
-
 
         $("#tituloCursoHome, #botonCursoHome, #sliderCursoHome").empty();
 
@@ -274,7 +273,7 @@ const home = {
           renderSliderCursoHome(cursos);
         }
       },
-      error: function ( status, error) {
+      error: function (status, error) {
         console.error("Error en AJAX:", status, error);
         Swal.fire({
           icon: "error",
@@ -472,7 +471,7 @@ const home = {
 function renderContactoHome(fcont) {
   const html = `
                 <h2 class="section_title">${fcont.fcon_Titulo}</h2>
-                <div class="red-linear"></div>
+                <div class="red-linear mb-5 mb-md-0"></div>
       `;
   $("#tituloContactoHome").append(html);
 }
@@ -609,39 +608,6 @@ window.addEventListener("resize", function () {
     $(".main_nav").show();
   }
 });
-function renderLogoHome(logo) {
-  const html = `
-  <div class="d-flex align-items-center gap-2">
-      <img
-            src="${logo.logo_UrlPrincipal}"
-            alt="Logo Superior"
-            class="logo-header"
-          />
-              <span class="separator mx-2 text-white">|</span>
-  <img
-            src="${logo.logo_UrlSecundario}"
-            alt="Logo Inferior"
-            class="logo-header"
-          />
-           </div>
-          <button class="btn btn-transparent d-block d-lg-none text-white" id="openMenu" onclick="openMenu()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-</svg>
-          </button>
-          <a
-            href=""
-            class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-none d-lg-block"
-          >
-           ${logo.logo_NombreBoton}
-            <img
-              src="${logo.logo_UrlIconBoton}"
-              alt="icono de diagnostico"
-            />
-          </a>
-      `;
-  $("#logoHome").append(html);
-}
 
 function renderBotonRequisitosHome(req) {
   const html = `  
@@ -942,7 +908,9 @@ var swiper = new Swiper(".mySwiper", {
     el: ".swiper-pagination",
     clickable: true,
   },
+  touchReleaseOnEdges: true,
 });
+
 var swiper = new Swiper(".cursos_swiper", {
   direction: "horizontal",
   slidesPerView: "auto",

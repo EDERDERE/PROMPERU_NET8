@@ -81,7 +81,7 @@
   padding-right: 21px;
   text-align: left;
   color: #676767;
-  font-size: 1rem;
+  font-size: var(--font-size-mobile);
 }
 
 /* === Nuestro requisitos === */
@@ -316,25 +316,6 @@
   align-items: center;
 }
 
-.button-test {
-  padding: 12px 25px;
-  background-color: #c3132c;
-  margin-top: 40px;
-  text-align: center;
-  border-radius: 13px;
-  cursor: pointer;
-}
-
-.button-test a {
-  color: var(--color-white);
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.button-test img {
-  width: 18px;
-}
-
 .beneficios {
   height: fit-content;
 }
@@ -393,80 +374,6 @@
   object-position: center 10px;
 }
 
-.graduated_companies {
-  display: flex;
-  overflow-x: auto;
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-.graduated_companies .graduated_companies_item {
-  min-width: 200px;
-}
-
-.graduated_companies .graduated_companies_item img {
-  max-height: 84px;
-  object-fit: scale-down;
-  width: 100%;
-}
-
-.graduated_companies .graduated_companies_item h4 {
-  font-size: 14px;
-  color: var(--color-primary);
-  font-weight: bold;
-  position: relative;
-}
-
-.graduated_companies .graduated_companies_item a {
-  font-size: 12px;
-  color: #403c3d;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.graduated_companies .graduated_companies_item span {
-  font-size: 12px;
-  color: #403c3d;
-}
-
-.contacto .description {
-  color: #fff;
-  background: #c3132c;
-  padding: 3rem 2rem;
-}
-
-.contacto .description h3 {
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.contacto .description h3::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2rem;
-  width: 30px;
-  height: 4.6px;
-  border-radius: 10px;
-  background-color: var(--color-white);
-}
-
-.contacto .data {
-  padding: 3rem 2rem;
-  background: #fff;
-}
-
-.contacto .data strong {
-  color: var(--color-primary);
-}
-
-.contacto .data p {
-  font-size: 12px;
-}
-
-.contacto .data p span {
-  color: #403c3d;
-}
 
 @media screen and (min-width: 768px) {
   .step {
@@ -489,67 +396,6 @@
 
   .p-p {
     font-size: 16px;
-  }
-
-  .Button-Test {
-    font-size: 18px;
-    padding: 8px 15px;
-  }
-
-  .Button-Test img {
-    width: 15px;
-    height: 15px;
-  }
-
-  .graduated_companies {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .graduated_companies .graduated_companies_item {
-    min-width: 200px;
-  }
-
-  .graduated_companies .graduated_companies_item img {
-    max-height: 84px;
-    object-fit: scale-down;
-    width: 100%;
-  }
-
-  .graduated_companies .graduated_companies_item h4 {
-    font-size: 20px;
-    color: var(--color-primary);
-    font-weight: bold;
-  }
-
-  .graduated_companies .graduated_companies_item a {
-    font-size: 14px;
-    color: #403c3d;
-    text-decoration: none;
-  }
-
-  .graduated_companies .graduated_companies_item span {
-    font-size: 14px;
-    color: #403c3d;
-  }
-
-  .contacto .description {
-    color: #fff;
-    padding: 4rem 3rem;
-  }
-
-  .contacto .data {
-    padding: 4rem 3rem;
-    background: #fff;
-  }
-
-  .contacto .data strong {
-    color: var(--color-primary);
-  }
-
-  .contacto .data p {
-    font-size: 14px;
   }
 }
 
@@ -582,7 +428,8 @@
   }
 
   .texto-que-es {
-    font-size: 1.5rem;
+    font-size: var(--font-size-desktop-subtitle);
+    font-weight: 400;
     line-height: 2.5rem;
   }
 
@@ -625,16 +472,6 @@
 
   .step-content p {
     font-size: 20px;
-  }
-
-  .Button-Test a {
-    font-size: 20px;
-    padding: 12px 22px;
-  }
-
-  .Button-Test img {
-    width: 20px;
-    height: 20px;
   }
 
   .cursos_swiper h4 {

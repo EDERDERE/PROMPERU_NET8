@@ -13,10 +13,12 @@
   --color-shadow: rgba(0, 0, 0, 0.1);
   --header-height: 50px;
   --red-primary: #FF3737;
+  --red-secondary: #c3122c;
   --gray-primary: rgba(147, 141, 145, 0.11);
   --gray-bold: #433E39;
   --font-helvetica: 'Helvetica Neue LT Std';
   --font-size-mobile: 1rem;
+  --font-size-mobile-md: 1.5rem;
   --font-size-mobile-sm: .8rem;
   --font-size-mobile-title: 2rem;
   --font-size-tablet: 1.5rem;
@@ -25,4 +27,5 @@
   --font-size-desktop-md: 1.5rem;
   --font-size-desktop: 2rem;
   --font-size-desktop-title: 2.5rem;
+  --mt-20: 2rem;
 }

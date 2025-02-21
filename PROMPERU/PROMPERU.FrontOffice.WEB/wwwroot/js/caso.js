@@ -75,7 +75,7 @@ function renderSliderCaso(casos) {
                 ${
                   isOrderReversed
                     ? `
-                    <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-md-end align-items-center order-1 order-md-0">
+                    <div class="caso-grid col-12 col-md-6 d-flex flex-column justify-content-center align-items-md-end align-items-center order-1 order-md-0">
                         <h3>${caso.cexi_Nombre || "Nombre no disponible"}</h3>
                         <p>${
                           caso.cexi_Descripcion || "Descripción no disponible"
@@ -96,7 +96,7 @@ function renderSliderCaso(casos) {
                 ${
                   !isOrderReversed
                     ? `
-                    <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-md-start align-items-center">
+                    <div class="col-12 caso-grid col-md-6 d-flex flex-column justify-content-center align-items-md-start align-items-center">
                         <h3>${caso.cexi_Nombre || "Nombre no disponible"}</h3>
                         <p>${
                           caso.cexi_Descripcion || "Descripción no disponible"

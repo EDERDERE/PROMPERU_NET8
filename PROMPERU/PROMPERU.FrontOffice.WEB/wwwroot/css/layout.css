@@ -43,22 +43,60 @@ body {
   margin: 0;
   font-family: var(--font-helvetica), sans-serif;
 }
+
+.mt-20 {
+  margin-top: var(--mt-20);
+}
+
 .button-outline {
   border: 1px solid #c3122c;
   color: #c3122c;
   padding: 12px 25px;
   border-radius: 13px;
-  margin-top: 10px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 17px;
+  font-size: var(--font-size-mobile);
   font-weight: 600;
+}
+
+.title_init {
+  font-weight: bold;
+}
+
+.title_init strong {
+  color: #c4122f;
 }
 
 .button-outline:hover {
   background-color: #c3122c;
   color: #fff;
 }
+
+.button-test {
+  padding: 13px 25px;
+  background-color: #c3122c;
+  text-align: center;
+  border-radius: 13px;
+  cursor: pointer;
+  font-size: var(--font-size-mobile);
+}
+
+.button-test a {
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.button-test img {
+  width: 18px;
+}
+
+.btn-section {
+  min-width: 250px;
+  max-width: 450px;
+  font-size: var(--font-size-desktop-subtitle);
+  font-weight: 600;
+}
+
 .red-linear {
   content: "";
   width: 30px;
@@ -147,6 +185,10 @@ body {
   padding-left: 0;
 }
 
+.list-unstyled li {
+  height: 3.5rem;
+}
+
 .section_title {
   height: auto;
   line-height: normal;
@@ -161,6 +203,9 @@ body {
   .list-unstyled {
     list-style: none;
     padding-left: 2.1rem;
+  }
+  .list-unstyled li {
+    height: auto;
   }
 
   .section_title {

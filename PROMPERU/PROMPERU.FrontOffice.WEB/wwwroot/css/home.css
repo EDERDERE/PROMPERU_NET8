@@ -53,7 +53,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: start;
-  padding: 2rem;
+  padding: .7rem;
   padding-right: 10rem;
   font-size: 16px;
   font-weight: medium;
@@ -437,24 +437,7 @@
   align-items: center;
 }
 
-.button-test {
-  padding: 12px 25px;
-  background-color: #c3132c;
-  margin-top: 40px;
-  text-align: center;
-  border-radius: 13px;
-  cursor: pointer;
-}
 
-.button-test a {
-  color: var(--color-white);
-  text-decoration: none;
-  font-size: var(--font-size-mobile);
-}
-
-.button-test img {
-  width: 18px;
-}
 
 /*** beneficios ***/
 
@@ -595,10 +578,15 @@
   color: #403c3d;
 }
 
+.contacto {
+  margin: 1rem 0;
+}
+
 .contacto .description {
   color: #fff;
   background: #c3132c;
   padding: 3rem 2rem;
+  
 }
 
 .contacto .description h3 {
@@ -635,37 +623,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  /* .step {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .step-content {
-    padding: 2rem;
-  }
-
-  .step-image img {
-    width: 60%;
-    height: 60%;
-  }
-
-  .step-title {
-    font-size: 22px;
-  }
-
-  .p-p {
-    font-size: 16px;
-  } */
-
-  .Button-Test {
-    font-size: 18px;
-    padding: 8px 15px;
-  }
-
-  .Button-Test img {
-    width: 15px;
-    height: 15px;
-  }
 
   .hero .content p {
     font-size: var(--font-size-tablet);
@@ -709,6 +666,11 @@
     color: #fff;
     padding: 4rem 3rem;
   }
+
+  .contacto {
+    margin: 0;
+  }
+  
 
   .contacto .data {
     padding: 4rem 3rem;
@@ -855,15 +817,7 @@
     font-size: var(--font-size-desktop-paragrahp) !important;
   }
 
-  .Button-Test a {
-    font-size: 1.25rem;
-    padding: 12px 22px;
-  }
 
-  .Button-Test img {
-    width: 20px;
-    height: 20px;
-  }
 
   .cursos_swiper h4 {
     font-size: 1.25rem;

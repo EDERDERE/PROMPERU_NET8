@@ -73,14 +73,7 @@
   font-size: 12px;
 }
 
-.texto-que-es {
-  font-family: var(--bs-body-font-family);
-  font-weight: 500;
-  line-height: 20px;
-  padding-right: 21px;
-  text-align: left;
-  color: #676767;
-}
+
 
 /* === Nuestro requisitos === */
 .icon-img {
@@ -311,24 +304,6 @@
   align-items: center;
 }
 
-.button-test {
-  padding: 12px 25px;
-  background-color: #c3122c;
-  margin-top: 40px;
-  text-align: center;
-  border-radius: 13px;
-  cursor: pointer;
-}
-
-.button-test a {
-  color: var(--color-white);
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.button-test img {
-  width: 18px;
-}
 
 .beneficios {
   height: fit-content;
@@ -396,7 +371,7 @@
 }
 
 .graduated_companies .graduated_companies_item {
-  min-width: 200px;
+  min-width: 100%;
 }
 
 .graduated_companies .graduated_companies_item img {
@@ -424,58 +399,13 @@
   color: #403c3d;
 }
 
-.contacto .description {
-  color: #fff;
-  background: var(--color-primary);
-  padding: 3rem 2rem;
-}
-
-.contacto .description h3 {
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.contacto .description h3::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2rem;
-  width: 30px;
-  height: 4.6px;
-  border-radius: 10px;
-  background-color: var(--color-white);
-}
-
-.contacto .data {
-  padding: 3rem 2rem;
-  background: #fff;
-}
-
-.contacto .data strong {
-  color: var(--color-primary);
-}
-
-.contacto .data p {
-  font-size: 12px;
-}
-
-.contacto .data p span {
-  color: #403c3d;
-}
 
 .cursos_grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
-.title_init {
-  font-weight: bold;
-}
-
-.title_init strong {
-  color: #c4122f;
-}
 
 @media screen and (min-width: 768px) {
   .step {
@@ -496,15 +426,6 @@
     font-size: 16px;
   }
 
-  .Button-Test {
-    font-size: 18px;
-    padding: 8px 15px;
-  }
-
-  .Button-Test img {
-    width: 15px;
-    height: 15px;
-  }
 
   .graduated_companies {
     display: grid;
@@ -539,25 +460,6 @@
     color: #403c3d;
   }
 
-  .contacto .description {
-    color: #fff;
-    background: var(--color-primary);
-    padding: 4rem 3rem;
-  }
-
-  .contacto .data {
-    padding: 4rem 3rem;
-    background: #fff;
-  }
-
-  .contacto .data strong {
-    color: var(--color-primary);
-  }
-
-  .contacto .data p {
-    font-size: 14px;
-  }
-
   .cursos_grid {
     display: grid;
     gap: 1rem;
@@ -588,10 +490,7 @@
     font-size: 40px;
   }
 
-  .texto-que-es {
-    font-size: 24px;
-    line-height: 30px;
-  }
+
 
   .video_about {
     height: 400px;
@@ -634,15 +533,7 @@
     font-size: 20px;
   }
 
-  .Button-Test a {
-    font-size: 20px;
-    padding: 12px 22px;
-  }
 
-  .Button-Test img {
-    width: 20px;
-    height: 20px;
-  }
 
   .cursos h4 {
     font-size: 20px;

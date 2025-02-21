@@ -1,124 +1,95 @@
 @import "./singleHero.css";
 
 .contacto .description {
-    color: #fff;
-    background: #c3132c;
-    padding: 3rem 2rem;
+  color: #fff;
+  background: #c3132c;
+  padding: 3rem 2rem;
 }
 
 .contacto .description h3 {
-    position: relative;
-    margin-bottom: 2rem;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .contacto .description h3::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 2rem;
-    width: 30px;
-    height: 4.6px;
-    border-radius: 10px;
-    background-color: var(--color-white);
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2rem;
+  width: 30px;
+  height: 4.6px;
+  border-radius: 10px;
+  background-color: var(--color-white);
 }
 
 .contacto .data {
-    padding: 3rem 2rem;
-    background: #fff;
+  padding: 3rem 2rem;
+  background: #fff;
 }
 
 .contacto .data strong {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .contacto .data p {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .contacto .data p span {
-    color: #403C3D;
-}
-.title_init {
-    font-weight: bold;
-}
-
-.title_init strong {
-    color: #C4122F;
+  color: #403c3d;
 }
 
 .text-primary {
-    color: #C3122C !important;
+  color: #c3122c !important;
 }
 
-
 .link-underline-light {
-    color: #C3122C !important;
+  color: #c3122c !important;
 }
 
 .location-return {
-    display: flex;
+  display: flex;
 }
 
 .image-home {
-    width: 20px !important;
-    height: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .location-return a {
-    color: white;
-    font-size: 12px;
-    text-decoration: none;
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 @media screen and (min-width: 768px) {
-    .Button-Test {
-        font-size: 18px;
-        padding: 8px 15px;
-    }
+  .contacto .description {
+    color: #fff;
+    background: #c3132c;
+    padding: 4rem 3rem;
+  }
 
-    .Button-Test img {
-        width: 15px;
-        height: 15px;
-    }
+  .contacto .data {
+    padding: 4rem 3rem;
+    background: #fff;
+  }
 
-    .contacto .description {
-        color: #fff;
-        background: #c3132c;
-        padding: 4rem 3rem;
-    }
+  .contacto .data strong {
+    color: var(--color-primary);
+  }
 
-    .contacto .data {
-        padding: 4rem 3rem;
-        background: #fff;
-    }
-
-    .contacto .data strong {
-        color: var(--color-primary);
-    }
-
-    .contacto .data p {
-        font-size: 14px;
-    }
-
+  .contacto .data p {
+    font-size: 14px;
+  }
 }
 
 @media screen and (min-width: 992px) {
-    .Button-Test a {
-        font-size: 20px;
-        padding: 12px 22px;
-    }
+  .form-label {
+    font-size: 1.3rem;
+  }
 
-    .Button-Test img {
-        width: 20px;
-        height: 20px;
-    }
-
-    .form-label {
-        font-size: 1.3rem;
-    }
-
-    .form-control,
-    .form-select {
-        font-size: 1.3rem;
-    }
+  .form-control,
+  .form-select {
+    font-size: 1.3rem;
+  }
 }
