@@ -11,6 +11,7 @@ namespace PROMPERU.BL.Dtos
         public int id { get; set; }
         public int orden { get; set; }
         public string nombreEmpresa { get; set; }
+        public string urlImagen { get; set; }
         public string descripcion { get; set; }
         public string titulo { get; set; }
         public string nombreBoton { get; set; }
@@ -25,12 +26,16 @@ namespace PROMPERU.BL.Dtos
         public string tipoEmpresa { get; set; }
         public string region { get; set; }
         public string redesSociales { get; set; }
-        public string segmentosAtendidos { get; set; }
+        public string redesSocialesDos { get; set; }
+        public string redesSocialesTres { get; set; }
+        public string redesSocialesCuatro { get; set; }
         public string direccion { get; set; }
         public int id_region { get; set; }
         public int id_tipoempresa { get; set; }
-
-
+        public int id_provincia { get; set; }
+        public int id_distrito { get; set; }
+        public string celular { get; set; }
+        public string celularDos { get; set; }
 
     }
 }

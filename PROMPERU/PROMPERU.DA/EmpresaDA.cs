@@ -45,11 +45,11 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Egra_TipoEmpresa", empresa.Egra_TipoEmpresa);
                 comando.Parameters.AddWithValue("@Egra_Certificaciones", empresa.Egra_Certificaciones);
                 comando.Parameters.AddWithValue("@Egra_UrlLogo", empresa.Egra_UrlLogo);
-                comando.Parameters.AddWithValue("@Egra_Mercados", empresa.Egra_MercadosSegmentosAtendidos);
+                comando.Parameters.AddWithValue("@Egra_MercadosSegmentosAtendidos", empresa.Egra_MercadosSegmentosAtendidos);
                 comando.Parameters.AddWithValue("@Egra_RazonSocial", empresa.Egra_RazonSocial);               
                 comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Direccion);
-                comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Celular);
-                comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_CelularDos);
+                comando.Parameters.AddWithValue("@Egra_Celular", empresa.Egra_Celular);
+                comando.Parameters.AddWithValue("@Egra_CelularDos", empresa.Egra_CelularDos);
                 comando.Parameters.AddWithValue("@Temp_ID", empresa.ID_TipoEmpresa);
                 comando.Parameters.AddWithValue("@Regi_ID", empresa.ID_Region);
                 comando.Parameters.AddWithValue("@Prov_ID", empresa.ID_Provincia);
@@ -120,6 +120,8 @@ namespace PROMPERU.DA
                         Egra_RazonSocial = reader["Egra_RazonSocial"] != DBNull.Value ? reader["Egra_RazonSocial"].ToString() : "",
                         Egra_SegmentosAtendidos = reader["Egra_SegmentosAtendidos"] != DBNull.Value ? reader["Egra_SegmentosAtendidos"].ToString() : "",
                         Egra_Direccion = reader["Egra_Direccion"] != DBNull.Value ? reader["Egra_Direccion"].ToString() : "",
+                        Egra_Celular = reader["Egra_Celular"] != DBNull.Value ? reader["Egra_Celular"].ToString() : "",
+                        Egra_CelularDos = reader["Egra_CelularDos"] != DBNull.Value ? reader["Egra_CelularDos"].ToString() : "",
                         ID_TipoEmpresa = reader["ID_TipoEmpresa"] != DBNull.Value ? Convert.ToInt32(reader["ID_TipoEmpresa"]) : 0,
                         TipoEmpresa = reader["TipoEmpresa"] != DBNull.Value ? reader["TipoEmpresa"].ToString() : "",
                         ID_Region = reader["ID_Region"] != DBNull.Value ? Convert.ToInt32(reader["ID_Region"]) : 0,
@@ -217,11 +219,11 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Egra_TipoEmpresa", empresa.Egra_TipoEmpresa);
                     comando.Parameters.AddWithValue("@Egra_Certificaciones", empresa.Egra_Certificaciones);
                     comando.Parameters.AddWithValue("@Egra_UrlLogo", empresa.Egra_UrlLogo);
-                    comando.Parameters.AddWithValue("@Egra_Mercados", empresa.Egra_MercadosSegmentosAtendidos);
+                    comando.Parameters.AddWithValue("@Egra_MercadosSegmentosAtendidos", empresa.Egra_MercadosSegmentosAtendidos);
                     comando.Parameters.AddWithValue("@Egra_RazonSocial", empresa.Egra_RazonSocial);
                     comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Direccion);
-                    comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_Celular);
-                    comando.Parameters.AddWithValue("@Egra_Direccion", empresa.Egra_CelularDos);
+                    comando.Parameters.AddWithValue("@Egra_Celular", empresa.Egra_Celular);
+                    comando.Parameters.AddWithValue("@Egra_CelularDos", empresa.Egra_CelularDos);
                     comando.Parameters.AddWithValue("@Temp_ID", empresa.ID_TipoEmpresa);
                     comando.Parameters.AddWithValue("@Regi_ID", empresa.ID_Region);
                     comando.Parameters.AddWithValue("@Prov_ID", empresa.ID_Provincia);
@@ -302,6 +304,8 @@ namespace PROMPERU.DA
                         Egra_Direccion = reader["Egra_Direccion"] != DBNull.Value ? reader["Egra_Direccion"].ToString() : "",
                         ID_TipoEmpresa = reader["ID_TipoEmpresa"] != DBNull.Value ? Convert.ToInt32(reader["ID_TipoEmpresa"]) : 0,
                         TipoEmpresa = reader["TipoEmpresa"] != DBNull.Value ? reader["TipoEmpresa"].ToString() : "",
+                        Egra_Celular = reader["Egra_Celular"] != DBNull.Value ? reader["Egra_Celular"].ToString() : "",
+                        Egra_CelularDos = reader["Egra_CelularDos"] != DBNull.Value ? reader["Egra_CelularDos"].ToString() : "",
                         ID_Region = reader["ID_Region"] != DBNull.Value ? Convert.ToInt32(reader["ID_Region"]) : 0,
                         Region = reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "",
                         ID_Provincia = reader["ID_Provincia"] != DBNull.Value ? Convert.ToInt32(reader["ID_Provincia"]) : 0,

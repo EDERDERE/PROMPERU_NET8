@@ -89,15 +89,21 @@ namespace PROMPERU.BackOffice.API.Controllers
                      Egra_PaginaWeb=empresaDto.paginaWeb,
                      Egra_RazonSocial=empresaDto.razonSocial,
                      Egra_RedesSociales=empresaDto.redesSociales,
-                     Egra_Region=empresaDto.region,
-                     Egra_RUC=empresaDto.rUC,
-                     Egra_SegmentosAtendidos=empresaDto.segmentosAtendidos,
+                    Egra_RedesSocialesDos = empresaDto.redesSocialesDos,
+                    Egra_RedesSocialesTres = empresaDto.redesSocialesTres,
+                    Egra_RedesSocialesCuatro = empresaDto.redesSocialesCuatro,
+                    Egra_Region =empresaDto.region,
+                     Egra_RUC=empresaDto.rUC,                 
                      Egra_TipoEmpresa = empresaDto.tipoEmpresa,
                      Egra_Titulo=empresaDto.titulo,
                      Egra_UrlBoton=empresaDto.urlBoton,
                      Egra_UrlLogo=empresaDto.urlLogo,
+                    Egra_Celular = empresaDto.celular,
+                    Egra_CelularDos = empresaDto.celularDos,
                     ID_Region = empresaDto.id_region,
-                    ID_TipoEmpresa = empresaDto.id_tipoempresa
+                    ID_TipoEmpresa = empresaDto.id_tipoempresa,
+                    ID_Provincia = empresaDto.id_provincia,
+                    ID_Distrito = empresaDto.id_distrito
 
 
                 };
@@ -132,15 +138,21 @@ namespace PROMPERU.BackOffice.API.Controllers
                     Egra_PaginaWeb = empresaDto.paginaWeb,
                     Egra_RazonSocial = empresaDto.razonSocial,
                     Egra_RedesSociales = empresaDto.redesSociales,
+                    Egra_RedesSocialesDos = empresaDto.redesSocialesDos,
+                    Egra_RedesSocialesTres = empresaDto.redesSocialesTres,
+                    Egra_RedesSocialesCuatro = empresaDto.redesSocialesCuatro,
                     Egra_Region = empresaDto.region,
                     Egra_RUC = empresaDto.rUC,
-                    Egra_SegmentosAtendidos = empresaDto.segmentosAtendidos,
                     Egra_TipoEmpresa = empresaDto.tipoEmpresa,
                     Egra_Titulo = empresaDto.titulo,
                     Egra_UrlBoton = empresaDto.urlBoton,
                     Egra_UrlLogo = empresaDto.urlLogo,
+                    Egra_Celular = empresaDto.celular,
+                    Egra_CelularDos = empresaDto.celularDos,
                     ID_Region = empresaDto.id_region,
-                    ID_TipoEmpresa=empresaDto.id_tipoempresa
+                    ID_TipoEmpresa = empresaDto.id_tipoempresa,
+                    ID_Provincia = empresaDto.id_provincia,
+                    ID_Distrito = empresaDto.id_distrito
                 };
                 await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip, id); // Llamada asincr�nica
                 return RedirectToAction("ListarEmpresas");
@@ -210,15 +222,21 @@ namespace PROMPERU.BackOffice.API.Controllers
                         Egra_PaginaWeb = empresaDto.paginaWeb,
                         Egra_RazonSocial = empresaDto.razonSocial,
                         Egra_RedesSociales = empresaDto.redesSociales,
+                        Egra_RedesSocialesDos = empresaDto.redesSocialesDos,
+                        Egra_RedesSocialesTres = empresaDto.redesSocialesTres,
+                        Egra_RedesSocialesCuatro = empresaDto.redesSocialesCuatro,
                         Egra_Region = empresaDto.region,
                         Egra_RUC = empresaDto.rUC,
-                        Egra_SegmentosAtendidos = empresaDto.segmentosAtendidos,
                         Egra_TipoEmpresa = empresaDto.tipoEmpresa,
                         Egra_Titulo = empresaDto.titulo,
                         Egra_UrlBoton = empresaDto.urlBoton,
                         Egra_UrlLogo = empresaDto.urlLogo,
+                        Egra_Celular = empresaDto.celular,
+                        Egra_CelularDos = empresaDto.celularDos,
                         ID_Region = empresaDto.id_region,
-                        ID_TipoEmpresa = empresaDto.id_tipoempresa
+                        ID_TipoEmpresa = empresaDto.id_tipoempresa,
+                        ID_Provincia = empresaDto.id_provincia,
+                        ID_Distrito = empresaDto.id_distrito
                     };
                     await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip,empresa.Egra_ID); // Llamada asincr�nica
                 }
