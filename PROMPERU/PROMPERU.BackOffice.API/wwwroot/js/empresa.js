@@ -47,44 +47,44 @@ async function loadListarEmpresas() {
 }
 function renderTituloEmpresa(empresa) {
   const tituloCard = `     
-       <div class="row ">
+       <div class="row ">               
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="titulo-${empresa.egra_ID}" class="form-label fw-semibold">Nombre del boton</label>
-                        <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
+                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Titulo</label> 
+                           <a href="#!" class="icon-link" data-bs-toggle="modal" data-bs-target="#editTitle"
                          data-id="${empresa.egra_ID}"   
                          data-nombreboton="${empresa.egra_NombreBoton}" 
                          data-titulo="${empresa.egra_Titulo}" 
                          data-urlboton="${empresa.egra_UrlBoton}"
                           data-descripcion="${empresa.egra_Descripcion}"
-                          data-urlBanner="${empresa.egra_UrlLogo}"
+                          data-urlBanner="${empresa.egra_Imagen}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                             </svg>
                         </a>
-                    </div>
-                        <input type="text" id="titulo-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_NombreBoton}" disabled>
-                </div>
-                <div class="col-md-6 my-3 ">
-                    <div class="d-flex justify-content-between">
-                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Titulo</label> </div>
-                    <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_Titulo}"disabled>
+                        </div>
+                        
+                        <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_Titulo}"disabled>
 
                 </div>
-
                 
             </div>
             
             <div class="row ">
                  <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Icono del boton</label> </div>
-                    <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_UrlBoton}"disabled>
+                        <label for="nombreBoton-${empresa.egra_ID}" class="form-label fw-semibold">Nombre del boton</label> </div>
+                        <input type="text" id="nombreBoton-${empresa.egra_ID}" class="form-control" placeholder="${empresa.egra_NombreBoton}" disabled>
 
                 </div>
-              
+               <div class="col-md-6 my-3 ">
+                    <div class="d-flex justify-content-between">
+                        <label for="iconBoton-${empresa.egra_ID}" class="form-label fw-semibold">Icono del boton</label> </div>
+                    <input type="text" id="iconBoton-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_UrlBoton}"disabled>
+
+                </div>
                  
             </div>
 
@@ -95,17 +95,17 @@ function renderTituloEmpresa(empresa) {
 
                  <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="urlVideo-${empresa.egra_ID}" class="form-label fw-semibold">Descripcion</label>                       
+                        <label for="description-${empresa.egra_ID}" class="form-label fw-semibold">Descripcion Banner</label>                       
                     </div>
-                       <textarea  id="tituloVideo-${empresa.egra_ID}" class="form-control" rows="3"  placeholder="${empresa.egra_Descripcion}" disabled></textarea>
+                       <textarea  id="description-${empresa.egra_ID}" class="form-control" rows="3"  placeholder="${empresa.egra_Descripcion}" disabled></textarea>
 
                 </div>
 
                    <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
-                        <label for="urlVideo-${empresa.egra_ID}" class="form-label fw-semibold">URL banner</label>                       
+                        <label for="urlBanner-${empresa.egra_ID}" class="form-label fw-semibold">URL banner</label>                       
                     </div>
-                       <input type="text" id="nombreBoton-${empresa.egra_UrlLogo}" class="form-control " placeholder="${empresa.egra_UrlLogo}"disabled>
+                       <input type="text" id="urlBanner-${empresa.egra_ID}" class="form-control " placeholder="${empresa.egra_Imagen}"disabled>
 
                 </div>
 
@@ -148,13 +148,17 @@ function renderSlidersEmpresa(empresas) {
                           data-pagina="${egra.egra_PaginaWeb}"
                                data-ruc="${egra.egra_RUC}" 
                          data-redes="${egra.egra_RedesSociales}" 
+                          data-redesdos="${egra.egra_RedesSocialesDos}" 
+                           data-redestres="${egra.egra_RedesSocialesTres}" 
+                            data-redescuatro="${egra.egra_RedesSocialesCuatro}" 
                          data-idempresa="${egra.iD_TipoEmpresa}"
                           data-certificaciones="${egra.egra_Certificaciones}"
                              data-razon="${egra.egra_RazonSocial}" 
-                         data-mercados="${egra.egra_Mercados}" 
-                         data-urllogo="${egra.egra_UrlLogo}"
-                          data-segmentos="${egra.egra_SegmentosAtendidos}"
+                         data-mercados="${egra.egra_MercadosSegmentosAtendidos}" 
+                         data-urllogo="${egra.egra_UrlLogo}"                          
                               data-direccion="${egra.egra_Direccion}"
+                              data-celular="${egra.egra_Celular}"
+                              data-celularDos="${egra.egra_CelularDos}"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -222,6 +226,27 @@ function renderSlidersEmpresa(empresas) {
 
                   </div>
                 </div>
+                       <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="correo-${egra.egra_ID}" class="form-label fw-semibold">Redes sociales(2)</label>
+                    <input type="text" id="correo-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_RedesSocialesDos}" disabled>
+
+                  </div>
+                </div>
+                       <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="correo-${egra.egra_ID}" class="form-label fw-semibold">Redes sociales(3)</label>
+                    <input type="text" id="correo-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_RedesSocialesTres}" disabled>
+
+                  </div>
+                </div>
+                       <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="correo-${egra.egra_ID}" class="form-label fw-semibold">Redes sociales(4)</label>
+                    <input type="text" id="correo-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_RedesSocialesCuatro}" disabled>
+
+                  </div>
+                </div>
               </div>
 
               <div class="row">
@@ -251,8 +276,8 @@ function renderSlidersEmpresa(empresas) {
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="region-${egra.egra_ID}" class="form-label fw-semibold">Mercados</label>
-                 <input type="text" id="region-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_Mercados}" disabled>
+                    <label for="region-${egra.egra_ID}" class="form-label fw-semibold">Mercados Segmentos Atendidos</label>
+                 <input type="text" id="region-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_MercadosSegmentosAtendidos}" disabled>
 
                   </div>
                 </div>
@@ -265,13 +290,7 @@ function renderSlidersEmpresa(empresas) {
                     <label for="region-${egra.egra_ID}" class="form-label fw-semibold">Razon social</label>
                     <input type="text" id="region-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_RazonSocial}" disabled>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="region-${egra.egra_ID}" class="form-label fw-semibold">Segmentos atendidos</label>
-                    <input type="text" id="region-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_SegmentosAtendidos}" disabled>
-                  </div>
-                </div>
+                </div>                
               </div>
 
 
@@ -285,12 +304,28 @@ function renderSlidersEmpresa(empresas) {
                  <div class="col-md-6">
                   <div class="mb-3">
                     <label for="description-${egra.egra_ID}" class="form-label fw-semibold">Descripción</label>
-                    <input type="text" id="descripction-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_Descripcion}" disabled>
+                     <textarea id="descripcion-banner-${egra.egra_ID}" class="form-control" rows="3" placeholder="${egra.egra_Descripcion}"
+                  disabled></textarea>
                   </div>
                 </div>
 
               </div>
+               <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="direcion-${egra.egra_ID}" class="form-label fw-semibold">Celular</label>
+                    <input type="text" id="direccion-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_Celular}" disabled>
+                  </div>
+                </div>
+                 <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="description-${egra.egra_ID}" class="form-label fw-semibold">Celular(1)</label>
+                     <input type="text" id="direccion-${egra.egra_ID}" class="form-control" placeholder="${egra.egra_CelularDos}" disabled>
 
+                  </div>
+                </div>
+
+              </div>
             </div>
                               `;
     }
@@ -306,15 +341,22 @@ async function loadCrearEmpresa() {
       correo: $("#createCorreo").val(),
       paginaWeb: $("#createPagina").val(),
       rUC: $("#createRuc").val(),
-      redesSociales: $("#createRedes").val(),
+        redesSociales: $("#createRedes").val(),
+        redesSocialesDos: $("#createRedesDos").val(),
+        redesSocialesTres: $("#createRedesTres").val(),
+        redesSocialesCuatro: $("#createRedesCuatro").val(),
       id_tipoempresa: $("#inputTipoEmpresa").val(),
       certificaciones: $("#createCertificaciones").val(),
       urlLogo: $("#createUrlLogo").val(),
       mercados: $("#createMercados").val(),
-      razonSocial: $("#createRazon").val(),
-      segmentosAtendidos: $("#createSegmentos").val(),
+      razonSocial: $("#createRazon").val(),      
       direccion: $("#createDireccion").val(),
-      descripcion: $("#createDescription").val(),
+        descripcion: $("#createDescription").val(),
+        celular: $("#createCelular").val(),
+        celularDos: $("#createCelularDos").val(),
+        id_provincia: '1',
+        id_distrito: '1',
+     
     };
     console.log(empresaData, "empresaData");
     if (Object.values(empresaData).some((value) => !value.trim())) {
@@ -425,8 +467,10 @@ async function loadEditarEmpresa() {
       urlBoton: $("#editIconoBoton").val(),
       descripcion: $("#editDescripcion").val(),
       id_tipoempresa: 1,
-      id_region: 1,
-      urlLogo: $('#editUrlBannerSeccion').val()
+        id_region: 1,
+        id_provincia: 1,
+        id_distrito: 1,
+      urlImagen: $('#editUrlBannerSeccion').val()
     };
 
     console.log(data);
@@ -457,7 +501,10 @@ async function loadEditarEmpresa() {
       editCorreo: button.data("correo"),
       editPagina: button.data("pagina"),
       editRuc: button.data("ruc"),
-      editRedes: button.data("redes"),
+        editRedes: button.data("redes"),
+        editRedesDos: button.data("redesdos"),
+        editRedesTres: button.data("redestres"),
+        editRedesCuatro: button.data("redescuatro"),
       editTipoEmpresa: button.data("idempresa"),
       editUrlLogo: button.data("urllogo"),
       editMercados: button.data("mercados"),
@@ -465,7 +512,9 @@ async function loadEditarEmpresa() {
       editSegmentos: button.data("segmentos"),
       editCertificaciones: button.data("certificaciones"),
       editDireccion: button.data("direccion"),
-      editDescription: button.data("descripcion"),
+        editDescription: button.data("descripcion"),
+        editCelular: button.data("celular"),
+        editCelularDos: button.data("celulardos"),
     };
 
     console.log(modalData, "modalData");
@@ -484,17 +533,23 @@ async function loadEditarEmpresa() {
       correo: $("#editCorreo").val(),
       paginaWeb: $("#editPagina").val(),
       rUC: $("#editRuc").val(),
-      redesSociales: $("#editRedes").val(),
+        redesSociales: $("#editRedes").val(),
+        redesSocialesDos: $("#editRedesDos").val(),
+        redesSocialesTres: $("#editRedesTres").val(),
+        redesSocialesCuatro: $("#editRedesCuatro").val(),
       id_tipoempresa: $("#editTipoEmpresa").val(),
       certificaciones: $("#editCertificaciones").val(),
       urlLogo: $("#editUrlLogo").val(),
       mercados: $("#editMercados").val(),
       razonSocial: $("#editRazon").val(),
-      segmentosAtendidos: $("#editSegmentos").val(),
       direccion: $("#editDireccion").val(),
-      descripcion: $("#editDescription").val(),
+        descripcion: $("#editDescription").val(),
+        celular: $("#editCelular").val(),
+        celularDos: $("#editCelularDos").val(),
+        id_provincia: 1,
+        id_distrito: 1,
     };
-
+    console.log(data,'da')
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Empresa/ActualizarEmpresa",
