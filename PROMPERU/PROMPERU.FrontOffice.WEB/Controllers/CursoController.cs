@@ -34,7 +34,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     {
                         success = true,
                         message = "Cursos obtenidos exitosamente.",
-                        cursoFiltro
+                        cursos = cursoFiltro
                     });
                 }
                 else
