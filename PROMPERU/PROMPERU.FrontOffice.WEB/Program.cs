@@ -1,6 +1,8 @@
+using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.DA;
 using PROMPERU.DB;
+using ServiceExterno;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//servicios externos
+builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatApiSettings"));
+builder.Services.AddHttpClient<SunatService>();
+
 
 // Registrar los servicios
 builder.Services.AddScoped<UsuarioDA>();

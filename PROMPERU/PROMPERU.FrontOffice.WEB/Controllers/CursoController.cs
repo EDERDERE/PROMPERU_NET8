@@ -26,14 +26,15 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {
             try
             {
-                var Cursos = await _cursoBL.ListarCursosAsync(); // Cambio a versión asincrónica
-                if (Cursos != null && Cursos.Any())
+                var cursos = await _cursoBL.ListarCursosAsync(); // Cambio a versión asincrónica
+                var cursoFiltro = cursos.Where(x => x.Teve_ID == 1).ToList();
+                if (cursoFiltro != null && cursoFiltro.Any())
                 {
                     return Json(new
                     {
                         success = true,
                         message = "Cursos obtenidos exitosamente.",
-                        Cursos
+                        cursoFiltro
                     });
                 }
                 else

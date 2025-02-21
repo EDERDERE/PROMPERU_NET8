@@ -1,38 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
+using PROMPERU.BE;
 using PROMPERU.BL;
+using PROMPERU.BL.Dtos;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
-
-    public class InscripcionController : Controller
+    public class TestController : Controller
     {
-        private readonly ILogger<InscripcionController> _logger;    
-        private readonly InscripcionBL _InscripcionBL;
+        private readonly ILogger<TestController> _logger;    
+        private readonly InscripcionBL _inscripcionBL;
 
-        public InscripcionController(ILogger<InscripcionController> logger, InscripcionBL inscripcionBL)
+        public TestController(ILogger<TestController> logger, InscripcionBL nscripcionBL)
         {
             _logger = logger;
-            _InscripcionBL = inscripcionBL;
+            _inscripcionBL = nscripcionBL;
         }
 
         public IActionResult Index()
         {            
           return View(); // Asegúrate de tener una vista asociada         
         }
-
         [HttpGet]
-        public async Task<IActionResult> ListarInscripcions()
+        public async Task<IActionResult> ListarEtapas()
         {
             try
             {
-                var inscripcions = await _InscripcionBL.ListarInscripcionsAsync(); // Cambio a versión asincrónica
-                if (inscripcions != null && inscripcions.Any())
+                var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync(); // Cambio a versión asincrónica
+                if (etapas != null && etapas.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Inscripcions obtenidos exitosamente.",
-                        inscripcions
+                        message = "etapas obtenidos exitosamente.",
+                        etapas
                     });
                 }
                 else
@@ -40,7 +40,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Inscripcions disponibles."
+                        message = "No se encontraron etapas disponibles."
                     });
                 }
             }
@@ -50,10 +50,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 {
                     success = false,
                     message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
-                  
+
                 });
             }
         }
-        
+
     }
 }

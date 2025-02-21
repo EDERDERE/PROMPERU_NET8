@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PROMPERU.BL\PROMPERU.BL.csproj" />
     <ProjectReference Include="..\PROMPERU.DB\PROMPERU.DB.csproj" />
+    <ProjectReference Include="..\ServiceExterno\ServiceExterno.csproj" />
   </ItemGroup>
 
 </Project>

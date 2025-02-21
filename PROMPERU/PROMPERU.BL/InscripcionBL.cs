@@ -1,4 +1,5 @@
 ﻿using PROMPERU.BE;
+using PROMPERU.BL.Dtos;
 using PROMPERU.DA;
 using System.Data;
 using System.Security.Cryptography;
@@ -88,5 +89,26 @@ namespace PROMPERU.BL
         //        throw new Exception("Error en la lógica de negocio al generar el reporte de los Inscripcions", ex);
         //    }
         //}
+
+        public async Task<List<EtapaDto>> ListarEtapasInscripcionAsync()
+        {
+            try
+            {                               
+                var inscripcion = await _inscripcionDA.ListarInscripcionsAsync();
+                var etapa = inscripcion.Where(x=>x.Insc_Orden > 0).Select(e => new EtapaDto
+                {
+                   id = e.Insc_ID,
+                   paso = e.Insc_Paso,
+                   nombreIcono = e.Insc_TituloPaso,
+                   urIcono      = e.Insc_URLImagen
+                }).ToList();
+
+                return etapa;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar los Inscripcions", ex);
+            }
+        }
     }
 }

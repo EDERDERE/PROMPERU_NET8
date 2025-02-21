@@ -4,15 +4,14 @@ using PROMPERU.BL;
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
 
-    public class InscripcionController : Controller
+    public class ClienteController : Controller
     {
-        private readonly ILogger<InscripcionController> _logger;    
-        private readonly InscripcionBL _InscripcionBL;
+        private readonly ILogger<ClienteController> _logger;    
+        private readonly BannerBL _bannerBL;
 
-        public InscripcionController(ILogger<InscripcionController> logger, InscripcionBL inscripcionBL)
+        public ClienteController(ILogger<ClienteController> logger, BannerBL bannerBL)
         {
             _logger = logger;
-            _InscripcionBL = inscripcionBL;
         }
 
         public IActionResult Index()
@@ -21,18 +20,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarInscripcions()
+        public async Task<IActionResult> ListarBanners()
         {
             try
             {
-                var inscripcions = await _InscripcionBL.ListarInscripcionsAsync(); // Cambio a versión asincrónica
-                if (inscripcions != null && inscripcions.Any())
+                var banners = await _bannerBL.ListarBannersAsync(); // Cambio a versión asincrónica
+                if (banners != null && banners.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "Inscripcions obtenidos exitosamente.",
-                        inscripcions
+                        message = "Banners obtenidos exitosamente.",
+                        banners
                     });
                 }
                 else
@@ -40,7 +39,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron Inscripcions disponibles."
+                        message = "No se encontraron banners disponibles."
                     });
                 }
             }
@@ -49,11 +48,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
+                    message = "Ocurrió un error al intentar obtener los banners. Por favor, inténtelo nuevamente."
                   
                 });
             }
         }
-        
+              
     }
 }
