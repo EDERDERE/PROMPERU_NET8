@@ -304,53 +304,6 @@
   align-items: center;
 }
 
-.testomnio_item {
-  border-radius: 20px;
-  padding: 1.5rem 1rem;
-  position: relative;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-}
-
-.testomnio_item .quote {
-  color: #c41321;
-  margin: auto;
-}
-
-.testomnio_item .description {
-  font-size: 12px;
-  color: #676767;
-  text-align: center;
-}
-
-.testomnio_item .avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: auto;
-  background: #e1e8f8;
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translate(-50%, -50%);
-}
-
-.testomnio_item .avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 10px;
-}
-
-.graduated_companies {
-  display: flex;
-  overflow-x: auto;
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-
 
 .cursos_grid {
   display: grid;

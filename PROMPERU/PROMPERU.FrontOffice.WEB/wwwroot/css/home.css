@@ -153,8 +153,6 @@
   margin: 1.5rem 0;
 }
 
-
-
 .video_about {
   height: 400px;
 }
@@ -217,8 +215,6 @@
   align-items: center;
 }
 
-
-
 /*** beneficios ***/
 
 .beneficios {
@@ -280,6 +276,8 @@
 
 .testomnio_item .description {
   font-size: var(--font-size-mobile);
+  max-width: 315px;
+  margin: 0 auto;
   color: #676767;
   text-align: center;
 }
@@ -330,7 +328,7 @@
 }
 
 .graduated_companies .graduated_companies_item {
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .graduated_companies .graduated_companies_item img {
@@ -366,7 +364,6 @@
   color: #fff;
   background: #c3132c;
   padding: 3rem 2rem;
-  
 }
 
 .contacto .description h3 {
@@ -403,7 +400,6 @@
 }
 
 @media screen and (min-width: 768px) {
-
   .graduated_companies {
     display: grid;
     gap: 1rem;
@@ -445,7 +441,6 @@
   .contacto {
     margin: 0;
   }
-  
 
   .contacto .data {
     padding: 4rem 3rem;
@@ -459,9 +454,13 @@
   .contacto .data p {
     font-size: 14px;
   }
+
+  .testomnio_item .info-testimony{
+    left: 20%;
+    top: 125%;
+  }
 }
 @media screen and (min-width: 992px) {
-
   .quick_data h4 {
     color: var(--color-white);
     font-size: 2rem;
@@ -578,8 +577,6 @@
   .beneficio_item p {
     font-size: var(--font-size-desktop-paragrahp) !important;
   }
-
-
 
   .cursos_swiper h4 {
     font-size: 1.25rem;
@@ -727,5 +724,14 @@
   .testimonials_container .swiper-button-next::after {
     font-size: 18px;
     font-weight: 600;
+  }
+
+  .testomnio_item .description {
+    max-width: 100%;
+  }
+
+  .testomnio_item .info-testimony{
+    left: 35%;
+    top: 125%;
   }
 }
