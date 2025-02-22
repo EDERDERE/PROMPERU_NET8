@@ -1,9 +1,6 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
-
 export function renderBannerCalendario(calendar) {
-  
-
   renderTemplate(
     "bannerCalendario",
     (data) => `
@@ -17,39 +14,57 @@ export function renderBannerCalendario(calendar) {
           <a href="#!" title="Calendario"> &nbsp; / Calendario</a>
       </div>
     `,
-    calendar
+    calendar,
   );
 
   cambiarImagenDinamica(calendar.curs_UrlImagen);
 }
 
-export function loadCalendar(cursos){
-  console.log(cursos)
-    const eventos = Object.groupBy(cursos, function(){
-
-  })
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      locale: 'es',
-      initialView: 'dayGridMonth',
-      headerToolbar: {
-        left: 'prev',
-        center: 'title',
-        right: 'next'
-      },
-      events: cursos,
-      eventClick: function(info) {
-        openModal(info.event.title, info.event.extendedProps.tipo, info.event.extendedProps.descripcion, info.event.extendedProps.descripcion2)
-      }
-    });
-    calendar.render();
+export function loadCalendar(cursos) {
+  console.log(cursos);
+  const eventos = Object.groupBy(cursos, function() { });
+  var calendarEl = document.getElementById("calendar");
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    locale: "es",
+    initialView: "dayGridMonth",
+    headerToolbar: {
+      left: "prev",
+      center: "title",
+      right: "next",
+    },
+    events: cursos,
+    eventClick: function(info) {
+      openModal(
+        info.event.title,
+        info.event.extendedProps.tipo,
+        info.event.extendedProps.descripcion,
+        info.event.extendedProps.modalidad,
+      );
+    },
+  });
+  calendar.render();
 }
 
-export function renderEventCards(cursos){
-  const grid = document.getElementById("event-grid");
+export function renderEventCards(cursos) {
+
+  $('#event-pagination').pagination({
+    dataSource: cursos,
+    pageSize: 4,
+    showPrevious: true,
+    showNext: true,
+    callback: function(data, pagination) {
+        // template method of yourself
+        console.log(pagination)
+        var html = template(data);
+        $('#event-grid').html(html);
+    }
+})
+}
+
+function template(data) {
   let eventItems = "";
-  cursos.forEach((element) => {
-    console.log(element)
+  data.forEach((element) => {
+    console.log(element);
     const dateSplit = element.start.split("-");
     const day = dateSplit[2];
     const month = dateSplit[1];
@@ -85,45 +100,45 @@ export function renderEventCards(cursos){
                       <p class="text-primary">${element.tipo}</p>
                       <p>${element.descripcion}</p>
                       <p class="text-primary">${element.title}</p>
-                      <p>${element.descripcion2}</p>
+                      <p>${element.modalidad}</p>
                       <span class="line"></span>
                     </div>
 `;
   });
-  grid.innerHTML = eventItems;
+
+  return eventItems;
 }
 
-export function initCalendarViews(){
+export function initCalendarViews() {
   const calendarOption = document.getElementById("option-calendario");
   const gridOption = document.getElementById("option-grid");
   const calendarView = document.getElementById("calendar-view");
   const gridView = document.getElementById("grid-view");
 
-  calendarOption.addEventListener("click", function () {
+  calendarOption.addEventListener("click", function() {
     gridView.style.display = "none";
     calendarView.style.display = "block";
     calendarOption.classList.add("active");
     gridOption.classList.remove("active");
   });
-  gridOption.addEventListener("click", function () {
+  gridOption.addEventListener("click", function() {
     gridView.style.display = "block";
     calendarView.style.display = "none";
     calendarOption.classList.remove("active");
     gridOption.classList.add("active");
   });
 
-  addOpenModalEvent()
+  addOpenModalEvent();
 }
-
 
 function addOpenModalEvent() {
   const modal = document.getElementById("event-modal");
-  modal.querySelector(".close").addEventListener("click", function () {
+  modal.querySelector(".close").addEventListener("click", function() {
     modal.style.display = "none";
   });
 }
 
-function openModal(titulo, tipo, descripcion, descripcion2){
+function openModal(titulo, tipo, descripcion, descripcion2) {
   const modal = document.getElementById("event-modal");
   modal.querySelector(".modal_titulo").innerText = titulo;
   modal.querySelector(".modal_tipo").innerText = tipo;

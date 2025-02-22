@@ -9,9 +9,6 @@
 .text-primary {
   color: #0070ba !important;
 }
-.btn-primary {
-  background-color: #0070ba !important;
-}
 .link-underline-light {
   color: #0070ba !important;
 }
@@ -186,6 +183,123 @@
 .fc-col-header-cell-cushion {
   text-decoration: none;
   color: #000;
+}
+.paginationjs-pages{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+.paginationjs-pages ul{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.paginationjs-pages li {
+  list-style: none;
+}
+.paginationjs-pages li a {
+  color: #0070ba;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: #fbfbfb;
+  cursor: pointer;
+  font-weight: bold;
+}
+.paginationjs-pages li.active a {
+  background: #949494;
+  color: #fff;
+}
+.paginationjs-pages li a:hover {
+  background: #0070ba;
+  color: #fff !important;
+}
+.paginationjs-pages li a:active {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:focus {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:visited {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:link {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:active {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:focus {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:visited {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:link {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:active {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:focus {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:visited {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:link {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:active {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:focus {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:visited {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:link {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:active {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-pages li a:focus {
+  background: #0070ba;
+  color: #fff;
+}
+.paginationjs-prev a, .paginationjs-next a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #0070ba !important;
+  text-decoration: none;
+  font-size: 2rem !important;
+  border-radius: 50% !important;
+  color: #fbfbfb !important;
 }
 @media screen and (min-width: 768px) {
   .event_grid {
