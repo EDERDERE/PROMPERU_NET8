@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PROMPERU.BE\PROMPERU.BE.csproj" />
     <ProjectReference Include="..\PROMPERU.DA\PROMPERU.DA.csproj" />
+    <ProjectReference Include="..\ServiceExterno\ServiceExterno.csproj" />
   </ItemGroup>
 
 </Project>

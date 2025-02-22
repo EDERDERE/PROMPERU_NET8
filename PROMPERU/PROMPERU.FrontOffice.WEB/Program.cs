@@ -11,9 +11,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//servicios externos
+//servicios externos (SUNAT)
 builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatApiSettings"));
 builder.Services.AddHttpClient<SunatService>();
+//servicios externos (CORREO)
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddScoped<EmailService>();
 
 
 // Registrar los servicios
@@ -61,6 +64,8 @@ builder.Services.AddScoped<ContenidoInteractivoBL>();
 builder.Services.AddScoped<CursoModalidadDA>();
 builder.Services.AddScoped<UbigeoDA>();
 builder.Services.AddScoped<UbigeoBL>();
+builder.Services.AddScoped<ContactoDA>();
+builder.Services.AddScoped<ContactoBL>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
