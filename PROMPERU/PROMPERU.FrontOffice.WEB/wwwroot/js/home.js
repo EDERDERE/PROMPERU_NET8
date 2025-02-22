@@ -576,7 +576,7 @@ function renderSlideTestHome(testimonios) {
   $("#slideTestHome").append(html);
 }
 function renderLogrosHome(logros) {
-    console.log('renderLogrosHome', logros)
+  console.log("renderLogrosHome", logros);
   let html = "";
   logros.forEach((logr) => {
     html += `

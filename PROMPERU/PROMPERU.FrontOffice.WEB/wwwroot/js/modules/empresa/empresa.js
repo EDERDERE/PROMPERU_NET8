@@ -46,7 +46,7 @@ function applyFilters() {
     renderSliderEmpresa(filteredEmpresas);
   } else {
     $("#sliderEmpresa").html(
-      "<p>No hay empresas disponibles para esos filtros.</p>"
+      "<h5 class='empresa-empty'>No hay empresas disponibles para esos filtros.</h5>"
     );
   }
 }

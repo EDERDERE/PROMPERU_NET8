@@ -48,6 +48,10 @@ body {
   margin-top: var(--mt-20);
 }
 
+.p--20 {
+  padding: var(--p-20);
+}
+
 .button-outline {
   border: 1px solid #c3122c;
   color: #c3122c;
