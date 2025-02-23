@@ -15,16 +15,25 @@
         <div class="container py-5">
             <div class="container ">
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <h3>Ubicación</h3>
+                    <div class="col-md-3 ">
+                        <h5>Ubicación</h5>
                         <select name="ubicacion" id="inputRegion" class="form-select">
                         </select>
                     </div>
-                    <div class="col-md-4">
-                        <h3>Tipo de empresa</h3>
+                    <div class="col-md-3">
+                        <h5>Tipo de empresa</h5>
                         <select name="ubicacion" id="inputTipoEmpresa" class="form-select">
                         </select>
                     </div>
+                    <div class="col-md-3">
+                        <h5> RUC</h5>
+                        <input type="text" id="inputRUC" class="form-control" maxlength="12"
+                            placeholder="Ingrese RUC" />
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button id="btnClearFilters" class="btn btn-secondary">Limpiar Filtros</button>
+                    </div>
+
                 </div>
             </div>
             <div class="cursos_grid graduated_companies" id="sliderEmpresa">
