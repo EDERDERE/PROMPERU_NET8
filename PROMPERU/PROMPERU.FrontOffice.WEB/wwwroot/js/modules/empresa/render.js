@@ -23,6 +23,18 @@ export function renderBannerEmpresa(empresa) {
 }
 
 export function renderSliderEmpresa(empresas) {
+  $("#empresas-pagination").pagination({
+    dataSource: empresas,
+    pageSize: 7,
+    showPrevious: true,
+    showNext: true,
+    callback: function(data, pagination) {
+      template(data);
+    },
+  });
+}
+
+function template(empresas){
   renderTemplate(
     "sliderEmpresa",
     (data) =>

@@ -62,14 +62,14 @@ function renderTituloCurso(curs) {
 
     const tituloCurso = `
       <h2 class="section_title">${curs.curs_TituloSeccion}</h2>
-                    <div class="red-linear"></div>
+      <div class="red-linear"></div>
       `;
-    $('#banner').append(banner);    
+    $('#banner').append(tituloCurso);    
     $('#tituloCurso').append(tituloCurso);
 }
 function renderSliderCurso(cursos) {
     let slidersHTML = '';
-    console.log('seccion',cursos)
+
     cursos.forEach(curs => {
         if (curs.curs_Orden > 0) {
             slidersHTML +=
@@ -79,23 +79,7 @@ function renderSliderCurso(cursos) {
                     <div class="content p-3">
                         <h4>${curs.curs_NombreCurso}</h4>
                         <p class="curso_description">${curs.curs_Descripcion}</p>
-                        <p class="d-flex align-items-center gap-2 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#C3122C" class="bi bi-calendar4-week" viewBox="0 0 16 16">
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
-                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
-                            </svg>
-                            <strong>Virtual en Vivo:</strong>
-                            <span>Del ${obtenerDia(formatearFechaInversa(curs.curs_FechaInicio))} al ${obtenerDia(formatearFechaInversa(curs.curs_FechaFin))} del ${obtenerAno(formatearFechaInversa(curs.curs_FechaFin))}</span>
-                        </p>
-                        <p class="d-flex align-items-center gap-1  mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0070BA" class="bi bi-clock-history" viewBox="0 0 16 16">
-                                <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
-                                <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
-                                <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
-                            </svg>
-                            <strong>A tu ritmo:</strong>
-                            <span>${curs.curs_Modalidad}</span>
-                        </p>
+                        ${loadModality(curs.tipoModalidadList)}
                         <div class="d-flex justify-content-center">
                             <a href="${curs.curs_LinkBoton}" class="button_brochure"  target="_blank">
                                  ${curs.curs_NombreBoton}
@@ -114,3 +98,38 @@ function renderSliderCurso(cursos) {
     $('#sliderCurso').append(slidersHTML);
 }
 
+function formatDates(startDate, endDate){
+    const start = dayjs(startDate);
+    const end = dayjs(endDate);
+    
+    if(start.month() === end.month()){
+        return `del ${start.date()} al ${end.date()} de ${start.format('MMMM')} del ${end.year()}`;
+    } else {
+        return `del ${start.date()} de ${start.format('MMMM')} al ${end.date()} de ${end.format('MMMM')} del ${end.year()}`;
+    }
+}
+
+function loadModality(modalities) {
+    let modalityHTML = '';
+    const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#C3122C" class="bi bi-calendar4-week" viewBox="0 0 16 16">
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+            </svg>`;
+    const clockIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#C3122C" class="bi bi-clock-history" viewBox="0 0 16 16">
+    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+</svg>`;
+    modalities.reverse().forEach(modality => {
+
+        modalityHTML += `
+        <p class="d-flex align-items-center gap-2 ">
+            ${modality.tmod_ID === 1 ? clockIcon : calendarIcon}
+            <strong>${modality.tmod_Nombre}:</strong>
+            <span>${modality.fechaInicio ? formatDates(modality.fechaInicio, modality.fechaFin) : 'En cualquier momento'}</span>
+        </p>`
+
+    });
+
+    return modalityHTML;
+}
