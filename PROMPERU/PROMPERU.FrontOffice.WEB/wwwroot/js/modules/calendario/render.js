@@ -20,11 +20,11 @@ export function renderBannerCalendario(calendar) {
   cambiarImagenDinamica(calendar.curs_UrlImagen);
 }
 
+let calendar;
+
 export function loadCalendar(cursos) {
-  console.log(cursos);
-  const eventos = Object.groupBy(cursos, function() { });
-  var calendarEl = document.getElementById("calendar");
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  const calendarEl = document.getElementById("calendar");
+  calendar = new FullCalendar.Calendar(calendarEl, {
     locale: "es",
     initialView: "dayGridMonth",
     headerToolbar: {
@@ -42,29 +42,28 @@ export function loadCalendar(cursos) {
       );
     },
   });
+  
   calendar.render();
 }
 
 export function renderEventCards(cursos) {
-
-  $('#event-pagination').pagination({
+  $("#event-pagination").pagination({
     dataSource: cursos,
-    pageSize: 4,
+    pageSize: 8,
     showPrevious: true,
     showNext: true,
     callback: function(data, pagination) {
-        // template method of yourself
-        console.log(pagination)
-        var html = template(data);
-        $('#event-grid').html(html);
-    }
-})
+      // template method of yourself
+      console.log(pagination);
+      var html = template(data);
+      $("#event-grid").html(html);
+    },
+  });
 }
 
 function template(data) {
   let eventItems = "";
   data.forEach((element) => {
-    console.log(element);
     const dateSplit = element.start.split("-");
     const day = dateSplit[2];
     const month = dateSplit[1];
@@ -120,12 +119,14 @@ export function initCalendarViews() {
     calendarView.style.display = "block";
     calendarOption.classList.add("active");
     gridOption.classList.remove("active");
+    calendar.render();
   });
   gridOption.addEventListener("click", function() {
     gridView.style.display = "block";
     calendarView.style.display = "none";
     calendarOption.classList.remove("active");
     gridOption.classList.add("active");
+    calendar.destroy();
   });
 
   addOpenModalEvent();
@@ -147,13 +148,22 @@ function openModal(titulo, tipo, descripcion, descripcion2) {
   modal.style.display = "flex";
 }
 
-const groupBy = (array, key) => {
-  return array.reduce((result, currentValue) => {
-    const groupKey = currentValue[key];
-    if (!result[groupKey]) {
-      result[groupKey] = [];
-    }
-    result[groupKey].push(currentValue);
-    return result;
-  }, {});
-};
+export function loadYearOptions() {
+  // obtenes los últimos 3 años desde el actual hacia atrás
+  const currentYear = new Date().getFullYear();
+  const years = [currentYear];
+  for (let i = 1; i < 3; i++) {
+    years.push(currentYear - i);
+  }
+  
+  const yearSelect = document.getElementById("year");
+  yearSelect.innerHTML = `<option value="">Seleccione el año</option>` + years.map(year => `<option value="${year}">${year}</option>`).join('');
+}
+
+export function loadMonthOptions() {
+  const monthSelect = document.getElementById("month");
+  monthSelect.innerHTML = `<option value="">Seleccione el mes</option>` + Array.from({ length: 12 }, (_, i) => {
+    const month = i + 1;
+    return `<option value="${month}">${new Date(2021, month - 1).toLocaleString("es-ES", { month: "long" }).charAt(0).toUpperCase() + new Date(2021, month - 1).toLocaleString("es-ES", { month: "long" }).slice(1)}</option>`;
+  }).join('');
+}
