@@ -1,6 +1,7 @@
 $(document).ready(function () {
   loadListarContacto();
-  loadEditarContacto();
+    loadEditarContacto();
+    DescargaContacto();
 });
 
 function loadListarContacto() {
@@ -253,4 +254,16 @@ function loadEditarContacto() {
       );
     }
   });
+}
+function DescargaContacto() {
+    $("#btnDescargar").click(function () {
+        let tabla = $("#nombreTabla").val();
+
+        if (!tabla) {
+            alert("Ingrese el nombre de la tabla.");
+            return;
+        }
+
+        window.location.href = "/Descarga/DescargarDatos?tabla=" + encodeURIComponent(tabla);
+    });
 }

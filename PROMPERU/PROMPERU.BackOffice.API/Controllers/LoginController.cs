@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using PROMPERU.BackOffice.API.Filters;
-using PROMPERU.BackOffice.API.Models;
-using PROMPERU.BE;
 using PROMPERU.BL;
-using System.Diagnostics;
 
 namespace PROMPERU.BackOffice.API.Controllers
 {

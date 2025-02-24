@@ -102,4 +102,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
+// Habilitar WebSockets
+app.UseWebSockets();
+
 app.Run();

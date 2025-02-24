@@ -9,11 +9,14 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
     {
         private readonly ILogger<TestController> _logger;    
         private readonly InscripcionBL _inscripcionBL;
-
-        public TestController(ILogger<TestController> logger, InscripcionBL nscripcionBL)
+        private readonly CursoBL _cursoBL;
+        private readonly PortadaTestBL _portadaTestBL;
+        public TestController(ILogger<TestController> logger, InscripcionBL nscripcionBL,CursoBL cursoBL, PortadaTestBL portadaTestBL)
         {
             _logger = logger;
             _inscripcionBL = nscripcionBL;
+            _cursoBL = cursoBL;
+            _portadaTestBL = portadaTestBL;
         }
 
         public IActionResult Index()
@@ -21,17 +24,20 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
           return View(); // Asegúrate de tener una vista asociada         
         }
         [HttpGet]
-        public async Task<IActionResult> ListarEtapas()
+        public async Task<IActionResult> ListarTest()
         {
             try
             {
+                var curosos = await _cursoBL.ListarCursosAsync();
+                var portadaTest = await _portadaTestBL.ListarPortadaTestsAsync(); // Cambio a versión asincrónica
+
                 var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync(); // Cambio a versión asincrónica
                 if (etapas != null && etapas.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        message = "etapas obtenidos exitosamente.",
+                        message = "test obtenidos exitosamente.",
                         etapas
                     });
                 }
@@ -40,7 +46,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron etapas disponibles."
+                        message = "No se encontraron test disponibles."
                     });
                 }
             }
