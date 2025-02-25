@@ -1,4 +1,5 @@
 ﻿using PROMPERU.BE;
+using PROMPERU.BL.Interfaces;
 using PROMPERU.DA;
 using System.Data;
 using System.Security.Cryptography;
@@ -10,11 +11,13 @@ namespace PROMPERU.BL
     {
         //private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly LogoDA _logoDA;
+        private readonly ILoggerService _logger;
 
         // Constructor con inyección de dependencias
-        public LogoBL(LogoDA logoDA)
+        public LogoBL(LogoDA logoDA, ILoggerService logger)
         {
             _logoDA = logoDA ?? throw new ArgumentNullException(nameof(LogoDA));
+            _logger = logger;
         }
 
         public async Task<LogoBE> InsertarLogoAsync(LogoBE logo, string usuario, string ip)
@@ -73,6 +76,7 @@ namespace PROMPERU.BL
             }
             catch (Exception ex)
             {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
                 throw new Exception("Error en la lógica de negocio al listar los Logos", ex);
             }
         }

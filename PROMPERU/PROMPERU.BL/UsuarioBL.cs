@@ -1,4 +1,5 @@
 ﻿using PROMPERU.BE;
+using PROMPERU.BL.Interfaces;
 using PROMPERU.DA;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,10 +9,12 @@ namespace PROMPERU.BL
     public class UsuarioBL
     {
         private readonly UsuarioDA _usuarioDA;
+        private readonly ILoggerService _logger;
 
-        public UsuarioBL(UsuarioDA usuarioDA)
+        public UsuarioBL(UsuarioDA usuarioDA, ILoggerService logger)
         {
             _usuarioDA = usuarioDA;
+            _logger = logger;
         }
         public async Task<int> RegistrarUsuarioAsync(UsuarioBE usuario, string cargoUsuario)
         {
@@ -38,19 +41,28 @@ namespace PROMPERU.BL
         }
         public async Task<UsuarioBE?> ValidarUsuarioAsync(string usuario, string contrasenia)
         {
-            // Obtener el usuario desde la base de datos
-            var usuarioBD = await _usuarioDA.ValidarUsuarioAsync(usuario);
-
-            if (usuarioBD == null)
-                return null;
-
-            // Comparar la contraseña proporcionada con la almacenada (hash)
-            if (VerificarContraseña(contrasenia, usuarioBD.Usua_Contrasenia))
+            try
             {
-                return usuarioBD;
-            }
+                // Obtener el usuario desde la base de datos
+                var usuarioBD = await _usuarioDA.ValidarUsuarioAsync(usuario);
 
-            return null;
+                if (usuarioBD == null)
+                    return null;
+
+                // Comparar la contraseña proporcionada con la almacenada (hash)
+                if (VerificarContraseña(contrasenia, usuarioBD.Usua_Contrasenia))
+                {
+                    return usuarioBD;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
+                throw;
+            }          
+
+      
         }
 
         // Método para encriptar la contraseña usando SHA256

@@ -2,9 +2,18 @@ using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.DA;
 using PROMPERU.DB;
+using Serilog;
 using ServiceExterno;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar Serilog desde appsettings.json
+// Configuración de Serilog desde appsettings.json
+builder.Host.UseSerilog((context, services, configuration) =>
+    configuration
+        .ReadFrom.Configuration(context.Configuration) // Cargar configuración de appsettings.json
+        .WriteTo.Console() // Escribir también en consola (opcional)
+);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -66,6 +75,10 @@ builder.Services.AddScoped<UbigeoDA>();
 builder.Services.AddScoped<UbigeoBL>();
 builder.Services.AddScoped<ContactoDA>();
 builder.Services.AddScoped<ContactoBL>();
+
+builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

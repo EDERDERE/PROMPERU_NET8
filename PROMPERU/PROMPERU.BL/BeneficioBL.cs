@@ -1,4 +1,5 @@
 ﻿using PROMPERU.BE;
+using PROMPERU.BL.Interfaces;
 using PROMPERU.DA;
 using System.Data;
 using System.Security.Cryptography;
@@ -8,13 +9,15 @@ namespace PROMPERU.BL
 {
     public class BeneficioBL
     {
-        //private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly BeneficioDA _beneficioDA;
+        private readonly ILoggerService _logger;
 
         // Constructor con inyección de dependencias
-        public BeneficioBL(BeneficioDA beneficioDA)
+        public BeneficioBL(BeneficioDA beneficioDA, ILoggerService logger)
         {
             _beneficioDA = beneficioDA ?? throw new ArgumentNullException(nameof(BeneficioDA));
+            _logger = logger;
+
         }
 
         public async Task<BeneficioBE> InsertarBeneficioAsync(BeneficioBE beneficio, string usuario, string ip)
@@ -25,6 +28,7 @@ namespace PROMPERU.BL
             }
             catch (Exception ex)
             {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
                 throw new Exception("Error en la lógica de negocio al insertar el Beneficio", ex);
             }
         }
@@ -37,6 +41,8 @@ namespace PROMPERU.BL
             }
             catch (Exception ex)
             {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
+
                 throw new Exception("Error en la lógica de negocio al actualizar el Beneficio", ex);
             }
         }
@@ -49,22 +55,11 @@ namespace PROMPERU.BL
             }
             catch (Exception ex)
             {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
                 throw new Exception("Error en la lógica de negocio al eliminar el Beneficio", ex);
             }
         }
-
-        //public async Task<BeneficioBE> ObtenerBeneficioAsync(int bannID)
-        //{
-        //    try
-        //    {
-        //        return await _BeneficioDA.ObtenerBeneficioPorIDAsync(bannID);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error en la lógica de negocio al obtener el Beneficio", ex);
-        //    }
-        //}
-
+        
         public async Task<List<BeneficioBE>> ListarBeneficiosAsync()
         {
             try
@@ -73,20 +68,10 @@ namespace PROMPERU.BL
             }
             catch (Exception ex)
             {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
                 throw new Exception("Error en la lógica de negocio al listar los Beneficios", ex);
             }
         }
-
-        //public async Task<DataTable> ObtenerReporteBeneficiosAsync()
-        //{
-        //    try
-        //    {
-        //        return await _BeneficioDA.ObtenerReporteBeneficiosAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error en la lógica de negocio al generar el reporte de los Beneficios", ex);
-        //    }
-        //}
+               
     }
 }
