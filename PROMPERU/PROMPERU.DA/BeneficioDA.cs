@@ -56,43 +56,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Beneficio", ex);
             }
         }
-
-        //private async Task<BeneficioBE> ObtenerBeneficioPorIDAsync(int bene_ID)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();
-        //        await using var comando = new SqlCommand("USP_Beneficio_SEL", conexion)
-        //        {
-        //            CommandType = CommandType.StoredProcedure
-        //        };
-
-        //        comando.Parameters.AddWithValue("@Bene_ID", bene_ID);
-
-        //        await conexion.OpenAsync();
-        //        await using var reader = await comando.ExecuteReaderAsync();
-
-        //        if (await reader.ReadAsync())
-        //        {
-        //            return new BeneficioBE
-        //            {
-        //                Bene_ID = Convert.ToInt32(reader["Bene_ID"]),
-        //                Bene_Orden = Convert.ToInt32(reader["Bene_Orden"]),
-        //                Bene_Nombre = reader["Bene_Nombre"].ToString(),
-        //                Bene_Descripcion = reader["Bene_Descripcion"].ToString(),
-        //                Bene_URLIcon = reader["Bene_URLIcon"].ToString(),
-        //                Bene_URLImagen = reader["Bene_URLImagen"].ToString()
-        //            };
-        //        }
-
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al obtener el Beneficio por ID", ex);
-        //    }
-        //}
-
+            
         public async Task<int> EliminarBeneficioAsync(string usuario, string ip, int id)
         {
             try

@@ -61,50 +61,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Caso", ex);
             }
         }
-
-        private async Task<CasoBE> ObtenerCasoPorIDAsync(int curs_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_CasoExito_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Caso_ID", curs_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new CasoBE
-                    {
-                        Cexi_ID = reader["Cexi_ID"] != DBNull.Value ? Convert.ToInt32(reader["Cexi_ID"]) : 0,
-                        Cexi_Nombre = reader["Cexi_Nombre"] != DBNull.Value ? reader["Cexi_Nombre"].ToString() : "",
-                        Cexi_Orden = reader["Cexi_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Cexi_Orden"]) : 0,
-                        Cexi_Titulo = reader["Cexi_Titulo"] != DBNull.Value ? reader["Cexi_Titulo"].ToString() : "",
-                        Cexi_UrlVideo = reader["Cexi_UrlVideo"] != DBNull.Value ? reader["Cexi_UrlVideo"].ToString() : "",
-                        Cexi_TituloVideo = reader["Cexi_TituloVideo"] != DBNull.Value ? reader["Cexi_TituloVideo"].ToString() : "",
-                        Cexi_NombreBoton = reader["Cexi_NombreBoton"] != DBNull.Value ? reader["Cexi_NombreBoton"].ToString() : "",
-                        Cexi_UrlBoton = reader["Cexi_UrlBoton"] != DBNull.Value ? reader["Cexi_UrlBoton"].ToString() : "",
-                        Cexi_Descripcion = reader["Cexi_Descripcion"] != DBNull.Value ? reader["Cexi_Descripcion"].ToString() : "",
-                        Cexi_UrlIcon = reader["Cexi_UrlIcon"] != DBNull.Value ? reader["Cexi_UrlIcon"].ToString() : "",
-                        Cexi_UrlPerfil = reader["Cexi_UrlPerfil"] != DBNull.Value ? reader["Cexi_UrlPerfil"].ToString() : "",
-                        Cexi_UrlCabecera = reader["Cexi_UrlCabecera"] != DBNull.Value ? reader["Cexi_UrlCabecera"].ToString() : "",
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Caso por ID", ex);
-            }
-        }
+          
 
         public async Task<int> EliminarCasoAsync(string usuario, string ip, int id)
         {

@@ -54,42 +54,7 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<LogroBE> ObtenerLogroPorIDAsync(int logro_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Logro_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Logro_ID", logro_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new LogroBE
-                    {
-                        Logr_ID = reader["Logro_ID"] != DBNull.Value ? Convert.ToInt32(reader["Logro_ID"]) : 0,
-                        Logr_Nombre = reader["Logr_Nombre"] != DBNull.Value ? reader["Logr_Nombre"].ToString() : "",
-                        Logr_Descripcion = reader["Logr_Descripcion"] != DBNull.Value ? reader["Logr_Descripcion"].ToString() : "",
-                        Logr_UrlIcon = reader["Logr_UrlIcon"] != DBNull.Value ? reader["Logr_UrlIcon"].ToString() : ""
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Logro por ID", ex);
-            }
-        }
-
+       
         public async Task<int> EliminarLogroAsync(string usuario, string ip, int id)
         {
             try

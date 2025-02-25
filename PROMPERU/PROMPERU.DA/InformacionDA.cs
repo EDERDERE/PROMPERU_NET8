@@ -56,43 +56,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Informacion", ex);
             }
         }
-
-        private async Task<InformacionBE> ObtenerInformacionPorIDAsync(int Info_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Informacion_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Info_ID", Info_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new InformacionBE
-                    {
-                        Info_ID = Convert.ToInt32(reader["Info_ID"]),
-                        Info_Titulo = reader["Info_Titulo"].ToString(),
-                        Info_TituloSeccion = reader["Info_TituloSeccion"].ToString(),
-                        Info_Descripcion = reader["Info_Descripcion"].ToString(),
-                        Info_URLPortada = reader["Info_URLPortada"].ToString(),
-                        Info_URLVideo = reader["Info_URLVideo"].ToString(),
-                        Info_DescripcionBanner= reader["Info_DescripcionBanner"].ToString()
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Informacion por ID", ex);
-            }
-        }
+             
 
         public async Task<int> EliminarInformacionAsync(string usuario, string ip, int id)
         {

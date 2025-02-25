@@ -56,43 +56,7 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<TestimonioBE> ObtenerTestimonioPorIDAsync(int test_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Testimonio_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Test_ID", test_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new TestimonioBE
-                    {
-                        Test_ID = reader["Test_ID"] != DBNull.Value ? Convert.ToInt32(reader["Test_ID"]) : 0,
-                        Test_Nombre = reader["Test_Nombre"] != DBNull.Value ? reader["Test_Nombre"].ToString() : "",
-                        Test_Descripcion = reader["Test_Descripcion"] != DBNull.Value ? reader["Test_Descripcion"].ToString() : "",
-                        Test_UrlIcon = reader["Test_UrlIcon"] != DBNull.Value ? reader["Test_UrlIcon"].ToString() : "",
-                        Test_UrlImagen = reader["Test_UrlImagen"] != DBNull.Value ? reader["Test_UrlImagen"].ToString() : ""
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Testimonio por ID", ex);
-            }
-        }
-
+       
         public async Task<int> EliminarTestimonioAsync(string usuario, string ip, int id)
         {
             try

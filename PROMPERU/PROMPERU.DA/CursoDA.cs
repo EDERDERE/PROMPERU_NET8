@@ -78,57 +78,6 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<CursoBE> ObtenerCursoPorIDAsync(int curs_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Curso_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Curs_ID", curs_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new CursoBE
-                    {
-                        Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
-                        Curs_Orden = reader["Curs_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Curs_Orden"]) : 0,
-                        Curs_Titulo = reader["Curs_Titulo"] != DBNull.Value ? reader["Curs_Titulo"].ToString() : "",
-                        Curs_TituloSeccion = reader["Curs_TituloSeccion"] != DBNull.Value ? reader["Curs_Titulo"].ToString() : "",
-                        Curs_NombreBoton = reader["Curs_NombreBoton"] != DBNull.Value ? reader["Curs_NombreBoton"].ToString() : "",
-                        Curs_UrlIconBoton = reader["Curs_UrlIconBoton"] != DBNull.Value ? reader["Curs_UrlIconBoton"].ToString() : "",
-                        Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
-                        Curs_Objetivo = reader["Curs_Objetivo"] != DBNull.Value ? reader["Curs_Objetivo"].ToString() : "",
-                        Curs_Descripcion = reader["Curs_Descripcion"] != DBNull.Value ? reader["Curs_Descripcion"].ToString() : "",
-                        Curs_Modalidad = reader["Curs_Modalidad"] != DBNull.Value ? reader["Curs_Modalidad"].ToString() : "",
-                        Curs_DuracionHoras = reader["Curs_DuracionHoras"] != DBNull.Value ? Convert.ToInt32(reader["Curs_DuracionHoras"]) : 0,
-                        Curs_FechaInicio = Convert.ToDateTime(reader["Curs_FechaInicio"]),
-                        Curs_FechaFin = Convert.ToDateTime(reader["Curs_FechaFin"]),
-                        Curs_NombreBotonTitulo = reader["Curs_NombreBotonTitulo"] != DBNull.Value ? reader["Curs_NombreBotonTitulo"].ToString() : "",
-                        Curs_UrlIcon = reader["Curs_UrlIcon"] != DBNull.Value ? reader["Curs_UrlIcon"].ToString() : "",
-                        Curs_UrlImagen = reader["Curs_UrlImagen"] != DBNull.Value ? reader["Curs_UrlImagen"].ToString() : "",
-                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : "",
-                        Teve_ID = reader["Teve_ID"] != DBNull.Value ? Convert.ToInt32(reader["Teve_ID"]) : 0,
-                        Tmod_ID = reader["Tmod_ID"] != DBNull.Value ? Convert.ToInt32(reader["Tmod_ID"]) : 0,
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Curso por ID", ex);
-            }
-        }
-
         public async Task<int> EliminarCursoAsync(string usuario, string ip, int id)
         {
             try

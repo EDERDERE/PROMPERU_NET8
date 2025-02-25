@@ -62,48 +62,7 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<FooterBE> ObtenerFooterPorIDAsync(int footer_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Footer_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Footer_ID", footer_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new FooterBE
-                    {
-                        Foot_ID = reader["Foot_ID"] != DBNull.Value ? Convert.ToInt32(reader["Foot_ID"]) : 0,
-                        Foot_Nombre = reader["Foot_Nombre"] != DBNull.Value ? reader["Foot_Nombre"].ToString() : "",
-                        Foot_Contacto = reader["Foot_Contacto"] != DBNull.Value ? reader["Foot_Contacto"].ToString() : "",
-                        Foot_UrlIconContacto = reader["Foot_UrlIconContacto"] != DBNull.Value ? reader["Foot_UrlIconContacto"].ToString() : "",
-                        Foot_Ubicacion = reader["Foot_Ubicacion"] != DBNull.Value ? reader["Foot_Ubicacion"].ToString() : "",
-                        Foot_UrlIconUbicacion = reader["Foot_UrlIconUbicacion"] != DBNull.Value ? reader["Foot_UrlIconUbicacion"].ToString() : "",
-                        Foot_UrlLogoPrincipal = reader["Foot_UrlLogoPrincipal"] != DBNull.Value ? reader["Foot_UrlLogoPrincipal"].ToString() : "",
-                        Foot_UrlLogoSecundario = reader["Foot_UrlLogoSecundario"] != DBNull.Value ? reader["Foot_UrlLogoSecundario"].ToString() : "",
-                        Foot_Ayuda = reader["Foot_Ayuda"] != DBNull.Value ? reader["Foot_Ayuda"].ToString() : "",
-                        Foot_Comunicate = reader["Foot_Comunicate"] != DBNull.Value ? reader["Foot_Comunicate"].ToString() : "",
-                        Foot_UrlIconMensaje = reader["Foot_UrlIconMensaje"] != DBNull.Value ? reader["Foot_UrlIconMensaje"].ToString() : "",
-                        Foot_UrlIconWhatssap = reader["Foot_UrlIconWhatssap"] != DBNull.Value ? reader["Foot_UrlIconWhatssap"].ToString() : ""
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Footer por ID", ex);
-            }
-        }
-
+   
         public async Task<int> EliminarFooterAsync(string usuario, string ip, int id)
         {
             try

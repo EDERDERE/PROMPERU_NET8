@@ -57,45 +57,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el PortadaTest", ex);
             }
         }
-
-        private async Task<PortadaTestBE> ObtenerPortadaTestPorIDAsync(int bannID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_PortadaTest_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Bann_ID", bannID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new PortadaTestBE
-                    {
-                        Ptes_ID = Convert.ToInt32(reader["Ptes_ID"]),
-                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
-                        Ptes_Titulo = reader["Ptes_Titulo"].ToString(),
-                        Ptes_Descripcion = reader["Ptes_Descripcion"].ToString(),
-                        Ptes_NombreBoton = reader["Ptes_NombreBoton"].ToString(),
-                        Ptes_UrlIconoBoton = reader["Ptes_UrlIconoBoton"].ToString(),
-                        Ptes_MensajeAlert = reader["Ptes_MensajeAlert"].ToString(),
-                        Ptes_UrlIconoAlrt = reader["Ptes_UrlIconoAlrt"].ToString()
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el PortadaTest por ID", ex);
-            }
-        }
-
+        
         public async Task<int> EliminarPortadaTestAsync(string usuario, string ip, int id)
         {
             try

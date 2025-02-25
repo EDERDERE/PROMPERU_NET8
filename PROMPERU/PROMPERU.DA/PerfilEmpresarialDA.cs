@@ -54,42 +54,6 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<PerfilEmpresarialBE> ObtenerPerfilEmpresarialPorIDAsync(int Pemp_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_PerfilEmpresarial_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Pemp_ID", Pemp_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new PerfilEmpresarialBE
-                    {
-                        Pemp_ID = reader["Pemp_ID"] != DBNull.Value ? Convert.ToInt32(reader["Pemp_ID"]) : 0,
-                        Pemp_Nombre = reader["Pemp_Nombre"] != DBNull.Value ? reader["Pemp_Nombre"].ToString() : "",
-                        Pemp_Descripcion = reader["Pemp_Descripcion"] != DBNull.Value ? reader["Pemp_Descripcion"].ToString() : "",
-                        Pemp_UrlImagen = reader["Pemp_UrlImagen"] != DBNull.Value ? reader["Pemp_UrlImagen"].ToString() : ""
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el PerfilEmpresarial por ID", ex);
-            }
-        }
-
         public async Task<int> EliminarPerfilEmpresarialAsync(string usuario, string ip, int id)
         {
             try

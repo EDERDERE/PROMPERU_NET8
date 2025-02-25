@@ -1,81 +1,42 @@
-﻿$(document).ready(function () {
-    loadValidarUsuario();  
-    loadForgotPasswordLink();
-    loadLogo();
+﻿$(document).ready(() => {
+    Promise.all([loadValidarUsuario(), loadForgotPasswordLink(), loadLogo()]);
 });
 
-async function loadValidarUsuario() {
-    // Configurar el evento de envío del formulario con un manejo personalizado
+function loadValidarUsuario() {
     $('#loginForm').submit(async function (e) {
-        e.preventDefault();  // Evita el envío por defecto del formulario
+        e.preventDefault();
 
-        // Capturar los valores ingresados en los campos de usuario y contraseña
-        var usuario = $('#usuario').val();
-        var password = $('#password').val();
+        let usuario = $('#usuario').val().trim();
+        let password = $('#password').val().trim();
 
-        // Validaciones previas para asegurar que ambos campos sean ingresados
-        if (usuario === "" && password === "") {
-            await Swal.fire({
+        if (!usuario || !password) {
+            Swal.fire({
                 icon: 'warning',
                 title: '¡Atención!',
-                text: 'Por favor, ingrese ambos campos.',
+                text: usuario ? 'Por favor, ingrese la contraseña.' : 'Por favor, ingrese el usuario.',
                 confirmButtonText: 'OK'
             });
             return;
         }
 
-        if (usuario === "" && password !== "") {
-            await Swal.fire({
-                icon: 'warning',
-                title: '¡Atención!',
-                text: 'Por favor, ingrese el usuario.',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
-        if (usuario !== "" && password === "") {
-            await Swal.fire({
-                icon: 'warning',
-                title: '¡Atención!',
-                text: 'Por favor, ingrese la contraseña.',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
-        // Realizar la solicitud AJAX de manera asíncrona
         try {
-            const response = await $.ajax({
-                url: '/Login/Login',  // URL del controlador encargado del inicio de sesión
-                type: 'POST',
-                data: {
-                    usuario: usuario,
-                    contrasenia: password
-                }
-            });
+            const response = await $.post('/Login/Login', { usuario, contrasenia: password });
 
-            // Verificar si la autenticación fue exitosa
             if (response.success) {
-                await Swal.fire({
+                Swal.fire({
                     icon: 'success',
                     title: '¡Inicio de sesión exitoso!',
                     text: 'Redirigiendo...',
-                    timer: 2000,  // Mostrar la alerta por 2 segundos
+                    timer: 1500,
                     showConfirmButton: false
+                }).then(() => {
+                    window.location.href = response.redirectUrl;
                 });
-                window.location.href = response.redirectUrl; // Redirigir al usuario
             } else {
-                // Mostrar mensaje de error si la autenticación falla
-                await Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: response.message
-                });
+                Swal.fire({ icon: 'error', title: 'Error', text: response.message });
             }
-        } catch (error) {
-            // Manejar errores en la solicitud AJAX
-            await Swal.fire({
+        } catch {
+            Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Ocurrió un error al procesar la solicitud. Inténtalo de nuevo más tarde.'
@@ -84,9 +45,9 @@ async function loadValidarUsuario() {
     });
 }
 
-function loadForgotPasswordLink(){
-    $("#forgotPasswordLink").click(function (event) {
-        event.preventDefault(); // Evita la navegación por defecto  
+function loadForgotPasswordLink() {
+    $("#forgotPasswordLink").click(event => {
+        event.preventDefault();
         Swal.fire({
             icon: 'warning',
             title: '¡Atención!',
@@ -95,42 +56,30 @@ function loadForgotPasswordLink(){
         });
     });
 }
+
 async function loadLogo() {
     try {
-        // Realiza la solicitud AJAX de forma asíncrona
-        const response = await $.ajax({
-            type: "GET",
-            url: "/Login/ListarLogos",
-            dataType: "json",
-        });
+        const response = await $.getJSON("/Login/ListarLogos");
 
-        console.log('response',response);
-        $("#logoHome").empty();
-
-        if (response.success) {
-            // Itera sobre los Menus y los agrega al contenedor
-            response.logos.forEach((logo) => {
-                const html = renderLogo(logo); // Usar la función para crear la tarjeta
-                $("#logoHome").append(html);
-            });
+        if (response.success && response.logos.length) {
+            $("#logoHome").html(response.logos.map(renderLogo).join(''));
         } else {
             Swal.fire({
                 icon: "error",
-                title: "No hay Menus disponibles",
-                text: response.message || "No se encontraron Menus.",
+                title: "No hay logos disponibles",
+                text: response.message || "No se encontraron logos.",
             });
         }
-    } catch (error) {
+    } catch {
         Swal.fire({
             icon: "error",
-            title: "Error al cargar los sliders",
-            text: "Hubo un problema al cargar los Menus. Por favor, inténtelo nuevamente más tarde.",
+            title: "Error al cargar los logos",
+            text: "Hubo un problema al cargar los logos. Por favor, inténtelo nuevamente más tarde.",
         });
     }
 }
 
-function renderLogo(data){
-    console.log(data)
+function renderLogo(data) {
     return `
       <div class="d-flex align-items-center gap-2">
         <img src="${data.logo_UrlPrincipal}" alt="Logo Superior" class="logo-header"/>
@@ -142,5 +91,5 @@ function renderLogo(data){
           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
         </svg>
       </button>     
-    `;    
+    `;
 }

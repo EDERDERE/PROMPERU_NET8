@@ -68,56 +68,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el FormularioContacto", ex);
             }
         }
-
-        //private async Task<FormularioContactoBE> ObtenerFormularioContactoPorIDAsync(int egra_ID)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();
-        //        await using var comando = new SqlCommand("USP_FormularioContacto_SEL", conexion)
-        //        {
-        //            CommandType = CommandType.StoredProcedure
-        //        };
-
-        //        comando.Parameters.AddWithValue("@Egra_ID", egra_ID);
-
-        //        await conexion.OpenAsync();
-        //        await using var reader = await comando.ExecuteReaderAsync();
-
-        //        if (await reader.ReadAsync())
-        //        {
-        //            return new FormularioContactoBE
-        //            {
-        //                Fcon_ID = reader["Fcon_ID"] != DBNull.Value ? Convert.ToInt32(reader["Fcon_ID"]) : 0,
-        //                Fcon_Titulo = reader["Fcon_Titulo"] != DBNull.Value ? reader["Fcon_Titulo"].ToString() : string.Empty,
-        //                Fcon_Descripcion = reader["Fcon_Descripcion"] != DBNull.Value ? reader["Fcon_Descripcion"].ToString() : string.Empty,
-        //                Fcon_UrlImagen = reader["Fcon_UrlImagen"] != DBNull.Value ? reader["Fcon_UrlImagen"].ToString() : string.Empty,
-        //                Fcon_SubTitulo = reader["Fcon_SubTitulo"] != DBNull.Value ? reader["Fcon_SubTitulo"].ToString() : string.Empty,
-        //                Fcon_DescripcionSubTitulo = reader["Fcon_DescripcionSubTitulo"] != DBNull.Value ? reader["Fcon_DescripcionSubTitulo"].ToString() : string.Empty,
-        //                Fcon_Direccion = reader["Fcon_Direccion"] != DBNull.Value ? reader["Fcon_Direccion"].ToString() : string.Empty,
-        //                Fcon_SubTituloDos = reader["Fcon_SubTituloDos"] != DBNull.Value ? reader["Fcon_SubTituloDos"].ToString() : string.Empty,
-        //                Fcon_Correo = reader["Fcon_Correo"] != DBNull.Value ? reader["Fcon_Correo"].ToString() : string.Empty,
-        //                Fcon_Telefono = reader["Fcon_Telefono"] != DBNull.Value ? reader["Fcon_Telefono"].ToString() : string.Empty,
-        //                Fcon_Horario = reader["Fcon_Horario"] != DBNull.Value ? reader["Fcon_Horario"].ToString() : string.Empty,
-        //                Fcon_TituloSeccion = reader["Fcon_TituloSeccion"] != DBNull.Value ? reader["Fcon_TituloSeccion"].ToString() : string.Empty,
-        //                Fcon_UrlPoliticas = reader["Fcon_UrlPoliticas"] != DBNull.Value ? reader["Fcon_UrlPoliticas"].ToString() : string.Empty,
-        //                Fcon_NombreBoton = reader["Fcon_NombreBoton"] != DBNull.Value ? reader["Fcon_NombreBoton"].ToString() : string.Empty,
-        //                Fcon_UrlIconBoton = reader["Fcon_UrlIconBoton"] != DBNull.Value ? reader["Fcon_UrlIconBoton"].ToString() : string.Empty,
-        //                Fcon_NombreBotonDos = reader["Fcon_NombreBotonDos"] != DBNull.Value ? reader["Fcon_NombreBotonDos"].ToString() : string.Empty,
-        //                Fcon_UrlIconBotonDos = reader["Fcon_UrlIconBotonDos"] != DBNull.Value ? reader["Fcon_UrlIconBotonDos"].ToString() : string.Empty,
-
-
-        //            };
-        //        }
-
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al obtener el FormularioContacto por ID", ex);
-        //    }
-        //}
-
+             
         public async Task<int> EliminarFormularioContactoAsync(string usuario, string ip, int id)
         {
             try

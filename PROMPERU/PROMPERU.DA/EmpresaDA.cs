@@ -77,72 +77,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el EmpresaGraduada", ex);
             }
         }
-
-        private async Task<EmpresaBE> ObtenerEmpresaPorIDAsync(int egra_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_EmpresaGraduada_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Egra_ID", egra_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new EmpresaBE
-                    {
-                        Egra_ID = reader["Egra_ID"] != DBNull.Value ? Convert.ToInt32(reader["Egra_ID"]) : 0,
-                        Egra_NombreEmpresa = reader["Egra_NombreEmpresa"] != DBNull.Value ? reader["Egra_NombreEmpresa"].ToString() : "",
-                        Egra_Imagen = reader["Egra_Imagen"] != DBNull.Value ? reader["Egra_Imagen"].ToString() : "",
-                        Egra_Orden = reader["Egra_Orden"] != DBNull.Value ? Convert.ToInt32(reader["Egra_Orden"]) : 0,
-                        Egra_Descripcion = reader["Egra_Descripcion"] != DBNull.Value ? reader["Egra_Descripcion"].ToString() : "",
-                        Egra_Titulo = reader["Egra_Titulo"] != DBNull.Value ? reader["Egra_Titulo"].ToString() : "",
-                        Egra_NombreBoton = reader["Egra_NombreBoton"] != DBNull.Value ? reader["Egra_NombreBoton"].ToString() : "",
-                        Egra_UrlBoton = reader["Egra_UrlBoton"] != DBNull.Value ? reader["Egra_UrlBoton"].ToString() : "",
-                        Egra_Region = reader["Egra_Region"] != DBNull.Value ? reader["Egra_Region"].ToString() : "",
-                        Egra_Correo = reader["Egra_Correo"] != DBNull.Value ? reader["Egra_Correo"].ToString() : "",
-                        Egra_PaginaWeb = reader["Egra_PaginaWeb"] != DBNull.Value ? reader["Egra_PaginaWeb"].ToString() : "",
-                        Egra_RUC = reader["Egra_RUC"] != DBNull.Value ? reader["Egra_RUC"].ToString() : "",
-                        Egra_RedesSociales = reader["Egra_RedesSociales"] != DBNull.Value ? reader["Egra_RedesSociales"].ToString() : "",
-                        Egra_RedesSocialesDos = reader["Egra_RedesSocialesDos"] != DBNull.Value ? reader["Egra_RedesSocialesDos"].ToString() : "",
-                        Egra_RedesSocialesTres = reader["Egra_RedesSocialesTres"] != DBNull.Value ? reader["Egra_RedesSocialesTres"].ToString() : "",
-                        Egra_RedesSocialesCuatro = reader["Egra_RedesSocialesCuatro"] != DBNull.Value ? reader["Egra_RedesSocialesCuatro"].ToString() : "",
-                        Egra_TipoEmpresa = reader["Egra_TipoEmpresa"] != DBNull.Value ? reader["Egra_TipoEmpresa"].ToString() : "",
-                        Egra_Certificaciones = reader["Egra_Certificaciones"] != DBNull.Value ? reader["Egra_Certificaciones"].ToString() : "",
-                        Egra_UrlLogo = reader["Egra_UrlLogo"] != DBNull.Value ? reader["Egra_UrlLogo"].ToString() : "",
-                        Egra_MercadosSegmentosAtendidos = reader["Egra_MercadosSegmentosAtendidos"] != DBNull.Value ? reader["Egra_MercadosSegmentosAtendidos"].ToString() : "",
-                        Egra_RazonSocial = reader["Egra_RazonSocial"] != DBNull.Value ? reader["Egra_RazonSocial"].ToString() : "",
-                        Egra_SegmentosAtendidos = reader["Egra_SegmentosAtendidos"] != DBNull.Value ? reader["Egra_SegmentosAtendidos"].ToString() : "",
-                        Egra_Direccion = reader["Egra_Direccion"] != DBNull.Value ? reader["Egra_Direccion"].ToString() : "",
-                        Egra_Celular = reader["Egra_Celular"] != DBNull.Value ? reader["Egra_Celular"].ToString() : "",
-                        Egra_CelularDos = reader["Egra_CelularDos"] != DBNull.Value ? reader["Egra_CelularDos"].ToString() : "",
-                        ID_TipoEmpresa = reader["ID_TipoEmpresa"] != DBNull.Value ? Convert.ToInt32(reader["ID_TipoEmpresa"]) : 0,
-                        TipoEmpresa = reader["TipoEmpresa"] != DBNull.Value ? reader["TipoEmpresa"].ToString() : "",
-                        ID_Region = reader["ID_Region"] != DBNull.Value ? Convert.ToInt32(reader["ID_Region"]) : 0,
-                        Region = reader["Region"] != DBNull.Value ? reader["Region"].ToString() : "",
-                        ID_Provincia = reader["ID_Provincia"] != DBNull.Value ? Convert.ToInt32(reader["ID_Provincia"]) : 0,
-                        Provincia = reader["Provincia"] != DBNull.Value ? reader["Provincia"].ToString() : "",
-                        ID_Distrito = reader["ID_Distrito"] != DBNull.Value ? Convert.ToInt32(reader["ID_Distrito"]) : 0,
-                        Distrito = reader["Distrito"] != DBNull.Value ? reader["Distrito"].ToString() : "",
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el EmpresaGraduada por ID", ex);
-            }
-        }
-
+           
         public async Task<int> EliminarEmpresaAsync(string usuario, string ip, int id)
         {
             try

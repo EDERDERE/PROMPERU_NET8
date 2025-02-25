@@ -52,40 +52,7 @@ namespace PROMPERU.DA
             {
                 throw new Exception("Error al insertar el Banner", ex);
             }
-        }
-
-        private async Task<BannerBE> ObtenerBannerPorIDAsync(int bannID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Banner_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Bann_ID", bannID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new BannerBE
-                    {
-                        Bann_ID = Convert.ToInt32(reader["Bann_ID"]),                        
-                        Bann_Orden = Convert.ToInt32(reader["Bann_Orden"]),
-                        Bann_Nombre = reader["Bann_Nombre"].ToString()
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Banner por ID", ex);
-            }
-        }
+        }      
 
         public async Task<int> EliminarBannerAsync(string usuario, string ip, int id)
         {

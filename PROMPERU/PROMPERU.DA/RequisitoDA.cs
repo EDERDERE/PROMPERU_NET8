@@ -58,44 +58,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Requisito", ex);
             }
         }
-
-        private async Task<RequisitoBE> ObtenerRequisitoPorIDAsync(int requ_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Requisito_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Requ_ID", requ_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new RequisitoBE
-                    {
-                        Requ_ID = Convert.ToInt32(reader["Requ_ID"]),                        
-                        Requ_Orden = Convert.ToInt32(reader["Requ_Orden"]),
-                        Requ_Titulo = reader["Requ_Titulo"].ToString(),
-                        Requ_TituloSeccion = reader["Requ_TituloSeccion"].ToString(),
-                        Requ_Descripcion = reader["Requ_Descripcion"].ToString(),
-                        Requ_URLIcon = reader["Requ_URLIcon"].ToString(),
-                        Requ_URLImagen = reader["Requ_URLImagen"].ToString()
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Requisito por ID", ex);
-            }
-        }
-
+            
         public async Task<int> EliminarRequisitoAsync(string usuario, string ip, int id)
         {
             try

@@ -54,43 +54,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Logo", ex);
             }
         }
-
-        private async Task<LogoBE> ObtenerLogoPorIDAsync(int logo_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Logo_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Logo_ID", logo_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new LogoBE
-                    {
-                        Logo_ID = reader["Logo_ID"] != DBNull.Value ? Convert.ToInt32(reader["Logo_ID"]) : 0,
-                        Logo_NombreBoton = reader["Logo_NombreBoton"] != DBNull.Value ? reader["Logo_NombreBoton"].ToString() : "",
-                        Logo_UrlIconBoton = reader["Logo_UrlIconBoton"] != DBNull.Value ? reader["Logo_UrlIconBoton"].ToString() : "",
-                        Logo_UrlPrincipal = reader["Logo_UrlPrincipal"] != DBNull.Value ? reader["Logo_UrlPrincipal"].ToString() : "",
-                        Logo_UrlSecundario = reader["Logo_UrlSecundario"] != DBNull.Value ? reader["Logo_UrlSecundario"].ToString() : ""                     
-
-
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Logo por ID", ex);
-            }
-        }
+           
 
         public async Task<int> EliminarLogoAsync(string usuario, string ip, int id)
         {

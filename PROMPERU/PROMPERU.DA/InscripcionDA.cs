@@ -60,46 +60,7 @@ namespace PROMPERU.DA
             }
         }
 
-        private async Task<InscripcionBE> ObtenerInscripcionPorIDAsync(int insc_ID)
-        {
-            try
-            {
-                await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Inscripcion_SEL", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                comando.Parameters.AddWithValue("@Insc_ID", insc_ID);
-
-                await conexion.OpenAsync();
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                if (await reader.ReadAsync())
-                {
-                    return new InscripcionBE
-                    {
-                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
-                        Insc_Titulo = reader["Insc_Titulo"].ToString(),
-                        Insc_Contenido = reader["Insc_Contenido"].ToString(),
-                        Insc_NombreBoton = reader["Insc_NombreBoton"].ToString(),
-                        Insc_URLIconBoton = reader["Insc_URLIconBoton"].ToString(),
-                        Insc_Orden = Convert.ToInt32(reader["Insc_Orden"]),
-                        Insc_Paso = Convert.ToInt32(reader["Insc_Paso"]),
-                        Insc_TituloPaso = reader["Insc_TituloPaso"].ToString(),
-                        Insc_Descripcion = reader["Insc_Descripcion"].ToString(),
-                        Insc_URLImagen = reader["Insc_URLImagen"].ToString()
-                    };
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener el Inscripcion por ID", ex);
-            }
-        }
-
+ 
         public async Task<int> EliminarInscripcionAsync(string usuario, string ip, int id)
         {
             try
