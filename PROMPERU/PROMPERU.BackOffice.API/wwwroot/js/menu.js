@@ -13,7 +13,6 @@ async function loadListarMenu() {
       dataType: "json",
     });
 
-    console.log(response);
       $("#sliderContainerMenu").empty();
 
     if (response.success) {
@@ -148,7 +147,6 @@ async function loadEditarMenu() {
     const id = button.data("id");
     const nombre = button.data("nombre");
     const ruta = button.data("ruta");
-    console.log(id,nombre,ruta)
     // Asignar los valores al modal
     const modal = $(this);
     modal.find("#editId").val(id);
@@ -160,7 +158,6 @@ async function loadEditarMenu() {
       const nombre = $("#editNombre").val();
       const ruta = $("#editRuta").val();
     const id = $("#editId").val();
-      console.log(id, nombre, ruta)
       if (nombre && ruta && id) {
       try {
         const response = await $.ajax({
@@ -201,7 +198,6 @@ function handleEditResponse(response) {
 async function loadEliminarMenu() {
   $(document).on("click", '[id^="btn-delete-"]', async function () {
     const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Mostrar mensaje de confirmación
     const result = await Swal.fire({
@@ -271,7 +267,6 @@ async function loadGuardarOrdenMenu() {
     if (result.isConfirmed) {
       try {
         const ordenData = await obtenerOrdenDataMenu();
-        console.log(ordenData);
         await actualizarOrdenMenu(ordenData);
       } catch (error) {
         handleError();

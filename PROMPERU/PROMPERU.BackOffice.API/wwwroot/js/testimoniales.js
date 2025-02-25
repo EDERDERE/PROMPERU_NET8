@@ -11,7 +11,6 @@ function loadListarTestimonio() {
     url: "/Testimonio/ListarTestimonios",
     dataType: "json",
     success: function (response) {
-      console.log(response);
       $("#sliderContainer").empty();
       if (response.success) {
         var requisito = response.testimonios[0];
@@ -39,7 +38,6 @@ function loadListarTestimonio() {
         $("#tituloContainer").append(tituloCard);
 
         response.testimonios.forEach((testimonio) => {
-          console.log("lista Requisito", testimonio);
           if (testimonio.test_ID >= 2) {
             var sliderCard = `
               <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
@@ -137,7 +135,6 @@ function loadCrearTestimonio() {
           empresa:empresa
         },
         success: function (response) {
-          console.log("Crear", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -183,7 +180,6 @@ function loadEditarTestimonio() {
     var id = button.data("id"); // Obtener el ID
     var titulo = button.data("titulo");
 
-    console.log(titulo);
 
     // Asignar los valores al modal
     var modal = $(this);
@@ -203,7 +199,6 @@ function loadEditarTestimonio() {
           nombre: titulo,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -282,7 +277,6 @@ function loadEditarTestimonio() {
         },
         
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -324,7 +318,6 @@ function loadEditarTestimonio() {
 function loadEliminarTestimonio() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción no se puede deshacer",

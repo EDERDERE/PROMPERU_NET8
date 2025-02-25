@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-  console.log("Requisitos");
   loadListarRequisitos();
   loadCrearRequisito();
   loadEditarRequisito();
@@ -15,7 +14,6 @@ function loadListarRequisitos() {
     success: function (response) {
       $("#sliderContainer").empty();
       if (response.success) {
-        console.log("obtener el tirulo Requisito", response.requisitos[0]);
         var requisito = response.requisitos[0];
         var tituloCard = `
                  <div class="col-md-6">
@@ -83,7 +81,6 @@ function loadListarRequisitos() {
 
         response.requisitos.forEach((requisito) => {
           if (requisito.requ_Orden > 0) {
-            console.log("lista Requisito", requisito);
 
             var sliderCard = `
                                <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
@@ -184,7 +181,6 @@ function loadCrearRequisito() {
           urlImagen: urlImagen,
         },
         success: function (response) {
-          console.log("Crear", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -254,7 +250,6 @@ function loadEditarRequisito() {
     var nombreBoton =  $("#editNombreBoton").val();
     var iconoBoton =  $("#editIconoBoton").val();
 
-    console.log("editar modal titulo", id, titulo);
     if (id && titulo && descripcion && tituloSeccion && urlImagen && nombreBoton && iconoBoton) {
       $.ajax({
         type: "POST",
@@ -318,7 +313,6 @@ function loadEditarRequisito() {
     var urlIcon = button.data("urlicon"); // Obtener la URL de la imagen
     var urlImagen = button.data("urlimagen");
 
-    console.log(description, 'nombre')
 
     // Asignar los valores al modal
     var modal = $(this);
@@ -330,7 +324,6 @@ function loadEditarRequisito() {
     modal.find("#editImagen").val(urlImagen);
   });
   $("#saveEditSlider").click(function () {
-    console.log("editar modal");
     var nombre = $("#editNombre").val();
     var description = $("#editDescription").val();
     var urlIcon = $("#editUrlIcon").val();
@@ -351,7 +344,6 @@ function loadEditarRequisito() {
           urlImagen: urlImagen,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -393,7 +385,6 @@ function loadEditarRequisito() {
 function loadEliminarRequisito() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción no se puede deshacer",
@@ -453,7 +444,6 @@ function loadGuardarOrden() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("guardar order");
         // Capturar el data-id del card correspondiente
 
         var Ids = [];

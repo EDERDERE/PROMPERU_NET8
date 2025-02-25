@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-  console.log("curso");
   loadListarCursos();
   loadCrearCurso();
   loadEditarCurso();
@@ -359,7 +358,6 @@ function loadCrearCurso() {
         urlIcon: $("#createUrlIconBoton").val(),
        linkBoton :$("#createBrochureUrl").val(),
     };
-    console.log('data crear',cursoData)
     if (Object.values(cursoData).some((value) => !value.trim())) {
       Swal.fire({
         title: "Advertencia",
@@ -373,8 +371,6 @@ function loadCrearCurso() {
       // Obtener modalidades seleccionadas
       let modalidadesSeleccionadas = getSelectedModalities();
       let validadcionmodalidadesSeleccionadas = getSelectedModalities();
-      console.log('data modalidadesSeleccionadas 1', modalidadesSeleccionadas)
-      console.log('data validadcionmodalidadesSeleccionadas 1', validadcionmodalidadesSeleccionadas.splice(1,3))
       // Validar que al menos una modalidad esté seleccionada
       if (modalidadesSeleccionadas.length === 0) {
           Swal.fire({
@@ -436,7 +432,6 @@ function loadCrearCurso() {
         }
       },
       error: function (xhr, status, error) {
-        console.error("Error al intentar crear el curso:", error);
         Swal.fire({
           title: "Error",
           text: "Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.",
@@ -503,7 +498,6 @@ function loadEditarCurso() {
       editUrlBanner: button.data("urlbanner"),
     };
 
-    console.log(modalData);
     assignModalValues($(this), modalData);
   });
 
@@ -525,7 +519,6 @@ function loadEditarCurso() {
         descriptionCalendario: $("#editDescripcionCalendario").val(),
     };
 
-    console.log(data);
     if (data.titulo && data.nombreBotonTitulo && data.urlIconBoton) {
       handleAjaxRequest(
         "/Curso/ActualizarCurso",
@@ -567,12 +560,10 @@ function loadEditarCurso() {
         try {
             modalData.editarModalidadContainer = JSON.parse(button.attr("data-listmodalidad") || "[]");
         } catch (e) {
-            console.error("Error al parsear listmodalidad:", e);
             modalData.editarModalidadContainer = [];
         }
 
 
-      console.log(modalData,'card');
       assignModalValues($(this), modalData);
   
         cargarTiposEvento("editTipoEvento", modalData.editEvento);
@@ -614,7 +605,6 @@ function loadEditarCurso() {
       };
 
       
-    console.log(data,'data')
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Curso/ActualizarCurso",
@@ -682,7 +672,6 @@ function loadEliminarCurso() {
   // Capturar clics en los botones de eliminación
   $(document).on("click", '[id^="btn-delete-"]', function () {
     const id = $(this).data("id"); // Obtener el ID del curso a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Confirmar eliminación con SweetAlert
     Swal.fire({
@@ -755,10 +744,8 @@ function loadGuardarOrdenCurso() {
     
     return data;
   };
-  console.log()
   // Función para estructurar los datos para el servidor
     const estructurarDatos = (data) => {
-        console.log(data,'asdasdasd')
     return data.Ids.map((id, index) => ({
       id: parseInt(id),
       orden: parseInt(data.NewOrders[index]),
@@ -787,15 +774,12 @@ function loadGuardarOrdenCurso() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("guardar orden");
 
         // Obtener los datos de las cards
         const data = obtenerDatosCards();
         const resultData = estructurarDatos(data);
 
         // Mostrar el resultado en consola (o lo que necesites hacer con los datos)
-        console.log(resultData);
-        console.log(JSON.stringify(resultData));
 
         $.ajax({
           url: "/Curso/ActualizarOrdenCurso",
@@ -851,7 +835,6 @@ function formatearFechaInversa(fechaISO) {
 }
 
 async function cargarTiposEvento(selectElementId, Tipovalor) {
-    console.log(selectElementId, Tipovalor, 'cargarTiposEvento');
 
     try {
         const response = await $.ajax({
@@ -860,7 +843,6 @@ async function cargarTiposEvento(selectElementId, Tipovalor) {
             dataType: "json",
         });
 
-        console.log("Lista de tipos de Eventos:", response);
 
         const select = $("#" + selectElementId);
         select.empty().append("<option selected>Seleccione su tipo</option>");
@@ -884,7 +866,6 @@ async function cargarTiposEvento(selectElementId, Tipovalor) {
             );
         }
     } catch (error) {
-        console.error("Error al cargar los tipos de Eventos:", error);
         $("#" + selectElementId)
             .empty()
             .append("<option disabled>Error al cargar tipos de Eventos</option>");
@@ -898,7 +879,6 @@ async function cargarTiposEvento(selectElementId, Tipovalor) {
 }
 
 async function cargarTiposModalidad(containerId, Tipovalor) {
-    console.log(containerId, Tipovalor, "Ingresó a la función cargarTiposModalidad");
 
     try {
         const response = await $.ajax({
@@ -907,7 +887,6 @@ async function cargarTiposModalidad(containerId, Tipovalor) {
             dataType: "json",
         });
 
-        console.log("Lista de tipos de Modalidads:", response);
 
         const container = $("#" + containerId);
         container.empty(); // Limpiar antes de cargar nuevos datos
@@ -972,7 +951,6 @@ async function cargarTiposModalidad(containerId, Tipovalor) {
 
         container.append(htmlContent);
     } catch (error) {
-        console.error("Error al cargar los tipos de Modalidads:", error);
         $("#" + containerId).empty().append("<p>Error al cargar tipos de Modalidads</p>");
 
         Swal.fire({
@@ -986,7 +964,6 @@ async function cargarTiposModalidad(containerId, Tipovalor) {
 
 
 function getSelectedModalities() {
-    console.log('getSelectedModalities')
     let modalidades = [];
     document.querySelectorAll("#modalidadContainer .form-check-input:checked").forEach((checkbox) => {
         let modalidad = {

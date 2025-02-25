@@ -1,25 +1,21 @@
 $(document).ready(function () {
-  loadListarEmpresarial();
+    loadListarPerfilEmpresarial();
   loadCrearPerfilEmpresarial();
-  loadEditarTestimonio();
-  loadEliminarTestimonio();
+    loadEditarPerfilEmpresarial();
+    loadEliminarPerfilTestimonio();
 });
 
-function loadListarEmpresarial() {
+function loadListarPerfilEmpresarial() {
   $.ajax({
     type: "GET", // Método GET para obtener los sliders
     url: "/PerfilEmpresarial/ListarPerfilEmpresarials", // URL del controlador que devuelve la lista de sliders
     dataType: "json",
     success: function (response) {
-      console.log(response);
       // Limpia el contenedor de sliders antes de renderizar
       $("#sliderContainer").empty();
       if (response.success) {
         // Itera sobre la respuesta y crea las tarjetas dinámicamente
-        console.log(
-          "obtener el tirulo Requisito",
-          response.perfilEmpresarials[0]
-        );
+    
         var requisito = response.perfilEmpresarials[0];
         var tituloCard = `
                  <div class="col-md-6">
@@ -45,7 +41,6 @@ function loadListarEmpresarial() {
         $("#tituloContainer").append(tituloCard);
 
         response.perfilEmpresarials.forEach((empresarial) => {
-          console.log("lista Requisito", empresarial);
           if (empresarial.pemp_ID >= 2) {
             var sliderCard = `
               <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
@@ -124,7 +119,6 @@ function loadCrearPerfilEmpresarial() {
           urlImagen: imageUrl,
         },
         success: function (response) {
-          console.log("Crear", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -163,7 +157,7 @@ function loadCrearPerfilEmpresarial() {
     }
   });
 }
-function loadEditarTestimonio() {
+function loadEditarPerfilEmpresarial() {
   $("#editTitle").on("show.bs.modal", function (event) {
     // Obtener los datos del botón que activó el modal
     var button = $(event.relatedTarget); // El botón que activó el modal
@@ -188,7 +182,6 @@ function loadEditarTestimonio() {
           nombre: titulo,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -234,7 +227,6 @@ function loadEditarTestimonio() {
     var description = button.data("description"); // Obtener la descripción
     var urlImagen = button.data("urlimagen");
 
-    console.log(description, "nombre");
 
     // Asignar los valores al modal
     var modal = $(this);
@@ -258,7 +250,6 @@ function loadEditarTestimonio() {
           urlImagen: urlImagen,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -297,10 +288,9 @@ function loadEditarTestimonio() {
     }
   });
 }
-function loadEliminarTestimonio() {
+function loadEliminarPerfilTestimonio() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción no se puede deshacer",

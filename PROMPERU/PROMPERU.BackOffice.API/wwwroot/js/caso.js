@@ -1,10 +1,14 @@
 ﻿$(document).ready(function () {
-  console.log("Caso exito");
-  loadListarCasos();
-  loadCrearCaso();
-  loadEditarCaso();
-  loadEliminarCaso();
-  loadGuardarOrdenCaso();
+    Promise.all([
+        loadListarCasos(),
+        loadCrearCaso(),
+        loadEditarCaso(),
+        loadEliminarCaso(),
+        loadGuardarOrdenCaso()
+    ]).catch(error => {
+        console.error('Error al cargar las funciones:', error);
+    });
+
 });
 async function loadListarCasos() {
   try {
@@ -15,7 +19,6 @@ async function loadListarCasos() {
       dataType: "json",
     });
 
-    console.log(response);
     // Limpia los contenedores antes de renderizar los casos
     $("#sliderContainer").empty();
     $("#tituloContainer").empty();
@@ -217,7 +220,6 @@ async function loadCrearCaso() {
       urlPerfil: $("#createUrlPerfil").val(),
       urlVideo: $("#createUrlVideo").val(),
     };
-    console.log(casoData);
 
     // Validar si todos los campos están completos
     if (Object.values(casoData).some((value) => !value.trim())) {
@@ -257,7 +259,6 @@ async function loadCrearCaso() {
       }
     } catch (error) {
       // Manejar errores de la solicitud AJAX
-      console.error("Error al intentar crear el Caso:", error);
       await Swal.fire({
         title: "Error",
         text: "Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.",
@@ -377,7 +378,6 @@ async function loadEditarCaso() {
       urlPerfil: $("#editUrlPerfil").val(),
         urlVideo: $("#editUrlVideo").val(),
     };
-    console.log('guardar caso',data)
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Caso/ActualizarCaso",
@@ -440,7 +440,6 @@ async function loadEliminarCaso() {
   // Capturar clics en los botones de eliminación
   $(document).on("click", '[id^="btn-delete-"]', function () {
     const id = $(this).data("id"); // Obtener el ID del Caso a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Confirmar eliminación con SweetAlert
     Swal.fire({
@@ -546,15 +545,12 @@ async function loadGuardarOrdenCaso() {
 
     if (result.isConfirmed) {
       try {
-        console.log("guardar orden");
 
         // Obtener los datos de las cards
         const data = obtenerDatosCards();
         const resultData = estructurarDatos(data);
 
         // Mostrar el resultado en consola (o lo que necesites hacer con los datos)
-        console.log(resultData);
-        console.log(JSON.stringify(resultData));
 
         // Realizar la solicitud AJAX para actualizar la orden
         const response = await realizarSolicitud(resultData);

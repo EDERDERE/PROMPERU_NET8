@@ -1,10 +1,14 @@
 ﻿$(document).ready(function () {
-  console.log("Beneficios");
-  loadListarBeneficios();
-  loadCrearBeneficio();
-  loadEditarBeneficio();
-  loadEliminarBeneficio();
-  loadGuardarOrdenBeneficio();
+    Promise.all([
+        loadListarBeneficios(),
+        loadCrearBeneficio(),
+        loadEditarBeneficio(),
+        loadEliminarBeneficio(),
+        loadGuardarOrdenBeneficio()
+    ]).catch(error => {
+        console.error('Error al cargar las funciones:', error);
+    });
+  
 });
 function renderTituloBeneficio(beneficio) {
     return `
@@ -125,13 +129,11 @@ async function loadListarBeneficios() {
             dataType: "json",
         });
 
-        console.log(response);
 
         $("#sliderContainer").empty();
         $("#tituloContainer").empty();
 
         if (response.success && response.beneficios.length > 0) {
-            console.log("Obtener el título Beneficios", response.beneficios[0]);
 
             // Renderiza el título del primer beneficio
             $("#tituloContainer").append(renderTituloBeneficio(response.beneficios[0]));
@@ -139,7 +141,6 @@ async function loadListarBeneficios() {
             // Renderiza cada beneficio
             response.beneficios.forEach((beneficio) => {
                 if (beneficio.bene_Orden > 0) {
-                    console.log("Lista beneficio", beneficio);
                     $("#sliderContainer").append(renderSliderCardBeneficio(beneficio));
                 }
             });
@@ -176,7 +177,6 @@ async function loadCrearBeneficio() {
                     }
                 });
 
-                console.log("Crear", response);
                 // Manejo de la respuesta
                 if (response.success) {
                     Swal.fire({
@@ -223,7 +223,6 @@ async function loadEditarBeneficio() {
         const descripcionBanner = button.data("descripcionbanner");
         const urlBanner = button.data("urlbanner");
 
-        console.log(id, "iddddd");
 
         // Asignar los valores al modal
         const modal = $(this);
@@ -235,7 +234,6 @@ async function loadEditarBeneficio() {
     });
 
     $("#saveEditTitulo").click(async function () {
-        console.log("editar modal");
 
         const id = $("#editIdTitulo").val();
         const titulo = $("#editTitulo").val();
@@ -243,7 +241,6 @@ async function loadEditarBeneficio() {
         const descripcionBanner = $("#ediDescripcionBanner").val();
         const urlBanner = $("#editUrlBanner").val();
 
-        console.log("editar modal", id, titulo, urlImagen);
 
         if (id && titulo && urlImagen) {
             try {
@@ -259,7 +256,6 @@ async function loadEditarBeneficio() {
                     }
                 });
 
-                console.log("actualiza beneficio", response);
 
                 // Manejo de la respuesta
                 if (response.success) {
@@ -316,7 +312,6 @@ async function loadEditarBeneficio() {
     });
 
     $("#saveEditSlider").click(async function () {
-        console.log("editar modal");
 
         const nombre = $("#editNombre").val();
         const description = $("#editDescription").val();
@@ -324,7 +319,6 @@ async function loadEditarBeneficio() {
         const id = $("#editId").val();
         const urlIcon = $("#editUrlIcon").val();
 
-        console.log(orden);
 
         if (description && nombre && urlIcon && id) {
             try {
@@ -340,7 +334,6 @@ async function loadEditarBeneficio() {
                     }
                 });
 
-                console.log("actualiza beneficio", response);
 
                 // Manejo de la respuesta
                 if (response.success) {
@@ -382,7 +375,6 @@ async function loadEditarBeneficio() {
 async function loadEliminarBeneficio() {
     $(document).on("click", '[id^="btn-delete-"]', async function () {
         const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-        console.log(`ID a eliminar: ${id}`);
 
         const result = await Swal.fire({
             title: "¿Estás seguro?",
@@ -443,7 +435,6 @@ async function loadGuardarOrdenBeneficio() {
         });
 
         if (result.isConfirmed) {
-            console.log("guardar order");
 
             // Capturar los valores de los cards
             const Ids = [];
@@ -473,8 +464,6 @@ async function loadGuardarOrdenBeneficio() {
                 UrlIcon: UrlIcon[index].toString(),
             }));
 
-            console.log(requestData);
-            console.log(JSON.stringify(requestData));
 
             try {
                 const response = await $.ajax({

@@ -1,10 +1,14 @@
 ﻿$(document).ready(function () {
-    loadLogo();
-  loadMenu();
-  setActiveMenuItem();
-  loadCerrarSesion();
-    setActiveMainButtons();
-    
+
+    Promise.all([
+        loadLogoLayout(),
+        loadMenu(),
+        setActiveMenuItem(),
+        loadCerrarSesion(),
+        setActiveMainButtons()
+    ]).catch(error => {
+        console.error('Error al cargar las funciones:', error);
+    });
 });
 
 async function mostrarAlerta(
@@ -30,7 +34,6 @@ async function mostrarAlerta(
 // Función para manejar el cierre de sesión
 async function loadCerrarSesion() {
   $("#btnLogout").click(async function () {
-    console.log("Ingresando a cerrar sesión");
 
     const result = await Swal.fire({
       title: "¿Estás seguro?",
@@ -140,7 +143,7 @@ function setActiveMenuItem() {
     }
   });
 }
-async function loadLogo() {
+async function loadLogoLayout() {
     try {
         // Realiza la solicitud AJAX de forma asíncrona
         const response = await $.ajax({
@@ -149,13 +152,12 @@ async function loadLogo() {
             dataType: "json",
         });
 
-        console.log('response', response);
         $("#logoHome").empty();
 
         if (response.success) {
             // Itera sobre los Menus y los agrega al contenedor
             response.logos.forEach((logo) => {
-                const html = renderLogo(logo); // Usar la función para crear la tarjeta
+                const html = renderLogoLayout(logo); // Usar la función para crear la tarjeta
                 $("#logoHome").append(html);
             });
         } else {
@@ -174,8 +176,7 @@ async function loadLogo() {
     }
 }
 
-function renderLogo(data) {
-    console.log(data)
+function renderLogoLayout(data) {
     return `
       <div class="d-flex align-items-center gap-2">
         <img src="${data.logo_UrlPrincipal}" alt="Logo Superior" class="logo-header"/>

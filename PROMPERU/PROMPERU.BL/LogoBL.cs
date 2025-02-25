@@ -54,19 +54,7 @@ namespace PROMPERU.BL
             {
                 throw new Exception("Error en la lógica de negocio al eliminar el Logo", ex);
             }
-        }
-
-        //public async Task<LogoBE> ObtenerLogoAsync(int bannID)
-        //{
-        //    try
-        //    {
-        //        return await _LogoDA.ObtenerLogoPorIDAsync(bannID);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error en la lógica de negocio al obtener el Logo", ex);
-        //    }
-        //}
+        }   
 
         public async Task<List<LogoBE>> ListarLogosAsync()
         {
@@ -80,17 +68,6 @@ namespace PROMPERU.BL
                 throw new Exception("Error en la lógica de negocio al listar los Logos", ex);
             }
         }
-
-        //public async Task<DataTable> ObtenerReporteLogosAsync()
-        //{
-        //    try
-        //    {
-        //        return await _LogoDA.ObtenerReporteLogosAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error en la lógica de negocio al generar el reporte de los Logos", ex);
-        //    }
-        //}
+               
     }
 }

@@ -8,7 +8,6 @@ $(document).ready(function () {
 
 async function loadListarLogros() {
   try {
-    console.log("Cargando logros...");
 
     const response = await $.ajax({
       type: "GET",
@@ -16,7 +15,6 @@ async function loadListarLogros() {
       dataType: "json",
     });
 
-    console.log("Respuesta recibida:", response);
 
     $("#sliderContainer").empty();
 
@@ -26,7 +24,6 @@ async function loadListarLogros() {
         $("#sliderContainer").append(card);
       });
     } else {
-      console.warn("La respuesta no indica éxito:", response);
       Swal.fire({
         icon: "error",
         title: "No hay banners disponibles",
@@ -34,7 +31,6 @@ async function loadListarLogros() {
       });
     }
   } catch (error) {
-    console.error("Error en la solicitud AJAX:", error);
     Swal.fire({
       icon: "error",
       title: "Error al cargar los sliders",
@@ -106,7 +102,6 @@ async function loadCrearLogro() {
 
         handleResponse(response); // Manejo de la respuesta
       } catch (error) {
-        console.error(error)
         handleError(error);
       }
     } else {
@@ -220,7 +215,6 @@ function handleEditResponse(response) {
 async function loadEliminarLogro() {
   $(document).on("click", '[id^="btn-delete-"]', async function () {
     const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Mostrar mensaje de confirmación
     const result = await Swal.fire({
@@ -290,7 +284,6 @@ async function loadGuardarOrdenInfo() {
     if (result.isConfirmed) {
       try {
         const ordenData = await obtenerOrdenData();
-        console.log(ordenData);
         await actualizarOrdenLogro(ordenData);
       } catch (error) {
         handleError();

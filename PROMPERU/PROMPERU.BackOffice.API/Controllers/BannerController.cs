@@ -125,23 +125,7 @@ namespace PROMPERU.BackOffice.API.Controllers
                 return View("Error");
             }
         }
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> ObtenerBanner(int bannID)
-        //{
-        //    try
-        //    {
-        //        var banner = await _bannerBL.ObtenerBannerAsync(bannID); // Llamada asincrónica
-        //        return View(banner); // Asegúrate de tener una vista para mostrar un banner
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Error = ex.Message;
-        //        return View("Error");
-        //    }
-        //}
-
+                   
 
         [HttpPost]
         public async Task<IActionResult> ActualizarOrdenBanner([FromBody] List<BannerDto> bannerDtos)

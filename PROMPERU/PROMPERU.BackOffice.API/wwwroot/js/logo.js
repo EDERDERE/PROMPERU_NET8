@@ -9,7 +9,6 @@ function loadListarLogo() {
     url: "/Logo/ListarLogos",
     dataType: "json",
     success: function (response) {
-      console.log(response);
       $("#sliderContainer").empty();
       if (response.success) {
         var logo = response.logos[0];
@@ -108,7 +107,6 @@ function loadEditarLogo() {
           urlSecundario: urlSecundario,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({

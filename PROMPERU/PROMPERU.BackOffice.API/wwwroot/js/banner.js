@@ -1,9 +1,13 @@
 ﻿$(document).ready(function () {
-  loadListarBanner();
-  loadCrearBanner();
-  loadEditarBanner();
-  loadEliminarBanner();
-    loadGuardarOrdenBanner();
+    Promise.all([
+        loadListarBanner(),
+        loadCrearBanner(),
+        loadEditarBanner(),
+        loadEliminarBanner(),
+        loadGuardarOrdenBanner()
+    ]).catch(error => {
+        console.error('Error al cargar las funciones:', error);
+    });
 });
 async function loadListarBanner() {
   try {
@@ -14,7 +18,6 @@ async function loadListarBanner() {
       dataType: "json",
     });
 
-    console.log(response);
     $("#sliderContainer").empty();
 
     if (response.success) {
@@ -217,7 +220,6 @@ async function loadEliminarBanner() {
       // Realizar la eliminación
       try {
           const response = await eliminarBanner(id);
-          console.log(response);
         handleEliminarResponse(response);
       } catch (error) {
         handleError();

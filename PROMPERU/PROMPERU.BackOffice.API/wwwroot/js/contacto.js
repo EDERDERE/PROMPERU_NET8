@@ -1,7 +1,12 @@
 $(document).ready(function () {
-  loadListarContacto();
-    loadEditarContacto();
-    DescargaContacto();
+    Promise.all([
+        loadListarContacto(),
+        loadEditarContacto(),
+        DescargaContacto()
+    ]).catch(error => {
+        console.error('Error al cargar las funciones:', error);
+    });
+
 });
 
 function loadListarContacto() {
@@ -10,7 +15,6 @@ function loadListarContacto() {
     url: "/FormularioContacto/ListarFormularioContactos",
     dataType: "json",
     success: function (response) {
-      console.log(response);
       $("#sliderContainer").empty();
       if (response.success) {
         var formularioContacto = response.formularioContactos[0];
@@ -174,7 +178,6 @@ function loadEditarContacto() {
       url: url, 
       data: data,
         success: function (response) {
-          console.log('response',response)
         if (response.success) {
           showAlert("success", "¡Éxito!", successMessage, () =>
             location.reload()
@@ -236,7 +239,6 @@ function loadEditarContacto() {
       urlIconBoton: "data",
       urlIconBotonDos: "data",
     };
-    console.log('gd',formularioContactoDto)
     if (
       Object.values(formularioContactoDto).every((value) => value.trim() !== "")
     ) {

@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
-  console.log("Inscripcions");
   loadListarInscripcions();
   loadCrearInscripcion();
   loadEditarInscripcion();
   loadEliminarInscripcion();
-  loadGuardarOrden();
+  loadGuardarOrdenInscripion();
 });
 
 function loadListarInscripcions() {
@@ -13,12 +12,10 @@ function loadListarInscripcions() {
     url: "/Inscripcion/ListarInscripcions", // URL del controlador que devuelve la lista de sliders
     dataType: "json",
     success: function (response) {
-      console.log(response);
       // Limpia el contenedor de sliders antes de renderizar
       $("#sliderContainer").empty();
       if (response.success) {
         // Itera sobre la respuesta y crea las tarjetas dinámicamente
-        console.log("obtener el tirulo Inscripcion", response.inscripcions[0]);
         var inscripcion = response.inscripcions[0];
         var tituloCard = `
                         <div class="row ">
@@ -93,7 +90,6 @@ function loadListarInscripcions() {
 
         response.inscripcions.forEach((inscripcion) => {
           if (inscripcion.insc_Orden > 0) {
-            console.log("lista Inscripcion", inscripcion);
 
             var sliderCard = `
                            <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
@@ -196,7 +192,6 @@ function loadCrearInscripcion() {
           urlImagen: urlImagen,
         },
         success: function (response) {
-          console.log("Crear", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -289,7 +284,6 @@ function loadEditarInscripcion() {
           description: descripcionSeccion,
         },
         success: function (response) {
-          console.log("actualzia inscripcion", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -319,7 +313,6 @@ function loadEditarInscripcion() {
         },
       });
     } else {
-      console.error("dato");
       Swal.fire({
         icon: "warning",
         title: "Campos incompletos",
@@ -349,7 +342,6 @@ function loadEditarInscripcion() {
     modal.find("#editUrlImagen").val(urlImagen); // Llenar el campo de la URL de la imagen
   });
   $("#saveEditSlider").click(function () {
-    console.log("editar modal");
     var tituloPaso = $("#editTituloPaso").val();
     var description = $("#editDescription").val();
     var paso = $("#editPaso").val();
@@ -371,7 +363,6 @@ function loadEditarInscripcion() {
           urlImagen: urlImagen,
         },
         success: function (response) {
-          console.log("actualzia requisito", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -401,7 +392,6 @@ function loadEditarInscripcion() {
         },
       });
     } else {
-      console.error("prueba");
       Swal.fire({
         icon: "warning",
         title: "Campos incompletos",
@@ -414,7 +404,6 @@ function loadEditarInscripcion() {
 function loadEliminarInscripcion() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción no se puede deshacer",
@@ -460,7 +449,7 @@ function loadEliminarInscripcion() {
     });
   });
 }
-function loadGuardarOrden() {
+function loadGuardarOrdenInscripion() {
   // Al hacer clic en el botón de guardar cambios
   $("#saveOrder").click(function () {
     Swal.fire({
@@ -473,8 +462,7 @@ function loadGuardarOrden() {
       confirmButtonText: "Sí, ordenar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
-      if (result.isConfirmed) {
-        console.log("guardar order");
+      if (result.isConfirmed) { 
         // Capturar el data-id del card correspondiente
 
         var Ids = [];
@@ -512,7 +500,6 @@ function loadGuardarOrden() {
         });
 
         // Mostrar los data-id capturados en la consola (o hacer lo que necesites con ellos)
-        console.log(Ids, NewOrders, UrlImagen, TituloPasos);
         // Aquí podrías realizar otras acciones con el data-id, como enviar una petición al servidor.
 
         var result = [];
@@ -529,8 +516,6 @@ function loadGuardarOrden() {
         });
 
         // Mostrar el resultado en la consola
-        console.log(result);
-        console.log(JSON.stringify(result));
 
         $.ajax({
           url: "/Inscripcion/ActualizarOrdenInscripcion",

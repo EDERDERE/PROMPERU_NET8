@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-  console.log("Informacion");
   loadListarInformacion();
   //loadCrearInformacion();
   loadEditarInformacion();
@@ -89,7 +88,6 @@ async function loadListarInformacion() {
       });
     }
   } catch (error) {
-    console.error("Error al cargar los sliders:", error);
     Swal.fire({
       icon: "error",
       title: "Error al cargar los sliders",
@@ -204,7 +202,6 @@ function loadCrearInformacion() {
           urlVideo: urlVideo,
         },
         success: function (response) {
-          console.log("Crear", response);
           // Manejo de la respuesta
           if (response.success) {
             Swal.fire({
@@ -246,7 +243,6 @@ function loadCrearInformacion() {
 function loadEliminarInformacion() {
   $(document).on("click", '[id^="btn-delete-"]', function () {
     var id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción no se puede deshacer",

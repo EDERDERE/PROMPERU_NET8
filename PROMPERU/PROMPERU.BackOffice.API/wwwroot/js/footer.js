@@ -12,7 +12,6 @@ async function loadListarFooter() {
       dataType: "json",
     });
 
-    console.log(response);
       $("#formfooter").empty();
 
     if (response.success) {
@@ -198,7 +197,6 @@ function handleResponse(response) {
 }
 // Manejo de errores generales
 function handleError(error) {
-    console.log(error)
   showError("Hubo un error al intentar crear el slider");
 }
 // Mostrar error en un cuadro de diálogo
@@ -236,7 +234,6 @@ async function loadEditarFooter() {
         const comunicate = button.data("comunicate");
         const urlIconMensaje = button.data("urliconmensaje");
         const urlIconWhatssap = button.data("urliconwhatssap");
-        console.log(id, nombre, contacto)
     // Asignar los valores al modal
     const modal = $(this);
     modal.find("#editId").val(id);
@@ -268,7 +265,6 @@ async function loadEditarFooter() {
       const urlIconWhatssap = $("#editUrlWhatssap").val();
   
 
-      console.log(id, nombre, contacto)
       if (nombre && contacto && id) {
       try {
         const response = await $.ajax({
@@ -318,7 +314,6 @@ function handleEditResponse(response) {
 async function loadEliminarFooter() {
   $(document).on("click", '[id^="btn-delete-"]', async function () {
     const id = $(this).data("id"); // Obtener el ID del elemento a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Mostrar mensaje de confirmación
     const result = await Swal.fire({
@@ -388,7 +383,6 @@ async function loadGuardarOrdenInfo() {
     if (result.isConfirmed) {
       try {
         const ordenData = await obtenerOrdenData();
-        console.log(ordenData);
         await actualizarOrdenFooter(ordenData);
       } catch (error) {
         handleError();

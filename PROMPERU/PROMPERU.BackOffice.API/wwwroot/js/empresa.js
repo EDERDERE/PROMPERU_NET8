@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-  console.log("Empresa exito");
   loadListarEmpresas();
   loadCrearEmpresa();
   loadEditarEmpresa();
@@ -37,7 +36,6 @@ async function loadListarEmpresas() {
       });
     }
   } catch (error) {
-    console.error(error);
     Swal.fire({
       icon: "error",
       title: "Error al cargar los Empresa",
@@ -116,7 +114,6 @@ function renderTituloEmpresa(empresa) {
   $("#tituloContainer").append(tituloCard);
 }
 function renderSlidersEmpresa(empresas) {
-  console.log(empresas);
   let slidersHTML = "";
 
   empresas.forEach((egra) => {
@@ -358,7 +355,6 @@ async function loadCrearEmpresa() {
         id_distrito: '1',
      
     };
-    console.log(empresaData, "empresaData");
     if (Object.values(empresaData).some((value) => !value.trim())) {
       await Swal.fire({
         title: "Advertencia",
@@ -396,7 +392,6 @@ async function loadCrearEmpresa() {
       }
     } catch (error) {
       // Manejar errores de la solicitud AJAX
-      console.error("Error al intentar crear el Empresa:", error);
       await Swal.fire({
         title: "Error",
         text: "Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.",
@@ -473,7 +468,6 @@ async function loadEditarEmpresa() {
       urlImagen: $('#editUrlBannerSeccion').val()
     };
 
-    console.log(data);
 
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
@@ -517,7 +511,6 @@ async function loadEditarEmpresa() {
         editCelularDos: button.data("celulardos"),
     };
 
-    console.log(modalData, "modalData");
 
     assignModalValues($(this), modalData);
     cargarTiposEmpresa("editTipoEmpresa", modalData.editTipoEmpresa);
@@ -549,7 +542,6 @@ async function loadEditarEmpresa() {
         id_provincia: 1,
         id_distrito: 1,
     };
-    console.log(data,'da')
     if (Object.values(data).every((value) => value)) {
       handleAjaxRequest(
         "/Empresa/ActualizarEmpresa",
@@ -611,7 +603,6 @@ async function loadEliminarEmpresa() {
   // Capturar clics en los botones de eliminación
   $(document).on("click", '[id^="btn-delete-"]', function () {
     const id = $(this).data("id"); // Obtener el ID del Empresa a eliminar
-    console.log(`ID a eliminar: ${id}`);
 
     // Confirmar eliminación con SweetAlert
     Swal.fire({
@@ -758,15 +749,12 @@ async function loadGuardarOrdenEmpresa() {
 
     if (result.isConfirmed) {
       try {
-        console.log("guardar orden");
 
         // Obtener los datos de las cards
         const data = obtenerDatosCards();
         const resultData = estructurarDatos(data);
 
         // Mostrar el resultado en consola (o lo que necesites hacer con los datos)
-        console.log(resultData);
-        console.log(JSON.stringify(resultData));
 
         // Realizar la solicitud AJAX para actualizar la orden
         const response = await realizarSolicitud(resultData);
@@ -799,7 +787,6 @@ async function loadGuardarOrdenEmpresa() {
 }
 
 async function cargarTiposEmpresa(selectElementId, Tipovalor) {
-  console.log(selectElementId, Tipovalor, "cargarTiposEmpresa");
 
   try {
     const response = await $.ajax({
@@ -808,7 +795,6 @@ async function cargarTiposEmpresa(selectElementId, Tipovalor) {
       dataType: "json",
     });
 
-    console.log("Lista de tipos de Empresas:", response);
 
     const select = $("#" + selectElementId);
     select.empty().append("<option selected>Seleccione su tipo</option>");
@@ -830,7 +816,6 @@ async function cargarTiposEmpresa(selectElementId, Tipovalor) {
       );
     }
   } catch (error) {
-    console.error("Error al cargar los tipos de Empresas:", error);
     $("#" + selectElementId)
       .empty()
       .append("<option disabled>Error al cargar tipos de Empresas</option>");
@@ -843,7 +828,6 @@ async function cargarTiposEmpresa(selectElementId, Tipovalor) {
   }
 }
 async function cargarTiposRegion(selectElementId, Tipovalor) {
-  console.log(selectElementId, Tipovalor, "cargarTiposRegion");
 
   try {
     const response = await $.ajax({
@@ -852,7 +836,6 @@ async function cargarTiposRegion(selectElementId, Tipovalor) {
       dataType: "json",
     });
 
-    console.log("Lista de tipos de Regions:", response);
 
     const select = $("#" + selectElementId);
     select.empty().append("<option selected>Seleccione su tipo</option>");
@@ -872,7 +855,6 @@ async function cargarTiposRegion(selectElementId, Tipovalor) {
       );
     }
   } catch (error) {
-    console.error("Error al cargar los tipos de Regions:", error);
     $("#" + selectElementId)
       .empty()
       .append("<option disabled>Error al cargar tipos de Regions</option>");
