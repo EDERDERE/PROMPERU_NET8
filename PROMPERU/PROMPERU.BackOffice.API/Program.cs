@@ -87,7 +87,8 @@ builder.Services.AddScoped<DescargaBL>();
 builder.Services.AddScoped<CursoModalidadDA>();
 builder.Services.AddScoped<UbigeoDA>();
 builder.Services.AddScoped<UbigeoBL>();
-
+builder.Services.AddScoped<PortadaTestDA>();
+builder.Services.AddScoped<PortadaTestBL>();
 
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
