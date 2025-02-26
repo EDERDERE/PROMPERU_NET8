@@ -115,9 +115,9 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Bann_Orden", banner.Bann_Orden);
                     comando.Parameters.AddWithValue("@Bann_Nombre", banner.Bann_Nombre);
                     comando.Parameters.AddWithValue("@Bann_URLImagen", banner.Bann_URLImagen);
-
+                  
                     // Ejecución del comando
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {

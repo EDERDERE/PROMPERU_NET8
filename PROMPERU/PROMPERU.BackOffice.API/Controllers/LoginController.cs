@@ -37,8 +37,10 @@ namespace PROMPERU.BackOffice.API.Controllers
             {
                 // Guardar datos en la sesión
                 HttpContext.Session.SetString("Usuario", usuarioValido.Usua_Usuario);
-                HttpContext.Session.SetString("Rol", usuarioValido.Usua_Cargo); 
-                return Json(new { success = true, redirectUrl = Url.Action("Index", "Banner") });
+                HttpContext.Session.SetString("Rol", usuarioValido.Usua_Cargo);
+                HttpContext.Session.SetInt32("IDUsuario", usuarioValido.Usua_ID);
+
+               return Json(new { success = true, redirectUrl = Url.Action("Index", "Banner") });
             }
 
                 return Json(new { success = false, message = "Usuario o contraseña incorrectos" });

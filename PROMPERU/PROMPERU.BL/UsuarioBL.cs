@@ -16,9 +16,9 @@ namespace PROMPERU.BL
             _usuarioDA = usuarioDA;
             _logger = logger;
         }
-        public async Task<int> RegistrarUsuarioAsync(UsuarioBE usuario, string cargoUsuario)
+        public async Task<int> RegistrarUsuarioAsync(UsuarioBE usuario, string Cargo,string usuarioLogin,string ip)
         {
-            if (cargoUsuario != "Super_Admin")
+            if (Cargo != "Super_Admin")
                 throw new UnauthorizedAccessException("Solo un Super_Admin puede crear un Admin.");
 
             // Validaciones básicas antes de registrar
@@ -28,16 +28,16 @@ namespace PROMPERU.BL
             if (string.IsNullOrWhiteSpace(usuario.Usua_Contrasenia))
                 throw new ArgumentException("La contraseña no puede estar vacía.");
 
-            if (string.IsNullOrWhiteSpace(usuario.Usua_Cargo))
-                throw new ArgumentException("El cargo no puede estar vacío.");
+            //if (string.IsNullOrWhiteSpace(usuario.Usua_Cargo))
+            //    throw new ArgumentException("El cargo no puede estar vacío.");
 
-            if (usuario.Usua_Cargo != "Admin")
-                throw new ArgumentException("Solo se puede crear usuarios con el cargo de 'Admin'.");
+            //if (usuario.Usua_Cargo != "Admin")
+            //    throw new ArgumentException("Solo se puede crear usuarios con el cargo de 'Admin'.");
 
             // Encriptar la contraseña antes de guardarla
             usuario.Usua_Contrasenia = EncriptarContraseña(usuario.Usua_Contrasenia);
 
-            return await _usuarioDA.RegistrarUsuarioAsync(usuario);
+            return await _usuarioDA.RegistrarUsuarioAsync(usuario,usuarioLogin,ip);
         }
         public async Task<UsuarioBE?> ValidarUsuarioAsync(string usuario, string contrasenia)
         {
@@ -108,14 +108,14 @@ namespace PROMPERU.BL
             return await _usuarioDA.CambiarContraseniaAsync(usuarioId, contraseniaEncriptada);
         }
 
-        public async Task<List<UsuarioBE>> ListarUsuariosAsync(string cargoUsuario, int usuarioId)
+        public async Task<List<UsuarioBE>> ListarUsuariosAsync(string Cargo, int usuarioId)
         {
             // Si es Super_Admin, se pueden ver todos los usuarios sin las contraseñas
-            if (cargoUsuario == "Super_Admin")
+            if (Cargo == "Super_Admin")
             {
                 return await _usuarioDA.ListarUsuariosAsync();
             }
-            else if (cargoUsuario == "Admin")
+            else if (Cargo == "Admin")
             {
                 // Si es Admin, solo se muestra su propio usuario sin la contraseña
                 return new List<UsuarioBE> { await _usuarioDA.ObtenerUsuarioPorIdAsync(usuarioId) };
@@ -139,5 +139,34 @@ namespace PROMPERU.BL
 
         //    return await _usuarioDA.RestablecerContraseniaAsync(usuarioId);
         //}
+
+        public async Task<bool> ActualizarUsuarioAsync(UsuarioBE usuario, string usuarioLogin, string ip, int id)
+        {
+            try
+            {
+                string contraseniaEncriptada = EncriptarContraseña(usuario.Usua_Contrasenia);
+                return await _usuarioDA.ActualizarUsuarioAsync(usuario,contraseniaEncriptada, usuarioLogin, ip, id) > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
+                throw new Exception("Error en la lógica de negocio al actualizar el Usuario", ex);
+            }
+        }
+
+        public async Task<UsuarioBE> ObtenerUsuarioPorIdAsync(int usuarioId)
+        {
+            try
+            {
+               return await _usuarioDA.ObtenerUsuarioPorIdAsync(usuarioId);
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError("Ocurrió un error al ejecutar la acción.", ex);
+                throw new Exception("Error en la lógica de negocio en obtener Usuario", ex);
+            }          
+         
+        }
     }
 }

@@ -14,36 +14,44 @@ namespace PROMPERU.DA
     public class UsuarioDA
     {
         private readonly ConexionDB _conexionDB;
+        private readonly AuditoriaDA _auditoriaDA;
 
-        public UsuarioDA(ConexionDB conexionDB)
+        public UsuarioDA(ConexionDB conexionDB, AuditoriaDA auditoriaDA)
         {
             _conexionDB = conexionDB;
+            _auditoriaDA = auditoriaDA;
         }
-        public async Task<int> RegistrarUsuarioAsync(UsuarioBE usuario)
+        public async Task<int> RegistrarUsuarioAsync(UsuarioBE usuario,string usuarioLogin, string ip)
         {
             try
             {
                 int nuevoId = 0;
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_RegistrarUsuario", conexion)
+                await using var comando = new SqlCommand("USP_Usuario_INS", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
                 comando.Parameters.AddWithValue("@Usua_Usuario", usuario.Usua_Usuario);
                 comando.Parameters.AddWithValue("@Usua_Contrasenia", usuario.Usua_Contrasenia);
-                comando.Parameters.AddWithValue("@Usua_Cargo", usuario.Usua_Cargo);
+                //comando.Parameters.AddWithValue("@Usua_Cargo", usuario.Usua_Cargo);
 
-
-                await using var reader = await comando.ExecuteReaderAsync();
-
-                object result = await comando.ExecuteScalarAsync();
-                if (result != null)
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
-                    nuevoId = Convert.ToInt32(result);
-                }
+                    Direction = ParameterDirection.Output
+                };
+                comando.Parameters.Add(outNuevoID);
 
-                return nuevoId;
+                await comando.ExecuteNonQueryAsync();
+
+                int nuevoID = (int)outNuevoID.Value;
+
+                if (nuevoID > 0)
+                {
+                    await _auditoriaDA.RegistrarAuditoriaAsync(usuarioLogin, "I", "Usuario", ip, nuevoID);
+                }             
+
+                return nuevoID;
             }
             catch (Exception ex)
             {
@@ -115,7 +123,7 @@ namespace PROMPERU.DA
                 List<UsuarioBE> usuarios = new List<UsuarioBE>();
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_ListarUsuarios", conexion)
+                await using var comando = new SqlCommand("USP_Usuario_LIS", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -145,7 +153,7 @@ namespace PROMPERU.DA
                 UsuarioBE usuario = null;
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_ListarUsuarioPorId", conexion)
+                await using var comando = new SqlCommand("USP_Usuario_SEL_PorId", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -159,6 +167,7 @@ namespace PROMPERU.DA
                     {
                         Usua_ID = Convert.ToInt32(reader["Usua_ID"]),
                         Usua_Usuario = reader["Usua_Usuario"].ToString(),
+                        Usua_Contrasenia = reader["Usua_Contrasenia"].ToString(),
                         Usua_Cargo = reader["Usua_Cargo"].ToString()
                     };
                 }
@@ -194,6 +203,60 @@ namespace PROMPERU.DA
         //        throw new Exception("Error al cambiar contraseña", ex);
         //    }
         //}
+
+
+        public async Task<int> ActualizarUsuarioAsync(UsuarioBE usuario, string contraseniaEncriptada, string usuarioLogin, string ip, int id)
+        {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    // Configuración del comando SQL
+                    await using var comando = new SqlCommand("USP_Usuario_UPD", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    // Parámetros del procedimiento almacenado
+                    comando.Parameters.AddWithValue("@Usua_ID", usuario.Usua_ID);
+                    comando.Parameters.AddWithValue("@Usua_Usuario", usuario.Usua_Usuario);
+                    comando.Parameters.AddWithValue("@Usua_Contrasenia", contraseniaEncriptada);
+
+                    // Ejecución del comando
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                    if (filasAfectadas > 0)
+                    {
+                        // Registrar la auditoría
+                        await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuarioLogin, "E", "Usuario", ip, id, conexion, (SqlTransaction)transaccion);
+
+                        // Confirmar la transacción
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        // Si no se afecta ninguna fila, deshacer la transacción
+                        await transaccion.RollbackAsync();
+                    }
+
+                    return filasAfectadas;
+                }
+                catch (Exception ex)
+                {
+                    // En caso de excepción, deshacer la transacción
+                    await transaccion.RollbackAsync();
+                    throw new Exception("Error en ActualizarUsuarioAsync: La transacción fue revertida.", ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                throw new Exception("Error al actualizar el Usuario", ex);
+            }
+        }
 
     }
 }

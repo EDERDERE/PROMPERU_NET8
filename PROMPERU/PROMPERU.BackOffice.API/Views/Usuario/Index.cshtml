@@ -1,0 +1,65 @@
+﻿
+@{
+    string cargo = ViewBag.Cargo as string;
+}
+<script src="~/js/usuario.js"></script>
+<div class="container mt-5">
+   
+  
+        <h2>Lista de Usuarios</h2>
+        <!-- Formulario para crear/editar usuario -->
+        <div class="alert alert-primary message-input" role="alert">
+            Los campos que tienen (*) aceptan hasta 20 caracteres y son obligatorios.<br>         
+        </div>
+        <form id="userForm" autocomplete="off">
+            <div class="form-group" hidden>
+                <label for="Usua_ID">ID:</label>
+                <input type="text" class="form-control" id="Usua_ID">
+            </div>
+        @if (cargo != "Admin")
+        {
+            <div class="form-group">
+                <label for="Usua_Usuario">Usuario*:</label>
+                <input type="text" class="form-control" id="Usua_Usuario" maxlength="20" required>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <label for="Usua_Usuario">Usuario*:</label>
+                <input type="text" class="form-control" id="Usua_Usuario" maxlength="20" disabled required>
+            </div>
+        }
+          
+            <div class="form-group">
+                <label for="Usua_Contrasenia">Contraseña*:</label>
+                <input type="password" class="form-control" id="Usua_Contrasenia" maxlength="20"  autocomplete="new-password" required>
+            </div>
+            <br />
+        @if (cargo != "Admin")
+        {
+            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+        }else{
+            <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+        }
+        </form>
+    
+  
+
+    <h3 class="mt-5">Usuarios Registrados</h3>
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-bordered mt-3" id="userList">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Cargo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los usuarios se mostrarán aquí -->
+        </tbody>
+    </table>
+    </div>
+</div>
