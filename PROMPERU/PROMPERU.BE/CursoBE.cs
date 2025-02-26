@@ -9,6 +9,7 @@
         public string Curs_NombreBotonTitulo { get; set; }
         public string Curs_UrlIconBoton { get; set; }
         public string Curs_NombreCurso { get; set; }
+        public string Curs_CodigoCurso { get; set; }
         public string Curs_Objetivo { get; set; }
         public string Curs_Descripcion { get; set; }
         public string Curs_Modalidad { get; set; }       

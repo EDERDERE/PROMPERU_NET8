@@ -207,6 +207,7 @@ function renderSliders(cursos) {
                                 data-id="${curso.curs_ID}"     
                                 data-orden="${curso.curs_Orden}" 
                             data-nombrecurso="${curso.curs_NombreCurso}"
+                            data-codigocurso="${curso.curs_CodigoCurso}"
                             data-objetivo="${curso.curs_Objetivo}"
                             data-description="${curso.curs_Descripcion}"
                             data-fechaInicio="${formatearFechaInversa(
@@ -240,7 +241,14 @@ function renderSliders(cursos) {
                         </div>
                     </div>
                 </div>
-
+                     <div class="mb-3">
+                    <label for="codigoCurso-${
+          curso.curs_ID
+          }" class="form-label fw-semibold">Codigo Curso</label>
+                    <input type="text" id="codigoCurso-${curso.curs_ID
+          }" class="form-control" placeholder="${curso.curs_CodigoCurso
+      }" disabled>
+                </div>  
                 <div class="mb-3">
                     <label for="nombreCurso-${
                       curso.curs_ID
@@ -347,6 +355,7 @@ function loadCrearCurso() {
     // Recopilar datos del formulario
     const cursoData = {
         nombreCurso: $("#createCurso").val().trim(),   
+        codigoCurso: $("#createCodigoCurso").val().trim(), 
         description: $("#createDescription").val().trim(),
         //fechaInicio: $("#createFechaInicial").val().trim(),
         //fechaFin: $("#createFechaFinal").val().trim(),
@@ -541,7 +550,8 @@ function loadEditarCurso() {
     const modalData = {
       editId: button.data("id"),
       editOrder: button.data("orden"),
-      editNombreCurso: button.data("nombrecurso"),
+        editNombreCurso: button.data("nombrecurso"),
+        editCodigoCurso: button.data("codigocurso"),
       editObjetivo: button.data("objetivo"),
       editDescription: button.data("description"),
       editFechaInicio: button.data("fechainicio"),
@@ -593,7 +603,8 @@ function loadEditarCurso() {
     const data = {
       id: $("#editId").val(),
       orden: $("#editOrder").val(),
-      nombreCurso: $("#editNombreCurso").val(),    
+        nombreCurso: $("#editNombreCurso").val(),    
+        codigoCurso: $("#editCodigoCurso").val(), 
       description: $("#editDescription").val(),  
       urlImagen: $("#editUrlImagen").val(),
       nombreBoton: $("#editNombreBoton").val(),
@@ -709,7 +720,8 @@ function loadGuardarOrdenCurso() {
     const data = {
       Ids: [],
       Orders: [],
-      NombreCursos: [],
+        NombreCursos: [],
+        CodigoCursos: [],
       Objetivos: [],
       Descriptions: [],
       FechaInicios: [],
@@ -727,7 +739,8 @@ function loadGuardarOrdenCurso() {
     $(".btn-link.text-primary").each(function () {
       data.Ids.push($(this).data("id"));
       data.Orders.push($(this).data("orden"));
-      data.NombreCursos.push($(this).data("nombrecurso"));   
+      data.NombreCursos.push($(this).data("nombrecurso")); 
+      data.CodigoCursos.push($(this).data("codigocurso"));  
       data.Descriptions.push($(this).data("description"));  
       data.Modalidades.push($(this).data("id_modalidad"));
       data.UrlImagenes.push($(this).data("urlimagen"));
@@ -749,7 +762,8 @@ function loadGuardarOrdenCurso() {
     return data.Ids.map((id, index) => ({
       id: parseInt(id),
       orden: parseInt(data.NewOrders[index]),
-      nombreCurso: data.NombreCursos[index].toString(),
+        nombreCurso: data.NombreCursos[index].toString(),
+        codigoCurso: data.CodigoCursos[index].toString(),
       description: data.Descriptions[index].toString(),
       nombreBoton: data.NombreBotones[index].toString(),
       UrlIcon: data.UrlIcons[index].toString(),
