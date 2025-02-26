@@ -35,6 +35,8 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                 comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                 comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
+                comando.Parameters.AddWithValue("@Curs_CodigoCurso", curso.Curs_CodigoCurso);
+
                 comando.Parameters.AddWithValue("@Curs_DescripcionCalendario", curso.Curs_DescripcionCalendario);
                 comando.Parameters.AddWithValue("@Curs_Descripcion", curso.Curs_Descripcion);
                 comando.Parameters.AddWithValue("@Curs_TituloCalendario", curso.Curs_TituloCalendario);
@@ -142,6 +144,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Curs_NombreBoton", curso.Curs_NombreBoton);
                     comando.Parameters.AddWithValue("@Curs_UrlIconBoton", curso.Curs_UrlIconBoton);
                     comando.Parameters.AddWithValue("@Curs_NombreCurso", curso.Curs_NombreCurso);
+                    comando.Parameters.AddWithValue("@Curs_CodigoCurso", curso.Curs_CodigoCurso);
                     comando.Parameters.AddWithValue("@Curs_DescripcionCalendario", curso.Curs_DescripcionCalendario);
                     comando.Parameters.AddWithValue("@Curs_Descripcion", curso.Curs_Descripcion);
                     comando.Parameters.AddWithValue("@Curs_TituloCalendario", curso.Curs_TituloCalendario);
@@ -225,6 +228,7 @@ namespace PROMPERU.DA
                         Curs_NombreBoton = reader["Curs_NombreBoton"] != DBNull.Value ? reader["Curs_NombreBoton"].ToString() : "",
                         Curs_UrlIconBoton = reader["Curs_UrlIconBoton"] != DBNull.Value ? reader["Curs_UrlIconBoton"].ToString() : "",
                         Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
+                        Curs_CodigoCurso = reader["Curs_CodigoCurso"] != DBNull.Value ? reader["Curs_CodigoCurso"].ToString() : "",
                         Curs_DescripcionCalendario = reader["Curs_DescripcionCalendario"] != DBNull.Value ? reader["Curs_DescripcionCalendario"].ToString() : "",
                         Curs_Descripcion = reader["Curs_Descripcion"] != DBNull.Value ? reader["Curs_Descripcion"].ToString() : "",
                         Curs_TituloCalendario = reader["Curs_TituloCalendario"] != DBNull.Value ? reader["Curs_TituloCalendario"].ToString() : "",
