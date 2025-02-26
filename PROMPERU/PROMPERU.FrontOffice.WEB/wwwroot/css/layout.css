@@ -42,6 +42,7 @@ body {
   background-color: var(--color-background);
   margin: 0;
   font-family: var(--font-helvetica), sans-serif;
+  padding-top: var(--header-height);
 }
 
 .mt-20 {
@@ -221,7 +222,7 @@ body {
     list-style: none;
     width: 100%;
     border-bottom-right-radius: 20px;
-    position: sticky;
+    position: fixed;
     top: var(--header-height);
     left: 0;
     background-color: var(--color-white);

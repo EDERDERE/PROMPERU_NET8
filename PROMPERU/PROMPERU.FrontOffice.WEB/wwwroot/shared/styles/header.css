@@ -2,11 +2,11 @@
 
 .header {
   height: var(--header-height);
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   left: 0;
   z-index: 9;
+  position: fixed;
+  width: 100%;
 }
 .header .logo-header {
   height: 32px;
