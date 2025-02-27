@@ -251,9 +251,12 @@
 .testomnios_swiper .swiper-wrapper .swiper-slide {
   margin: 0 !important;
 }
-.testomnios_swiper .swiper-wrapper .swiper-slide.swiper-slide-active {
-  scale: 1.1;
+.testomnios_swiper .swiper-slide.swiper-slide-active h4,
+.testomnios_swiper .swiper-slide.swiper-slide-active p,
+.testomnios_swiper .swiper-slide.swiper-slide-active span {
+  text-decoration: underline;
 }
+
 .testimonials_container .swiper-button-prev {
   display: none;
 }
@@ -311,14 +314,18 @@
 
 .testomnio_item .info-testimony {
   position: absolute;
-  left: 35%;
-  top: 125%;
+  left: 50%;
+  top: calc(100% + 40px); /* Aumenta la distancia debajo del avatar */
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   z-index: 1000;
+  width: max-content;
 }
+
 
 .graduated_companies {
   display: flex;
@@ -453,11 +460,6 @@
 
   .contacto .data p {
     font-size: 14px;
-  }
-
-  .testomnio_item .info-testimony{
-    left: 20%;
-    top: 125%;
   }
 }
 @media screen and (min-width: 992px) {
@@ -729,9 +731,5 @@
   .testomnio_item .description {
     max-width: 100%;
   }
-
-  .testomnio_item .info-testimony{
-    left: 35%;
-    top: 125%;
-  }
+ 
 }

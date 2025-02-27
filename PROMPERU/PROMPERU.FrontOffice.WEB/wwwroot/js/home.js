@@ -54,14 +54,8 @@ const home = {
       url: "/Testimonio/ListarTestimonios",
       dataType: "json",
       success: function ({ success, testimonios, message }) {
-        console.log("Respuesta de testimonios:", testimonios);
-
-        const $tituloTestHome = $("#tituloTestHome");
-        const $slideTestHome = $("#slideTestHome");
-        $tituloTestHome.empty();
-        $slideTestHome.empty();
-
         if (success) {
+          toggleSectionVisibility("#seccionTestimoniales", testimonios);
           if (testimonios.length > 0) {
             renderTituloTestHome(testimonios[0]);
             renderSlideTestHome(testimonios);
@@ -94,20 +88,9 @@ const home = {
       url: "/PerfilEmpresarial/ListarPerfilEmpresarials",
       dataType: "json",
       success: function (response) {
-        console.log("Respuesta del servidor:", response);
-        $("#tituloPEmpHome").empty();
-        $("#sliderPEmpHome").empty();
-
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay información disponible",
-            text: response?.message || "No se encontraron registros.",
-          });
-          return;
-        }
-
         const perfilEmpresarials = response.perfilEmpresarials || [];
+
+        toggleSectionVisibility("#seccionEmpresarial", perfilEmpresarials);
 
         if (perfilEmpresarials.length > 0) {
           renderTituloPEmpHome(perfilEmpresarials[0]);
@@ -174,20 +157,9 @@ const home = {
       url: "/Empresa/ListarEmpresas",
       dataType: "json",
       success: function (response) {
-        console.log("Respuesta del servidor:", response);
-        // Limpia los contenedores antes de renderizar
-        $("#tituloEGHome, #sliderEGHome, #botonEGHome").empty();
-
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay empresas disponibles",
-            text: response?.message || "No se encontraron registros.",
-          });
-          return;
-        }
-
         const empresas = response.empresas || [];
+
+        toggleSectionVisibility("#seccionEmpresasGraduadas", empresas);
 
         if (empresas.length > 0) {
           renderTituloEGHome(empresas[0]);
@@ -216,26 +188,13 @@ const home = {
       url: "/Informacion/ListarInformacions",
       dataType: "json",
       success: function (response) {
-        console.log("Respuesta del servidor:", response);
-
-        // Limpia el contenedor antes de renderizar
-        $("#seccionHome").empty();
-
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay información disponible",
-            text: response?.message || "No se encontraron registros.",
-          });
-          return;
-        }
-
         const informacions = response.informacions || [];
+
+        toggleSectionVisibility("#seccionHome", informacions, 1);
+        $("#seccionHome").empty();
 
         if (informacions.length > 0) {
           renderSeccionHome(informacions[0]);
-        } else {
-          $("#seccionHome").html("<p>No hay información disponible.</p>");
         }
       },
       error: function (xhr, status, error) {
@@ -263,9 +222,7 @@ const home = {
 
         const cursos = response.cursos || [];
 
-        if (cursos.length === 0 || cursos.length === 1) {
-          $("#seccionCursos").hide();
-        }
+        toggleSectionVisibility("#seccionCursos", cursos);
 
         $("#tituloCursoHome, #botonCursoHome, #sliderCursoHome").empty();
 
@@ -293,18 +250,14 @@ const home = {
       success: function (response) {
         console.log("Respuesta del servidor requisitos:", response);
 
-      
-
         const requisitos = response.requisitos || [];
 
-        console.log(requisitos, 'data en requisitos')
-        if (requisitos.length === 0 || requisitos.length === 1) {
-          $("#seccionRequisitos").hide();
-        }
+        toggleSectionVisibility("#seccionRequisitos", requisitos);
 
         $(
           "#tituloRequisitoHome, #sliderRequisitoHome",
-          "botonRequisitoHome", "#seccionRequisitos"
+          "botonRequisitoHome",
+          "#seccionRequisitos"
         ).empty();
 
         if (requisitos.length > 0) {
@@ -334,29 +287,17 @@ const home = {
       url: "/Beneficio/ListarBeneficios",
       dataType: "json",
       success: function (response) {
-        console.log(response);
-        $("#tituloBeneficioHome").empty();
-        $("#sliderBeneficioHome").empty();
-        $("#portadaBeneficioHome").empty();
         if (response.success) {
-          const beneficios = response.beneficios;
-          console.log("beneficios", beneficios);
+          const beneficios = response.beneficios || [];
+
+          toggleSectionVisibility("#seccionBeneficios", beneficios);
+
           if (beneficios.length > 0) {
             renderTituloBeneficioHome(beneficios[0]);
             renderPortadaBeneficioHome(beneficios[0]);
             renderBotonCursoBeneficio();
             renderSliderBeneficioHome(beneficios);
-          } else {
-            $("#sliderBeneficioHome").html(
-              "<p>No se encontraron requisitos disponibles.</p>"
-            );
           }
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "No hay banners disponibles",
-            text: response.message || "No se encontraron banners.",
-          });
         }
       },
       error: function () {
@@ -374,18 +315,9 @@ const home = {
       url: "/Caso/ListarCasos",
       dataType: "json",
       success: function (response) {
-        console.log("Respuesta del servidor:", response);
-
-        if (!response?.success) {
-          Swal.fire({
-            icon: "error",
-            title: "No hay casos disponibles",
-            text: response?.message || "No se encontraron casos.",
-          });
-          return;
-        }
-
         const casos = response.casos || [];
+
+        toggleSectionVisibility("#seccionCasosExito", casos);
 
         $(
           "#tituloCasoHome, #sliderCasoHome, #portadaCasoHome, #botonCasoHome"
@@ -489,33 +421,72 @@ function renderBotonEGHome(egra) {
       `;
   $("#botonEGHome").append(html);
 }
+
+function renderField(label, value, isLink = false) {
+  if (!value || value.trim() === "") return "";
+
+  return isLink
+    ? `<p><strong>${label}:</strong> <a href="${value}" target="_blank">${value}</a></p>`
+    : `<p><strong>${label}:</strong> ${value}</p>`;
+}
+
+function renderSocialMediaList(egra) {
+  let redesSociales = [
+    egra.egra_RedesSociales,
+    egra.egra_RedesSocialesDos,
+    egra.egra_RedesSocialesTres,
+    egra.egra_RedesSocialesCuatro,
+  ].filter((red) => red && red.trim() !== "");
+
+  if (redesSociales.length === 0) return "";
+
+  return `
+    <p><strong>Redes Sociales:</strong></p>
+    <ul>
+      ${redesSociales
+        .map((red) => `<li><a href="${red}" target="_blank">${red}</a></li>`)
+        .join("")}
+    </ul>
+  `;
+}
+
 function renderSliderEGHome(empresas) {
   let html = "";
+
   empresas.slice(1, 7).forEach((egra) => {
     html += `
-            <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
-              <img src="${egra.egra_UrlLogo}" alt="" class="img-fluid mb-4">
-              <h4>${egra.egra_NombreEmpresa}</h4>
-              <a href="mailto:${egra.egra_Correo}">${egra.egra_Correo}</a>
-              <span>${egra.egra_Descripcion}</span>
-              <span>${egra.egra_Correo}</span>
-              <span>${egra.egra_RUC}</span>
-              <span>${egra.tipoEmpresa}</span>
-              <span>${egra.egra_RazonSocial}</span>
-              <span>${egra.egra_RUC}</span>
-              <span>${egra.egra_Mercados}</span>
-              <span>${egra.egra_Certificaciones}</span>
-              <span>${egra.egra_Direccion}</span>
-              <span>${egra.region}</span>
-              <span>${egra.egra_PaginaWeb}</span>
-              <span>${egra.egra_RedesSociales}</span>
-              <span>${egra.egra_SegmentosAtendidos}</span>
-              <span>${egra.egra_Titulo}</span>
-            </div>
-        `;
+      <div class="card border-0 shadow rounded-4 p-3 graduated_companies_item">
+          ${
+            egra.egra_UrlLogo
+              ? `<img src="${egra.egra_UrlLogo}" alt="${egra.egra_NombreEmpresa}" class="img-fluid mb-4">`
+              : ""
+          }
+          ${
+            egra.egra_NombreEmpresa ? `<h4>${egra.egra_NombreEmpresa}</h4>` : ""
+          }
+
+          ${renderField("Correo", egra.egra_Correo, true)}
+          ${renderField("Descripción", egra.egra_Descripcion)}
+          ${renderField("RUC", egra.egra_RUC)}
+          ${renderField("Tipo de Empresa", egra.tipoEmpresa)}
+          ${renderField("Razón Social", egra.egra_RazonSocial)}
+          ${renderField("Mercados", egra.egra_MercadosSegmentosAtendidos)}
+          ${renderField("Certificaciones", egra.egra_Certificaciones)}
+          ${renderField("Dirección", egra.egra_Direccion)}
+          ${renderField("Región", egra.region)}
+          ${renderField("Página Web", egra.egra_PaginaWeb, true)}
+
+          ${renderSocialMediaList(egra)}
+
+          ${renderField("Segmentos Atendidos", egra.egra_SegmentosAtendidos)}
+          ${renderField("Título", egra.egra_Titulo)}
+      </div>
+    `;
   });
+
   $("#sliderEGHome").append(html);
 }
+
 function renderTituloPEmpHome(pemp) {
   const html = `
                <h2 class="text-start section_title">${pemp.pemp_Nombre}</h2>
@@ -546,7 +517,6 @@ function renderTituloTestHome(test) {
   $("#tituloTestHome").append(html);
 }
 function renderSlideTestHome(testimonios) {
-  // Genera los elementos del men� din�micamente
   let html = "";
   const testimoniosContador = testimonios.slice(1);
   testimoniosContador.forEach((test) => {
@@ -564,8 +534,8 @@ function renderSlideTestHome(testimonios) {
                 <img src="${test.test_UrlImagen}" alt="">
             </div>
             <div class="info-testimony">
-              <h5>Jose Perez</h5>
-              <p>IMB Consulting - Lima </p>
+              <h5>${test.test_Nombre} </h5>
+              <p>${test.test_NombreEmpresa} </p>
             </div>
            
         </div>
@@ -929,7 +899,6 @@ var swiper = new Swiper(".mySwiper", {
   touchReleaseOnEdges: true,
 });
 
-
 var swiper = new Swiper(".cursos_swiper", {
   direction: "horizontal",
   slidesPerView: "auto",
@@ -959,31 +928,27 @@ var swiper = new Swiper(".cursos_swiper", {
 var swiper = new Swiper(".testomnios_swiper", {
   direction: "horizontal",
   slidesPerView: 3,
-  centeredSlides: true,
   initialSlide: 1,
+  centeredSlides: true,
+  loop: true,
+
   spaceBetween: 0,
   navigation: {
     nextEl: ".swiper-testimonio-next",
     prevEl: ".swiper-testimonio-prev",
   },
   breakpoints: {
-    // when window width is >= 320px
-    320: {
-      slidesPerView: 1,
-      spaceBetween: 20,
-    },
-    // when window width is >= 480px
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    // when window width is >= 640px
-    640: {
-      slidesPerView: 3,
-      spaceBetween: 20,
+    320: { slidesPerView: 1, spaceBetween: 20 },
+    480: { slidesPerView: 2, spaceBetween: 20 },
+    640: { slidesPerView: 3, spaceBetween: 20 },
+  },
+  on: {
+    init: function () {
+      this.loopFix();
     },
   },
 });
+
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
   const dia = String(fecha.getDate()).padStart(2, "0"); // D�a con dos d�gitos
@@ -1152,6 +1117,26 @@ async function cargarTiposEvento() {
       text: "Hubo un problema al cargar los tipos de eventos. Int�ntelo m�s tarde.",
     });
   }
-
-  
 }
+
+const toggleSectionVisibility = (sectionId, dataArray = [], minLength = 2) => {
+  if (!Array.isArray(dataArray)) {
+    console.error(
+      `toggleSectionVisibility: El segundo parámetro debe ser un array. Recibido:`,
+      dataArray
+    );
+    return;
+  }
+
+  if (dataArray.length < minLength) {
+    $(sectionId).hide();
+    console.log(
+      `Se ocultó ${sectionId} porque tiene ${dataArray.length} elementos (mínimo requerido: ${minLength})`
+    );
+    return true;
+  }
+
+  $(sectionId).show();
+  console.log(`Se mostró ${sectionId} con ${dataArray.length} elementos`);
+  return false;
+};
