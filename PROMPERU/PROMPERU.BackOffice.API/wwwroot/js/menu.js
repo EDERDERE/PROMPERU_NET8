@@ -17,7 +17,7 @@ async function loadListarMenu() {
 
     if (response.success) {
       // Itera sobre los Menus y los agrega al contenedor
-      response.menus.forEach((menu) => {
+        response.menus.forEach((menu) => {       
         const sliderCard = createSliderCardMenu(menu); // Usar la función para crear la tarjeta
           $("#sliderContainerMenu").append(sliderCard);
       });
@@ -37,7 +37,7 @@ async function loadListarMenu() {
   }
 }
 // Función que crea el HTML del slider card
-function createSliderCardMenu(menu) {
+function createSliderCardMenu(menu) {    
     return `
      <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -146,10 +146,12 @@ async function loadEditarMenu() {
     const button = $(event.relatedTarget);
     const id = button.data("id");
     const nombre = button.data("nombre");
-    const ruta = button.data("ruta");
+      const ruta = button.data("ruta");
+      const orden = button.data("orden");
     // Asignar los valores al modal
     const modal = $(this);
-    modal.find("#editId").val(id);
+      modal.find("#editId").val(id);
+      modal.find("#editOrden").val(id);
     modal.find("#editNombre").val(nombre);
     modal.find("#editRuta").val(ruta); 
   });
@@ -157,6 +159,7 @@ async function loadEditarMenu() {
   $("#saveEditSlider").click(async function () {
       const nombre = $("#editNombre").val();
       const ruta = $("#editRuta").val();
+      const orden = $("#editOrden").val();
     const id = $("#editId").val();
       if (nombre && ruta && id) {
       try {
@@ -167,6 +170,7 @@ async function loadEditarMenu() {
             id: id,
             nombre: nombre,
               urlIconBoton: ruta,
+              orden:orden
           },
         });
 

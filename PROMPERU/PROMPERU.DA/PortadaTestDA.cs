@@ -73,7 +73,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Bann_ID", id);
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {
@@ -125,7 +125,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Ptes_UrlIconoAlrt", portada.Ptes_UrlIconoAlrt);
 
                     // Ejecución del comando
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {

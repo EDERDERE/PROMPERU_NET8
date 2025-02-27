@@ -72,7 +72,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Test_ID", id);
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {
@@ -177,9 +177,7 @@ namespace PROMPERU.DA
                         Test_Descripcion = reader["Test_Descripcion"] != DBNull.Value ? reader["Test_Descripcion"].ToString() : "",
                         Test_UrlIcon = reader["Test_UrlIcon"] != DBNull.Value ? reader["Test_UrlIcon"].ToString() : "",
                         Test_UrlImagen = reader["Test_UrlImagen"] != DBNull.Value ? reader["Test_UrlImagen"].ToString() : "",
-                        Test_NombreEmpresa = reader["Test_NombreEmpresa"] != DBNull.Value ? reader["Test_NombreEmpresa"].ToString() : "",
-                        Regi_Nombre = reader["Regi_Nombre"] != DBNull.Value ? reader["Regi_Nombre"].ToString() : ""
-
+                        Test_NombreEmpresa = reader["Test_NombreEmpresa"] != DBNull.Value ? reader["Test_NombreEmpresa"].ToString() : ""
 
                     });
                 }

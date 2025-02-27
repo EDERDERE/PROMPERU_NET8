@@ -74,7 +74,7 @@ function sliderCard(logro) {
         <label for="description-${logro.logr_ID}" class="form-label fw-semibold">Descripción</label>
         <textarea id="description-${logro.logr_ID}" class="form-control" rows="3" placeholder="${logro.logr_Descripcion}" disabled></textarea>
       </div>
-      <div class="mb-3">
+      <div class="mb-3" hidden>
         <label for="image-url-${logro.logr_ID}" class="form-label fw-semibold">URL del icono</label>
         <input type="text" id="image-url-${logro.logr_ID}" class="form-control" value="${logro.logr_UrlIcon}" disabled>
       </div>

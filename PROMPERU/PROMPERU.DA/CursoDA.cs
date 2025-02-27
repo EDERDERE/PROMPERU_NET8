@@ -95,7 +95,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Curs_ID", id);
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {
@@ -203,7 +203,7 @@ namespace PROMPERU.DA
         }
 
         public async Task<List<CursoBE>> ListarCursosAsync()
-            {
+                {
             try
             {
                 var Cursos = new List<CursoBE>();
