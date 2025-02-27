@@ -41,7 +41,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 {
                     // Contadores
                     int countEmpresasGraduadas = listEmpresasGraduadas?.Count ?? 0;
-                    int countTestRealizados = 99;
+                    int countTestRealizados = 0;
                     int countCursosActuales = listCursos?.Count ?? 0;
 
                     // Mapeo de logros con el nuevo campo "contado"
