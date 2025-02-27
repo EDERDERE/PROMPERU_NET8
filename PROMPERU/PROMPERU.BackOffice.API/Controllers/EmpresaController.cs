@@ -103,7 +103,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     ID_Region = empresaDto.id_region,
                     ID_TipoEmpresa = empresaDto.id_tipoempresa,
                     ID_Provincia = empresaDto.id_provincia,
-                    ID_Distrito = empresaDto.id_distrito
+                    ID_Distrito = empresaDto.id_distrito,
+                    Egra_Imagen = empresaDto.urlImagen
 
 
                 };
@@ -152,7 +153,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                     ID_Region = empresaDto.id_region,
                     ID_TipoEmpresa = empresaDto.id_tipoempresa,
                     ID_Provincia = empresaDto.id_provincia,
-                    ID_Distrito = empresaDto.id_distrito
+                    ID_Distrito = empresaDto.id_distrito,
+                     Egra_Imagen = empresaDto.urlImagen
                 };
                 await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip, id); // Llamada asincr�nica
                 return RedirectToAction("ListarEmpresas");
@@ -236,7 +238,8 @@ namespace PROMPERU.BackOffice.API.Controllers
                         ID_Region = empresaDto.id_region,
                         ID_TipoEmpresa = empresaDto.id_tipoempresa,
                         ID_Provincia = empresaDto.id_provincia,
-                        ID_Distrito = empresaDto.id_distrito
+                        ID_Distrito = empresaDto.id_distrito,
+                        Egra_Imagen = empresaDto.urlImagen
                     };
                     await _empresaBL.ActualizarEmpresaAsync(empresa, usuario, ip,empresa.Egra_ID); // Llamada asincr�nica
                 }

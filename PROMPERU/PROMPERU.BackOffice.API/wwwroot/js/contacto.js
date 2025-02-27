@@ -123,7 +123,7 @@ function loadListarContacto() {
               </div>
 
                <div class="mb-3">
-                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">URL Imagen</label>
+                <label for="icon-url-${formularioContacto.fcon_ID}" class="form-label fw-semibold">URL del Banner</label>
                 <input type="text"  id="icon-url-${formularioContacto.fcon_ID}" class="form-control" value="${formularioContacto.fcon_UrlImagen}" disabled>
               </div>
 

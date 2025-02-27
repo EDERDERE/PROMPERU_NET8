@@ -60,6 +60,17 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 });
             }
         }
+        [HttpGet]
+        public IActionResult Crear()
+        {
+            return View();
+        }
 
+        [HttpGet]
+        public IActionResult Editar()
+        {            
+            return View();
+        }
+        
     }
 }
