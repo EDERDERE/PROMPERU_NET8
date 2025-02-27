@@ -131,7 +131,7 @@ namespace PROMPERU.DA
 
 
                     // Ejecución del comando
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {

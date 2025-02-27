@@ -106,7 +106,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Menu_ID", id);
-                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
                     {
