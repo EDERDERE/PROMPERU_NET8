@@ -24,9 +24,14 @@ export function renderCallToAction(data) {
                   ${buttonText}
                   <img src="${buttonIcon}" alt="" />
               </a>
-              <div class="button-test btn-section text-center">
-                  <a href="#!">${content.cint_NombreBotonSecundario}</a>
-                  <img src="${content.cint_UrlIconoBotonSecundario}" alt="" />
+              <div class="btn-section text-center">
+                  <a href="/Test/Index" class="full-button">
+                  <div class="button-test">
+                  <span>${content.cint_NombreBotonSecundario}</span>
+                  <img src="${content.cint_UrlIconoBotonSecundario}" alt="${content.cint_UrlIconoBotonSecundario}" />
+                  
+                  </div>
+                  </a>
               </div>
           </div>
       </div>

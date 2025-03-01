@@ -76,14 +76,12 @@ function template(empresas) {
               ${renderField("Dirección", egra.egra_Direccion)}
               ${renderField("Región", egra.region)}
               ${renderField("Página Web", egra.egra_PaginaWeb, true)}
-
-              ${renderSocialMediaList(redesSociales)}
-
               ${renderField(
                 "Segmentos Atendidos",
                 egra.egra_SegmentosAtendidos
               )}
               ${renderField("Título", egra.egra_Titulo)}
+               ${renderSocialMediaList(redesSociales)}
           </div>
           `;
         })
@@ -92,16 +90,27 @@ function template(empresas) {
   );
 }
 
-const renderField = (label, value, isLink = false) => {
+function renderField(label, value, isLink = false, isEmail = false) {
   if (!value || value.trim() === "") return "";
 
-  return isLink
-    ? `<p><strong>${label}:</strong> <a href="${value}" target="_blank">${value}</a></p>`
-    : `<p><strong>${label}:</strong> ${value}</p>`;
-};
+  value = value.trim();
 
+  if (isLink) {
+    let url = value;
+
+    if (isEmail) {
+      url = `mailto:${value}`;
+    } else if (!value.startsWith("http://") && !value.startsWith("https://")) {
+      url = `https://${value}`;
+    }
+
+    return `<p><strong>${label}:</strong> <a href="${url}" target="_blank">${value}</a></p>`;
+  }
+
+  return `<p><strong>${label}:</strong> ${value}</p>`;
+}
 const renderSocialMediaList = (redesSociales) => {
-  if (redesSociales.length === 0) return ""; // No renderiza nada si no hay redes
+  if (redesSociales.length === 0) return "";
 
   return `
     <p><strong>Redes Sociales:</strong></p>

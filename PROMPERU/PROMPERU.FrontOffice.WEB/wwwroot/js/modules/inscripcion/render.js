@@ -20,8 +20,12 @@ export function renderInscription(inscriptions) {
   renderTemplate(
     "botonInsciption",
     (data) => `
-    <a href="#">${data.insc_NombreBoton}</a>
-    <img src="${data.insc_URLIconBoton}" alt="${data.insc_NombreBoton}" />
+    <a href="/Test/Index" class="full-button">
+      <div class="button-test">
+        <span>${data.insc_NombreBoton}</span>
+        <img src="${data.insc_URLIconBoton}" alt="${data.insc_NombreBoton}" />
+      </div>
+    </a>
   `,
     firstInscription
   );
@@ -31,7 +35,6 @@ export function renderInscription(inscriptions) {
     (data) =>
       data
         .filter((insc) => insc.insc_Orden >= 1)
-        .slice(0, 5)
         .map(
           (insc, index) => `
           <div class="step">

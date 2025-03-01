@@ -56,7 +56,7 @@ body {
 .button-outline {
   border: 1px solid #c3122c;
   color: #c3122c;
-  padding: 12px 25px;
+  padding: 9px 25px;
   border-radius: 13px;
   cursor: pointer;
   text-decoration: none;
@@ -84,16 +84,27 @@ body {
   border-radius: 13px;
   cursor: pointer;
   font-size: var(--font-size-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 8px;
 }
 
-.button-test a {
-  color: var(--color-white);
+.full-button {
+  display: block;
+  width: 100%;
+  height: 100%;
   text-decoration: none;
+}
+
+.button-test span {
+  color: var(--color-white);
 }
 
 .button-test img {
   width: 18px;
 }
+
 
 .btn-section {
   min-width: 250px;

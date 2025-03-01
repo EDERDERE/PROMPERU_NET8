@@ -1,6 +1,7 @@
 @import "../shared/styles/variables.css";
 @import "./etapasInscripcion.css";
 @import "./home/heroHome.css";
+@import "./curso.css";
 
 /* === Contenedor Quick Data === */
 .quick_data {
@@ -121,8 +122,14 @@
   font-size: var(--font-size-mobile);
   line-height: 14.06px;
   color: var(--color-text);
-  text-align: left;
+  text-align: left;  
+  display: block; 
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
 }
+
 
 .list-group {
   width: 85%;
@@ -160,52 +167,6 @@
 .exito_video {
   height: 380px;
   margin: auto;
-}
-
-.cursos_swiper h4 {
-  font-size: 1.125rem;
-  font-weight: bold;
-}
-
-.cursos_swiper p {
-  font-size: 0.625rem;
-}
-
-.cursos_swiper svg {
-  width: 14px;
-  height: 14px;
-}
-
-.cursos_swiper .pagination svg {
-  width: 20px;
-  height: 20px;
-}
-
-.cursos_swiper .curso_description {
-  color: #b2b2b2;
-}
-
-.cursos_swiper .button_brochure {
-  border: 1px solid #0070ba;
-  color: #0070ba;
-  padding: 0.8rem 2rem;
-  border-radius: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.cursos_swiper .button_brochure:hover {
-  background-color: #0070ba;
-  color: #fff;
-}
-
-.cursos_swiper .content {
-  margin-top: -20px;
-  background: #fff;
-  border-top-right-radius: 20px;
 }
 
 .btn-test {
@@ -335,7 +296,7 @@
 }
 
 .graduated_companies .graduated_companies_item {
-  min-width: 300px;
+  min-width: 350px;
 }
 
 .graduated_companies .graduated_companies_item img {
@@ -430,8 +391,8 @@
   }
 
   .graduated_companies .graduated_companies_item a {
-    font-size: 14px;
-    color: #403c3d;
+    font-size: 13px;
+    color: black;
     text-decoration: none;
   }
 
@@ -580,54 +541,8 @@
     font-size: var(--font-size-desktop-paragrahp) !important;
   }
 
-  .cursos_swiper h4 {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-
-  .cursos_swiper p {
-    font-size: 0.875rem;
-  }
-
-  .cursos_swiper svg {
-    width: 25px;
-    height: 25px;
-  }
-
-  .cursos_swiper .pagination svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .cursos_swiper .curso_description {
-    color: #b2b2b2;
-  }
-
   .texto-descriptivo-quick_data {
     font-size: var(--font-size-desktop-paragrahp);
-  }
-
-  .cursos_swiper .button_brochure {
-    border: 1px solid #0070ba;
-    color: #0070ba;
-    padding: 0.8rem 2rem;
-    border-radius: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .cursos_swiper .button_brochure:hover {
-    background-color: #0070ba;
-    color: #fff;
-  }
-
-  .cursos_swiper .content {
-    margin-top: -20px;
-    background: #fff;
-    border-top-right-radius: 20px;
   }
 
   .perfil .max-text {

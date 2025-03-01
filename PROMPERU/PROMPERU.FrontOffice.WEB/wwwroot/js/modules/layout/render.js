@@ -1,11 +1,11 @@
-  import { renderTemplate } from "../../../shared/js/renderTemplate.js";
+import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
-  import { getCurrentYear } from "../../utils/getCurrentYear.js";
+import { getCurrentYear } from "../../utils/getCurrentYear.js";
 
-  export function renderLogo(logo) {
-    renderTemplate(
-      "logoHome",
-      (data) => `
+export function renderLogo(logo) {
+  renderTemplate(
+    "logoHome",
+    (data) => `
       <div class="d-flex align-items-center gap-2">
         <img src="${data.logo_UrlPrincipal}" alt="Logo Superior" class="logo-header"/>
         <span class="separator mx-2 text-white">|</span>
@@ -21,14 +21,14 @@
         <img src="${data.logo_UrlIconBoton}" alt="icono de diagnostico"/>
       </a>
     `,
-      logo
-    );
-  }
+    logo
+  );
+}
 
-  export function renderMenu(menus, logoData) {
-    renderTemplate(
-      "menuHome",
-      (data) => `
+export function renderMenu(menus, logoData) {
+  renderTemplate(
+    "menuHome",
+    (data) => `
       <li class="home">
         <a href="/Home/Index" class="d-flex align-items-center gap-2 text-decoration-none ${
           window.location.pathname.includes("/Home/") ? "active" : ""
@@ -68,17 +68,19 @@
 
       <a href="#!" class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-block d-lg-none">
         ${data.logoData.logo_NombreBoton}
-        <img src="${data.logoData.logo_UrlIconBoton}" alt="icono de diagnostico">
+        <img src="${
+          data.logoData.logo_UrlIconBoton
+        }" alt="icono de diagnostico">
       </a>
     `,
-      { menus, logoData }
-    );
-  }
+    { menus, logoData }
+  );
+}
 
-  export function renderFooter(foot) {
-    renderTemplate(
-      "footerHome",
-      (data) => `
+export function renderFooter(foot) {
+  renderTemplate(
+    "footerHome",
+    (data) => `
         <div class="logo_footer">
         <div class="container py-3">
           <img src="${
@@ -134,6 +136,6 @@
       </div>
       </div>
     `,
-      foot
-    );
-  }
+    foot
+  );
+}
