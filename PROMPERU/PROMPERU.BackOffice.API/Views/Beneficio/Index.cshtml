@@ -117,8 +117,6 @@
                         <input type="text" id="createNombre" maxlength="50" class="form-control" placeholder="Nombre">
                     </div>
 
-
-
                     <div class="mb-3">
                         <label for="createDescription" class="form-label fw-semibold">Descripción*</label>
                         <textarea id="createDescription" class="form-control" rows="3" maxlength="250"
@@ -232,7 +230,7 @@
 
                     <div class="alert alert-primary message-input" role="alert">
                         Los campos que tienen (*) aceptan hasta 250 caracteres y son obligatorios.<br>
-                        Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios.
+                        Los campos que tienen (**) aceptan hasta 50 caracteres y son obligatorios. 2
                     </div>
                     <div class="mb-3" hidden>
                         <label for="editIdTitulo" class="form-label fw-semibold">Id</label>
@@ -265,9 +263,26 @@
                             <label for="editUrlBanner" class="form-label fw-semibold">URL del Banner*</label>
 
                         </div>
-                        <input type="text" id="editUrlBanner" maxlength="250" class="form-control" placeholder="URL del banner">
+                        <input type="text" id="editUrlBanner" maxlength="250" class="form-control" placeholder="URL del banner" required>
 
                     </div>
+
+                      <div class="mb-3 ">
+                        <div class="d-flex justify-content-between">
+                            <label for="editNombreBoton" class="form-label fw-semibold">Nombre de Botón**</label>
+
+                        </div>
+                        <input type="text" id="editNombreBoton" maxlength="50" class="form-control" required>
+                    </div>
+
+                      <div class="mb-3 ">
+                        <div class="d-flex justify-content-between">
+                            <label for="editIconoBoton" maxlength="250" class="form-label fw-semibold">Icono del Boton*</label>
+
+                        </div>
+                        <input type="text" id="editIconoBoton" class="form-control" required>
+                    </div>
+
 
                 </form>
             </div>

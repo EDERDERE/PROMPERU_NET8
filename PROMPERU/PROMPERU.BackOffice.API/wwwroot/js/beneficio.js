@@ -12,7 +12,7 @@
 });
 function renderTituloBeneficio(beneficio) {
     return `
-                              <div class="row ">
+        <div class="row ">
                 <div class="col-md-6 my-3 ">
                     <div class="d-flex justify-content-between">
                         <label for="titulo-${beneficio.bene_ID}" class="form-label fw-semibold">Titulo</label>
@@ -22,6 +22,8 @@ function renderTituloBeneficio(beneficio) {
                         data-urlimagen="${beneficio.bene_URLImagen}"
                         data-descripcionBanner="${beneficio.bene_Descripcion}"
                         data-urlBanner="${beneficio.bene_URLImagenBanner}"
+                        data-iconoBoton="${beneficio.bene_URLIcon}"
+                        data-nombreBoton="${beneficio.bene_NombreBoton}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -60,12 +62,30 @@ function renderTituloBeneficio(beneficio) {
 
               </div>
 
+                <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for=""url-banner-${beneficio.bene_ID}" class="form-label fw-semibold">Nombre del boton</label>
+                 
+                </div>
+                <input type="text" id=""url-banner-${beneficio.bene_ID}" class="form-control" placeholder="${beneficio.bene_NombreBoton}" disabled>
+
+              </div>
+
+               <div class="col-md-6 my-3 ">
+                <div class="d-flex justify-content-between">
+                  <label for=""url-banner-${beneficio.bene_ID}" class="form-label fw-semibold">Url del icono</label>
+                 
+                </div>
+                <input type="text" id=""url-banner-${beneficio.bene_ID}" class="form-control" placeholder="${beneficio.bene_URLIcon}" disabled>
+
+              </div>
+
             </div>
                   `;
 }
 function renderSliderCardBeneficio(beneficio) {
     return `
-                          <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
+                 <div class="card col-12 col-md-12 shadow border-0 p-4 mb-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <h5 class="card-number mb-0">${beneficio.bene_Orden}</h5>
                     <div class="d-flex gap-2">
@@ -215,22 +235,24 @@ async function loadCrearBeneficio() {
 }
 async function loadEditarBeneficio() {
     $("#editTitle").on("show.bs.modal", function (event) {
-        // Obtener los datos del botón que activó el modal
-        const button = $(event.relatedTarget); // El botón que activó el modal
-        const id = button.data("id"); // Obtener el ID
+        const button = $(event.relatedTarget); 
+        const id = button.data("id");
         const titulo = button.data("titulo");
         const urlImagen = button.data("urlimagen");
         const descripcionBanner = button.data("descripcionbanner");
         const urlBanner = button.data("urlbanner");
+        var nombreBoton = button.data("nombreboton");
+        var iconoBoton = button.data("iconoboton");
 
 
-        // Asignar los valores al modal
         const modal = $(this);
         modal.find("#editIdTitulo").val(id);
         modal.find("#editTitulo").val(titulo);
         modal.find("#editUrlImagen").val(urlImagen);
         modal.find("#ediDescripcionBanner").val(descripcionBanner);
         modal.find("#editUrlBanner").val(urlBanner);
+        modal.find("#editNombreBoton").val(nombreBoton);
+        modal.find("#editIconoBoton").val(iconoBoton);
     });
 
     $("#saveEditTitulo").click(async function () {
@@ -240,19 +262,23 @@ async function loadEditarBeneficio() {
         const urlImagen = $("#editUrlImagen").val();
         const descripcionBanner = $("#ediDescripcionBanner").val();
         const urlBanner = $("#editUrlBanner").val();
+        var nombreBoton =  $("#editNombreBoton").val();
+        var iconoBoton =  $("#editIconoBoton").val();
+      
 
-
-        if (id && titulo && urlImagen) {
+        if (id && titulo && urlImagen && nombreBoton && iconoBoton) {
             try {
                 const response = await $.ajax({
                     type: "POST",
-                    url: "/Beneficio/ActualizarBeneficio", // URL del controlador para editar el slider
+                    url: "/Beneficio/ActualizarBeneficio",
                     data: {
                         id: id,
                         titulo: titulo,
                         urlImagen: urlImagen,
                         urlImagenBanner: urlBanner,
                         description: descripcionBanner,
+                        urlIcon: iconoBoton,
+                        nombreBoton:nombreBoton
                     }
                 });
 
