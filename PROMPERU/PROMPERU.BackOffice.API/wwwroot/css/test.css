@@ -1,0 +1,17 @@
+
+
+@import url('../shared/styles/variables.css');
+@import url('../shared/styles/header.css');
+@import url('../shared/styles/globals.css');
+
+
+.button-create {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: 5px;
+  padding: 4px 10px;
+}
+
+.button-create:hover {
+  opacity: 0.9;
+}
