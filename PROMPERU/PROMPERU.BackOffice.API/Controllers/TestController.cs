@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.BL.Dtos;
+using PROMPERU.DA;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
@@ -80,6 +81,106 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {            
             return View();
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> CrearTest(TestModelDto testModel)
+        {
+            try
+            {
+                var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
+                string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente         
+
+                //var curso = new CursoBE
+                //{
+                //    Curs_ID = cursoDto.id,
+                //    Curs_Orden = cursoDto.orden,
+                //    Curs_Titulo = cursoDto.titulo,
+                //    Curs_TituloSeccion = cursoDto.tituloSeccion,
+                //    Curs_NombreBoton = cursoDto.nombreBoton,
+                //    Curs_UrlIconBoton = cursoDto.urlIconBoton,
+                //    Curs_NombreCurso = cursoDto.nombreCurso,
+                //    Curs_CodigoCurso = cursoDto.codigoCurso,
+                //    Curs_Objetivo = cursoDto.objetivo,
+                //    Curs_Descripcion = cursoDto.description,
+                //    Curs_Modalidad = cursoDto.modalidad,
+                //    Curs_DuracionHoras = cursoDto.duracionHoras,
+                //    Curs_FechaInicio = null,
+                //    Curs_FechaFin = null,
+                //    Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
+                //    Curs_UrlIcon = cursoDto.urlIcon,
+                //    Curs_UrlImagen = cursoDto.urlImagen,
+                //    Curs_LinkBoton = cursoDto.linkBoton,
+                //    Curs_EsHabilitado = cursoDto.esHabilitado,
+                //    Teve_ID = cursoDto.id_evento,
+                //    Tmod_ID = 0,
+                //    Curs_TituloCalendario = cursoDto.tituloCalendario,
+                //    Curs_DescripcionCalendario = cursoDto.descriptionCalendario,
+                //    TipoModalidadList = modalidadesSeleccionadas
+                //};
+
+                if(testModel == null)
+                return BadRequest("El modelo no puede ser nulo.");
+
+                //await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica           
+
+                return RedirectToAction("ListarTest");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ActualizarTest(TestModelDto testModel, int id)
+        {
+            try
+            {
+                var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
+                string ip = HttpContext.Connection.RemoteIpAddress?.ToString(); // IP del cliente         
+
+                //var curso = new CursoBE
+                //{
+                //    Curs_ID = cursoDto.id,
+                //    Curs_Orden = cursoDto.orden,
+                //    Curs_Titulo = cursoDto.titulo,
+                //    Curs_TituloSeccion = cursoDto.tituloSeccion,
+                //    Curs_NombreBoton = cursoDto.nombreBoton,
+                //    Curs_UrlIconBoton = cursoDto.urlIconBoton,
+                //    Curs_NombreCurso = cursoDto.nombreCurso,
+                //    Curs_CodigoCurso = cursoDto.codigoCurso,
+                //    Curs_Objetivo = cursoDto.objetivo,
+                //    Curs_Descripcion = cursoDto.description,
+                //    Curs_Modalidad = cursoDto.modalidad,
+                //    Curs_DuracionHoras = cursoDto.duracionHoras,
+                //    Curs_FechaInicio = null,
+                //    Curs_FechaFin = null,
+                //    Curs_NombreBotonTitulo = cursoDto.nombreBotonTitulo,
+                //    Curs_UrlIcon = cursoDto.urlIcon,
+                //    Curs_UrlImagen = cursoDto.urlImagen,
+                //    Curs_LinkBoton = cursoDto.linkBoton,
+                //    Curs_EsHabilitado = cursoDto.esHabilitado,
+                //    Teve_ID = cursoDto.id_evento,
+                //    Tmod_ID = 0,
+                //    Curs_TituloCalendario = cursoDto.tituloCalendario,
+                //    Curs_DescripcionCalendario = cursoDto.descriptionCalendario,
+                //    TipoModalidadList = modalidadesSeleccionadas
+                //};
+
+                if (testModel == null)
+                    return BadRequest("El modelo no puede ser nulo.");
+
+                //await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica           
+
+                return RedirectToAction("ListarTest");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
     }
 }
