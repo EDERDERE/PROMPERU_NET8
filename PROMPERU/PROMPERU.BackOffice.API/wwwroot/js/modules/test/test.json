@@ -65,12 +65,7 @@
       "isComputable": false,
       "category": "Biología",
       "answerType": "text",
-      "answers": [
-        {
-          "text": "",
-          "value": null
-        }
-      ]
+      "text": "texto"
     },
 
     {
