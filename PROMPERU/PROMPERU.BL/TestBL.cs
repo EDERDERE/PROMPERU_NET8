@@ -53,16 +53,32 @@ namespace PROMPERU.BL
             }
         }
 
-        //public async Task<DataTable> ObtenerReporteTestsAsync()
-        //{
-        //    try
-        //    {
-        //        return await _TestDA.ObtenerReporteTestsAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error en la lógica de negocio al generar el reporte de los Tests", ex);
-        //    }
-        //}
+        public async Task<TestModelDto> crearTestAsync(RequisitoBE requisito, string usuario, string ip)
+        {
+            try
+            {
+                var testModel = new TestModelDto();
+                //return await _requisitoDA.InsertarRequisitoAsync(requisito, usuario, ip);
+                return testModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al insertar el Requisito", ex);
+            }
+        }
+
+        public async Task<bool> ActualizarRequisitoAsync(RequisitoBE requisito, string usuario, string ip, int id)
+        {
+            try
+            {
+                //return await _requisitoDA.ActualizarRequisitoAsync(requisito, usuario, ip, id) > 0;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al actualizar el Requisito", ex);
+            }
+        }
     }
 }
