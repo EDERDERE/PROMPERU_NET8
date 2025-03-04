@@ -77,6 +77,7 @@ builder.Services.AddScoped<ContactoDA>();
 builder.Services.AddScoped<ContactoBL>();
 builder.Services.AddScoped<PortadaTestDA>();
 builder.Services.AddScoped<PortadaTestBL>();
+builder.Services.AddScoped<TestBL>();
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
 

@@ -8,15 +8,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
     public class TestController : Controller
     {
         private readonly ILogger<TestController> _logger;    
-        private readonly InscripcionBL _inscripcionBL;
-        private readonly CursoBL _cursoBL;
-        private readonly PortadaTestBL _portadaTestBL;
-        public TestController(ILogger<TestController> logger, InscripcionBL nscripcionBL,CursoBL cursoBL, PortadaTestBL portadaTestBL)
+        private readonly TestBL _testBL;
+        public TestController(ILogger<TestController> logger, TestBL testBL)
         {
-            _logger = logger;
-            _inscripcionBL = nscripcionBL;
-            _cursoBL = cursoBL;
-            _portadaTestBL = portadaTestBL;
+            _logger = logger;          
+            _testBL = testBL;
         }
 
         public IActionResult Index()
@@ -28,20 +24,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {
             try
             {
-                var curosos = await _cursoBL.ListarCursosAsync();
-                var portadaTest = await _portadaTestBL.ListarPortadaTestsAsync(); // Cambio a versión asincrónica
-
-                var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync(); // Cambio a versión asincrónica
-                if (etapas != null && etapas.Any())
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        message = "test obtenidos exitosamente.",
-                        etapas
-                    });
-                }
-                else
+                var tests = await _testBL.ListarTestsAsync();
+                if (tests == null || !tests.Any())
                 {
                     return Json(new
                     {
@@ -49,14 +33,39 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         message = "No se encontraron test disponibles."
                     });
                 }
+
+                var resuls = new ListTestDto
+                {
+                    Courses = tests.SelectMany(test => test.Cursos.Where( x=> x.Teve_ID ==1 && x.Curs_Orden>0 ))
+                                   .Select(curso => new Course
+                                   {
+                                       Value = curso.Curs_ID,
+                                       Label = curso.Curs_NombreCurso
+                                   })
+                                   .ToList(),
+                    TestTypes = tests.SelectMany(test => test.Etapas)
+                                     .Select(etapa => new TestType
+                                     {
+                                         Value = etapa.ID,
+                                         Label = etapa.Titulo
+                                     })
+                                     .ToList()
+                };
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Test obtenidos exitosamente.",
+                    resuls
+                });
             }
             catch (Exception ex)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
-
+                    message = "Ocurrió un error al intentar obtener los test. Por favor, inténtelo nuevamente.",
+                    error = ex.Message // Esto es útil para depuración, puedes eliminarlo en producción.
                 });
             }
         }
