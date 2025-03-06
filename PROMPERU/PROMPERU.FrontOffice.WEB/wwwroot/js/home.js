@@ -607,14 +607,8 @@ function renderTituloCasoHome(caso) {
 }
 function renderPortadaCasoHome(caso) {
   const embedUrl = getEmbedUrl(caso.cexi_UrlVideo);
-  const html = `
-          <iframe width="100%"
-                        height="100%"
-                        src="${embedUrl}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-      `;
+  console.log(embedUrl, "embedUrl");
+  const html = `<lite-youtube videoid="${embedUrl}"></lite-youtube>`;
   $("#portadaCasoHome").append(html);
 }
 function renderBotonCasoHome(caso) {
@@ -645,8 +639,7 @@ function renderSliderCasoHome(casos) {
                             <img src="${caso.cexi_UrlPerfil}" alt="">
                         </div>
                     </div>
-
-                 `;
+    `;
     }
   });
 
@@ -740,26 +733,29 @@ function renderSliderRequisitoHome(requisitos) {
 
   $("#sliderRequisitoHome").append(slider);
 }
+
 function getEmbedUrl(videoUrl) {
   try {
     const url = new URL(videoUrl);
-    if (
-      url.hostname.includes("youtube.com") ||
-      url.hostname.includes("youtu.be")
-    ) {
-      const videoId =
-        url.searchParams.get("v") || url.pathname.split("/").pop();
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}`;
+    const hostname = url.hostname.replace("www.", "");
+
+    if (hostname.includes("youtube.com") || hostname.includes("youtu.be")) {
+      let videoId = url.searchParams.get("v") || url.pathname.split("/").pop();
+
+      if (videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+        return videoId;
       }
     }
-  } catch (error) {}
-  return "https://www.youtube.com/embed/dQw4w9WgXcQ";
+  } catch (error) {
+    console.error("Error al obtener el ID del video:", error);
+  }
+
+  return "dQw4w9WgXcQ";
 }
 
 function renderSeccionHome(info) {
-  const embedUrl = getEmbedUrl(info.info_URLVideo);
-
+  const videoId = getEmbedUrl(info.info_URLVideo);
+  console.log(videoId, "video id redner seccionHome ");
   const seccion = `
     <div class="row">
         <div class="col-12 col-md-5">
@@ -771,15 +767,10 @@ function renderSeccionHome(info) {
         </div>
         <div class="col-12 col-md-7">
             <div class="video_about rounded-3 overflow-hidden p-0">
-                <iframe width="100%"
-                height="100%"
-                src="${embedUrl}"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+               <lite-youtube videoid="${videoId}"></lite-youtube>
             </div>
         </div>
-    </div>        
+    </div>
   `;
   $("#seccionHome").append(seccion);
 }
@@ -852,25 +843,18 @@ function obtenerMes(fechaStr) {
   return new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
 }
 function renderSeleccionarVideo() {
-  // Escuchar clic en cualquier elemento con la clase "video_item"
   $(".video_item").on("click", function () {
-    // Remover la clase "active" de todos los elementos
     $(".video_item").removeClass("active");
-
-    // Agregar la clase "active" al elemento seleccionado
     $(this).addClass("active");
-
-    // Obtener la URL del video (puedes almacenar la URL en un atributo personalizado como "data-video")
-    const videoURL = $(this).data("video");
-
-    // Actualizar el iframe con la nueva URL
-    $(".exito_video iframe").attr("src", getEmbedUrl(videoURL));
+    const videoId = $(this).data("video");
+    $("#portadaCasoHome lite-youtube").attr("videoid", videoId);
   });
 }
+
 function cambiarImagenDinamica(imagenUrl) {
   $(".hero").css("background-image", "url(" + imagenUrl + ")");
 }
-// Funci�n para mostrar mensajes de error con Swal
+
 function showErrorMessage(message) {
   Swal.fire({
     icon: "error",

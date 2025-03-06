@@ -1,6 +1,6 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @{
-    var gtmId = Configuration["GoogleTagManager:Id"];
+  var gtmId = Configuration["GoogleTagManager:Id"];
 }
 
 <!DOCTYPE html>
@@ -16,32 +16,35 @@
   <link href="~/css/home.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="~/shared/libraries/jquery-3.7.1/js/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
-    <script src="~/shared/libraries/pagination/pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
+  <script src="~/shared/libraries/pagination/pagination.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
+  <script>
+    dayjs.locale('es')
+  </script>
 
-    <script>
-      dayjs.locale('es')
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','@gtmId');
-    </script>
-    <!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', '@gtmId');
+  </script>
+  <!-- End Google Tag Manager -->
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PPPZZ623"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PPPZZ623" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div class="d-flex flex-column">
     <div class="header">
       <div class="container d-flex justify-content-between align-items-center px-3 px-md-5 h-100" id="logoHome">
@@ -57,7 +60,7 @@
           </svg>
         </button>
       </div>
-      <ul  class="list-unstyled" id="menuHome">
+      <ul class="list-unstyled" id="menuHome">
       </ul>
     </nav>
   </div>
