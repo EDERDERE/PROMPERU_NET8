@@ -32,7 +32,8 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
                 comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
                 comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
-                comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);          
+                comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
+                comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -121,8 +122,8 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
                     comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
                     comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
-                    comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);                   
-
+                    comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
+                    comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
 
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
@@ -178,6 +179,8 @@ namespace PROMPERU.DA
                     {
                         ID = Convert.ToInt32(reader["Preg_ID"]),
                         Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
+                        Curs_ID = Convert.ToInt32(reader["Curs_ID"]),
+                        Curs_Nombre_Curso = reader["Curs_Nombre_Curso"] != DBNull.Value ? reader["Curs_Nombre_Curso"].ToString() : "",
                         Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),               
                         Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
                         Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),

@@ -92,8 +92,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ActualizarTest(TestModelDto testModel, int id)
+        [HttpPut("Editar/{id}")]
+        public async Task<IActionResult> ActualizarTest( int id,[FromBody] TestModelDto testModel)
         {
             try
             {
@@ -144,6 +144,14 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                      {
                                          Value = etapa.ID,
                                          Label = etapa.Titulo
+                                     })
+                                     .ToList(),
+                   Forms = maestros.SelectMany(test => test.Formularios)
+                                     .Select(form => new SelectedForm
+                                     {
+                                         ID = form.Ftes_ID,
+                                         Value = form.Ftes_Valor,
+                                         Label = form.Ftes_Texto
                                      })
                                      .ToList()
                 };

@@ -5,11 +5,12 @@
         public TestType? TestType { get; set; }
         public bool HasInstructions { get; set; } = false; // Por defecto en false
         public Instructions? Instructions { get; set; }
-        public List<Element>? Elements { get; set; }
+        public List<Elements>? Elements { get; set; }
     }
 
     public class Instructions
     {
+        public int? ID { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
         public string? Alert { get; set; }
@@ -18,7 +19,7 @@
         public string? ButtonIcon { get; set; }
     }
 
-    public class Element
+    public class Elements
     {
         public int? ID { get; set; }
         public int Order { get; set; }

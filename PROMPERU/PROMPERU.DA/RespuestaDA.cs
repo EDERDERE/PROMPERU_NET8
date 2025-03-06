@@ -113,6 +113,7 @@ namespace PROMPERU.DA
                     };
 
                     // Parámetros del procedimiento almacenado
+                    comando.Parameters.AddWithValue("@Resp_ID", respuesta.ID);
                     comando.Parameters.AddWithValue("@Preg_ID", respuesta.Preg_ID);
                     comando.Parameters.AddWithValue("@Resp_Orden", respuesta.Resp_Orden);
                     comando.Parameters.AddWithValue("@Resp_Respuesta", respuesta.Resp_Respuesta);
