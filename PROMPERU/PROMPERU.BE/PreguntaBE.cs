@@ -3,14 +3,13 @@
     public class PreguntaBE
     {
         public int ID { get; set; }
-        public int NumeroPregunta { get; set; }
-        public int ID_PortalTest { get; set; }
-        public string TextoPregunta { get; set; }
-        public bool EsComputable { get; set; } // 1=Computable, 0=No Computable
-        public char TipoPregunta { get; set; } // 'S' = Selección Única, 'M' = Múltiple, 'T' = Texto
-        public string Titulo { get; set; }
-        public string Titulo2 { get; set; }
-        public string Descripcion { get; set; }
-        public string Descripcion2 { get; set; }
+        public int Preg_NumeroPregunta { get; set; }
+        public int Insc_ID { get; set; }
+        public string Preg_TextoPregunta { get; set; }
+        public bool? Preg_EsComputable { get; set; } // 1=Computable, 0=No Computable
+        public string Preg_TipoRespuesta { get; set; } // 'S' = Selección Única, 'M' = Múltiple, 'T' = Texto
+        public string Preg_Categoria { get; set; }
+        public int Curs_ID { get; set; }
+        public string Curs_Nombre_Curso { get; set; }
     }
 }

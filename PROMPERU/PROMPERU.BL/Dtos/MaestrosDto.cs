@@ -1,14 +1,15 @@
 ﻿namespace PROMPERU.BL.Dtos
 {
-    public class ListTestDto
+    public class MaestrosDto
     {
         public List<TestType> TestTypes { get; set; }
         public List<Course> Courses { get; set; }
-
-        public ListTestDto()
+        public List<SelectedForm> Forms { get; set; }
+        public MaestrosDto()
         {
             TestTypes = new List<TestType>();
             Courses = new List<Course>();
+            Forms = new List<SelectedForm>();
         }
     }
 
@@ -19,8 +20,9 @@
     }
 
     public class Course
-    {
+    {       
         public int Value { get; init; }
         public string Label { get; init; }
     }
+  
 }

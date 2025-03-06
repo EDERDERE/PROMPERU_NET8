@@ -89,8 +89,13 @@ builder.Services.AddScoped<UbigeoDA>();
 builder.Services.AddScoped<UbigeoBL>();
 builder.Services.AddScoped<PortadaTestDA>();
 builder.Services.AddScoped<PortadaTestBL>();
+builder.Services.AddScoped<TestDA>();
 builder.Services.AddScoped<TestBL>();
-
+builder.Services.AddScoped<ContenidoTestDA>();
+builder.Services.AddScoped<FormularioTestDA>();
+builder.Services.AddScoped<PreguntaDA>();
+builder.Services.AddScoped<PreguntaCursoDA>();
+builder.Services.AddScoped<RespuestaDA>();
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
 

@@ -17,7 +17,7 @@ namespace PROMPERU.DA
         }
 
         // Inserta un nuevo Pregunta y devuelve la fila creada
-        public async Task<PreguntaBE> InsertarPreguntaAsync(PreguntaBE pregunta, string usuario, string ip)
+        public async Task<int> InsertarPreguntaAsync(PreguntaBE pregunta, string usuario, string ip)
         {
             try
             {
@@ -27,32 +27,30 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@NumeroPregunta", pregunta.NumeroPregunta);
-                comando.Parameters.AddWithValue("@ID_PortalTest", pregunta.ID_PortalTest);
-                comando.Parameters.AddWithValue("@TextoPregunta", pregunta.TextoPregunta);
-                comando.Parameters.AddWithValue("@EsComputable", pregunta.EsComputable);
-                comando.Parameters.AddWithValue("@TipoPregunta", pregunta.TipoPregunta);
-                comando.Parameters.AddWithValue("@Titulo", pregunta.Titulo);
-                comando.Parameters.AddWithValue("@Titulo2", pregunta.Titulo2);
-                comando.Parameters.AddWithValue("@Descripcion", pregunta.Descripcion);
-                comando.Parameters.AddWithValue("@Descripcion2", pregunta.Descripcion2);
+                comando.Parameters.AddWithValue("@Insc_ID", pregunta.Insc_ID);
+                comando.Parameters.AddWithValue("@Preg_NumeroPregunta", pregunta.Preg_NumeroPregunta);                
+                comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
+                comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
+                comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
+                comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
+                comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
 
-                var outBannID = new SqlParameter("@NuevoID", SqlDbType.Int)
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
                 };
-                comando.Parameters.Add(outBannID);
+                comando.Parameters.Add(outNuevoID);
                 
                 await comando.ExecuteNonQueryAsync();
 
-                int bannID = (int)outBannID.Value;
+                int nuevoID = (int)outNuevoID.Value;
 
-                if (bannID > 0)
+                if (nuevoID > 0)
                 {
-                    await _auditoriaDA.RegistrarAuditoriaAsync(usuario, "I","Pregunta", ip, bannID);
+                    await _auditoriaDA.RegistrarAuditoriaAsync(usuario, "I","Pregunta", ip, nuevoID);
                 }
 
-                return null;
+                return nuevoID;
             }
             catch (Exception ex)
             {
@@ -119,16 +117,13 @@ namespace PROMPERU.DA
 
                     // Parámetros del procedimiento almacenado
                     comando.Parameters.AddWithValue("@Preg_ID", pregunta.ID);
-                    comando.Parameters.AddWithValue("@NumeroPregunta", pregunta.NumeroPregunta);
-                    comando.Parameters.AddWithValue("@Ptes_ID", pregunta.ID_PortalTest);
-                    comando.Parameters.AddWithValue("@TextoPregunta", pregunta.TextoPregunta);
-                    comando.Parameters.AddWithValue("@EsComputable", pregunta.EsComputable);
-                    comando.Parameters.AddWithValue("@TipoPregunta", pregunta.TipoPregunta);
-                    comando.Parameters.AddWithValue("@Titulo", pregunta.Titulo);
-                    comando.Parameters.AddWithValue("@Titulo2", pregunta.Titulo2);
-                    comando.Parameters.AddWithValue("@Descripcion", pregunta.Descripcion);
-                    comando.Parameters.AddWithValue("@Descripcion2", pregunta.Descripcion2);
-
+                    comando.Parameters.AddWithValue("@Insc_ID", pregunta.Insc_ID);
+                    comando.Parameters.AddWithValue("@Preg_NumeroPregunta", pregunta.Preg_NumeroPregunta);
+                    comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
+                    comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
+                    comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
+                    comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
+                    comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
 
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
@@ -183,15 +178,14 @@ namespace PROMPERU.DA
                     preguntas.Add(new PreguntaBE
                     {
                         ID = Convert.ToInt32(reader["Preg_ID"]),
-                        NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),
-                        ID_PortalTest = Convert.ToInt32(reader["Ptes_ID"]),
-                        TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
-                        EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
-                        TipoPregunta = Convert.ToChar(reader["Preg_TipoPregunta"]),
-                        Titulo = reader["Preg_Titulo"].ToString(),
-                        Titulo2 = reader["Preg_Titulo2"].ToString(),
-                        Descripcion = reader["Preg_Descripcion"].ToString(),
-                        Descripcion2 = reader["Preg_Descripcion2"].ToString()
+                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
+                        Curs_ID = Convert.ToInt32(reader["Curs_ID"]),
+                        Curs_Nombre_Curso = reader["Curs_Nombre_Curso"] != DBNull.Value ? reader["Curs_Nombre_Curso"].ToString() : "",
+                        Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),               
+                        Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
+                        Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
+                        Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
+                        Preg_Categoria = reader["Preg_Categoria"].ToString()                   
                     });
                 }
 
