@@ -1,4 +1,24 @@
 {
+  "tests": [
+    {
+      "title": "Test Tipo A",
+      "icono": "icono-test-a.png",
+      "value":"A",
+      "current": true
+    },
+    {
+      "title": "Test Tipo B",
+      "icono": "icono-test-b.png",
+      "value":"B",
+      "current": false
+    },
+    {
+      "title": "Test Tipo C",
+      "icono": "icono-test-c.png",
+      "value":"C",
+      "current": false
+    }
+  ],
   "testType": {
     "value": "A",
     "label": "Test Tipo A"
