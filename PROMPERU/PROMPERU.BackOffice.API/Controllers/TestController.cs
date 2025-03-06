@@ -6,6 +6,8 @@ using PROMPERU.DA;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class TestController : Controller
     {
         private readonly ILogger<TestController> _logger;    
@@ -25,7 +27,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {
             try
             {
-                var tests = await _testBL.ListarTestsAsync();
+                var listado = await _testBL.ListarTestAsync();
+                var tests = listado.Select(t => new { t.ID, t.Titulo }).ToList();
                 if (tests == null || !tests.Any())
                 {
                     return Json(new
@@ -35,29 +38,12 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     });
                 }
 
-                var resuls = new ListTestDto
-                {
-                    Courses = tests.SelectMany(test => test.Cursos.Where( x=> x.Teve_ID ==1 && x.Curs_Orden>0 ))
-                                   .Select(curso => new Course
-                                   {
-                                       Value = curso.Curs_ID,
-                                       Label = curso.Curs_NombreCurso
-                                   })
-                                   .ToList(),
-                    TestTypes = tests.SelectMany(test => test.Etapas)
-                                     .Select(etapa => new TestType
-                                     {
-                                         Value = etapa.ID,
-                                         Label = etapa.Titulo
-                                     })
-                                     .ToList()
-                };
-
+              
                 return Json(new
                 {
                     success = true,
                     message = "Test obtenidos exitosamente.",
-                    resuls
+                    tests
                 });
             }
             catch (Exception ex)
@@ -82,8 +68,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CrearTest(TestModelDto testModel)
+        [HttpPost("Crear")]
+        public async Task<IActionResult> CrearTest([FromBody] TestModelDto testModel)
         {
             try
             {
@@ -95,7 +81,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return BadRequest("El modelo no puede ser nulo.");        
 
         
-                //await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica           
+                await _testBL.crearTestAsync(testModel, usuario, ip); // Llamada asincrónica           
 
                 return RedirectToAction("ListarTest");
             }
@@ -118,7 +104,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 if (testModel == null)
                     return BadRequest("El modelo no puede ser nulo.");
 
-                //await _cursoBL.InsertarCursoAsync(curso, usuario, ip); // Llamada asincrónica           
+                await _testBL.ActualizarTestAsync(testModel, usuario, ip,id); // Llamada asincrónica           
 
                 return RedirectToAction("ListarTest");
             }
@@ -126,6 +112,92 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             {
                 ViewBag.Error = ex.Message;
                 return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ListarMaestros()
+        {
+            try
+            {
+                var maestros = await _testBL.ListarMaestrosAsync();
+                if (maestros == null || !maestros.Any())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron maestros disponibles."
+                    });
+                }
+
+                var resuls = new MaestrosDto
+                {
+                    Courses = maestros.SelectMany(test => test.Cursos.Where(x => x.Teve_ID == 1 && x.Curs_Orden > 0))
+                                   .Select(curso => new Course
+                                   {
+                                       Value = curso.Curs_ID,
+                                       Label = curso.Curs_NombreCurso
+                                   })
+                                   .ToList(),
+                    TestTypes = maestros.SelectMany(test => test.Etapas)
+                                     .Select(etapa => new TestType
+                                     {
+                                         Value = etapa.ID,
+                                         Label = etapa.Titulo
+                                     })
+                                     .ToList()
+                };
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Maestros obtenidos exitosamente.",
+                    resuls
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los maestros. Por favor, inténtelo nuevamente.",
+                    error = ex.Message // Esto es útil para depuración, puedes eliminarlo en producción.
+                });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ObtenerTest(int id)
+        {
+            try
+            {
+                var test = await _testBL.ObtenerTestPorIdAsync(id); // Cambio a versión asincrónica
+                if (test != null)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Tets obtenidos exitosamente.",
+                        test
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron test disponibles."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar obtener los test. Por favor, inténtelo nuevamente."
+
+                });
             }
         }
 

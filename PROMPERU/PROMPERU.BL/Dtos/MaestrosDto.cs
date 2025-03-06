@@ -1,11 +1,11 @@
 ﻿namespace PROMPERU.BL.Dtos
 {
-    public class ListTestDto
+    public class MaestrosDto
     {
         public List<TestType> TestTypes { get; set; }
         public List<Course> Courses { get; set; }
 
-        public ListTestDto()
+        public MaestrosDto()
         {
             TestTypes = new List<TestType>();
             Courses = new List<Course>();

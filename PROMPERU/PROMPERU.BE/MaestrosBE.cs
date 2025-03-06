@@ -1,6 +1,6 @@
 ﻿namespace PROMPERU.BE
 {
-    public class TestBE
+    public class MaestrosBE
     {   
        
        public List<CursoBE> Cursos { get; set; }
