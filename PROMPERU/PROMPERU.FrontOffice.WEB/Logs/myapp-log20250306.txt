@@ -6234,3 +6234,4 @@
 2025-03-06 17:23:31.015 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/favicon.ico - null null
 2025-03-06 17:23:31.021 -05:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.FrontOffice.WEB\wwwroot\favicon.ico'
 2025-03-06 17:23:31.021 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/favicon.ico - 499 5430 image/x-icon 5.6115ms
+2025-03-06 17:33:43.449 -05:00 [INF] Application is shutting down...
