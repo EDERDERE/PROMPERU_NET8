@@ -2,19 +2,19 @@ export default {
   "tests": [
     {
       "title": "Test Tipo A",
-      "icono": "../../shared/assets/inscripcion/diagnostic.svg",
+      "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"A",
       "current": true
     },
     {
       "title": "Test Tipo B",
-      "icono": "../../shared/assets/inscripcion/diagnostic.svg",
+      "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"B",
       "current": false
     },
     {
       "title": "Test Tipo C",
-      "icono": "../../shared/assets/inscripcion/diagnostic.svg",
+      "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"C",
       "current": false
     }

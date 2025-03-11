@@ -1,130 +1,130 @@
-export default{
+export default {
     "tests": [
     {
       "title": "Test Tipo A",
-      "icono": "icono-test-a.png",
-      "value":"A",
+      "icon": "icono-test-a.png",
+      "value": "A",
       "current": true
     },
     {
       "title": "Test Tipo B",
-      "icono": "icono-test-b.png",
-      "value":"B",
+      "icon": "icono-test-b.png",
+      "value": "B",
       "current": false
     },
     {
       "title": "Test Tipo C",
-      "icono": "icono-test-c.png",
-      "value":"C",
+      "icon": "icono-test-c.png",
+      "value": "C",
       "current": false
     }
   ],
   "title": "Resumen de Diagnóstico",
-  "cursos_aprobados": 2,
-  "cursos_reprobados": 1,
-  "total_cursos": 3,
-  "results":{
-    "titulo": "Felicidades",
-    "subtitulo": "Tienes grandes habilidades en estos cursos",
-    "cursos":[
+  "passed_courses": 2,
+  "failed_courses": 1,
+  "total_courses": 3,
+  "results": {
+    "title": "Felicidades",
+    "subtitle": "Tienes grandes habilidades en estos cursos",
+    "courses": [
         {
-            "nombre": "Innovación",
-            "puntaje": 4.6,
+            "name": "Innovación",
+            "score": 4.6,
             "total": 5
         },
         {
-            "nombre": "Fidelización",
-            "puntaje": 4.6,
+            "name": "Fidelización",
+            "score": 4.6,
             "total": 5
         },
         {
-            "nombre": "Dirección Mkt",
-            "puntaje": 4.6,
+            "name": "Dirección Mkt",
+            "score": 4.6,
             "total": 5
         },
         {
-            "nombre": "Segmentación",
-            "puntaje": 4.6,
+            "name": "Segmentación",
+            "score": 4.6,
             "total": 5
         },
         {
-            "nombre": "Ventas",
-            "puntaje": 4.6,
+            "name": "Ventas",
+            "score": 4.6,
             "total": 5
         }
     ]
   },
-  "otros_cursos":{
-    "titulo": "CURSOS QUE DEBES LLEGAR CON NOSOTROS",
-    "titulo_llevar": "Lleva estos cursos",
-    "subtitulo": "Resumen de los cursos a llevar con nosotros",
-    "cursos":[
+  "other_courses": {
+    "title": "CURSOS QUE DEBES LLEGAR CON NOSOTROS",
+    "take_title": "Lleva estos cursos",
+    "subtitle": "Resumen de los cursos a llevar con nosotros",
+    "courses": [
         {
-            "nombre": "Distrubución",
+            "name": "Distrubución",
             "color": "#692587",
-            "puntage_global": 18,
-            "puntaje_individual": 82,
-            "comentario": "Comentario sobre la nota desaprobatoria",
-            "razon": "Razones por las cuales jaló el curso.",
-            "bochure": "https://www.google.com",
-            "nota": 3.5,
+            "global_score": 18,
+            "individual_score": 82,
+            "comment": "Comentario sobre la nota desaprobatoria",
+            "reason": "Razones por las cuales jaló el curso.",
+            "brochure": "https://www.google.com",
+            "score": 3.5,
             "total": 5
         },
         {
-            "nombre": "Alianza F & W",
+            "name": "Alianza F & W",
             "color": "#692587",
-            "puntage_global": 18,
-            "puntaje_individual": 82,
-            "comentario": "Comentario sobre la nota desaprobatoria",
-            "razon": "Razones por las cuales jaló el curso.",
-            "bochure": "https://www.google.com",
-            "nota": 3.5,
+            "global_score": 18,
+            "individual_score": 82,
+            "comment": "Comentario sobre la nota desaprobatoria",
+            "reason": "Razones por las cuales jaló el curso.",
+            "brochure": "https://www.google.com",
+            "score": 3.5,
             "total": 5
         },
         {
-            "nombre": "Marketing",
+            "name": "Marketing",
             "color": "#692587",
-            "puntage_global": 18,
-            "puntaje_individual": 82,
-            "comentario": "Comentario sobre la nota desaprobatoria",
-            "razon": "Razones por las cuales jaló el curso.",
-            "bochure": "https://www.google.com",
-            "nota": 3.5,
+            "global_score": 18,
+            "individual_score": 82,
+            "comment": "Comentario sobre la nota desaprobatoria",
+            "reason": "Razones por las cuales jaló el curso.",
+            "brochure": "https://www.google.com",
+            "score": 3.5,
             "total": 5
         },
         {
-            "nombre": "Marca",
+            "name": "Marca",
             "color": "#692587",
-            "puntage_global": 18,
-            "puntaje_individual": 82,
-            "comentario": "Comentario sobre la nota desaprobatoria",
-            "razon": "Razones por las cuales jaló el curso.",
-            "bochure": "https://www.google.com",
-            "nota": 3.5,
+            "global_score": 18,
+            "individual_score": 82,
+            "comment": "Comentario sobre la nota desaprobatoria",
+            "reason": "Razones por las cuales jaló el curso.",
+            "brochure": "https://www.google.com",
+            "score": 3.5,
             "total": 5
         },
         {
-            "nombre": "Ingresos",
+            "name": "Ingresos",
             "color": "#692587",
-            "puntage_global": 18,
-            "puntaje_individual": 82,
-            "comentario": "Comentario sobre la nota desaprobatoria",
-            "razon": "Razones por las cuales jaló el curso.",
-            "bochure": "https://www.google.com",
-            "nota": 3.5,
+            "global_score": 18,
+            "individual_score": 82,
+            "comment": "Comentario sobre la nota desaprobatoria",
+            "reason": "Razones por las cuales jaló el curso.",
+            "brochure": "https://www.google.com",
+            "score": 3.5,
             "total": 5
         }
     ]
   },
-  "texto_botones": "Para reforzar los cursos en mención, es importante inscribirte.",
-    "botones": [
+  "button_text": "Para reforzar los cursos en mención, es importante inscribirte.",
+  "buttons": [
         {
-        "texto": "Descargar resultados",
-        "icono": "icono-inscribirme.png"
+        "text": "Descargar resultados",
+        "icon": "icono-inscribirme.png"
         },
         {
-        "texto": "Continuar",
-        "icono": "icono-ver-cursos.png"
+        "text": "Continuar",
+        "icon": "icono-ver-cursos.png"
         }
     ]
 }
