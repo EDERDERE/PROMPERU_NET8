@@ -69,3 +69,132 @@
     width: 50px;
     height: 50px;
   }
+
+
+#test-content .text{
+  font-size: 1.3rem;
+  font-weight: 200;
+  line-height: 1.3rem;
+}
+#test-content a{
+  color: #0470BA;
+  font-weight: 400;
+  text-decoration: none;
+}
+#search_business .num_ruc{
+    width: 600px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem 1rem;
+  }
+#search_business .buttons_group{
+  min-width: 400px;
+  margin-top: 2rem;
+}
+
+.progress-indicator {
+  width: 85px;
+  height: 25px;
+  background-color: #FFFFFF;
+  color: #676767;
+  font-weight: 500;
+  line-height: 32px;
+  border-radius: 20px;
+  border: 1px solid #E3E5D7;
+  padding: 0px 0px 30px 20px;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.question-title {
+  color: #0070BA;
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.question-box {
+  border: 2px solid #dee2e6;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  color: #676767;
+  font-size: 1.3rem;
+  font-weight: 200;
+}
+
+.question-box:hover {
+  border-color: #0d6efd;
+  background-color: #e9f1ff;
+}
+
+.option-label {
+  font-weight: 400;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #B2B2B2;
+  margin-right: 10px;
+  color: #B2B2B2;
+  background-color: #fff;
+  padding-top: 5px;
+  font-size: 1.3rem;
+}
+.text-muted{
+  font-size: 1.5rem;
+  font-weight: 200;
+  line-height: 1.5;
+}
+.question-box:hover .option-label {
+  border-color: #0d6efd;
+  color: #0d6efd;
+}
+
+.btn-custom {
+  border-radius: 25px;
+  font-size: 1rem;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-previous {
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+  background-color: transparent;
+}
+
+.btn-previous:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-next {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-next:hover {
+  background-color: #084298;
+}
+.alert{
+  font-size: 1.3rem;
+  background: #FFF7E2;
+  border: 1px solid #0070BA;
+  display: flex;
+  gap: 0.5rem;
+  border-radius: 8px;
+  font-weight: 200;
+  align-items: center;
+}
+.alert img{
+  width: 50px;
+  height: 50px;
+}
