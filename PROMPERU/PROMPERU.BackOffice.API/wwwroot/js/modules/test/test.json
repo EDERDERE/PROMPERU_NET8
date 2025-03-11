@@ -1,103 +1,138 @@
 {
-  "tests": [
-    {
-      "title": "Test Tipo A",
-      "icono": "icono-test-a.png",
-      "value":"A",
-      "current": true
-    },
-    {
-      "title": "Test Tipo B",
-      "icono": "icono-test-b.png",
-      "value":"B",
-      "current": false
-    },
-    {
-      "title": "Test Tipo C",
-      "icono": "icono-test-c.png",
-      "value":"C",
-      "current": false
-    }
-  ],
   "testType": {
-    "value": "A",
-    "label": "Test Tipo A"
+    "value": 5,
+    "label": "Test de Salida"
   },
   "hasInstructions": true,
   "instructions": {
-    "title": "Instrucciones del Test",
-    "description": "<p>Lee atentamente cada pregunta antes de responder.</p>",
-    "alert": "<p>Las respuestas marcadas no podrán modificarse después del envío.</p>",
+    "id": 8,
+    "title": "Instrucciones del Test 3",
+    "description": "\u003Cp\u003ELee atentamente cada pregunta antes de responder.\u003C/p\u003E",
+    "alert": "\u003Cp\u003ELas respuestas marcadas no podrán modificarse después del envío.\u003C/p\u003E",
     "alertIcon": "icono-alerta.png",
     "buttonText": "Iniciar Test",
     "buttonIcon": "icono-inicio.png"
   },
   "elements": [
     {
+      "id": 31,
+      "order": 1,
       "type": "question",
-      "questionText": "¿Cuál es la capital de España?",
+      "questionText": "¿Cuál es la capital de España 3 ?",
       "isComputable": false,
-      "category": "Geografía",
-      "answerType": "single_choice",
+      "category": "Geografía 3",
+      "answerType": "singleChoice 3",
       "answers": [
         {
-          "text": "Madrid",
-          "value": null
+          "id": 31,
+          "order": 1,
+          "text": "Madrid 3",
+          "value": 1
         },
         {
-          "text": "Barcelona",
-          "value": null
+          "id": 32,
+          "order": 2,
+          "text": "Barcelona 3",
+          "value": 5
         },
         {
-          "text": "Valencia",
-          "value": null
+          "id": 33,
+          "order": 3,
+          "text": "Valencia 3",
+          "value": 3
         }
-      ]
+      ],
+      "course": {
+        "value": 2,
+        "label": "111"
+      },
+      "title": null,
+      "description": null,
+      "selectedForm": null
     },
     {
+      "id": 32,
+      "order": 2,
       "type": "question",
       "questionText": "¿Cuánto es 5 + 3?",
       "isComputable": true,
-      "course": {
-        "value": "B",
-        "label": "Direccion de empresas"
-      },
-      "answerType": "multiple_choice",
+      "category": "",
+      "answerType": "multipleChoice",
       "answers": [
         {
+          "id": 34,
+          "order": 1,
           "text": "6",
-          "value": 0
+          "value": 2
         },
         {
+          "id": 35,
+          "order": 2,
           "text": "8",
           "value": 1
         },
         {
+          "id": 36,
+          "order": 3,
           "text": "10",
-          "value": 0
+          "value": 3
         }
-      ]
+      ],
+      "course": {
+        "value": 2,
+        "label": ""
+      },
+      "title": null,
+      "description": null,
+      "selectedForm": null
     },
-
     {
+      "id": 33,
+      "order": 3,
       "type": "question",
       "questionText": "Describe la importancia de la fotosíntesis.",
       "isComputable": false,
       "category": "Biología",
       "answerType": "text",
-      "text": "texto"
+      "answers": [],
+      "course": {
+        "value": 2,
+        "label": ""
+      },
+      "title": null,
+      "description": null,
+      "selectedForm": null
     },
-
     {
+      "id": 6,
+      "order": 4,
       "type": "cover",
-      "title": "Bienvenido al Test",
-      "description": "<p>Este test te ayudará a evaluar tus conocimientos.</p>"
+      "questionText": null,
+      "isComputable": null,
+      "category": null,
+      "answerType": null,
+      "answers": null,
+      "course": null,
+      "title": "Bienvenido al Test 3",
+      "description": "\u003Cp\u003EEste test te ayudará a evaluar tus conocimientos.\u003C/p\u003E",
+      "selectedForm": null
     },
     {
+      "id": null,
+      "order": 5,
       "type": "form",
+      "questionText": null,
+      "isComputable": null,
+      "category": null,
+      "answerType": null,
+      "answers": null,
+      "course": null,
+      "title": null,
+      "description": null,
       "selectedForm": {
+        "id": 7,
         "value": "form_contac",
-        "label": "Formulario de Contacto"
+        "label": "Formulario de Contacto 10"
       }
     }
   ]
