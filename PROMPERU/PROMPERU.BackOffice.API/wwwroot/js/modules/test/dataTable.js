@@ -1,6 +1,7 @@
 import { fetchData } from "../../../shared/js/apiService.js";
 
 
+
 export async function initDataTable(tableId, apiUrl) {
   try {
     const response = await fetchData(apiUrl);
@@ -46,12 +47,26 @@ $(document).on("click", ".editar-btn", function () {
   window.location.href = `/Test/Editar?id=${id}`;
 });
 
-$(document).on("click", ".eliminar-btn", function () {
+$(document).on("click", ".eliminar-btn", async function () {
+  console.log("🗑️ Clic en eliminar detectado.");
   const id = $(this).data("id");
-  console.log("Eliminar ID:", id);
+
+  if (!id) {
+    console.error("❌ No se encontró ID en el botón.");
+    return;
+  }
+
+  console.log(`🔍 ID obtenido para eliminación: ${id}`);
+  await eliminarRegistro(id);
 });
 
 async function eliminarRegistro(id) {
+  if (!id) {
+    console.error("❌ Error: ID inválido para eliminar.");
+    Swal.fire("Error", "No se encontró el ID del test.", "error");
+    return;
+  }
+
   const confirmacion = await Swal.fire({
     title: "¿Estás seguro?",
     text: "Esta acción no se puede deshacer",
@@ -63,13 +78,22 @@ async function eliminarRegistro(id) {
 
   if (confirmacion.isConfirmed) {
     try {
-      const response = await fetchData(`/api/eliminar/${id}`, "DELETE");
-      if (response) {
+      console.log(`🗑️ Enviando solicitud DELETE a /Test/EliminarTest/${id}`);
+      const response = await fetchData(`/Test/EliminarTest/${id}`, "DELETE");
+
+      if (response && response.success) {
+        console.log("✅ Eliminación exitosa.");
         Swal.fire("Eliminado", "El registro ha sido eliminado", "success");
-        $(`#miTabla`).DataTable().ajax.reload();
+
+        // 🔄 Recargar la tabla
+        $(`#${tableId}`).DataTable().ajax.reload();
+      } else {
+        console.error("❌ Error en la API:", response);
+        Swal.fire("Error", response.message || "No se pudo eliminar el test", "error");
       }
     } catch (error) {
-      console.error("Error al eliminar:", error);
+      console.error("❌ Error en la solicitud de eliminación:", error);
+      Swal.fire("Error", "Hubo un problema al eliminar el test. Inténtalo de nuevo.", "error");
     }
   }
 }
