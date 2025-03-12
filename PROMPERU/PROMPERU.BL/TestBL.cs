@@ -416,12 +416,107 @@ namespace PROMPERU.BL
 
         }
 
-        public async Task<bool> EliminarTestAsync(string usuario, string ip, int id)
+        public async Task<bool> EliminarTestAsync(TestModelDto testModel, string usuario, string ip, int id)
         {
             try
             {
-                var resul = ObtenerTestPorIdAsync(id);
-                return await _testDA.EliminarTestAsync(usuario, ip, id) > 0;
+                
+                // Eliminar Portada Principal
+                if (testModel.HasInstructions && testModel.Instructions != null)
+                {
+                    var portada = new PortadaTestBE
+                    {
+                        Ptes_ID = testModel.Instructions.ID ?? 0,
+                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
+                        Ptes_Titulo = testModel.Instructions.Title,
+                        Ptes_Descripcion = testModel.Instructions.Description,
+                        Ptes_NombreBoton = testModel.Instructions.ButtonText,
+                        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
+                        Ptes_MensajeAlert = testModel.Instructions.Alert,
+                        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
+                    };
+
+                    await _portadaTestDA.EliminarPortadaTestAsync( usuario, ip, portada.Ptes_ID);
+                }
+
+                // Validar que haya elementos en la lista antes de iterar
+                if (testModel.Elements != null && testModel.Elements.Count > 0)
+                {
+                    foreach (var e in testModel.Elements)
+                    {
+                        if (e.Type == "question")
+                        {
+                            // Eliminar  Preguntas y Respuestas
+                            var pregunta = new PreguntaBE
+                            {
+                                ID = e.ID ?? 0,
+                                Insc_ID = testModel.TestType?.Value ?? 0,
+                                Preg_NumeroPregunta = e.Order,
+                                Preg_TextoPregunta = e.QuestionText ?? string.Empty,
+                                Preg_EsComputable = e.IsComputable ?? false, // Valor por defecto
+                                Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
+                                Preg_Categoria = e.Category ?? string.Empty,
+                                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
+                            };
+
+                            var preguntaID = await _preguntaDA.EliminarPreguntaAsync(usuario, ip, pregunta.ID);
+
+
+                            // Insertar Respuestas (si existen)
+                            if (e.Answers != null && e.Answers.Count > 0)
+                            {
+                                foreach (var resp in e.Answers)
+                                {
+                                    var respuesta = new RespuestaBE
+                                    {
+                                        ID = resp.ID ?? 0,
+                                        Preg_ID = preguntaID,
+                                        Resp_Orden = resp.Order,
+                                        Resp_Respuesta = resp.Text ?? string.Empty,
+                                        Resp_Valor = resp.Value
+                                    };
+
+                                    await _respuestaDA.EliminarRespuestaAsync(usuario, ip, respuesta.ID);
+                                }
+                            }
+                        }
+
+                        // Insertar contenido si tiene título o descripción
+                        if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
+                        {
+                            var contenido = new ContenidoTestBE
+                            {
+                                Ctes_ID = e.ID ?? 0,
+                                Insc_ID = testModel.TestType?.Value ?? 0,
+                                Ctes_Orden = e.Order,
+                                Ctes_Titulo = e.Title,
+                                Ctes_Descripcion = e.Description
+                            };
+
+                            await _contenidoTestDA.EliminarContenidoTestAsync(usuario, ip, contenido.Ctes_ID);
+                        }
+
+                        // Insertar formulario si existe
+                        if (e.SelectedForm != null)
+                        {
+                            var formulario = new FormularioTestBE
+                            {
+                                Ftes_ID = e.SelectedForm.ID ?? 0,
+                                Insc_ID = testModel.TestType?.Value ?? 0,
+                                Ftes_Orden = e.Order,
+                                Ftes_Texto = e.SelectedForm.Label,
+                                Ftes_Valor = e.SelectedForm.Value
+                            };
+
+                            await _formularioTestDA.EliminarFormularioTestAsync(usuario, ip, formulario.Ftes_ID);
+
+                        }
+                    }
+                }
+
+
+
+                return true;
             }
             catch (Exception ex)
             {

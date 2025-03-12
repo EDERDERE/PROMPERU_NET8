@@ -55,46 +55,46 @@ namespace PROMPERU.DA
             }
         }
 
-        //public async Task<int> EliminarContenidoTestAsync(string usuario, string ip, int id)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();               
+        public async Task<int> EliminarContenidoTestAsync(string usuario, string ip, int id)
+        {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
 
-        //        await using var transaccion = await conexion.BeginTransactionAsync();
-        //        try
-        //        {
-        //            await using var comando = new SqlCommand("USP_ContenidoTest_DEL", conexion,(SqlTransaction)transaccion)
-        //            {
-        //                CommandType = CommandType.StoredProcedure
-        //            };
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    await using var comando = new SqlCommand("USP_ContenidoTest_DEL", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-        //            comando.Parameters.AddWithValue("@Bann_ID", id);
-        //            var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+                    comando.Parameters.AddWithValue("@Ctes_ID", id);
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
-        //            if (filasAfectadas > 0)
-        //            {
-        //                await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "ContenidoTest", ip, id,conexion, (SqlTransaction)transaccion);
-        //                await transaccion.CommitAsync();
-        //            }
-        //            else
-        //            {
-        //                await transaccion.RollbackAsync();
-        //            }
+                    if (filasAfectadas > 0)
+                    {
+                        await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "ContenidoTest", ip, id, conexion, (SqlTransaction)transaccion);
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        await transaccion.RollbackAsync();
+                    }
 
-        //            return filasAfectadas;
-        //        }
-        //        catch
-        //        {
-        //            await transaccion.RollbackAsync();
-        //            throw;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al eliminar el ContenidoTest", ex);
-        //    }
-        //}
+                    return filasAfectadas;
+                }
+                catch
+                {
+                    await transaccion.RollbackAsync();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el ContenidoTest", ex);
+            }
+        }
 
         public async Task<int> ActualizarContenidoTestAsync(ContenidoTestBE Contenido, string usuario, string ip, int id)
         {

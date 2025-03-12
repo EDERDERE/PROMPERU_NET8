@@ -209,14 +209,22 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> EliminarRequisito(int id)
+        public async Task<IActionResult> EliminarTest(int id)
         {
             try
             {
                 var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
                 string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+                var modelTest = await _testBL.ObtenerTestPorIdAsync(id);
+                if (modelTest == null)
+                {
+                    TempData["Error"] = "El test no existe o ya ha sido eliminado.";
+                    return RedirectToAction("ListarTest");
+                }
 
-                await _testBL.EliminarTestAsync(usuario, ip, id); // Llamada asincrónica
+                await _testBL.EliminarTestAsync(modelTest, usuario, ip, id);
+
+                TempData["Success"] = "Test eliminado correctamente.";
                 return RedirectToAction("ListarTest");
             }
             catch (Exception ex)
