@@ -2,15 +2,14 @@ export async function fetchData(url, method = "GET", data = null) {
   try {
     const options = {
       type: method,
-      url,
-      dataType: "json",
+      url      
     };
 
-    if (data) {
-      options.data = data;
-      options.contentType = "application/json; charset=utf-8";
-    }
+      if (data) {
+          options.data = data; 
+      }
 
+      console.log(options)
     const response = await $.ajax(options);
 
     if (!response.success) {

@@ -378,10 +378,11 @@ function loadCrearCurso() {
     }
 
       // Obtener modalidades seleccionadas
-      let modalidadesSeleccionadas = getSelectedModalities();
       let validadcionmodalidadesSeleccionadas = getSelectedModalities();
+
+      console.log(validadcionmodalidadesSeleccionadas,'validadcionmodalidadesSeleccionadas')
       // Validar que al menos una modalidad esté seleccionada
-      if (modalidadesSeleccionadas.length === 0) {
+      if (validadcionmodalidadesSeleccionadas.length === 0) {
           Swal.fire({
               title: "Advertencia",
               text: "Debe seleccionar al menos una modalidad.",
@@ -392,34 +393,40 @@ function loadCrearCurso() {
       }
 
       // Validar las fechas en cada modalidad
-      for (let modalidad of validadcionmodalidadesSeleccionadas.splice(1,3)) {
-          if (!modalidad.fechaInicio || !modalidad.fechaFin) {
-              Swal.fire({
-                  title: "Error en modalidades",
-                  text: "Todas las modalidades seleccionadas deben tener fechas de inicio y fin.",
-                  icon: "error",
-                  confirmButtonText: "Aceptar",
-              });
-              return;
+          for (let modalidad of validadcionmodalidadesSeleccionadas) {
+              if (modalidad.tmod_ID == 2 || modalidad.tmod_ID == 3) {             
+
+                  if (!modalidad.fechaInicio || !modalidad.fechaFin) {
+                      Swal.fire({
+                          title: "Error en modalidades",
+                          text: "Todas las modalidades seleccionadas deben tener fechas de inicio y fin.",
+                          icon: "error",
+                          confirmButtonText: "Aceptar",
+                      });
+                      return;
+                  }
+
+                  if (modalidad.fechaInicio > modalidad.fechaFin) {
+                      Swal.fire({
+                          title: "Error en fechas de modalidad",
+                          text: `La fecha de inicio de la modalidad con ID ${modalidad.tmod_ID} no puede ser posterior a su fecha final.`,
+                          icon: "error",
+                          confirmButtonText: "Aceptar",
+                      });
+                      return;
+                  }
+              }
+         
           }
 
-          if (modalidad.fechaInicio > modalidad.fechaFin) {
-              Swal.fire({
-                  title: "Error en fechas de modalidad",
-                  text: `La fecha de inicio de la modalidad con ID ${modalidad.id} no puede ser posterior a su fecha final.`,
-                  icon: "error",
-                  confirmButtonText: "Aceptar",
-              });
-              return;
-          }
-      }
-
+      
+  
     $.ajax({
       type: "POST",
       url: "/Curso/InsertarCurso", // URL del controlador para crear el curso
         data: {
             cursoDto: cursoData, // Datos del curso
-            modalidadesSeleccionadas: modalidadesSeleccionadas // Datos de las modalidades seleccionadas
+            modalidadesSeleccionadas: validadcionmodalidadesSeleccionadas // Datos de las modalidades seleccionadas
         },
       success: function (response) {
         if (response.success) {
@@ -983,7 +990,7 @@ function getSelectedModalities() {
         let modalidad = {
             tmod_ID: checkbox.value
         };
-
+        console.log('modalidad',modalidad)
         // Verifica si existen los inputs de fecha antes de acceder a su valor
         let fechaInicioInput = document.getElementById(`fechaInicio_${checkbox.value}`);
         let fechaFinInput = document.getElementById(`fechaFin_${checkbox.value}`);

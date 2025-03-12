@@ -68,8 +68,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             return View();
         }
 
-        [HttpPost("Crear")]
-        public async Task<IActionResult> CrearTest([FromBody] TestModelDto testModel)
+        public async Task<IActionResult> CrearTest(TestModelDto testModel)
         {
             try
             {
@@ -92,8 +91,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             }
         }
 
-        [HttpPut("Editar/{id}")]
-        public async Task<IActionResult> ActualizarTest( int id,[FromBody] TestModelDto testModel)
+
+        public async Task<IActionResult> ActualizarTest( int id,TestModelDto testModel)
         {
             try
             {

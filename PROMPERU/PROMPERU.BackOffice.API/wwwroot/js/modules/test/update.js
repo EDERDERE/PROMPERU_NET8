@@ -94,7 +94,7 @@ async function actualizarTest() {
   console.log("📌 Enviando Test Data para actualizar:", testData);
 
   try {
-    const response = await fetchData(`/Test/Editar/${testId}`, "PUT", testData);
+      const response = await fetchData(`/Test/ActualizarTest/${testId}`, "PUT", testData);
     if (response && response.success) {
       alert("✅ Test actualizado exitosamente.");
       window.location.href = "/Test/Listar";

@@ -93,7 +93,7 @@ function renderTituloCaso(caso) {
 
                 </div>
 
-                  <div class="col-md-6 my-3 ">
+                  <div class="col-md-6 my-3 " style="display:none">
                     <div class="d-flex justify-content-between">
                         <label for="urlVideo-${caso.cexi_ID}" class="form-label fw-semibold">URL del icono</label>                       
                     </div>
