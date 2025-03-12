@@ -415,5 +415,18 @@ namespace PROMPERU.BL
             }
 
         }
+
+        public async Task<bool> EliminarTestAsync(string usuario, string ip, int id)
+        {
+            try
+            {
+                var resul = ObtenerTestPorIdAsync(id);
+                return await _testDA.EliminarTestAsync(usuario, ip, id) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al eliminar el Test", ex);
+            }
+        }
     }
 }

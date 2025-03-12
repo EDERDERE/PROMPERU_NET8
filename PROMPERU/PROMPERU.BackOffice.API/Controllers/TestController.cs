@@ -208,5 +208,23 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             }
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> EliminarRequisito(int id)
+        {
+            try
+            {
+                var usuario = HttpContext.Session.GetString("Usuario");// Usuario autenticado
+                string ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+                await _testBL.EliminarTestAsync(usuario, ip, id); // Llamada asincrónica
+                return RedirectToAction("ListarTest");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
+        }
+
     }
 }
