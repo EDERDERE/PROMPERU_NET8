@@ -1,10 +1,11 @@
 import { fetchData } from "../../../shared/js/apiService.js";
 import { setupPortada } from "./portada.js";
-import { setupPreguntas , obtenerPreguntas } from "./pregunta.js";
+import { setupPreguntas , obtenerPreguntas, cargarCursosYFormularios } from "./pregunta.js";
 import { setupTestSelect } from "./testSelect.js";
 
 document.addEventListener("DOMContentLoaded",async function () {
   await setupTestSelect()
+  await cargarCursosYFormularios();
   setupPortada();
   setupPreguntas();
 

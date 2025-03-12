@@ -2,14 +2,14 @@ export async function fetchData(url, method = "GET", data = null) {
   try {
     const options = {
       type: method,
-      url      
+      url,
     };
 
-      if (data) {
-          options.data = data; 
-      }
+    if (data) {
+      options.data = data;
+    }
 
-      console.log(options)
+    console.log(options);
     const response = await $.ajax(options);
 
     if (!response.success) {

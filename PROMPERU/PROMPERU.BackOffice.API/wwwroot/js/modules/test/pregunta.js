@@ -1,5 +1,30 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 
+import { fetchData } from "../../../shared/js/apiService.js";
+
+let coursesList = [];
+let formsList = [];
+
+export async function cargarCursosYFormularios() {
+  try {
+    const response = await fetchData("/Test/ListarMaestros");
+
+    if (!response || !response.success) {
+      console.error("❌ Error al obtener los datos de cursos y formularios.");
+      return;
+    }
+
+    coursesList = response.resuls.courses || [];
+    formsList = response.resuls.forms || [];
+
+    console.log("✅ Cursos y Formularios cargados correctamente.");
+  } catch (error) {
+    console.error("❌ Error al cargar cursos y formularios:", error);
+  }
+}
+
+
+console.log(coursesList, 'courses')
 export function setupPreguntas() {
   const containerId = "preguntaContainer";
   let items = [];
@@ -92,8 +117,12 @@ export function setupPreguntas() {
               <label class="form-label">Seleccionar Curso</label>
               <select class="form-select curso">
                   <option value="" selected disabled>Selecciona un curso</option>
-                  <option value="curso1">Curso 1</option>
-                  <option value="curso2">Curso 2</option>
+                    ${coursesList
+                      .map(
+                        (course) =>
+                          `<option value="${course.value}">${course.label}</option>`
+                      )
+                      .join("")}
               </select>
           </div>
 
@@ -289,7 +318,14 @@ export function obtenerPreguntas() {
 
     let elemento = {
       order: index + 1,
-      type: tipoContenido,
+      type:
+        tipoContenido === "pregunta"
+          ? "question"
+          : tipoContenido === "portada"
+          ? "cover"
+          : tipoContenido === "formulario"
+          ? "form"
+          : null,
     };
 
     if (tipoContenido === "pregunta") {
@@ -298,6 +334,15 @@ export function obtenerPreguntas() {
         card.querySelector(".tipoPregunta")?.value === "computable";
       elemento.category = card.querySelector(".categoriaTexto")?.value || "";
       elemento.answerType = card.querySelector(".tipoRespuesta")?.value || "";
+      const tipoRespuesta = card.querySelector(".tipoRespuesta")?.value;
+      elemento.answerType =
+        tipoRespuesta === "unica"
+          ? "singleChoice"
+          : tipoRespuesta === "multiple"
+          ? "multipleChoice"
+          : tipoRespuesta === "texto"
+          ? "text"
+          : null;
 
       // **Obtener respuestas**
       const respuestas = [];
@@ -339,7 +384,6 @@ export function obtenerPreguntas() {
   return preguntas;
 }
 
-
 export function llenarPreguntas(elements) {
   if (!elements || elements.length === 0) return;
 
@@ -366,9 +410,15 @@ function agregarPregunta(data = {}, order = null) {
         <div class="mb-3">
             <label class="form-label">Selecciona el tipo de contenido</label>
             <select class="form-select tipoContenido">
-                <option value="pregunta" ${tipo === "question" ? "selected" : ""}>Pregunta</option>
-                <option value="formulario" ${tipo === "form" ? "selected" : ""}>Formulario</option>
-                <option value="portada" ${tipo === "cover" ? "selected" : ""}>Portada</option>
+                <option value="pregunta" ${
+                  tipo === "question" ? "selected" : ""
+                }>Pregunta</option>
+                <option value="formulario" ${
+                  tipo === "form" ? "selected" : ""
+                }>Formulario</option>
+                <option value="portada" ${
+                  tipo === "cover" ? "selected" : ""
+                }>Portada</option>
             </select>
         </div>
 
@@ -386,7 +436,10 @@ function agregarPregunta(data = {}, order = null) {
       if (preguntaInput) preguntaInput.value = data.questionText || "";
 
       const tipoPreguntaSelect = preguntaCard.querySelector(".tipoPregunta");
-      if (tipoPreguntaSelect) tipoPreguntaSelect.value = data.isComputable ? "computable" : "no_computable";
+      if (tipoPreguntaSelect)
+        tipoPreguntaSelect.value = data.isComputable
+          ? "computable"
+          : "no_computable";
     }
   }
 }
