@@ -257,4 +257,136 @@ export function setupPreguntas() {
         document.getElementById(respuestaId).remove();
       }
     });
+
+  // **Eliminar elementos dinámicamente**
+  document
+    .getElementById("preguntaLista")
+    .addEventListener("click", function (event) {
+      if (event.target.classList.contains("removeItem")) {
+        const itemId = event.target.getAttribute("data-id");
+        const itemElement = document.getElementById(itemId);
+
+        if (itemElement) {
+          itemElement.remove();
+
+          items = items.filter((item) => item !== itemId);
+        }
+      }
+    });
+}
+
+export function obtenerPreguntas() {
+  const preguntas = [];
+  const elementos = document.querySelectorAll("#preguntaLista .card");
+
+  elementos.forEach((card, index) => {
+    const tipoContenido = card.querySelector(".tipoContenido")?.value;
+
+    if (!tipoContenido) {
+      console.warn(`⚠️ Elemento ${index + 1} no tiene tipo de contenido.`);
+      return;
+    }
+
+    let elemento = {
+      order: index + 1,
+      type: tipoContenido,
+    };
+
+    if (tipoContenido === "pregunta") {
+      elemento.questionText = card.querySelector(".preguntaInput")?.value || "";
+      elemento.isComputable =
+        card.querySelector(".tipoPregunta")?.value === "computable";
+      elemento.category = card.querySelector(".categoriaTexto")?.value || "";
+      elemento.answerType = card.querySelector(".tipoRespuesta")?.value || "";
+
+      // **Obtener respuestas**
+      const respuestas = [];
+      card
+        .querySelectorAll(".listaRespuestas > div")
+        ?.forEach((respDiv, idx) => {
+          const text = respDiv.querySelector(".respuesta-texto")?.value || "";
+          const value =
+            parseFloat(respDiv.querySelector(".respuesta-valor")?.value) || 0;
+
+          if (text.trim() !== "") {
+            respuestas.push({ order: idx + 1, text, value });
+          }
+        });
+
+      elemento.answers = respuestas.length > 0 ? respuestas : null;
+    }
+
+    if (tipoContenido === "portada") {
+      elemento.title = card.querySelector("#tituloPortada")?.value || "";
+      const quillDescripcion = card.querySelector(".ql-editor");
+      elemento.description = quillDescripcion?.innerHTML || "";
+    }
+
+    if (tipoContenido === "formulario") {
+      const selectForm = card.querySelector("#selectFormulario");
+      if (selectForm) {
+        elemento.selectedForm = {
+          value: selectForm.value,
+          label: selectForm.options[selectForm.selectedIndex]?.text || "",
+        };
+      }
+    }
+
+    preguntas.push(elemento);
+  });
+
+  console.log("✅ Preguntas extraídas:", preguntas);
+  return preguntas;
+}
+
+
+export function llenarPreguntas(elements) {
+  if (!elements || elements.length === 0) return;
+
+  elements.forEach((element, index) => {
+    agregarPregunta(element, index + 1);
+  });
+}
+
+function agregarPregunta(data = {}, order = null) {
+  const preguntaLista = document.getElementById("preguntaLista");
+  if (!preguntaLista) return;
+
+  const itemId = `pregunta-${Date.now()}`;
+  const tipo = data.type || "pregunta";
+
+  const preguntaHTML = `
+    <div class="card p-3 mb-4 shadow-sm" id="${itemId}">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
+            <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
+        </div>
+        <hr>
+
+        <div class="mb-3">
+            <label class="form-label">Selecciona el tipo de contenido</label>
+            <select class="form-select tipoContenido">
+                <option value="pregunta" ${tipo === "question" ? "selected" : ""}>Pregunta</option>
+                <option value="formulario" ${tipo === "form" ? "selected" : ""}>Formulario</option>
+                <option value="portada" ${tipo === "cover" ? "selected" : ""}>Portada</option>
+            </select>
+        </div>
+
+        <div class="contenidoDinamico"></div>
+    </div>
+  `;
+
+  preguntaLista.insertAdjacentHTML("beforeend", preguntaHTML);
+
+  // Llenar los datos de la pregunta si existen
+  if (data.type === "question") {
+    const preguntaCard = document.getElementById(itemId);
+    if (preguntaCard) {
+      const preguntaInput = preguntaCard.querySelector(".preguntaInput");
+      if (preguntaInput) preguntaInput.value = data.questionText || "";
+
+      const tipoPreguntaSelect = preguntaCard.querySelector(".tipoPregunta");
+      if (tipoPreguntaSelect) tipoPreguntaSelect.value = data.isComputable ? "computable" : "no_computable";
+    }
+  }
 }
