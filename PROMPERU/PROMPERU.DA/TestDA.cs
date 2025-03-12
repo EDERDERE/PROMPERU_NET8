@@ -39,7 +39,7 @@ namespace PROMPERU.DA
         //            Direction = ParameterDirection.Output
         //        };
         //        comando.Parameters.Add(outNuevoID);
-                
+
         //        await comando.ExecuteNonQueryAsync();
 
         //        int nuevoID = (int)outNuevoID.Value;
@@ -56,48 +56,48 @@ namespace PROMPERU.DA
         //        throw new Exception("Error al insertar el Test", ex);
         //    }
         //}
-         
 
-        //public async Task<int> EliminarTestAsync(string usuario, string ip, int id)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();               
 
-        //        await using var transaccion = await conexion.BeginTransactionAsync();
-        //        try
-        //        {
-        //            await using var comando = new SqlCommand("USP_Test_DEL", conexion,(SqlTransaction)transaccion)
-        //            {
-        //                CommandType = CommandType.StoredProcedure
-        //            };
+        public async Task<int> EliminarTestAsync(string usuario, string ip, int id)
+        {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
 
-        //            comando.Parameters.AddWithValue("@Bann_ID", id);
-        //            int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    await using var comando = new SqlCommand("USP_Test_DEL", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-        //            if (filasAfectadas > 0)
-        //            {
-        //                await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "Test", ip, id,conexion, (SqlTransaction)transaccion);
-        //                await transaccion.CommitAsync();
-        //            }
-        //            else
-        //            {
-        //                await transaccion.RollbackAsync();
-        //            }
+                    comando.Parameters.AddWithValue("@Tes_ID", id);
+                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
 
-        //            return filasAfectadas;
-        //        }
-        //        catch
-        //        {
-        //            await transaccion.RollbackAsync();
-        //            throw;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al eliminar el Test", ex);
-        //    }
-        //}
+                    if (filasAfectadas > 0)
+                    {
+                        await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "Test", ip, id, conexion, (SqlTransaction)transaccion);
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        await transaccion.RollbackAsync();
+                    }
+
+                    return filasAfectadas;
+                }
+                catch
+                {
+                    await transaccion.RollbackAsync();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el Test", ex);
+            }
+        }
 
         //public async Task<int> ActualizarTestAsync(TestBE Test, string usuario, string ip, int id)
         //{

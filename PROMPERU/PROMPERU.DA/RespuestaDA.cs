@@ -54,48 +54,48 @@ namespace PROMPERU.DA
                 throw new Exception("Error al insertar el Respuesta", ex);
             }
         }
-         
 
-        //public async Task<int> EliminarRespuestaAsync(string usuario, string ip, int id)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();               
 
-        //        await using var transaccion = await conexion.BeginTransactionAsync();
-        //        try
-        //        {
-        //            await using var comando = new SqlCommand("USP_Respuesta_DEL", conexion,(SqlTransaction)transaccion)
-        //            {
-        //                CommandType = CommandType.StoredProcedure
-        //            };
+        public async Task<int> EliminarRespuestaAsync(string usuario, string ip, int id)
+        {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
 
-        //            comando.Parameters.AddWithValue("@Bann_ID", id);
-        //            int filasAfectadas = await comando.ExecuteNonQueryAsync();
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    await using var comando = new SqlCommand("USP_Respuesta_DEL", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-        //            if (filasAfectadas > 0)
-        //            {
-        //                await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "Respuesta", ip, id,conexion, (SqlTransaction)transaccion);
-        //                await transaccion.CommitAsync();
-        //            }
-        //            else
-        //            {
-        //                await transaccion.RollbackAsync();
-        //            }
+                    comando.Parameters.AddWithValue("@Resp_ID", id);
+                    int filasAfectadas = await comando.ExecuteNonQueryAsync();
 
-        //            return filasAfectadas;
-        //        }
-        //        catch
-        //        {
-        //            await transaccion.RollbackAsync();
-        //            throw;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al eliminar el Respuesta", ex);
-        //    }
-        //}
+                    if (filasAfectadas > 0)
+                    {
+                        await _auditoriaDA.RegistrarAuditoriaConTransaccionAsync(usuario, "D", "Respuesta", ip, id, conexion, (SqlTransaction)transaccion);
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        await transaccion.RollbackAsync();
+                    }
+
+                    return filasAfectadas;
+                }
+                catch
+                {
+                    await transaccion.RollbackAsync();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el Respuesta", ex);
+            }
+        }
 
         public async Task<int> ActualizarRespuestaAsync(RespuestaBE respuesta, string usuario, string ip, int id)
         {
