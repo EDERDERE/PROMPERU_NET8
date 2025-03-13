@@ -83,7 +83,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         
                 await _testBL.crearTestAsync(testModel, usuario, ip); // Llamada asincr�nica           
 
-                return RedirectToAction("ListarTest");
+                return Ok(new { success = true, message = "Test creado correctamente." });
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
                 await _testBL.ActualizarTestAsync(testModel, usuario, ip,id); // Llamada asincr�nica           
 
-                return RedirectToAction("ListarTest");
+                return Ok(new { success = true, message = "Test actualizado correctamente." });
             }
             catch (Exception ex)
             {
