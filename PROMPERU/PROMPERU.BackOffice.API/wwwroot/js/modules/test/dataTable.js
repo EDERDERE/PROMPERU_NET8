@@ -1,13 +1,12 @@
 import { fetchData } from "../../../shared/js/apiService.js";
 
-
-
 export async function initDataTable(tableId, apiUrl) {
   try {
-    const response = await fetchData(apiUrl);
+    const response = await fetchData(apiUrl, 'GET');
 
     if (!response || !response.success) {
       console.error("Error al obtener los datos.");
+      emptyData(tableId);
       return;
     }
 
@@ -38,7 +37,16 @@ export async function initDataTable(tableId, apiUrl) {
     });
   } catch (error) {
     console.error("Error al inicializar la tabla:", error);
+    emptyData(tableId);
   }
+}
+
+function emptyData(tableId) {
+  $(`#${tableId}`).html(`
+    <div class="alert alert-warning text-center">
+      📢 No hay tests disponibles para mostrar.
+    </div>
+  `);
 }
 
 $(document).on("click", ".editar-btn", function () {
@@ -85,15 +93,39 @@ async function eliminarRegistro(id) {
         console.log("✅ Eliminación exitosa.");
         Swal.fire("Eliminado", "El registro ha sido eliminado", "success");
 
-        // 🔄 Recargar la tabla
-        $(`#${tableId}`).DataTable().ajax.reload();
+        window.location.href = "/Test";
       } else {
         console.error("❌ Error en la API:", response);
-        Swal.fire("Error", response.message || "No se pudo eliminar el test", "error");
+        Swal.fire("Error", response?.message || "No se pudo eliminar el test", "error");
       }
     } catch (error) {
       console.error("❌ Error en la solicitud de eliminación:", error);
       Swal.fire("Error", "Hubo un problema al eliminar el test. Inténtalo de nuevo.", "error");
     }
+  }
+}
+
+
+function handleResponse(
+  response,
+  successMessage = "Operación realizada con éxito"
+) {
+  if (response && response.success) {
+    Swal.fire({
+      title: "¡Éxito!",
+      text: successMessage,
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      location.reload(); // 🔄 Recargar la página o actualizar la tabla
+    });
+  } else {
+    const errorMessage = response?.message || "Ocurrió un error inesperado";
+    Swal.fire({
+      title: "Error",
+      text: errorMessage,
+      icon: "error",
+      confirmButtonText: "Aceptar",
+    });
   }
 }

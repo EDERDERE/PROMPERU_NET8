@@ -23,8 +23,7 @@ export async function cargarCursosYFormularios() {
   }
 }
 
-
-console.log(coursesList, 'courses')
+console.log(coursesList, "courses");
 export function setupPreguntas() {
   const containerId = "preguntaContainer";
   let items = [];
@@ -330,10 +329,22 @@ export function obtenerPreguntas() {
 
     if (tipoContenido === "pregunta") {
       elemento.questionText = card.querySelector(".preguntaInput")?.value || "";
-      elemento.isComputable =
+      const isComputable =
         card.querySelector(".tipoPregunta")?.value === "computable";
-      elemento.category = card.querySelector(".categoriaTexto")?.value || "";
-      elemento.answerType = card.querySelector(".tipoRespuesta")?.value || "";
+      elemento.isComputable = isComputable;
+      if (isComputable) {
+        const selectCurso = card.querySelector(".curso");
+        if (selectCurso) {
+          const selectedOption = selectCurso.options[selectCurso.selectedIndex];
+          elemento.course = {
+            value: Number(selectCurso.value),
+            label: selectedOption ? selectedOption.textContent : "",
+          };
+        }
+      } else {
+        elemento.category = card.querySelector(".categoriaTexto")?.value || "";
+      }
+
       const tipoRespuesta = card.querySelector(".tipoRespuesta")?.value;
       elemento.answerType =
         tipoRespuesta === "unica"

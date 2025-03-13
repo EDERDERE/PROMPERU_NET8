@@ -51,7 +51,7 @@ async function guardarTest() {
       const response = await fetchData("/Test/CrearTest", "POST", testData);
     if (response && response.success) {
       alert("✅ Test creado exitosamente.");
-      window.location.href = "/Test/Listar";
+      window.location.href = "/Test";
     } else {
       alert("❌ Ocurrió un error al guardar el Test.");
     }
