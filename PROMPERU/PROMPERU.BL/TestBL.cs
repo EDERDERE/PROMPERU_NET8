@@ -232,9 +232,17 @@ namespace PROMPERU.BL
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
                             };
 
-                             await _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip,pregunta.ID);
+                            if (pregunta.ID > 0 )
+                            {
+                                await _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip, pregunta.ID);
 
-                   
+                            }
+                            else if (pregunta.ID < 1  || pregunta.Insc_ID > 0)
+                            {
+                                await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
+                            }
+
+
                             // Insertar Respuestas (si existen)
                             if (e.Answers != null && e.Answers.Count > 0)
                             {
@@ -249,7 +257,16 @@ namespace PROMPERU.BL
                                         Resp_Valor = resp.Value
                                     };
 
-                                    await _respuestaDA.ActualizarRespuestaAsync(respuesta, usuario, ip,respuesta.ID);
+                                    if (respuesta.ID > 0)
+                                    {
+                                        await _respuestaDA.ActualizarRespuestaAsync(respuesta, usuario, ip, respuesta.ID);
+
+                                    }
+                                    else if (respuesta.ID < 1 || (pregunta.Insc_ID > 0 && respuesta.Preg_ID > 0) )
+                                    {
+                                        await _respuestaDA.InsertarRespuestaAsync(respuesta, usuario, ip);
+
+                                    }
                                 }
                             }
                         }
@@ -265,8 +282,16 @@ namespace PROMPERU.BL
                                 Ctes_Titulo = e.Title,
                                 Ctes_Descripcion = e.Description
                             };
+                            if (contenido.Ctes_ID > 0)
+                            {
+                                await _contenidoTestDA.ActualizarContenidoTestAsync(contenido, usuario, ip, contenido.Ctes_ID);
 
-                            await _contenidoTestDA.ActualizarContenidoTestAsync(contenido, usuario, ip,contenido.Ctes_ID);
+                            }
+                            else if (contenido.Ctes_ID < 1 || contenido.Insc_ID > 0)
+                            {
+                                await _contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip);
+
+                            }
                         }
 
                         // Insertar formulario si existe
@@ -280,8 +305,17 @@ namespace PROMPERU.BL
                                 Ftes_Texto = e.SelectedForm.Label,
                                 Ftes_Valor = e.SelectedForm.Value
                             };
+                            if (formulario.Ftes_ID > 0)
+                            {
+                                await _formularioTestDA.ActualizarFormularioTestAsync(formulario, usuario, ip, formulario.Ftes_ID);
 
-                            await _formularioTestDA.ActualizarFormularioTestAsync(formulario, usuario, ip,formulario.Ftes_ID);
+                            }
+                            else if (formulario.Ftes_ID < 1 || formulario.Insc_ID > 0)
+                            {
+                                await _formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip);
+
+
+                            }
 
                         }
                     }
