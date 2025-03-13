@@ -4,6 +4,7 @@
 # Ignorar las carpetas bin y obj
 bin/
 obj/
+Logs/*.log
 
 # Ignorar otras configuraciones de Visual Studio
 *.user
