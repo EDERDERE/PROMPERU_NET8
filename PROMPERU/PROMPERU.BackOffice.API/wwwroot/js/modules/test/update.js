@@ -69,6 +69,7 @@ async function actualizarTest() {
   const iconoAlerta = document.getElementById("iconoAlerta");
   const textoBoton = document.getElementById("textoBoton");
   const iconoBoton = document.getElementById("iconoBoton");
+  const instructionsId = document.getElementById("instructionsId")?.value;
 
   // if (!testTypeSelect.value) {
   //   alert("⚠️ Debes seleccionar un tipo de Test.");
@@ -80,7 +81,8 @@ async function actualizarTest() {
     hasInstructions: selectPortada?.value === "si",
     instructions:
       selectPortada?.value === "si"
-        ? {
+        ? { 
+            id: instructionsId ? Number(instructionsId) : null,
             title: tituloPortada?.value || "",
             description: quillDescripcion?.innerHTML || "",
             alert: quillAlerta?.innerHTML || "",

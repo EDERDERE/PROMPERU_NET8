@@ -111,8 +111,10 @@ export function agregarPregunta(data = {}, order = null) {
   const containerId = `contenido-${itemId}`;
   const tipo = data.type || "question";
 
+  const elementIdAttr = data.id ? data.id : "";
+
   const preguntaHTML = `
-    <div class="card p-3 mb-4 shadow-sm" id="${itemId}">
+    <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
             <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
@@ -222,7 +224,7 @@ export function setupPreguntas() {
     items.push(itemId);
 
     const itemHTML = `
-      <div class="card p-3 mb-4 shadow-sm" id="${itemId}">
+      <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="">
           <div class="d-flex justify-content-between align-items-center">
               <h5 class="mb-0">Elemento ${items.length}</h5>
               <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
@@ -416,6 +418,9 @@ export function obtenerPreguntas() {
           ? "form"
           : null,
     };
+
+    const idValue = card.getAttribute("data-elementid");
+    elemento.id = idValue ? Number(idValue) : null;
 
     if (tipoContenido === "pregunta") {
       elemento.questionText = card.querySelector(".preguntaInput")?.value || "";

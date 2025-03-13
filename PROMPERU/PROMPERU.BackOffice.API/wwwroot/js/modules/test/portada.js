@@ -72,6 +72,8 @@ export function renderPortada() {
                           <label for="iconoBoton" class="form-label">Ícono del Botón</label>
                           <input type="text" id="iconoBoton" class="form-control">
                       </div>
+
+                        <input type="hidden" id="instructionsId">
                   </div>
               </div>
           </div>
@@ -100,6 +102,7 @@ export function llenarPortada(instructions) {
     document.getElementById("iconoAlerta").value = instructions.alertIcon || "";
     document.getElementById("textoBoton").value = instructions.buttonText || "";
     document.getElementById("iconoBoton").value = instructions.buttonIcon || "";
+    document.getElementById("instructionsId").value = instructions.id || "";
 
     const quillDescripcion = document.querySelector(
       "#descripcionPortada .ql-editor"
