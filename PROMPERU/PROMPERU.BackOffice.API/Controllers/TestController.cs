@@ -20,7 +20,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
         public IActionResult Index()
         {            
-          return View(); // Asegúrate de tener una vista asociada         
+          return View(); // Asegï¿½rate de tener una vista asociada         
         }
         [HttpGet]
         public async Task<IActionResult> ListarTest()
@@ -33,8 +33,9 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 {
                     return Json(new
                     {
-                        success = false,
-                        message = "No se encontraron test disponibles."
+                         success = true,
+                         message = "No se encontraron test disponibles.",
+                         tests = new List<object>()
                     });
                 }
 
@@ -51,8 +52,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los test. Por favor, inténtelo nuevamente.",
-                    error = ex.Message // Esto es útil para depuración, puedes eliminarlo en producción.
+                    message = "Ocurrio un error al intentar obtener los test. Por favor, intï¿½ntelo nuevamente.",
+                    error = ex.Message // Esto es ï¿½til para depuraciï¿½n, puedes eliminarlo en producciï¿½n.
                 });
             }
         }
@@ -80,7 +81,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return BadRequest("El modelo no puede ser nulo.");        
 
         
-                await _testBL.crearTestAsync(testModel, usuario, ip); // Llamada asincrónica           
+                await _testBL.crearTestAsync(testModel, usuario, ip); // Llamada asincrï¿½nica           
 
                 return RedirectToAction("ListarTest");
             }
@@ -103,7 +104,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 if (testModel == null)
                     return BadRequest("El modelo no puede ser nulo.");
 
-                await _testBL.ActualizarTestAsync(testModel, usuario, ip,id); // Llamada asincrónica           
+                await _testBL.ActualizarTestAsync(testModel, usuario, ip,id); // Llamada asincrï¿½nica           
 
                 return RedirectToAction("ListarTest");
             }
@@ -167,8 +168,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los maestros. Por favor, inténtelo nuevamente.",
-                    error = ex.Message // Esto es útil para depuración, puedes eliminarlo en producción.
+                    message = "Ocurriï¿½ un error al intentar obtener los maestros. Por favor, intï¿½ntelo nuevamente.",
+                    error = ex.Message // Esto es ï¿½til para depuraciï¿½n, puedes eliminarlo en producciï¿½n.
                 });
             }
         }
@@ -178,7 +179,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {
             try
             {
-                var test = await _testBL.ObtenerTestPorIdAsync(id); // Cambio a versión asincrónica
+                var test = await _testBL.ObtenerTestPorIdAsync(id); // Cambio a versiï¿½n asincrï¿½nica
                 if (test != null)
                 {
                     return Json(new
@@ -202,7 +203,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un error al intentar obtener los test. Por favor, inténtelo nuevamente."
+                    message = "Ocurriï¿½ un error al intentar obtener los test. Por favor, intï¿½ntelo nuevamente."
 
                 });
             }
@@ -225,7 +226,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 await _testBL.EliminarTestAsync(modelTest, usuario, ip, id);
 
                 TempData["Success"] = "Test eliminado correctamente.";
-                return RedirectToAction("ListarTest");
+                return Ok(new { success = true, message = "Test eliminado correctamente." });
             }
             catch (Exception ex)
             {

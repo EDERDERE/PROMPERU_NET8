@@ -9,7 +9,8 @@ export async function fetchData(url, method = "GET", data = null) {
       options.data = data;
     }
 
-    console.log(options);
+    console.log("Llamando a fetchData con método:", method, "y URL:", url);
+
     const response = await $.ajax(options);
 
     if (!response.success) {
