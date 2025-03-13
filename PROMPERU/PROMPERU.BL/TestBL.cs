@@ -60,13 +60,19 @@ namespace PROMPERU.BL
                 var cursos = await _cursoDA.ListarCursosAsync();
                 var formularios = await _formularioTestDA.ListarFormularioTestsAsync();
                 var inscripcions = await _inscripcionDA.ListarInscripcionsAsync();
-                var etapas = inscripcions.Where(x => x.Insc_Orden > 0).Select(e => new EtapaBE
-                {
-                    ID = e.Insc_ID,
-                    Paso = e.Insc_Paso,
-                    Titulo = e.Insc_TituloPaso,
-                    UrlIcono = e.Insc_URLImagen
-                }).ToList();
+                // solo se debe mostrar Test disponibles
+                var ListadoTest = await _testDA.ListarTestsAsync();
+                var etapas = inscripcions
+                   .Where(x => x.Insc_Orden > 0)
+                   .Select(e => new EtapaBE
+                   {
+                       ID = e.Insc_ID,
+                       Paso = e.Insc_Paso,
+                       Titulo = e.Insc_TituloPaso,
+                       UrlIcono = e.Insc_URLImagen
+                   })
+                   .Where(y => !ListadoTest.Any(t => t.ID == y.ID)) // Excluye elementos que ya están en listadoTest
+                   .ToList();
 
                 var test = new MaestrosBE()
                 {
