@@ -3,7 +3,168 @@ import { renderTemplate } from "../../../shared/js/renderTemplate.js";
 import { fetchData } from "../../../shared/js/apiService.js";
 
 let coursesList = [];
-let formsList = [];
+
+export function renderPregunta(containerId) {
+  renderTemplate(
+    containerId,
+    () => `
+        <div class="mb-3">
+            <label class="form-label">Pregunta</label>
+            <input type="text" class="form-control preguntaInput" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de Pregunta</label>
+            <select class="form-select tipoPregunta">
+                <option value="" selected disabled>Selecciona</option>
+                <option value="computable">Computable</option>
+                <option value="no_computable">No Computable</option>
+            </select>
+        </div>
+
+        <div class="mb-3 d-none computableSection">
+            <label class="form-label">Seleccionar Curso</label>
+            <select class="form-select curso">
+                <option value="" selected disabled>Selecciona un curso</option>
+                  ${coursesList
+                    .map(
+                      (course) =>
+                        `<option value="${course.value}">${course.label}</option>`
+                    )
+                    .join("")}
+            </select>
+        </div>
+
+        <div class="mb-3 d-none noComputableSection">
+            <label class="form-label">Categoría</label>
+            <input type="text" class="form-control categoriaTexto">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de Respuesta</label>
+            <select class="form-select tipoRespuesta">
+                <option value="" selected disabled>Selecciona</option>
+                <option value="multiple">Múltiple Selección</option>
+                <option value="unica">Única Respuesta</option>
+                <option value="texto">Texto</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <h6 class="title-respuesta">Respuestas</h6>
+            <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
+            <div class="listaRespuestas mt-2"></div>
+        </div>
+    `
+  );
+}
+
+export function renderFormulario(containerId) {
+  renderTemplate(
+    containerId,
+    () => `
+      <div class="mb-3">
+          <label for="selectFormulario" class="form-label">Selecciona un formulario</label>
+          <select id="selectFormulario" class="form-select">
+              <option value="" selected disabled>Selecciona un formulario</option>
+              <option value="formulario1">Formulario 1</option>
+              <option value="formulario2">Formulario 2</option>
+          </select>
+      </div>
+    `
+  );
+}
+
+export function renderPortada(containerId) {
+  renderTemplate(
+    containerId,
+    () => `
+      <div class="card p-4 shadow-sm">
+          <div class="mb-3">
+              <label for="tituloPortada" class="form-label">Título de Portada</label>
+              <input type="text" id="tituloPortada" class="form-control">
+          </div>
+
+          <div class="mb-3">
+              <label for="descripcionPortada" class="form-label">Descripción</label>
+              <div id="descripcionPortada-${containerId}" class="form-control" style="height: 150px;"></div>
+          </div>
+      </div>
+    `
+  );
+
+  setTimeout(() => {
+    const quillContainer = document.getElementById(
+      `descripcionPortada-${containerId}`
+    );
+    if (quillContainer) {
+      new Quill(`#descripcionPortada-${containerId}`, { theme: "snow" });
+    }
+  }, 100);
+}
+
+export function agregarPregunta(data = {}, order = null) {
+  const preguntaLista = document.getElementById("preguntaLista");
+  if (!preguntaLista) return;
+
+  const itemId = `pregunta-${Date.now()}`;
+  const containerId = `contenido-${itemId}`;
+  const tipo = data.type || "question";
+
+  const preguntaHTML = `
+    <div class="card p-3 mb-4 shadow-sm" id="${itemId}">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
+            <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
+        </div>
+        <hr>
+
+        <div class="mb-3">
+            <label class="form-label">Selecciona el tipo de contenido</label>
+            <select class="form-select tipoContenido">
+                <option value="pregunta" ${
+                  tipo === "question" ? "selected" : ""
+                }>Pregunta</option>
+                <option value="formulario" ${
+                  tipo === "form" ? "selected" : ""
+                }>Formulario</option>
+                <option value="portada" ${
+                  tipo === "cover" ? "selected" : ""
+                }>Portada</option>
+            </select>
+        </div>
+
+        <div class="contenidoDinamico" id="${containerId}"></div>
+    </div>
+  `;
+
+  preguntaLista.insertAdjacentHTML("beforeend", preguntaHTML);
+
+  if (tipo === "question") {
+    renderPregunta(`contenido-${itemId}`);
+    fillPreguntaData(itemId, data);
+  } else if (tipo === "form") {
+    renderFormulario(`contenido-${itemId}`);
+    fillFormularioData(itemId, data);
+  } else if (tipo === "cover") {
+    renderPortada(`contenido-${itemId}`);
+    fillPortadaData(itemId, data);
+  }
+
+  if (data.type === "question") {
+    const preguntaCard = document.getElementById(itemId);
+    if (preguntaCard) {
+      const preguntaInput = preguntaCard.querySelector(".preguntaInput");
+      if (preguntaInput) preguntaInput.value = data.questionText || "";
+
+      const tipoPreguntaSelect = preguntaCard.querySelector(".tipoPregunta");
+      if (tipoPreguntaSelect)
+        tipoPreguntaSelect.value = data.isComputable
+          ? "computable"
+          : "no_computable";
+    }
+  }
+}
 
 export async function cargarCursosYFormularios() {
   try {
@@ -15,7 +176,6 @@ export async function cargarCursosYFormularios() {
     }
 
     coursesList = response.resuls.courses || [];
-    formsList = response.resuls.forms || [];
 
     console.log("✅ Cursos y Formularios cargados correctamente.");
   } catch (error) {
@@ -23,7 +183,36 @@ export async function cargarCursosYFormularios() {
   }
 }
 
-console.log(coursesList, "courses");
+export function addRespuesta(listaRespuestas, tipoRespuesta, answer) {
+  if (!listaRespuestas) return;
+
+  const respuestaId = `respuesta-${Date.now()}-${Math.floor(
+    Math.random() * 1000
+  )}`;
+
+  let respuestaHTML = `
+    <div class="d-flex gap-2 mb-2" id="${respuestaId}">
+      <input type="text" class="form-control respuesta-texto" placeholder="Texto de la respuesta" value="${
+        answer.text || ""
+      }">
+  `;
+
+  if (tipoRespuesta !== "texto") {
+    respuestaHTML += `
+      <input type="number" class="form-control respuesta-valor" placeholder="Valor (solo si es computable)" step="0.1" value="${
+        answer.value ?? 0
+      }">
+    `;
+  }
+
+  respuestaHTML += `
+      <button type="button" class="btn btn-danger btn-sm removeRespuesta" data-id="${respuestaId}">X</button>
+    </div>
+  `;
+
+  listaRespuestas.insertAdjacentHTML("beforeend", respuestaHTML);
+}
+
 export function setupPreguntas() {
   const containerId = "preguntaContainer";
   let items = [];
@@ -93,105 +282,6 @@ export function setupPreguntas() {
         }
       }
     });
-
-  function renderPregunta(containerId) {
-    renderTemplate(
-      containerId,
-      () => `
-          <div class="mb-3">
-              <label class="form-label">Pregunta</label>
-              <input type="text" class="form-control preguntaInput" required>
-          </div>
-
-          <div class="mb-3">
-              <label class="form-label">Tipo de Pregunta</label>
-              <select class="form-select tipoPregunta">
-                  <option value="" selected disabled>Selecciona</option>
-                  <option value="computable">Computable</option>
-                  <option value="no_computable">No Computable</option>
-              </select>
-          </div>
-
-          <div class="mb-3 d-none computableSection">
-              <label class="form-label">Seleccionar Curso</label>
-              <select class="form-select curso">
-                  <option value="" selected disabled>Selecciona un curso</option>
-                    ${coursesList
-                      .map(
-                        (course) =>
-                          `<option value="${course.value}">${course.label}</option>`
-                      )
-                      .join("")}
-              </select>
-          </div>
-
-          <div class="mb-3 d-none noComputableSection">
-              <label class="form-label">Categoría</label>
-              <input type="text" class="form-control categoriaTexto">
-          </div>
-
-          <div class="mb-3">
-              <label class="form-label">Tipo de Respuesta</label>
-              <select class="form-select tipoRespuesta">
-                  <option value="" selected disabled>Selecciona</option>
-                  <option value="multiple">Múltiple Selección</option>
-                  <option value="unica">Única Respuesta</option>
-                  <option value="texto">Texto</option>
-              </select>
-          </div>
-
-          <div class="mb-3">
-              <h6 class="title-respuesta">Respuestas</h6>
-              <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
-              <div class="listaRespuestas mt-2"></div>
-          </div>
-      `
-    );
-  }
-
-  function renderFormulario(containerId) {
-    renderTemplate(
-      containerId,
-      () => `
-        <div class="mb-3">
-            <label for="selectFormulario" class="form-label">Selecciona un formulario</label>
-            <select id="selectFormulario" class="form-select">
-                <option value="" selected disabled>Selecciona un formulario</option>
-                <option value="formulario1">Formulario 1</option>
-                <option value="formulario2">Formulario 2</option>
-            </select>
-        </div>
-      `
-    );
-  }
-
-  function renderPortada(containerId) {
-    renderTemplate(
-      containerId,
-      () => `
-        <div class="card p-4 shadow-sm">
-            <div class="mb-3">
-                <label for="tituloPortada" class="form-label">Título de Portada</label>
-                <input type="text" id="tituloPortada" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label for="descripcionPortada" class="form-label">Descripción</label>
-                <div id="descripcionPortada-${containerId}" class="form-control" style="height: 150px;"></div>
-            </div>
-        </div>
-      `
-    );
-
-    setTimeout(() => {
-      const quillContainer = document.getElementById(
-        `descripcionPortada-${containerId}`
-      );
-      if (quillContainer) {
-        new Quill(`#descripcionPortada-${containerId}`, { theme: "snow" });
-      }
-    }, 100);
-  }
 
   // **Lógica para Computable y No Computable + Manejo de Tipo de Respuesta**
   document
@@ -403,54 +493,68 @@ export function llenarPreguntas(elements) {
   });
 }
 
-function agregarPregunta(data = {}, order = null) {
-  const preguntaLista = document.getElementById("preguntaLista");
-  if (!preguntaLista) return;
+function fillPreguntaData(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-  const itemId = `pregunta-${Date.now()}`;
-  const tipo = data.type || "pregunta";
+  const preguntaInput = container.querySelector(".preguntaInput");
+  if (preguntaInput) {
+    preguntaInput.value = data.questionText || "";
+  }
 
-  const preguntaHTML = `
-    <div class="card p-3 mb-4 shadow-sm" id="${itemId}">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
-            <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
-        </div>
-        <hr>
+  const tipoPreguntaSelect = container.querySelector(".tipoPregunta");
+  if (tipoPreguntaSelect) {
+    tipoPreguntaSelect.value = data.isComputable
+      ? "computable"
+      : "no_computable";
+  }
 
-        <div class="mb-3">
-            <label class="form-label">Selecciona el tipo de contenido</label>
-            <select class="form-select tipoContenido">
-                <option value="pregunta" ${
-                  tipo === "question" ? "selected" : ""
-                }>Pregunta</option>
-                <option value="formulario" ${
-                  tipo === "form" ? "selected" : ""
-                }>Formulario</option>
-                <option value="portada" ${
-                  tipo === "cover" ? "selected" : ""
-                }>Portada</option>
-            </select>
-        </div>
-
-        <div class="contenidoDinamico"></div>
-    </div>
-  `;
-
-  preguntaLista.insertAdjacentHTML("beforeend", preguntaHTML);
-
-  // Llenar los datos de la pregunta si existen
-  if (data.type === "question") {
-    const preguntaCard = document.getElementById(itemId);
-    if (preguntaCard) {
-      const preguntaInput = preguntaCard.querySelector(".preguntaInput");
-      if (preguntaInput) preguntaInput.value = data.questionText || "";
-
-      const tipoPreguntaSelect = preguntaCard.querySelector(".tipoPregunta");
-      if (tipoPreguntaSelect)
-        tipoPreguntaSelect.value = data.isComputable
-          ? "computable"
-          : "no_computable";
+  if (data.isComputable) {
+    const cursoSelect = container.querySelector(".curso");
+    if (cursoSelect && data.course) {
+      cursoSelect.value = data.course.value ?? "";
     }
+  } else {
+    const categoriaTexto = container.querySelector(".categoriaTexto");
+    if (categoriaTexto) {
+      categoriaTexto.value = data.category || "";
+    }
+  }
+
+  const tipoRespuestaSelect = container.querySelector(".tipoRespuesta");
+  if (tipoRespuestaSelect) {
+    if (data.answerType === "singleChoice") {
+      tipoRespuestaSelect.value = "unica";
+    } else if (data.answerType === "multipleChoice") {
+      tipoRespuestaSelect.value = "multiple";
+    } else if (data.answerType === "text") {
+      tipoRespuestaSelect.value = "texto";
+    }
+  }
+
+  if (data.answers && data.answers.length > 0) {
+    const addRespuestaButton = container.querySelector(".addRespuesta");
+    const listaRespuestas = container.querySelector(".listaRespuestas");
+    const tipoRespuesta = tipoRespuestaSelect?.value;
+    if (tipoRespuesta === "texto" && addRespuestaButton) {
+      addRespuestaButton.style.display = "none";
+    }
+    data.answers.forEach((answer) => {
+      addRespuesta(listaRespuestas, tipoRespuesta, answer);
+    });
+  }
+}
+
+function fillFormularioData(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const formularioDisplay = container.querySelector(
+    "#formularioDisplay-" + containerId
+  );
+  const selectFormulario = container.querySelector("#selectFormulario");
+  if (formularioDisplay && selectFormulario && data.selectedForm) {
+    formularioDisplay.value = data.selectedForm.label || "";
+    selectFormulario.value = data.selectedForm.value || "";
   }
 }

@@ -27,5 +27,4 @@ export async function setupTestSelect() {
     selectTest.appendChild(option);
   });
 
-  console.log("✅ Tipos de test cargados exitosamente.");
 }
