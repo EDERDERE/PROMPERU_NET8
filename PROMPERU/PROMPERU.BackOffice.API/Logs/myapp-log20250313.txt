@@ -15491,3 +15491,679 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2025-03-13 16:34:42.029 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 1884.9808ms
 2025-03-13 16:34:42.029 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
 2025-03-13 16:34:42.029 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 1896.2732ms
+2025-03-13 16:35:24.055 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:35:24.055 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.055 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:24.055 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:35:24.056 -05:00 [INF] Executed ViewResult - view Editar executed in 0.5433ms.
+2025-03-13 16:35:24.056 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.6412ms
+2025-03-13 16:35:24.056 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.056 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 1.1333ms
+2025-03-13 16:35:24.092 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:35:24.092 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.1492ms
+2025-03-13 16:35:24.093 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:35:24.107 -05:00 [INF] Sending file. Request path: '/js/modules/test/update.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\update.js'
+2025-03-13 16:35:24.107 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 200 3468 text/javascript 14.3639ms
+2025-03-13 16:35:24.157 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:35:24.157 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.158 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:24.162 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:35:24.162 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.162 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:24.374 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:24.375 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 212.1172ms
+2025-03-13 16:35:24.375 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.375 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 212.6078ms
+2025-03-13 16:35:24.963 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:24.964 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 806.3294ms
+2025-03-13 16:35:24.964 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.965 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 807.1808ms
+2025-03-13 16:35:24.993 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:35:24.994 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:24.994 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:26.044 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:26.045 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 1050.8121ms
+2025-03-13 16:35:26.045 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:26.045 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 1051.6921ms
+2025-03-13 16:35:30.339 -05:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - application/x-www-form-urlencoded; charset=UTF-8 737
+2025-03-13 16:35:30.340 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:30.348 -05:00 [INF] Route matched with {action = "ActualizarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ActualizarTest(Int32, PROMPERU.BL.Dtos.TestModelDto) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:30.361 -05:00 [INF] Accessing expired session, Key:bed9f0ef-4983-bb2d-b295-e3bf385b347e
+2025-03-13 16:35:32.317 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:32.326 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API) in 1977.5379ms
+2025-03-13 16:35:32.326 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:32.326 -05:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - 200 null application/json; charset=utf-8 1986.9008ms
+2025-03-13 16:35:35.276 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Listar - null null
+2025-03-13 16:35:35.277 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Listar - 404 0 null 0.5913ms
+2025-03-13 16:35:35.278 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5073/Test/Listar, Response status code: 404
+2025-03-13 16:35:43.774 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ - null null
+2025-03-13 16:35:43.774 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:43.774 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:43.774 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-13 16:35:43.775 -05:00 [INF] Executed ViewResult - view Index executed in 0.5162ms.
+2025-03-13 16:35:43.775 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API) in 0.6493ms
+2025-03-13 16:35:43.775 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:43.775 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ - 200 null text/html; charset=utf-8 1.1378ms
+2025-03-13 16:35:43.824 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:35:43.824 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0966ms
+2025-03-13 16:35:43.872 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarTest - null null
+2025-03-13 16:35:43.872 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:43.872 -05:00 [INF] Route matched with {action = "ListarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTest() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:43.876 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:35:43.876 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:43.876 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:44.085 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType22`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType21`2[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.BackOffice.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:44.085 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API) in 213.1052ms
+2025-03-13 16:35:44.085 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:44.086 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarTest - 200 null application/json; charset=utf-8 213.6043ms
+2025-03-13 16:35:44.087 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:44.087 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 210.6365ms
+2025-03-13 16:35:44.087 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:44.088 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 211.5033ms
+2025-03-13 16:35:45.266 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:35:45.266 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:45.266 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:45.266 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:35:45.266 -05:00 [INF] Executed ViewResult - view Editar executed in 0.2989ms.
+2025-03-13 16:35:45.266 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4131ms
+2025-03-13 16:35:45.267 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:45.267 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.8827ms
+2025-03-13 16:35:45.539 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:35:45.540 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:35:45.541 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0943ms
+2025-03-13 16:35:45.556 -05:00 [INF] Sending file. Request path: '/js/modules/test/update.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\update.js'
+2025-03-13 16:35:45.556 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 200 3462 text/javascript 17.3662ms
+2025-03-13 16:35:45.575 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/favicon.ico - null null
+2025-03-13 16:35:45.575 -05:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\favicon.ico'
+2025-03-13 16:35:45.575 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/favicon.ico - 499 5430 image/x-icon 0.4625ms
+2025-03-13 16:35:45.587 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:35:45.587 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:45.588 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:45.590 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:35:45.590 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:45.590 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:45.802 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:45.803 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 213.0045ms
+2025-03-13 16:35:45.803 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:45.804 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 213.5263ms
+2025-03-13 16:35:46.426 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:46.427 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 839.4825ms
+2025-03-13 16:35:46.427 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:46.428 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 840.2304ms
+2025-03-13 16:35:46.453 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:35:46.453 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:46.453 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:47.467 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:47.468 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 1014.6503ms
+2025-03-13 16:35:47.468 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:47.468 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 1015.5678ms
+2025-03-13 16:35:51.587 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:35:51.587 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.1423ms
+2025-03-13 16:35:51.629 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarTest - null null
+2025-03-13 16:35:51.630 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:51.630 -05:00 [INF] Route matched with {action = "ListarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTest() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:51.650 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:35:51.650 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:51.650 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:51.832 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType22`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType21`2[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.BackOffice.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:51.834 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API) in 204.0919ms
+2025-03-13 16:35:51.834 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:51.834 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarTest - 499 null application/json; charset=utf-8 204.7236ms
+2025-03-13 16:35:51.862 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:51.862 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 211.8443ms
+2025-03-13 16:35:51.862 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:51.862 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 212.4034ms
+2025-03-13 16:35:55.800 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:35:55.800 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:55.801 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:55.801 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:35:55.801 -05:00 [INF] Executed ViewResult - view Editar executed in 0.3193ms.
+2025-03-13 16:35:55.801 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4155ms
+2025-03-13 16:35:55.801 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:55.801 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.86ms
+2025-03-13 16:35:55.844 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:35:55.844 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0884ms
+2025-03-13 16:35:55.846 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:35:55.847 -05:00 [INF] Sending file. Request path: '/js/modules/test/update.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\update.js'
+2025-03-13 16:35:55.847 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 200 3462 text/javascript 0.6372ms
+2025-03-13 16:35:55.883 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/testSelect.js - null null
+2025-03-13 16:35:55.883 -05:00 [INF] Sending file. Request path: '/js/modules/test/testSelect.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\testSelect.js'
+2025-03-13 16:35:55.883 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/testSelect.js - 499 844 text/javascript 0.3327ms
+2025-03-13 16:35:55.902 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:35:55.902 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:55.902 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:55.911 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:35:55.911 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:55.911 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:56.113 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:35:56.113 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 202.1566ms
+2025-03-13 16:35:56.113 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:56.113 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 202.6319ms
+2025-03-13 16:35:56.783 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:56.784 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 881.4432ms
+2025-03-13 16:35:56.784 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:56.784 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 882.1407ms
+2025-03-13 16:35:56.806 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:35:56.806 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:56.807 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:35:57.019 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:35:57.019 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 212.1379ms
+2025-03-13 16:35:57.019 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:35:57.019 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 212.7481ms
+2025-03-13 16:36:24.337 -05:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - application/x-www-form-urlencoded; charset=UTF-8 787
+2025-03-13 16:36:24.337 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:36:24.337 -05:00 [INF] Route matched with {action = "ActualizarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ActualizarTest(Int32, PROMPERU.BL.Dtos.TestModelDto) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:36:24.338 -05:00 [INF] Accessing expired session, Key:bed9f0ef-4983-bb2d-b295-e3bf385b347e
+2025-03-13 16:36:25.002 -05:00 [INF] Executing ViewResult, running view Error.
+2025-03-13 16:36:25.005 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API) in 667.2029ms
+2025-03-13 16:36:25.005 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:36:25.005 -05:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AspNetCoreGeneratedDocument.Views_Shared_Error.ExecuteAsync() in C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\Views\Shared\Error.cshtml:line 9
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-03-13 16:36:25.015 -05:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - 500 null text/plain; charset=utf-8 678.1451ms
+2025-03-13 16:39:01.536 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:39:01.537 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:01.537 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:01.538 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:39:01.538 -05:00 [INF] Executed ViewResult - view Editar executed in 0.5541ms.
+2025-03-13 16:39:01.538 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.7275ms
+2025-03-13 16:39:01.538 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:01.538 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 2.417ms
+2025-03-13 16:39:01.558 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/libraries/bootstrap-5.3.3/css/bootstrap.css - null null
+2025-03-13 16:39:01.559 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/css/layout.css - null null
+2025-03-13 16:39:01.559 -05:00 [INF] Sending file. Request path: '/css/layout.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\css\layout.css'
+2025-03-13 16:39:01.559 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/css/layout.css - 200 2289 text/css 0.3416ms
+2025-03-13 16:39:01.560 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/libraries/jquery-3.7.1/js/jquery.min.js - null null
+2025-03-13 16:39:01.560 -05:00 [INF] Sending file. Request path: '/shared/libraries/bootstrap-5.3.3/css/bootstrap.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\libraries\bootstrap-5.3.3\css\bootstrap.css'
+2025-03-13 16:39:01.560 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:39:01.560 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/libraries/bootstrap-5.3.3/css/bootstrap.css - 200 293102 text/css 1.8438ms
+2025-03-13 16:39:01.560 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.js - null null
+2025-03-13 16:39:01.560 -05:00 [INF] Sending file. Request path: '/js/modules/test/update.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\update.js'
+2025-03-13 16:39:01.560 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 200 3462 text/javascript 0.2673ms
+2025-03-13 16:39:01.560 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/layout.js - null null
+2025-03-13 16:39:01.561 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:01.561 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.1028ms
+2025-03-13 16:39:01.561 -05:00 [INF] Sending file. Request path: '/js/layout.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\layout.js'
+2025-03-13 16:39:01.561 -05:00 [INF] Sending file. Request path: '/shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\libraries\bootstrap-5.3.3\js\bootstrap.bundle.js'
+2025-03-13 16:39:01.561 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/layout.js - 200 5205 text/javascript 0.4463ms
+2025-03-13 16:39:01.561 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/libraries/bootstrap-5.3.3/js/bootstrap.bundle.js - 200 214133 text/javascript 0.8906ms
+2025-03-13 16:39:01.564 -05:00 [INF] Sending file. Request path: '/shared/libraries/jquery-3.7.1/js/jquery.min.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\libraries\jquery-3.7.1\js\jquery.min.js'
+2025-03-13 16:39:01.564 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/libraries/jquery-3.7.1/js/jquery.min.js - 200 105298 text/javascript 4.2842ms
+2025-03-13 16:39:01.571 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/styles/variables.css - null null
+2025-03-13 16:39:01.572 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/styles/header.css - null null
+2025-03-13 16:39:01.572 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/styles/globals.css - null null
+2025-03-13 16:39:01.572 -05:00 [INF] Sending file. Request path: '/shared/styles/header.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\styles\header.css'
+2025-03-13 16:39:01.572 -05:00 [INF] Sending file. Request path: '/shared/styles/variables.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\styles\variables.css'
+2025-03-13 16:39:01.572 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/styles/header.css - 200 963 text/css 0.3917ms
+2025-03-13 16:39:01.572 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/styles/variables.css - 200 382 text/css 0.537ms
+2025-03-13 16:39:01.572 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/styles/customButton.css - null null
+2025-03-13 16:39:01.572 -05:00 [INF] Sending file. Request path: '/shared/styles/globals.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\styles\globals.css'
+2025-03-13 16:39:01.572 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/styles/globals.css - 200 234 text/css 0.3671ms
+2025-03-13 16:39:01.572 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/testSelect.js - null null
+2025-03-13 16:39:01.572 -05:00 [INF] Sending file. Request path: '/shared/styles/customButton.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\styles\customButton.css'
+2025-03-13 16:39:01.572 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/styles/customButton.css - 200 231 text/css 0.3283ms
+2025-03-13 16:39:01.573 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/portada.js - null null
+2025-03-13 16:39:01.573 -05:00 [INF] Sending file. Request path: '/js/modules/test/testSelect.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\testSelect.js'
+2025-03-13 16:39:01.573 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/testSelect.js - 200 844 text/javascript 0.2776ms
+2025-03-13 16:39:01.573 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/pregunta.js - null null
+2025-03-13 16:39:01.573 -05:00 [INF] Sending file. Request path: '/js/modules/test/portada.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\portada.js'
+2025-03-13 16:39:01.573 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/portada.js - 200 4109 text/javascript 0.2914ms
+2025-03-13 16:39:01.573 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/js/apiService.js - null null
+2025-03-13 16:39:01.573 -05:00 [INF] Sending file. Request path: '/js/modules/test/pregunta.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\pregunta.js'
+2025-03-13 16:39:01.573 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/pregunta.js - 200 19290 text/javascript 0.3309ms
+2025-03-13 16:39:01.573 -05:00 [INF] Sending file. Request path: '/shared/js/apiService.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\js\apiService.js'
+2025-03-13 16:39:01.573 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/js/apiService.js - 200 1366 text/javascript 0.2677ms
+2025-03-13 16:39:01.578 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/js/renderTemplate.js - null null
+2025-03-13 16:39:01.578 -05:00 [INF] Sending file. Request path: '/shared/js/renderTemplate.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\shared\js\renderTemplate.js'
+2025-03-13 16:39:01.578 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/js/renderTemplate.js - 200 362 text/javascript 0.4093ms
+2025-03-13 16:39:01.901 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:39:01.901 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:01.901 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:01.908 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:01.908 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:01.908 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:02.109 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:02.109 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 201.1443ms
+2025-03-13 16:39:02.109 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:02.109 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 201.5515ms
+2025-03-13 16:39:02.359 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/favicon.ico - null null
+2025-03-13 16:39:02.360 -05:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\favicon.ico'
+2025-03-13 16:39:02.360 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/favicon.ico - 200 5430 image/x-icon 1.2026ms
+2025-03-13 16:39:02.704 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:02.704 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 803.1232ms
+2025-03-13 16:39:02.704 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:02.704 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 803.7485ms
+2025-03-13 16:39:02.708 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:39:02.709 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:02.709 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:02.923 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:02.923 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 214.613ms
+2025-03-13 16:39:02.924 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:02.924 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 215.1603ms
+2025-03-13 16:39:22.823 -05:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - application/x-www-form-urlencoded; charset=UTF-8 749
+2025-03-13 16:39:22.823 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:22.823 -05:00 [INF] Route matched with {action = "ActualizarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ActualizarTest(Int32, PROMPERU.BL.Dtos.TestModelDto) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:24.733 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:24.734 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API) in 1910.2521ms
+2025-03-13 16:39:24.734 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:24.734 -05:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - 200 null application/json; charset=utf-8 1910.7973ms
+2025-03-13 16:39:28.370 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ - null null
+2025-03-13 16:39:28.370 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.370 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:28.370 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-13 16:39:28.371 -05:00 [INF] Executed ViewResult - view Index executed in 0.3651ms.
+2025-03-13 16:39:28.371 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API) in 0.4809ms
+2025-03-13 16:39:28.371 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.371 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ - 200 null text/html; charset=utf-8 0.7709ms
+2025-03-13 16:39:28.401 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/css/test.css - null null
+2025-03-13 16:39:28.402 -05:00 [INF] Sending file. Request path: '/css/test.css'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\css\test.css'
+2025-03-13 16:39:28.402 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/css/test.css - 200 334 text/css 0.4235ms
+2025-03-13 16:39:28.402 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/index.js - null null
+2025-03-13 16:39:28.402 -05:00 [INF] Sending file. Request path: '/js/modules/test/index.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\index.js'
+2025-03-13 16:39:28.402 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/index.js - 200 286 text/javascript 0.2584ms
+2025-03-13 16:39:28.403 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:28.403 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0554ms
+2025-03-13 16:39:28.459 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/utils/helpers.js - null null
+2025-03-13 16:39:28.460 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/dataTable.js - null null
+2025-03-13 16:39:28.460 -05:00 [INF] Sending file. Request path: '/js/modules/utils/helpers.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\utils\helpers.js'
+2025-03-13 16:39:28.460 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/utils/helpers.js - 200 279 text/javascript 0.6238ms
+2025-03-13 16:39:28.460 -05:00 [INF] Sending file. Request path: '/js/modules/test/dataTable.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\dataTable.js'
+2025-03-13 16:39:28.460 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/dataTable.js - 200 3994 text/javascript 0.3449ms
+2025-03-13 16:39:28.466 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/utils/handleResponse.js - null null
+2025-03-13 16:39:28.467 -05:00 [INF] Sending file. Request path: '/js/modules/utils/handleResponse.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\utils\handleResponse.js'
+2025-03-13 16:39:28.467 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/utils/handleResponse.js - 200 670 text/javascript 0.4133ms
+2025-03-13 16:39:28.470 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarTest - null null
+2025-03-13 16:39:28.470 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.471 -05:00 [INF] Route matched with {action = "ListarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTest() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:28.480 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:28.480 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.480 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:28.683 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType22`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType21`2[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.BackOffice.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:28.683 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API) in 212.3066ms
+2025-03-13 16:39:28.683 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.683 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarTest - 200 null application/json; charset=utf-8 212.7871ms
+2025-03-13 16:39:28.690 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:28.690 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 210.2778ms
+2025-03-13 16:39:28.691 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:28.691 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 210.593ms
+2025-03-13 16:39:33.170 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:39:33.171 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:33.171 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:33.171 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:39:33.171 -05:00 [INF] Executed ViewResult - view Editar executed in 0.3087ms.
+2025-03-13 16:39:33.171 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.3909ms
+2025-03-13 16:39:33.171 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:33.171 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.7522ms
+2025-03-13 16:39:33.194 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:39:33.194 -05:00 [INF] The file /js/modules/test/update.js was not modified
+2025-03-13 16:39:33.195 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 304 null text/javascript 0.2121ms
+2025-03-13 16:39:33.195 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:33.195 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0397ms
+2025-03-13 16:39:33.239 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:39:33.239 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:33.239 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:33.240 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:33.240 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:33.240 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:33.452 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:33.452 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 211.8742ms
+2025-03-13 16:39:33.452 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:33.452 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 212.1943ms
+2025-03-13 16:39:34.081 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:34.081 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 841.8974ms
+2025-03-13 16:39:34.081 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:34.082 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 842.3915ms
+2025-03-13 16:39:34.091 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:39:34.091 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:34.091 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:34.304 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:34.304 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 213.163ms
+2025-03-13 16:39:34.304 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:34.304 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 213.6832ms
+2025-03-13 16:39:38.562 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ - null null
+2025-03-13 16:39:38.562 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.562 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:38.562 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-13 16:39:38.563 -05:00 [INF] Executed ViewResult - view Index executed in 0.4126ms.
+2025-03-13 16:39:38.563 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API) in 0.5463ms
+2025-03-13 16:39:38.563 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.563 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ - 200 null text/html; charset=utf-8 0.857ms
+2025-03-13 16:39:38.587 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:38.588 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0909ms
+2025-03-13 16:39:38.613 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarTest - null null
+2025-03-13 16:39:38.613 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.613 -05:00 [INF] Route matched with {action = "ListarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTest() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:38.634 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:38.635 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.635 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:38.825 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType22`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType21`2[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.BackOffice.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:38.826 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API) in 212.2729ms
+2025-03-13 16:39:38.826 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.826 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarTest - 200 null application/json; charset=utf-8 212.6046ms
+2025-03-13 16:39:38.844 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:38.844 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 209.0517ms
+2025-03-13 16:39:38.844 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:38.844 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 209.3782ms
+2025-03-13 16:39:39.816 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=5 - null null
+2025-03-13 16:39:39.816 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:39.816 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:39.816 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:39:39.817 -05:00 [INF] Executed ViewResult - view Editar executed in 0.408ms.
+2025-03-13 16:39:39.817 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.5843ms
+2025-03-13 16:39:39.817 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:39.817 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=5 - 200 null text/html; charset=utf-8 1.104ms
+2025-03-13 16:39:39.842 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:39.842 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0913ms
+2025-03-13 16:39:39.867 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:39:39.867 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:39.867 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:39.883 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:39.883 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:39.883 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:40.096 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:40.096 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 212.565ms
+2025-03-13 16:39:40.096 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:40.096 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 213.2238ms
+2025-03-13 16:39:40.712 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:40.713 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 845.4164ms
+2025-03-13 16:39:40.713 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:40.713 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 846.0439ms
+2025-03-13 16:39:40.729 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/5 - null null
+2025-03-13 16:39:40.730 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:40.730 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:40.945 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:40.946 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 216.1628ms
+2025-03-13 16:39:40.946 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:40.946 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/5 - 200 null application/json; charset=utf-8 216.9882ms
+2025-03-13 16:39:43.493 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:43.493 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0896ms
+2025-03-13 16:39:43.536 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:43.537 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:43.537 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:43.749 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:43.750 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 212.8943ms
+2025-03-13 16:39:43.750 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:43.750 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 213.5021ms
+2025-03-13 16:39:44.752 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=3 - null null
+2025-03-13 16:39:44.752 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:44.752 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:44.752 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:39:44.752 -05:00 [INF] Executed ViewResult - view Editar executed in 0.3355ms.
+2025-03-13 16:39:44.752 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4405ms
+2025-03-13 16:39:44.753 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:44.753 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=3 - 200 null text/html; charset=utf-8 0.7909ms
+2025-03-13 16:39:44.778 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:44.778 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0967ms
+2025-03-13 16:39:44.802 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:39:44.803 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:44.803 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:44.825 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:44.825 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:44.825 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:45.035 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:45.035 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 210.3045ms
+2025-03-13 16:39:45.035 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:45.035 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 210.6451ms
+2025-03-13 16:39:45.653 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:45.653 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 850.1916ms
+2025-03-13 16:39:45.653 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:45.653 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 850.7994ms
+2025-03-13 16:39:45.664 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/3 - null null
+2025-03-13 16:39:45.665 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:45.665 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:45.877 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:45.877 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 212.4079ms
+2025-03-13 16:39:45.877 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:45.877 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/3 - 200 null application/json; charset=utf-8 213.2081ms
+2025-03-13 16:39:48.597 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:48.597 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.1218ms
+2025-03-13 16:39:48.642 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:48.642 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:48.642 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:48.854 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:48.854 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 211.484ms
+2025-03-13 16:39:48.854 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:48.854 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 211.8449ms
+2025-03-13 16:39:49.705 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=4 - null null
+2025-03-13 16:39:49.705 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:49.705 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:49.705 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:39:49.706 -05:00 [INF] Executed ViewResult - view Editar executed in 0.2646ms.
+2025-03-13 16:39:49.706 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.3453ms
+2025-03-13 16:39:49.706 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:49.706 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=4 - 200 null text/html; charset=utf-8 0.6835ms
+2025-03-13 16:39:49.729 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:49.730 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.09ms
+2025-03-13 16:39:49.772 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:39:49.772 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:49.772 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:49.780 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:49.780 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:49.780 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:49.990 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:49.990 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 209.8338ms
+2025-03-13 16:39:49.990 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:49.990 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 210.2424ms
+2025-03-13 16:39:50.620 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:50.620 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 848.1829ms
+2025-03-13 16:39:50.620 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:50.621 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 848.7801ms
+2025-03-13 16:39:50.642 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/4 - null null
+2025-03-13 16:39:50.643 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:50.643 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:50.856 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:39:50.856 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 213.1641ms
+2025-03-13 16:39:50.857 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:50.857 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/4 - 200 null application/json; charset=utf-8 215.0369ms
+2025-03-13 16:39:53.455 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ - null null
+2025-03-13 16:39:53.455 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:53.455 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:53.455 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-13 16:39:53.455 -05:00 [INF] Executed ViewResult - view Index executed in 0.2309ms.
+2025-03-13 16:39:53.455 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API) in 0.3633ms
+2025-03-13 16:39:53.455 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:53.455 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ - 200 null text/html; charset=utf-8 0.7114ms
+2025-03-13 16:39:53.480 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:39:53.480 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0913ms
+2025-03-13 16:39:53.523 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:39:53.524 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:53.524 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:39:53.735 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:39:53.735 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 211.5078ms
+2025-03-13 16:39:53.735 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:39:53.735 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 211.8523ms
+2025-03-13 16:40:36.121 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:40:36.121 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:36.121 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:40:36.121 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:40:36.121 -05:00 [INF] Executed ViewResult - view Editar executed in 0.2896ms.
+2025-03-13 16:40:36.121 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.3703ms
+2025-03-13 16:40:36.121 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:36.121 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.6887ms
+2025-03-13 16:40:36.149 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:40:36.149 -05:00 [INF] Sending file. Request path: '/js/modules/test/update.js'. Physical path: 'C:\Users\Usuario\Documents\@Desarrollo\@freelos\PROMPERU_NET8\PROMPERU\PROMPERU.BackOffice.API\wwwroot\js\modules\test\update.js'
+2025-03-13 16:40:36.149 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 200 3462 text/javascript 0.4377ms
+2025-03-13 16:40:36.151 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:40:36.151 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0627ms
+2025-03-13 16:40:36.200 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:40:36.201 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:36.201 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:40:36.210 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:40:36.210 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:36.210 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:40:36.420 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:40:36.420 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 210.0385ms
+2025-03-13 16:40:36.420 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:36.421 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 210.4156ms
+2025-03-13 16:40:37.050 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:40:37.051 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 850.2752ms
+2025-03-13 16:40:37.051 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:37.052 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 851.1539ms
+2025-03-13 16:40:37.071 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:40:37.071 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:37.071 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:40:37.283 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:40:37.283 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 212.4112ms
+2025-03-13 16:40:37.284 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:37.284 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 213.0058ms
+2025-03-13 16:40:52.747 -05:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - application/x-www-form-urlencoded; charset=UTF-8 746
+2025-03-13 16:40:52.747 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:52.747 -05:00 [INF] Route matched with {action = "ActualizarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ActualizarTest(Int32, PROMPERU.BL.Dtos.TestModelDto) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:40:54.558 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:40:54.559 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API) in 1811.9137ms
+2025-03-13 16:40:54.559 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ActualizarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:40:54.559 -05:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5073/Test/ActualizarTest/2 - 200 null application/json; charset=utf-8 1812.4606ms
+2025-03-13 16:41:00.145 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ - null null
+2025-03-13 16:41:00.146 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.146 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:00.146 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-13 16:41:00.146 -05:00 [INF] Executed ViewResult - view Index executed in 0.2633ms.
+2025-03-13 16:41:00.146 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API) in 0.3413ms
+2025-03-13 16:41:00.146 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.146 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ - 200 null text/html; charset=utf-8 0.5919ms
+2025-03-13 16:41:00.167 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:41:00.168 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.1003ms
+2025-03-13 16:41:00.197 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarTest - null null
+2025-03-13 16:41:00.197 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.197 -05:00 [INF] Route matched with {action = "ListarTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTest() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:00.212 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:41:00.212 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.212 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:00.399 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType22`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType21`2[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.BackOffice.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:41:00.399 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API) in 202.0069ms
+2025-03-13 16:41:00.399 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.399 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarTest - 200 null application/json; charset=utf-8 202.4255ms
+2025-03-13 16:41:00.415 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:41:00.415 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 202.5225ms
+2025-03-13 16:41:00.415 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:00.415 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 202.8887ms
+2025-03-13 16:41:01.646 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:41:01.646 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:01.646 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:01.646 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:41:01.646 -05:00 [INF] Executed ViewResult - view Editar executed in 0.323ms.
+2025-03-13 16:41:01.646 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4146ms
+2025-03-13 16:41:01.646 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:01.646 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.6962ms
+2025-03-13 16:41:01.674 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:41:01.674 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0854ms
+2025-03-13 16:41:01.705 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:41:01.705 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:01.705 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:01.710 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:41:01.710 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:01.710 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:01.911 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:41:01.911 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 201.4833ms
+2025-03-13 16:41:01.911 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:01.911 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 201.7634ms
+2025-03-13 16:41:02.510 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:02.510 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 804.9921ms
+2025-03-13 16:41:02.510 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:02.510 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 805.401ms
+2025-03-13 16:41:02.530 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:41:02.530 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:02.530 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:02.771 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:02.771 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 240.6636ms
+2025-03-13 16:41:02.771 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:02.771 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 241.5563ms
+2025-03-13 16:41:31.417 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:41:31.417 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.417 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.417 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:41:31.417 -05:00 [INF] Executed ViewResult - view Editar executed in 0.3009ms.
+2025-03-13 16:41:31.418 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4049ms
+2025-03-13 16:41:31.418 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.418 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.7609ms
+2025-03-13 16:41:31.422 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - null null
+2025-03-13 16:41:31.422 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.422 -05:00 [INF] Route matched with {action = "Editar", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Editar() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.422 -05:00 [INF] Executing ViewResult, running view Editar.
+2025-03-13 16:41:31.422 -05:00 [INF] Executed ViewResult - view Editar executed in 0.3138ms.
+2025-03-13 16:41:31.422 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API) in 0.4198ms
+2025-03-13 16:41:31.422 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Editar (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.422 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/Editar?id=2 - 200 null text/html; charset=utf-8 0.6903ms
+2025-03-13 16:41:31.453 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:41:31.453 -05:00 [INF] The file /js/modules/test/update.js was not modified
+2025-03-13 16:41:31.453 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 304 null text/javascript 0.363ms
+2025-03-13 16:41:31.455 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:41:31.455 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0962ms
+2025-03-13 16:41:31.516 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-13 16:41:31.516 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.0897ms
+2025-03-13 16:41:31.517 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - null null
+2025-03-13 16:41:31.517 -05:00 [INF] The file /js/modules/test/update.js was not modified
+2025-03-13 16:41:31.517 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/update.js - 304 null text/javascript 0.1749ms
+2025-03-13 16:41:31.548 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:41:31.549 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.549 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.551 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:41:31.552 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.552 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.567 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/js/modules/test/pregunta.js - null null
+2025-03-13 16:41:31.567 -05:00 [INF] The file /js/modules/test/pregunta.js was not modified
+2025-03-13 16:41:31.567 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/js/modules/test/pregunta.js - 304 null text/javascript 0.1981ms
+2025-03-13 16:41:31.567 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/shared/js/apiService.js - null null
+2025-03-13 16:41:31.567 -05:00 [INF] The file /shared/js/apiService.js was not modified
+2025-03-13 16:41:31.567 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/shared/js/apiService.js - 304 null text/javascript 0.1247ms
+2025-03-13 16:41:31.591 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - null null
+2025-03-13 16:41:31.591 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.591 -05:00 [INF] Route matched with {action = "ListarMaestros", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMaestros() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.598 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - null null
+2025-03-13 16:41:31.598 -05:00 [INF] Executing endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.598 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.BackOffice.API.Controllers.LoginController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:31.761 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:41:31.761 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 209.6943ms
+2025-03-13 16:41:31.761 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.761 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 209.941ms
+2025-03-13 16:41:31.800 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-13 16:41:31.800 -05:00 [INF] Executed action PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API) in 202.1547ms
+2025-03-13 16:41:31.800 -05:00 [INF] Executed endpoint 'PROMPERU.BackOffice.API.Controllers.LoginController.ListarLogos (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:31.800 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Login/ListarLogos - 200 null application/json; charset=utf-8 202.4013ms
+2025-03-13 16:41:32.396 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:32.397 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 848.1074ms
+2025-03-13 16:41:32.397 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:32.397 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 848.4136ms
+2025-03-13 16:41:32.401 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:41:32.401 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:32.401 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:32.434 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.MaestrosDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:32.434 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API) in 842.2885ms
+2025-03-13 16:41:32.434 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ListarMaestros (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:32.434 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ListarMaestros - 200 null application/json; charset=utf-8 842.5229ms
+2025-03-13 16:41:32.439 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - null null
+2025-03-13 16:41:32.439 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:32.439 -05:00 [INF] Route matched with {action = "ObtenerTest", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ObtenerTest(Int32) on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.BackOffice.API).
+2025-03-13 16:41:33.402 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:33.402 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 1000.5459ms
+2025-03-13 16:41:33.402 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:33.402 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 1000.8451ms
+2025-03-13 16:41:33.413 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType25`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PROMPERU.BL.Dtos.TestModelDto, PROMPERU.BL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-13 16:41:33.413 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API) in 973.7753ms
+2025-03-13 16:41:33.413 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.ObtenerTest (PROMPERU.BackOffice.API)'
+2025-03-13 16:41:33.413 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5073/Test/ObtenerTest/2 - 200 null application/json; charset=utf-8 974.1097ms
