@@ -232,7 +232,7 @@ namespace PROMPERU.BL
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
                             };
 
-                            var preguntaID = await _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip,pregunta.ID);
+                             await _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip,pregunta.ID);
 
                    
                             // Insertar Respuestas (si existen)
@@ -243,7 +243,7 @@ namespace PROMPERU.BL
                                     var respuesta = new RespuestaBE
                                     {
                                         ID = resp.ID ?? 0,
-                                        Preg_ID = preguntaID,
+                                        Preg_ID = pregunta.ID,
                                         Resp_Orden = resp.Order,
                                         Resp_Respuesta = resp.Text ?? string.Empty,
                                         Resp_Valor = resp.Value
@@ -462,7 +462,7 @@ namespace PROMPERU.BL
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
                             };
 
-                            var preguntaID = await _preguntaDA.EliminarPreguntaAsync(usuario, ip, pregunta.ID);
+                            await _preguntaDA.EliminarPreguntaAsync(usuario, ip, pregunta.ID);
 
 
                             // Insertar Respuestas (si existen)
@@ -473,7 +473,7 @@ namespace PROMPERU.BL
                                     var respuesta = new RespuestaBE
                                     {
                                         ID = resp.ID ?? 0,
-                                        Preg_ID = preguntaID,
+                                        Preg_ID = pregunta.ID,
                                         Resp_Orden = resp.Order,
                                         Resp_Respuesta = resp.Text ?? string.Empty,
                                         Resp_Valor = resp.Value
