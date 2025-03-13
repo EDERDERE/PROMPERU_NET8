@@ -1,12 +1,12 @@
 import { fetchData } from "../../../shared/js/apiService.js";
+import { handleResponse } from "../utils/handleResponse.js";
 
 export async function initDataTable(tableId, apiUrl) {
   try {
-    const response = await fetchData(apiUrl + "?t=" + Date.now(), "GET");
+    const response = await fetchData(apiUrl, "GET");
 
     if (!response || !response.success) {
       console.error("Error al obtener los datos.");
-      emptyData(tableId);
       return;
     }
 
@@ -24,7 +24,7 @@ export async function initDataTable(tableId, apiUrl) {
         {
           data: null,
           title: "Acciones",
-          render: function (row) {
+          render: function (data, type, row) {
             return `
               <button class="btn btn-sm btn-primary editar-btn" data-id="${row.id}">✏️ Editar</button>
               <button class="btn btn-sm btn-danger eliminar-btn" data-id="${row.id}">🗑️ Eliminar</button>
@@ -37,34 +37,21 @@ export async function initDataTable(tableId, apiUrl) {
     });
   } catch (error) {
     console.error("Error al inicializar la tabla:", error);
-    emptyData(tableId);
   }
-}
-
-function emptyData(tableId) {
-  $(`#${tableId}`).html(`
-    <div class="alert alert-warning text-center">
-      📢 No hay tests disponibles para mostrar.
-    </div>
-  `);
 }
 
 $(document).on("click", ".editar-btn", function () {
   const id = $(this).data("id");
-  console.log("Editar ID:", id);
   window.location.href = `/Test/Editar?id=${id}`;
 });
 
 $(document).on("click", ".eliminar-btn", async function () {
-  console.log("🗑️ Clic en eliminar detectado.");
   const id = $(this).data("id");
 
   if (!id) {
-    console.error("❌ No se encontró ID en el botón.");
     return;
   }
 
-  console.log(`🔍 ID obtenido para eliminación: ${id}`);
   await eliminarRegistro(id);
 });
 
@@ -86,23 +73,10 @@ async function eliminarRegistro(id) {
 
   if (confirmacion.isConfirmed) {
     try {
-     
       const response = await fetchData(`/Test/EliminarTest/${id}`, "DELETE");
-
-      if (response && response.success) {
-        Swal.fire("Eliminado", "El registro ha sido eliminado", "success");
-
-        setTimeout(() => {
-          initDataTable("tableListTest", "/Test/ListarTest?t=" + Date.now());
-        }, 500);
-      } else {
-        console.error("❌ Error en la API:", response);
-        Swal.fire(
-          "Error",
-          response?.message || "No se pudo eliminar el test",
-          "error"
-        );
-      }
+      handleResponse(response, "Test eliminado correctamente", () => {
+        initDataTable("tableListTest", "/Test/ListarTest");
+      });
     } catch (error) {
       console.error("❌ Error en la solicitud de eliminación:", error);
       Swal.fire(
@@ -114,26 +88,47 @@ async function eliminarRegistro(id) {
   }
 }
 
-function handleResponse(
-  response,
-  successMessage = "Operación realizada con éxito"
-) {
-  if (response && response.success) {
-    Swal.fire({
-      title: "¡Éxito!",
-      text: successMessage,
-      icon: "success",
-      confirmButtonText: "Aceptar",
-    }).then(() => {
-      location.reload(); // 🔄 Recargar la página o actualizar la tabla
-    });
-  } else {
-    const errorMessage = response?.message || "Ocurrió un error inesperado";
-    Swal.fire({
-      title: "Error",
-      text: errorMessage,
-      icon: "error",
-      confirmButtonText: "Aceptar",
-    });
-  }
-}
+// async function eliminarRegistro(id) {
+//   if (!id) {
+//     console.error("❌ Error: ID inválido para eliminar.");
+//     Swal.fire("Error", "No se encontró el ID del test.", "error");
+//     return;
+//   }
+
+//   const confirmacion = await Swal.fire({
+//     title: "¿Estás seguro?",
+//     text: "Esta acción no se puede deshacer",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: "Sí, eliminar",
+//     cancelButtonText: "Cancelar",
+//   });
+
+//   if (confirmacion.isConfirmed) {
+//     try {
+//       const response = await fetchData(`/Test/EliminarTest/${id}`, "DELETE");
+
+//       if (response && response.success) {
+//         Swal.fire("Eliminado", "El registro ha sido eliminado", "success");
+
+//         setTimeout(() => {
+//           initDataTable("tableListTest", "/Test/ListarTest");
+//         }, 500);
+//       } else {
+//         console.error("❌ Error en la API:", response);
+//         Swal.fire(
+//           "Error",
+//           response?.message || "No se pudo eliminar el test",
+//           "error"
+//         );
+//       }
+//     } catch (error) {
+//       console.error("❌ Error en la solicitud de eliminación:", error);
+//       Swal.fire(
+//         "Error",
+//         "Hubo un problema al eliminar el test. Inténtalo de nuevo.",
+//         "error"
+//       );
+//     }
+//   }
+// }
