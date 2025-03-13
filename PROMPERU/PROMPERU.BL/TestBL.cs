@@ -57,8 +57,7 @@ namespace PROMPERU.BL
             {
                 var listado = new List<MaestrosBE>();
 
-                var cursos = await _cursoDA.ListarCursosAsync();
-                var formularios = await _formularioTestDA.ListarFormularioTestsAsync();
+                var cursos = await _cursoDA.ListarCursosAsync();               
                 var inscripcions = await _inscripcionDA.ListarInscripcionsAsync();
                 // solo se debe mostrar Test disponibles
                 var ListadoTest = await _testDA.ListarTestsAsync();
@@ -77,8 +76,7 @@ namespace PROMPERU.BL
                 var test = new MaestrosBE()
                 {
                     Cursos = cursos, 
-                    Etapas = etapas,
-                    Formularios = formularios
+                    Etapas = etapas
                 };
 
                 listado.Add(test);

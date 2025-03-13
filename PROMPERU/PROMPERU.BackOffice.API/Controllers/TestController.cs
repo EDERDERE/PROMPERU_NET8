@@ -145,14 +145,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                          Value = etapa.ID,
                                          Label = etapa.Titulo
                                      })
-                                     .ToList(),
-                   Forms = maestros.SelectMany(test => test.Formularios)
-                                     .Select(form => new SelectedForm
-                                     {
-                                         ID = form.Ftes_ID,
-                                         Value = form.Ftes_Valor,
-                                         Label = form.Ftes_Texto
-                                     })
                                      .ToList()
                 };
 
