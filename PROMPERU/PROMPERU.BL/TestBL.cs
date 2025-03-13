@@ -300,13 +300,12 @@ namespace PROMPERU.BL
                 // Obtener datos en paralelo para reducir latencia
                 var inscripcionsTask = _inscripcionDA.ListarInscripcionsAsync();
                 var portadaTestTask = _portadaTestDA.ListarPortadaTestsAsync();
-                var preguntaTestTask = _preguntaDA.ListarPreguntasAsync();
-                var preguntaCursoTestTask = _preguntaCursoDA.ListarPreguntaCursosAsync();
+                var preguntaTestTask = _preguntaDA.ListarPreguntasAsync();                
                 var respuestaTestTask = _respuestaDA.ListarRespuestasAsync();
                 var contenidoTestTask = _contenidoTestDA.ListarContenidoTestsAsync();
                 var formularioTestTask = _formularioTestDA.ListarFormularioTestsAsync();
 
-                await Task.WhenAll(inscripcionsTask, portadaTestTask, preguntaTestTask, preguntaCursoTestTask, respuestaTestTask, contenidoTestTask, formularioTestTask);
+                await Task.WhenAll(inscripcionsTask, portadaTestTask, preguntaTestTask,  respuestaTestTask, contenidoTestTask, formularioTestTask);
 
                 // Obtener etapas del test
                 var inscripcions = inscripcionsTask.Result ?? new List<InscripcionBE>();

@@ -179,7 +179,7 @@ namespace PROMPERU.DA
                     {
                         ID = Convert.ToInt32(reader["Preg_ID"]),
                         Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
-                        Curs_ID = Convert.ToInt32(reader["Curs_ID"]),
+                        Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
                         Curs_Nombre_Curso = reader["Curs_Nombre_Curso"] != DBNull.Value ? reader["Curs_Nombre_Curso"].ToString() : "",
                         Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),               
                         Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
