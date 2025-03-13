@@ -17,4 +17,5 @@ packages/
 # Ignorar archivos temporales o de compilación
 *.log
 *.tmp
+*.appsettings.json
 *.vscode/
