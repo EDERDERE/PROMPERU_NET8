@@ -20,3 +20,6 @@ packages/
 *.tmp
 *.appsettings.json
 *.vscode/
+
+#Ignoras cambios de Logs
+PROMPERU.BackOffice.API/Logs/*
