@@ -1,4 +1,4 @@
-import { store } from "../state.js"; // Importamos el estado global
+import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
@@ -29,6 +29,14 @@ const FindBusinessForm = () => {
         const companyData = await fetchCompanyData(ruc);
 
         // Guarda los datos en el estado global
+        const hasInstructions = store.getState().test.hasInstructions
+        if(hasInstructions){
+            store.setState({ currentStep: 'intro' });
+        }else{
+            store.setState({ currentStep: 0 });
+        }
+
+        console.log(store.getState())
         store.setState({ companyData });
     }
 

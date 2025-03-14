@@ -4,6 +4,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
 using PROMPERU.DA;
+using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
@@ -89,16 +90,20 @@ namespace PROMPERU.BL
             }
         }
 
-        public async Task<TestModelDto> crearTestAsync(TestModelDto testModel, string usuario, string ip)
+        public async Task<TestModelDto> CrearTestAsync(TestModelDto testModel, string usuario, string ip)
         {
+            if (testModel == null) throw new ArgumentNullException(nameof(testModel));
+
             try
             {
-                // Agregar Portada Principal
+                var tasks = new List<Task>();
+
+                // Insertar Portada Principal si existe
                 if (testModel.HasInstructions && testModel.Instructions != null)
                 {
                     var portada = new PortadaTestBE
                     {
-                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
+                        Insc_ID = testModel.TestType?.Value ?? 0,
                         Ptes_Titulo = testModel.Instructions.Title,
                         Ptes_Descripcion = testModel.Instructions.Description,
                         Ptes_NombreBoton = testModel.Instructions.ButtonText,
@@ -107,49 +112,45 @@ namespace PROMPERU.BL
                         Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
                     };
 
-                    await _portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip);
+                    tasks.Add(_portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip));
                 }
 
-                // Validar que haya elementos en la lista antes de iterar
-                if (testModel.Elements != null && testModel.Elements.Count > 0)
+                // Validar elementos antes de iterar
+                if (testModel.Elements?.Count > 0)
                 {
                     foreach (var e in testModel.Elements)
                     {
                         if (e.Type == "question")
                         {
-                            // Insertar Preguntas y Respuestas
+                            // Insertar Pregunta
                             var pregunta = new PreguntaBE
                             {
                                 Insc_ID = testModel.TestType?.Value ?? 0,
                                 Preg_NumeroPregunta = e.Order,
                                 Preg_TextoPregunta = e.QuestionText ?? string.Empty,
-                                Preg_EsComputable = e.IsComputable ?? false, // Asignación segura con valor por defecto
+                                Preg_EsComputable = e.IsComputable ?? false,
                                 Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
                                 Preg_Categoria = e.Category ?? string.Empty,
-                                // insertar el ID CURSO
-                                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0 // Si es computable y tiene curso, asignarlo
-                            };                           
+                                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
+                            };
+
                             var preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
 
-                            // Insertar Respuestas (si existen)
-                            if (e.Answers != null && e.Answers.Count > 0)
+                            // Insertar Respuestas en paralelo si existen
+                            if (e.Answers?.Count > 0)
                             {
-                                foreach (var resp in e.Answers)
-                                {
-                                    var respuesta = new RespuestaBE
+                                tasks.AddRange(e.Answers.Select(resp =>
+                                    _respuestaDA.InsertarRespuestaAsync(new RespuestaBE
                                     {
                                         Preg_ID = preguntaID,
                                         Resp_Orden = resp.Order,
                                         Resp_Respuesta = resp.Text ?? string.Empty,
                                         Resp_Valor = resp.Value
-                                    };
-
-                                    await _respuestaDA.InsertarRespuestaAsync(respuesta, usuario, ip);
-                                }
+                                    }, usuario, ip)));
                             }
-                        }                                          
+                        }
 
-                        // Insertar contenido si tiene título o descripción
+                        // Insertar Contenido si tiene título o descripción
                         if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
                         {
                             var contenido = new ContenidoTestBE
@@ -160,48 +161,51 @@ namespace PROMPERU.BL
                                 Ctes_Descripcion = e.Description
                             };
 
-                            await _contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip);
+                            tasks.Add(_contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip));
                         }
 
-                        // Insertar formulario si existe
+                        // Insertar Formulario si existe
                         if (e.SelectedForm != null)
                         {
                             var formulario = new FormularioTestBE
                             {
                                 Insc_ID = testModel.TestType?.Value ?? 0,
-                                Ftes_Orden=e.Order,
+                                Ftes_Orden = e.Order,
                                 Ftes_Texto = e.SelectedForm.Label,
                                 Ftes_Valor = e.SelectedForm.Value
                             };
 
-                            await _formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip);
-
+                            tasks.Add(_formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip));
                         }
                     }
                 }
 
+                // Esperar todas las inserciones en paralelo
+                await Task.WhenAll(tasks);
 
-                //return await _requisitoDA.InsertarRequisitoAsync(requisito, usuario, ip);
                 return testModel;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error en la lógica de negocio al insertar el Requisito", ex);
+                throw new Exception("Error al crear el test", ex);
             }
         }
-
         public async Task<bool> ActualizarTestAsync(TestModelDto testModel, string usuario, string ip, int id)
         {
             try
             {
-                var preguntaID = 0;
-                // Actualizar Portada Principal
+                // Eliminar registros previos antes de actualizar o insertar
+                await _testDA.EliminarTestAsync(usuario, ip, testModel.TestType.Value);
+
+                int preguntaID = 0;
+
+                // Actualizar o insertar la portada principal
                 if (testModel.HasInstructions && testModel.Instructions != null)
                 {
                     var portada = new PortadaTestBE
                     {
                         Ptes_ID = testModel.Instructions.ID ?? 0,
-                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
+                        Insc_ID = testModel.TestType?.Value ?? 0,
                         Ptes_Titulo = testModel.Instructions.Title,
                         Ptes_Descripcion = testModel.Instructions.Description,
                         Ptes_NombreBoton = testModel.Instructions.ButtonText,
@@ -210,58 +214,37 @@ namespace PROMPERU.BL
                         Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
                     };
 
-                    await _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip,portada.Ptes_ID);
-                }
-                else
-                {
-                    var portada2 = new PortadaTestBE
-                    {
-                        Ptes_ID = testModel.Instructions.ID ?? 0,
-                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
-                        Ptes_Titulo = testModel.Instructions.Title,
-                        Ptes_Descripcion = testModel.Instructions.Description,
-                        Ptes_NombreBoton = testModel.Instructions.ButtonText,
-                        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
-                        Ptes_MensajeAlert = testModel.Instructions.Alert,
-                        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
-                    };
-
-                    await _portadaTestDA.EliminarPortadaTestAsync(usuario, ip, portada2.Ptes_ID);
+                    await _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip, portada.Ptes_ID);
                 }
 
-                // Validar que haya elementos en la lista antes de iterar
-                if (testModel.Elements != null && testModel.Elements.Count > 0)
+                // Validar elementos antes de procesarlos
+                if (testModel.Elements?.Count > 0)
                 {
+                    var tareas = new List<Task>();
+
                     foreach (var e in testModel.Elements)
                     {
                         if (e.Type == "question")
                         {
-                            // Insertar Preguntas y Respuestas
+                            // Insertar o actualizar pregunta
                             var pregunta = new PreguntaBE
                             {
-                                ID = e.ID ?? 0, 
+                                ID = e.ID ?? 0,
                                 Insc_ID = testModel.TestType?.Value ?? 0,
                                 Preg_NumeroPregunta = e.Order,
                                 Preg_TextoPregunta = e.QuestionText ?? string.Empty,
-                                Preg_EsComputable = e.IsComputable ?? false, // Valor por defecto
+                                Preg_EsComputable = e.IsComputable ?? false,
                                 Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
                                 Preg_Categoria = e.Category ?? string.Empty,
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
-                            };
+                            };                       
 
-                            if (pregunta.ID > 0 )
-                            {
-                                await _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip, pregunta.ID);
+                            tareas.Add(pregunta.ID > 0
+                                ? _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip, pregunta.ID)
+                                : _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip));
 
-                            }
-                            else if (pregunta.ID < 1  || pregunta.Insc_ID > 0)
-                            {
-                                preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
-                            }
-
-
-                            // Insertar Respuestas (si existen)
-                            if (e.Answers != null && e.Answers.Count > 0)
+                            // Insertar respuestas si existen
+                            if (e.Answers?.Count > 0)
                             {
                                 foreach (var resp in e.Answers)
                                 {
@@ -274,21 +257,14 @@ namespace PROMPERU.BL
                                         Resp_Valor = resp.Value
                                     };
 
-                                    if (respuesta.ID > 0)
-                                    {
-                                        await _respuestaDA.ActualizarRespuestaAsync(respuesta, usuario, ip, respuesta.ID);
-
-                                    }
-                                    else if (respuesta.ID < 1 || (pregunta.Insc_ID > 0 && respuesta.Preg_ID > 0) )
-                                    {
-                                        await _respuestaDA.InsertarRespuestaAsync(respuesta, usuario, ip);
-
-                                    }
+                                    tareas.Add(respuesta.ID > 0
+                                        ? _respuestaDA.ActualizarRespuestaAsync(respuesta, usuario, ip, respuesta.ID)
+                                        : _respuestaDA.InsertarRespuestaAsync(respuesta, usuario, ip));
                                 }
                             }
                         }
 
-                        // Insertar contenido si tiene título o descripción
+                        // Insertar o actualizar contenido
                         if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
                         {
                             var contenido = new ContenidoTestBE
@@ -299,19 +275,13 @@ namespace PROMPERU.BL
                                 Ctes_Titulo = e.Title,
                                 Ctes_Descripcion = e.Description
                             };
-                            if (contenido.Ctes_ID > 0)
-                            {
-                                await _contenidoTestDA.ActualizarContenidoTestAsync(contenido, usuario, ip, contenido.Ctes_ID);
 
-                            }
-                            else if (contenido.Ctes_ID < 1 || contenido.Insc_ID > 0)
-                            {
-                                await _contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip);
-
-                            }
+                            tareas.Add(contenido.Ctes_ID > 0
+                                ? _contenidoTestDA.ActualizarContenidoTestAsync(contenido, usuario, ip, contenido.Ctes_ID)
+                                : _contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip));
                         }
 
-                        // Insertar formulario si existe
+                        // Insertar o actualizar formulario
                         if (e.SelectedForm != null)
                         {
                             var formulario = new FormularioTestBE
@@ -322,21 +292,15 @@ namespace PROMPERU.BL
                                 Ftes_Texto = e.SelectedForm.Label,
                                 Ftes_Valor = e.SelectedForm.Value
                             };
-                            if (formulario.Ftes_ID > 0)
-                            {
-                                await _formularioTestDA.ActualizarFormularioTestAsync(formulario, usuario, ip, formulario.Ftes_ID);
 
-                            }
-                            else if (formulario.Ftes_ID < 1 || formulario.Insc_ID > 0)
-                            {
-                                await _formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip);
-
-
-                            }
-
+                            tareas.Add(formulario.Ftes_ID > 0
+                                ? _formularioTestDA.ActualizarFormularioTestAsync(formulario, usuario, ip, formulario.Ftes_ID)
+                                : _formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip));
                         }
                     }
-                }                             
+
+                    await Task.WhenAll(tareas);
+                }
 
                 return true;
             }
@@ -345,32 +309,40 @@ namespace PROMPERU.BL
                 throw new Exception("Error en la lógica de negocio al actualizar el Requisito", ex);
             }
         }
-
         public async Task<TestModelDto> ObtenerTestPorIdAsync(int Id)
         {
             try
             {
-                var test = new TestModelDto();
+                var test = new TestModelDto
+                {
+                    Elements = new List<Elements>() // Inicializar la lista
+                };
 
-                // Obtener datos en paralelo para reducir latencia
+                // Obtener datos en paralelo
                 var inscripcionsTask = _inscripcionDA.ListarInscripcionsAsync();
                 var portadaTestTask = _portadaTestDA.ListarPortadaTestsAsync();
-                var preguntaTestTask = _preguntaDA.ListarPreguntasAsync();                
+                var preguntaTestTask = _preguntaDA.ListarPreguntasAsync();
                 var respuestaTestTask = _respuestaDA.ListarRespuestasAsync();
                 var contenidoTestTask = _contenidoTestDA.ListarContenidoTestsAsync();
                 var formularioTestTask = _formularioTestDA.ListarFormularioTestsAsync();
 
-                await Task.WhenAll(inscripcionsTask, portadaTestTask, preguntaTestTask,  respuestaTestTask, contenidoTestTask, formularioTestTask);
+                await Task.WhenAll(inscripcionsTask, portadaTestTask, preguntaTestTask, respuestaTestTask, contenidoTestTask, formularioTestTask);
+
+                // Obtener datos de las tareas
+                var inscripcions = inscripcionsTask.Result ?? new List<InscripcionBE>();
+                var portadaTes = portadaTestTask.Result ?? new List<PortadaTestBE>();
+                var preguntaTest = preguntaTestTask.Result ?? new List<PreguntaBE>();
+                var respuestaTest = respuestaTestTask.Result ?? new List<RespuestaBE>();
+                var contenidoTest = contenidoTestTask.Result ?? new List<ContenidoTestBE>();
+                var formularioTest = formularioTestTask.Result ?? new List<FormularioTestBE>();
 
                 // Obtener etapas del test
-                var inscripcions = inscripcionsTask.Result ?? new List<InscripcionBE>();
                 test.TestType = inscripcions
                     .Where(x => x.Insc_Orden > 0 && x.Insc_ID == Id)
                     .Select(e => new TestType { Value = e.Insc_ID, Label = e.Insc_TituloPaso })
                     .FirstOrDefault() ?? new TestType();
 
                 // Obtener portada
-                var portadaTes = portadaTestTask.Result ?? new List<PortadaTestBE>();
                 test.HasInstructions = portadaTes.Any();
                 test.Instructions = portadaTes
                     .Where(x => x.Insc_ID == Id)
@@ -386,13 +358,7 @@ namespace PROMPERU.BL
                     })
                     .FirstOrDefault() ?? new Instructions();
 
-                // Obtener preguntas y respuestas
-                var preguntaTest = preguntaTestTask.Result ?? new List<PreguntaBE>();
-                var respuestaTest = respuestaTestTask.Result ?? new List<RespuestaBE>();
-
-                // Asegurar que la lista Elements está inicializada
-                test.Elements ??= new List<Elements>();
-
+                // Agregar preguntas
                 test.Elements.AddRange(
                     preguntaTest
                         .Where(x => x.Insc_ID == Id)
@@ -405,19 +371,11 @@ namespace PROMPERU.BL
                             IsComputable = p.Preg_EsComputable,
                             Category = p.Preg_Categoria,
                             AnswerType = p.Preg_TipoRespuesta,
-                            
-
-                            // Si no hay cursos, asignar un objeto vacío
-                            Course = preguntaTest
-                                .Where(r => r.ID == p.ID)
-                                .Select(r => new Course
-                                {
-                                    Value = r.Curs_ID,
-                                    Label = r.Curs_Nombre_Curso
-                                })
-                                .FirstOrDefault() ?? new Course(),
-
-                            // Si no hay respuestas, asignar una lista vacía en lugar de null
+                            Course = new Course
+                            {
+                                Value = p.Curs_ID,
+                                Label = p.Curs_Nombre_Curso
+                            },
                             Answers = respuestaTest
                                 .Where(r => r.Preg_ID == p.ID)
                                 .Select(r => new Answer
@@ -427,155 +385,112 @@ namespace PROMPERU.BL
                                     Text = r.Resp_Respuesta,
                                     Value = r.Resp_Valor
                                 })
-                                .ToList() ?? new List<Answer>()
+                                .ToList()
                         })
                 );
 
-                // Obtener contenido y formularios
-                var contenidoTest = contenidoTestTask.Result ?? new List<ContenidoTestBE>();
-                var formularioTest = formularioTestTask.Result ?? new List<FormularioTestBE>();
+                // Agregar contenido
+                test.Elements.AddRange(
+                    contenidoTest
+                        .Where(x => x.Insc_ID == Id)
+                        .Select(e => new Elements
+                        {
+                            ID = e.Ctes_ID,
+                            Order = e.Ctes_Orden,
+                            Type = "cover",
+                            Title = e.Ctes_Titulo,
+                            Description = e.Ctes_Descripcion
+                        })
+                );
 
-                test.Elements.AddRange(contenidoTest
-                    .Where(x => x.Insc_ID == Id)
-                    .Select(e => new Elements
-                    {
-                        ID = e.Ctes_ID,
-                        Order = e.Ctes_Orden,
-                        Type = "cover",
-                        Title = e.Ctes_Titulo,
-                        Description = e.Ctes_Descripcion
-                    }));
-
-                test.Elements.AddRange(formularioTest
-                    .Where(x => x.Insc_ID == Id)
-                    .Select(e => new Elements
-                    {
-                        Order = e.Ftes_Orden,
-                        Type = "form",
-                        SelectedForm = new SelectedForm
-                        {  
-                            ID = e.Ftes_ID,
-                            Label = e.Ftes_Texto,
-                            Value = e.Ftes_Valor
-                        }
-                    }));
+                // Agregar formularios
+                test.Elements.AddRange(
+                    formularioTest
+                        .Where(x => x.Insc_ID == Id)
+                        .Select(e => new Elements
+                        {
+                            Order = e.Ftes_Orden,
+                            Type = "form",
+                            SelectedForm = new SelectedForm
+                            {
+                                ID = e.Ftes_ID,
+                                Label = e.Ftes_Texto,
+                                Value = e.Ftes_Valor
+                            }
+                        })
+                );
 
                 return test;
-
             }
             catch (Exception ex)
-            {             
-                throw new Exception("Error en la lógica de negocio en obtener Usuario", ex);
+            {
+                throw new Exception("Error en la lógica de negocio al obtener el Test", ex);
             }
-
         }
-
         public async Task<bool> EliminarTestAsync(TestModelDto testModel, string usuario, string ip, int id)
         {
             try
             {
-                
-                // Eliminar Portada Principal
+                if (testModel == null)
+                    throw new ArgumentNullException(nameof(testModel), "El modelo de prueba no puede ser nulo.");
+
+                int inscId = testModel.TestType?.Value ?? 0; // Validación única para reutilizar
+
+                // Eliminar Portada Principal si existe
                 if (testModel.HasInstructions && testModel.Instructions != null)
                 {
-                    var portada = new PortadaTestBE
-                    {
-                        Ptes_ID = testModel.Instructions.ID ?? 0,
-                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
-                        Ptes_Titulo = testModel.Instructions.Title,
-                        Ptes_Descripcion = testModel.Instructions.Description,
-                        Ptes_NombreBoton = testModel.Instructions.ButtonText,
-                        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
-                        Ptes_MensajeAlert = testModel.Instructions.Alert,
-                        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
-                    };
-
-                    await _portadaTestDA.EliminarPortadaTestAsync( usuario, ip, portada.Ptes_ID);
+                    int portadaId = testModel.Instructions.ID ?? 0;
+                    await _portadaTestDA.EliminarPortadaTestAsync(usuario, ip, portadaId);
                 }
 
-                // Validar que haya elementos en la lista antes de iterar
-                if (testModel.Elements != null && testModel.Elements.Count > 0)
+                // Validar existencia de elementos
+                if (testModel.Elements?.Count > 0)
                 {
                     foreach (var e in testModel.Elements)
                     {
+                        int elementId = e.ID ?? 0;
+
+                        // Eliminar Preguntas y Respuestas
                         if (e.Type == "question")
                         {
-                            // Eliminar  Preguntas y Respuestas
-                            var pregunta = new PreguntaBE
-                            {
-                                ID = e.ID ?? 0,
-                                Insc_ID = testModel.TestType?.Value ?? 0,
-                                Preg_NumeroPregunta = e.Order,
-                                Preg_TextoPregunta = e.QuestionText ?? string.Empty,
-                                Preg_EsComputable = e.IsComputable ?? false, // Valor por defecto
-                                Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
-                                Preg_Categoria = e.Category ?? string.Empty,
-                                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
-                            };
+                            await _preguntaDA.EliminarPreguntaAsync(usuario, ip, elementId);
 
-                            await _preguntaDA.EliminarPreguntaAsync(usuario, ip, pregunta.ID);
-
-
-                            // Insertar Respuestas (si existen)
-                            if (e.Answers != null && e.Answers.Count > 0)
+                            if (e.Answers?.Count > 0)
                             {
                                 foreach (var resp in e.Answers)
                                 {
-                                    var respuesta = new RespuestaBE
-                                    {
-                                        ID = resp.ID ?? 0,
-                                        Preg_ID = pregunta.ID,
-                                        Resp_Orden = resp.Order,
-                                        Resp_Respuesta = resp.Text ?? string.Empty,
-                                        Resp_Valor = resp.Value
-                                    };
-
-                                    await _respuestaDA.EliminarRespuestaAsync(usuario, ip, respuesta.ID);
+                                    int respuestaId = resp.ID ?? 0;
+                                    await _respuestaDA.EliminarRespuestaAsync(usuario, ip, respuestaId);
                                 }
                             }
                         }
 
-                        // Insertar contenido si tiene título o descripción
-                        if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
+                        // Eliminar Contenido si tiene título o descripción
+                        if (!string.IsNullOrWhiteSpace(e.Title) || !string.IsNullOrWhiteSpace(e.Description))
                         {
-                            var contenido = new ContenidoTestBE
-                            {
-                                Ctes_ID = e.ID ?? 0,
-                                Insc_ID = testModel.TestType?.Value ?? 0,
-                                Ctes_Orden = e.Order,
-                                Ctes_Titulo = e.Title,
-                                Ctes_Descripcion = e.Description
-                            };
-
-                            await _contenidoTestDA.EliminarContenidoTestAsync(usuario, ip, contenido.Ctes_ID);
+                            await _contenidoTestDA.EliminarContenidoTestAsync(usuario, ip, elementId);
                         }
 
-                        // Insertar formulario si existe
+                        // Eliminar Formulario si existe
                         if (e.SelectedForm != null)
                         {
-                            var formulario = new FormularioTestBE
-                            {
-                                Ftes_ID = e.SelectedForm.ID ?? 0,
-                                Insc_ID = testModel.TestType?.Value ?? 0,
-                                Ftes_Orden = e.Order,
-                                Ftes_Texto = e.SelectedForm.Label,
-                                Ftes_Valor = e.SelectedForm.Value
-                            };
-
-                            await _formularioTestDA.EliminarFormularioTestAsync(usuario, ip, formulario.Ftes_ID);
-
+                            int formularioId = e.SelectedForm.ID ?? 0;
+                            await _formularioTestDA.EliminarFormularioTestAsync(usuario, ip, formularioId);
                         }
                     }
                 }
 
-
-
                 return true;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentException("Error: Parámetro nulo detectado en la eliminación del test.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("Error en la lógica de negocio al eliminar el Test", ex);
+                throw new Exception("Error al eliminar el Test.", ex);
             }
         }
+
     }
 }
