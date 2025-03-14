@@ -55,6 +55,11 @@ export function renderPregunta(containerId) {
             <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
             <div class="listaRespuestas mt-2"></div>
         </div>
+
+        <div class="mb-3 respuesta-texto-block" style="display:none;">
+            <label class="form-label">Respuesta</label>
+            <input type="text" class="form-control respuestaTextoUnica" placeholder="Escribe la respuesta aquí">
+        </div>
     `
   );
 }
@@ -319,11 +324,14 @@ export function setupPreguntas() {
 
         respuestaContainer.innerHTML = "";
 
+        const respuestasBlock = preguntaCard.querySelector(".respuestas-block");
+        const respuestaTextoBlock = preguntaCard.querySelector(
+          ".respuesta-texto-block"
+        );
+
         if (target.value === "texto") {
-          respuestaContainer.innerHTML = `
-          <label class="form-label">Respuesta</label>
-          <input type="text" class="form-control respuestaTexto" placeholder="Escribe la respuesta aquí">
-        `;
+          if (respuestasBlock) respuestasBlock.style.display = "none";
+          if (respuestaTextoBlock) respuestaTextoBlock.style.display = "block";
 
           if (addRespuestaButton) {
             addRespuestaButton.style.display = "none";
@@ -331,6 +339,7 @@ export function setupPreguntas() {
           }
         } else {
           respuestaContainer.innerHTML = `<div class="listaRespuestas mt-2"></div>`;
+          if (respuestaTextoBlock) respuestaTextoBlock.style.display = "none";
 
           if (addRespuestaButton) {
             addRespuestaButton.style.display = "inline-block";
@@ -452,6 +461,12 @@ export function obtenerPreguntas() {
           : null;
 
       // **Obtener respuestas**
+
+      if (elemento.answerType === "text") {
+        const respuestaInput = card.querySelector(".respuestaTextoUnica");
+        elemento.label = respuestaInput ? respuestaInput.value : "";
+        elemento.answers = [];
+      }
       const respuestas = [];
       card
         .querySelectorAll(".listaRespuestas > div")
@@ -561,6 +576,11 @@ function fillPreguntaData(containerId, data) {
       const respuestaContainer = container.querySelector(".listaRespuestas");
       if (respuestaContainer) {
         respuestaContainer.innerHTML = "";
+      }
+
+      const inputUnica = container.querySelector(".respuestaTextoUnica");
+      if (inputUnica) {
+        inputUnica.value = data.label || "";
       }
     }
   }
