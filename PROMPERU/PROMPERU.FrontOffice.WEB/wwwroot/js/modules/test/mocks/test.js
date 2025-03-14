@@ -1,21 +1,27 @@
 export default {
   "tests": [
     {
-      "title": "Test Tipo A",
+      "title": "Diagnóstico Empresarial",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"A",
       "current": true
     },
     {
-      "title": "Test Tipo B",
+      "title": "Solicitud de inscripción",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"B",
       "current": false
     },
     {
-      "title": "Test Tipo C",
+      "title": "Matrícula a los cursos",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"C",
+      "current": false
+    },
+    {
+      "title": "Test de salida",
+      "icon": "../../shared/assets/inscripcion/diagnostic.svg",
+      "value":"D",
       "current": false
     }
   ],
@@ -74,6 +80,7 @@ export default {
       "type": "question",
       "questionText": "¿Cuánto es 5 + 3?",
       "isComputable": true,
+      "category": "Geografía",
       "course": {
         "value": "B",
         "label": "Direccion de empresas"
