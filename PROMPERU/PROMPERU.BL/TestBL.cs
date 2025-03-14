@@ -194,6 +194,7 @@ namespace PROMPERU.BL
         {
             try
             {
+                var preguntaID = 0;
                 // Actualizar Portada Principal
                 if (testModel.HasInstructions && testModel.Instructions != null)
                 {
@@ -210,6 +211,22 @@ namespace PROMPERU.BL
                     };
 
                     await _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip,portada.Ptes_ID);
+                }
+                else
+                {
+                    var portada2 = new PortadaTestBE
+                    {
+                        Ptes_ID = testModel.Instructions.ID ?? 0,
+                        Insc_ID = testModel.TestType?.Value ?? 0, // Validación de conversión
+                        Ptes_Titulo = testModel.Instructions.Title,
+                        Ptes_Descripcion = testModel.Instructions.Description,
+                        Ptes_NombreBoton = testModel.Instructions.ButtonText,
+                        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
+                        Ptes_MensajeAlert = testModel.Instructions.Alert,
+                        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
+                    };
+
+                    await _portadaTestDA.EliminarPortadaTestAsync(usuario, ip, portada2.Ptes_ID);
                 }
 
                 // Validar que haya elementos en la lista antes de iterar
@@ -239,7 +256,7 @@ namespace PROMPERU.BL
                             }
                             else if (pregunta.ID < 1  || pregunta.Insc_ID > 0)
                             {
-                                await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
+                                preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
                             }
 
 
@@ -251,7 +268,7 @@ namespace PROMPERU.BL
                                     var respuesta = new RespuestaBE
                                     {
                                         ID = resp.ID ?? 0,
-                                        Preg_ID = pregunta.ID,
+                                        Preg_ID = pregunta.ID > 0 ? pregunta.ID : preguntaID,
                                         Resp_Orden = resp.Order,
                                         Resp_Respuesta = resp.Text ?? string.Empty,
                                         Resp_Valor = resp.Value
