@@ -237,11 +237,13 @@ namespace PROMPERU.BL
                                 Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
                                 Preg_Categoria = e.Category ?? string.Empty,
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
-                            };                       
+                            };
 
-                            tareas.Add(pregunta.ID > 0
-                                ? _preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip, pregunta.ID)
-                                : _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip));
+                            if (pregunta.ID > 0)
+                                tareas.Add(_preguntaDA.ActualizarPreguntaAsync(pregunta, usuario, ip, pregunta.ID));
+                            else
+                                preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
+
 
                             // Insertar respuestas si existen
                             if (e.Answers?.Count > 0)
