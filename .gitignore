@@ -22,4 +22,5 @@ packages/
 *.vscode/
 
 #Ignoras cambios de Logs
-PROMPERU.BackOffice.API/Logs/*
+PROMPERU/PROMPERU.BackOffice.API/Logs/*
+
