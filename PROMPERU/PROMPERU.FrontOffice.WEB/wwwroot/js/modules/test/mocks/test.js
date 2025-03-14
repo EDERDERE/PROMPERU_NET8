@@ -4,19 +4,22 @@ export default {
       "title": "Test Tipo A",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"A",
-      "current": true
+      "current": true,
+      "aprobed": true,
     },
     {
       "title": "Test Tipo B",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"B",
-      "current": false
+      "current": true,
+      "aprobed": true,
     },
     {
       "title": "Test Tipo C",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"C",
-      "current": false
+      "current": false,
+      "aprobed": true,
     }
   ],
   "testType": {
