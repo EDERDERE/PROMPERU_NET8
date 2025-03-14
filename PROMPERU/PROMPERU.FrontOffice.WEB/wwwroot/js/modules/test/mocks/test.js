@@ -4,25 +4,29 @@ export default {
       "title": "Diagnóstico Empresarial",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"A",
-      "current": true
+      "current": true,
+      "aprobed": true,
     },
     {
       "title": "Solicitud de inscripción",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"B",
-      "current": false
+      "current": true,
+      "aprobed": true,
     },
     {
       "title": "Matrícula a los cursos",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"C",
-      "current": false
+      "current": false,
+      "aprobed": false,
     },
     {
       "title": "Test de salida",
       "icon": "../../shared/assets/inscripcion/diagnostic.svg",
       "value":"D",
-      "current": false
+      "current": false,
+      "aprobed": false,
     }
   ],
   "testType": {
