@@ -1,11 +1,17 @@
 import { setupTestSelect } from "./testSelect.js";
 import { setupPortada, llenarPortada } from "./portada.js";
-import { setupPreguntas, llenarPreguntas, obtenerPreguntas } from "./pregunta.js";
+import {
+  setupPreguntas,
+  llenarPreguntas,
+  obtenerPreguntas,
+  cargarCursosYFormularios,
+} from "./pregunta.js";
 import { fetchData } from "../../../shared/js/apiService.js";
 
 let loadedTestType = null;
 
 document.addEventListener("DOMContentLoaded", async function () {
+  await cargarCursosYFormularios();
   await setupTestSelect();
   setupPortada();
   setupPreguntas();
@@ -35,6 +41,21 @@ async function cargarTestParaEditar(testId) {
     loadedTestType = testData.testType;
     const selectTest = document.getElementById("selectTest");
     if (selectTest) {
+      let optionExists = false;
+      for (let i = 0; i < selectTest.options.length; i++) {
+        if (selectTest.options[i].value == testData.testType.value) {
+          optionExists = true;
+          break;
+        }
+      }
+
+      if (!optionExists) {
+        const newOption = document.createElement("option");
+        newOption.value = testData.testType.value;
+        newOption.textContent = testData.testType.label;
+        selectTest.appendChild(newOption);
+      }
+
       selectTest.value = testData.testType.value;
       selectTest.disabled = true;
     }
@@ -57,8 +78,6 @@ async function actualizarTest() {
     return;
   }
 
-  const testTypeSelect = document.getElementById("selectTest");
-
   const testTypeData = loadedTestType || { value: "", label: "" };
   const selectPortada = document.getElementById("selectPortada");
   const tituloPortada = document.getElementById("tituloPortada");
@@ -71,17 +90,23 @@ async function actualizarTest() {
   const iconoBoton = document.getElementById("iconoBoton");
   const instructionsId = document.getElementById("instructionsId")?.value;
 
-  // if (!testTypeSelect.value) {
-  //   alert("⚠️ Debes seleccionar un tipo de Test.");
-  //   return;
-  // }
+  let elements = obtenerPreguntas();
+
+  elements.forEach((elem, index) => {
+    elem.order = index + 1;
+    if (elem.answers && Array.isArray(elem.answers)) {
+      elem.answers.forEach((answer, idx) => {
+        answer.order = idx + 1;
+      });
+    }
+  });
 
   const testData = {
     testType: testTypeData,
     hasInstructions: selectPortada?.value === "si",
     instructions:
       selectPortada?.value === "si"
-        ? { 
+        ? {
             id: instructionsId ? Number(instructionsId) : null,
             title: tituloPortada?.value || "",
             description: quillDescripcion?.innerHTML || "",
@@ -91,7 +116,7 @@ async function actualizarTest() {
             buttonIcon: iconoBoton?.value || "",
           }
         : null,
-    elements: obtenerPreguntas(),
+    elements: elements,
   };
 
   console.log("📌 Enviando Test Data para actualizar:", testData);
