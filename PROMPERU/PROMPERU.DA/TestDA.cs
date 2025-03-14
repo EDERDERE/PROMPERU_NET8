@@ -72,7 +72,7 @@ namespace PROMPERU.DA
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    comando.Parameters.AddWithValue("@Tes_ID", id);
+                    comando.Parameters.AddWithValue("@Insc_ID", id);
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
