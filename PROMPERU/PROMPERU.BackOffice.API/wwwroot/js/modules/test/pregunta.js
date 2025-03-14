@@ -50,7 +50,7 @@ export function renderPregunta(containerId) {
             </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 content-respuestas" >
             <h6 class="title-respuesta">Respuestas</h6>
             <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
             <div class="listaRespuestas mt-2"></div>
@@ -191,9 +191,10 @@ export function addRespuesta(listaRespuestas, tipoRespuesta, answer) {
   const respuestaId = `respuesta-${Date.now()}-${Math.floor(
     Math.random() * 1000
   )}`;
+  const existingId = answer && answer.id ? answer.id : "";
 
   let respuestaHTML = `
-    <div class="d-flex gap-2 mb-2" id="${respuestaId}">
+    <div class="d-flex gap-2 mb-2" id="${respuestaId}" data-answerid="${existingId}">
       <input type="text" class="form-control respuesta-texto" placeholder="Texto de la respuesta" value="${
         answer.text || ""
       }">
@@ -458,9 +459,14 @@ export function obtenerPreguntas() {
           const text = respDiv.querySelector(".respuesta-texto")?.value || "";
           const value =
             parseFloat(respDiv.querySelector(".respuesta-valor")?.value) || 0;
-
+          const answerId = respDiv.getAttribute("data-answerid");
           if (text.trim() !== "") {
-            respuestas.push({ order: idx + 1, text, value });
+            respuestas.push({
+              id: answerId ? Number(answerId) : null,
+              order: idx + 1,
+              text,
+              value,
+            });
           }
         });
 
@@ -514,6 +520,16 @@ function fillPreguntaData(containerId, data) {
       : "no_computable";
   }
 
+  const computableSection = container.querySelector(".computableSection");
+  const noComputableSection = container.querySelector(".noComputableSection");
+  if (data.isComputable) {
+    if (computableSection) computableSection.classList.remove("d-none");
+    if (noComputableSection) noComputableSection.classList.add("d-none");
+  } else {
+    if (computableSection) computableSection.classList.add("d-none");
+    if (noComputableSection) noComputableSection.classList.remove("d-none");
+  }
+
   if (data.isComputable) {
     const cursoSelect = container.querySelector(".curso");
     if (cursoSelect && data.course) {
@@ -534,6 +550,18 @@ function fillPreguntaData(containerId, data) {
       tipoRespuestaSelect.value = "multiple";
     } else if (data.answerType === "text") {
       tipoRespuestaSelect.value = "texto";
+    }
+
+    if (tipoRespuestaSelect.value === "texto") {
+      const addRespuestaButton = container.querySelector(".addRespuesta");
+      if (addRespuestaButton) {
+        addRespuestaButton.style.display = "none";
+      }
+
+      const respuestaContainer = container.querySelector(".listaRespuestas");
+      if (respuestaContainer) {
+        respuestaContainer.innerHTML = "";
+      }
     }
   }
 
@@ -561,5 +589,20 @@ function fillFormularioData(containerId, data) {
   if (formularioDisplay && selectFormulario && data.selectedForm) {
     formularioDisplay.value = data.selectedForm.label || "";
     selectFormulario.value = data.selectedForm.value || "";
+  }
+}
+
+function fillPortadaData(itemId, data) {
+  const preguntaCard = document.getElementById(itemId);
+  if (!preguntaCard) return;
+
+  const tituloPortada = preguntaCard.querySelector("#tituloPortada");
+  if (tituloPortada) {
+    tituloPortada.value = data.title || "";
+  }
+
+  const quillContainer = preguntaCard.querySelector(".ql-editor");
+  if (quillContainer) {
+    quillContainer.innerHTML = data.description || "";
   }
 }

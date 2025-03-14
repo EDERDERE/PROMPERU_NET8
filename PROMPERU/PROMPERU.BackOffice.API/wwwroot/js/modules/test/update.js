@@ -4,12 +4,14 @@ import {
   setupPreguntas,
   llenarPreguntas,
   obtenerPreguntas,
+  cargarCursosYFormularios,
 } from "./pregunta.js";
 import { fetchData } from "../../../shared/js/apiService.js";
 
 let loadedTestType = null;
 
 document.addEventListener("DOMContentLoaded", async function () {
+  await cargarCursosYFormularios();
   await setupTestSelect();
   setupPortada();
   setupPreguntas();
@@ -76,8 +78,6 @@ async function actualizarTest() {
     return;
   }
 
-  const testTypeSelect = document.getElementById("selectTest");
-
   const testTypeData = loadedTestType || { value: "", label: "" };
   const selectPortada = document.getElementById("selectPortada");
   const tituloPortada = document.getElementById("tituloPortada");
@@ -89,6 +89,17 @@ async function actualizarTest() {
   const textoBoton = document.getElementById("textoBoton");
   const iconoBoton = document.getElementById("iconoBoton");
   const instructionsId = document.getElementById("instructionsId")?.value;
+
+  let elements = obtenerPreguntas();
+
+  elements.forEach((elem, index) => {
+    elem.order = index + 1;
+    if (elem.answers && Array.isArray(elem.answers)) {
+      elem.answers.forEach((answer, idx) => {
+        answer.order = idx + 1;
+      });
+    }
+  });
 
   const testData = {
     testType: testTypeData,
@@ -105,7 +116,7 @@ async function actualizarTest() {
             buttonIcon: iconoBoton?.value || "",
           }
         : null,
-    elements: obtenerPreguntas(),
+    elements: elements,
   };
 
   console.log("📌 Enviando Test Data para actualizar:", testData);
