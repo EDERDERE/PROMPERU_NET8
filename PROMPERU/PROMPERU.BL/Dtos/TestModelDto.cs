@@ -26,6 +26,7 @@
         public string Type { get; set; } = string.Empty; // Evita errores de serialización
         public string? QuestionText { get; set; }
         public bool? IsComputable { get; set; } // Opcional
+        public string? Label { get; set; }
         public string? Category { get; set; }
         public string? AnswerType { get; set; }
         public List<Answer>? Answers { get; set; }

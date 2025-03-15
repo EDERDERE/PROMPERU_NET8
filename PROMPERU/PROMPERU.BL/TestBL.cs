@@ -129,6 +129,7 @@ namespace PROMPERU.BL
                                 Preg_NumeroPregunta = e.Order,
                                 Preg_TextoPregunta = e.QuestionText ?? string.Empty,
                                 Preg_EsComputable = e.IsComputable ?? false,
+                                Preg_Etiqueta = e.Label ?? string.Empty,
                                 Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
                                 Preg_Categoria = e.Category ?? string.Empty,
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
@@ -234,6 +235,7 @@ namespace PROMPERU.BL
                                 Preg_NumeroPregunta = e.Order,
                                 Preg_TextoPregunta = e.QuestionText ?? string.Empty,
                                 Preg_EsComputable = e.IsComputable ?? false,
+                                Preg_Etiqueta = e.Label ?? string.Empty,
                                 Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
                                 Preg_Categoria = e.Category ?? string.Empty,
                                 Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
@@ -345,7 +347,7 @@ namespace PROMPERU.BL
                     .FirstOrDefault() ?? new TestType();
 
                 // Obtener portada
-                test.HasInstructions = portadaTes.Any();
+           
                 test.Instructions = portadaTes
                     .Where(x => x.Insc_ID == Id)
                     .Select(e => new Instructions
@@ -360,6 +362,7 @@ namespace PROMPERU.BL
                     })
                     .FirstOrDefault() ?? new Instructions();
 
+                test.HasInstructions = test.Instructions.ID > 0 ? true : false;
                 // Agregar preguntas
                 test.Elements.AddRange(
                     preguntaTest
@@ -371,6 +374,7 @@ namespace PROMPERU.BL
                             Type = "question",
                             QuestionText = p.Preg_TextoPregunta,
                             IsComputable = p.Preg_EsComputable,
+                            Label=p.Preg_Etiqueta,
                             Category = p.Preg_Categoria,
                             AnswerType = p.Preg_TipoRespuesta,
                             Course = new Course
