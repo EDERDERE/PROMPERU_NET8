@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Xml.Linq;
 using static PROMPERU.BE.MaestrosBE;
 
@@ -196,6 +197,7 @@ namespace PROMPERU.BL
         {
             try
             {
+                var tareas = new List<Task>();
                 // Eliminar registros previos antes de actualizar o insertar
                 await _testDA.EliminarTestAsync(usuario, ip, testModel.TestType.Value);
 
@@ -216,13 +218,15 @@ namespace PROMPERU.BL
                         Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
                     };
 
-                    await _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip, portada.Ptes_ID);
+                    tareas.Add(portada.Ptes_ID > 0
+                                       ? _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip, portada.Ptes_ID)
+                                       : _portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip));
                 }
 
                 // Validar elementos antes de procesarlos
                 if (testModel.Elements?.Count > 0)
                 {
-                    var tareas = new List<Task>();
+              
 
                     foreach (var e in testModel.Elements)
                     {
