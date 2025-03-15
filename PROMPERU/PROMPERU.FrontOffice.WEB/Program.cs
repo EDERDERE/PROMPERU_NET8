@@ -23,6 +23,11 @@ builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnect
 //servicios externos (SUNAT)
 builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatApiSettings"));
 builder.Services.AddHttpClient<SunatService>();
+
+//servicios externos (SUNAT PROM PERU)
+builder.Services.Configure<SunatPromPeruApiSettings>(builder.Configuration.GetSection("SunatPromPeruApiSettings"));
+builder.Services.AddHttpClient<SunatPromPeruService>();
+
 //servicios externos (CORREO)
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddScoped<EmailService>();
