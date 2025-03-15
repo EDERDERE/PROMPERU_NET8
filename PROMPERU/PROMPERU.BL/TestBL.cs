@@ -1,5 +1,6 @@
 ﻿using Azure;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
@@ -415,10 +416,11 @@ namespace PROMPERU.BL
                         .Where(x => x.Insc_ID == Id)
                         .Select(e => new Elements
                         {
+                            ID= e.Ftes_ID,
                             Order = e.Ftes_Orden,
                             Type = "form",
                             SelectedForm = new SelectedForm
-                            {
+                            {                           
                                 ID = e.Ftes_ID,
                                 Label = e.Ftes_Texto,
                                 Value = e.Ftes_Valor
