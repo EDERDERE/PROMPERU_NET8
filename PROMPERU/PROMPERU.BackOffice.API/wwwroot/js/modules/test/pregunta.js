@@ -51,13 +51,12 @@ export function renderPregunta(containerId) {
         </div>
 
         <div class="mb-3 content-respuestas" >
-            <h6 class="title-respuesta">Respuestas</h6>
             <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
             <div class="listaRespuestas mt-2"></div>
         </div>
 
         <div class="mb-3 respuesta-texto-block" style="display:none;">
-            <label class="form-label">Respuesta</label>
+            <label class="form-label">Agrega placeholder</label>
             <input type="text" class="form-control respuestaTextoUnica" placeholder="Escribe la respuesta aquí">
         </div>
     `
@@ -558,6 +557,11 @@ function fillPreguntaData(containerId, data) {
   }
 
   const tipoRespuestaSelect = container.querySelector(".tipoRespuesta");
+  const addRespuestaButton = container.querySelector(".addRespuesta");
+  const respuestaContainer = container.querySelector(".listaRespuestas");
+  const respuestaTextoBlock = container.querySelector(".respuesta-texto-block");
+  const inputUnica = container.querySelector(".respuestaTextoUnica");
+
   if (tipoRespuestaSelect) {
     if (data.answerType === "singleChoice") {
       tipoRespuestaSelect.value = "unica";
@@ -567,20 +571,25 @@ function fillPreguntaData(containerId, data) {
       tipoRespuestaSelect.value = "texto";
     }
 
-    if (tipoRespuestaSelect.value === "texto") {
-      const addRespuestaButton = container.querySelector(".addRespuesta");
+    if (tipoRespuestaSelect && tipoRespuestaSelect.value === "texto") {
       if (addRespuestaButton) {
         addRespuestaButton.style.display = "none";
       }
 
-      const respuestaContainer = container.querySelector(".listaRespuestas");
       if (respuestaContainer) {
         respuestaContainer.innerHTML = "";
       }
 
-      const inputUnica = container.querySelector(".respuestaTextoUnica");
+      if (respuestaTextoBlock) {
+        respuestaTextoBlock.style.display = "block";
+      }
+
       if (inputUnica) {
         inputUnica.value = data.label || "";
+      }
+    } else {
+      if (respuestaTextoBlock) {
+        respuestaTextoBlock.style.display = "none";
       }
     }
   }
