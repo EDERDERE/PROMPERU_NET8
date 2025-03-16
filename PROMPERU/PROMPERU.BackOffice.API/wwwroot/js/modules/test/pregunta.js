@@ -115,18 +115,21 @@ export function renderPortada(containerId) {
 }
 
 export function agregarPregunta(data = {}, order = null) {
+
+  console.log(order)
   const preguntaLista = document.getElementById("preguntaLista");
   if (!preguntaLista) return;
 
   const itemId = generarIdPregunta();
   const containerId = `contenido-${itemId}`;
   const tipo = data.type || "question";
+  const finalOrder = order ?? "Nuevo";
   const elementIdAttr = data.id ? data.id : "";
 
   const preguntaHTML = `
     <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
+            <h5 class="mb-0">Elemento ${finalOrder}</h5>
             <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
         </div>
         <hr>
@@ -231,7 +234,8 @@ export function setupPreguntas() {
   let items = [];
 
   function agregarItem() {
-    const numCards = document.querySelectorAll("#preguntaLista .card").length;
+    const cards = document.querySelectorAll("#preguntaLista > .card[id^='pregunta-']");
+    const numCards = cards.length;
     const order = numCards + 1;
     const itemId = `item-${Date.now()}-${order}`;
     items.push(itemId);
@@ -516,15 +520,14 @@ export function obtenerPreguntas() {
     preguntas.push(elemento);
   });
 
-  console.log("✅ Preguntas extraídas:", preguntas);
   return preguntas;
 }
 
 export function llenarPreguntas(elements) {
   if (!elements || elements.length === 0) return;
 
-  elements.forEach((element, index) => {
-    agregarPregunta(element, index + 1);
+  elements.forEach((element) => {
+    agregarPregunta(element, element.order);
   });
 }
 
