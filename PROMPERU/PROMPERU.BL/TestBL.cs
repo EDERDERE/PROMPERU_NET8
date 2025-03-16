@@ -1,5 +1,6 @@
 ﻿using Azure;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Xml.Linq;
 using static PROMPERU.BE.MaestrosBE;
 
@@ -195,6 +197,7 @@ namespace PROMPERU.BL
         {
             try
             {
+                var tareas = new List<Task>();
                 // Eliminar registros previos antes de actualizar o insertar
                 await _testDA.EliminarTestAsync(usuario, ip, testModel.TestType.Value);
 
@@ -215,13 +218,15 @@ namespace PROMPERU.BL
                         Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
                     };
 
-                    await _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip, portada.Ptes_ID);
+                    tareas.Add(portada.Ptes_ID > 0
+                                       ? _portadaTestDA.ActualizarPortadaTestAsync(portada, usuario, ip, portada.Ptes_ID)
+                                       : _portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip));
                 }
 
                 // Validar elementos antes de procesarlos
                 if (testModel.Elements?.Count > 0)
                 {
-                    var tareas = new List<Task>();
+              
 
                     foreach (var e in testModel.Elements)
                     {
@@ -415,10 +420,11 @@ namespace PROMPERU.BL
                         .Where(x => x.Insc_ID == Id)
                         .Select(e => new Elements
                         {
+                            ID= e.Ftes_ID,
                             Order = e.Ftes_Orden,
                             Type = "form",
                             SelectedForm = new SelectedForm
-                            {
+                            {                           
                                 ID = e.Ftes_ID,
                                 Label = e.Ftes_Texto,
                                 Value = e.Ftes_Valor
