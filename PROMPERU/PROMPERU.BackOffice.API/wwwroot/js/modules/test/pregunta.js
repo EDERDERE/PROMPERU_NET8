@@ -4,6 +4,13 @@ import { fetchData } from "../../../shared/js/apiService.js";
 
 let coursesList = [];
 
+let contadorPreguntas = 0;
+
+function generarIdPregunta() {
+  contadorPreguntas++;
+  return `pregunta-${Date.now()}-${contadorPreguntas}`;
+}
+
 export function renderPregunta(containerId) {
   renderTemplate(
     containerId,
@@ -68,8 +75,8 @@ export function renderFormulario(containerId) {
     containerId,
     () => `
       <div class="mb-3">
-          <label for="selectFormulario" class="form-label">Selecciona un formulario</label>
-          <select id="selectFormulario" class="form-select">
+          <label for="selectFormulario-${containerId}" class="form-label">Selecciona un formulario</label>
+          <select id="selectFormulario-${containerId}" class="form-select">
               <option value="" selected disabled>Selecciona un formulario</option>
               <option value="formulario1">Formulario 1</option>
               <option value="formulario2">Formulario 2</option>
@@ -85,12 +92,12 @@ export function renderPortada(containerId) {
     () => `
       <div class="card p-4 shadow-sm">
           <div class="mb-3">
-              <label for="tituloPortada" class="form-label">Título de Portada</label>
-              <input type="text" id="tituloPortada" class="form-control">
+              <label for="tituloPortada-${containerId}" class="form-label">Título de Portada</label>
+              <input type="text" id="tituloPortada-${containerId}" class="form-control">
           </div>
 
           <div class="mb-3">
-              <label for="descripcionPortada" class="form-label">Descripción</label>
+              <label for="descripcionPortada-${containerId}" class="form-label">Descripción</label>
               <div id="descripcionPortada-${containerId}" class="form-control" style="height: 150px;"></div>
           </div>
       </div>
@@ -111,10 +118,9 @@ export function agregarPregunta(data = {}, order = null) {
   const preguntaLista = document.getElementById("preguntaLista");
   if (!preguntaLista) return;
 
-  const itemId = `pregunta-${Date.now()}`;
+  const itemId = generarIdPregunta();
   const containerId = `contenido-${itemId}`;
   const tipo = data.type || "question";
-
   const elementIdAttr = data.id ? data.id : "";
 
   const preguntaHTML = `
@@ -151,10 +157,10 @@ export function agregarPregunta(data = {}, order = null) {
     fillPreguntaData(itemId, data);
   } else if (tipo === "form") {
     renderFormulario(`contenido-${itemId}`);
-    fillFormularioData(itemId, data);
+    fillFormularioData(`contenido-${itemId}`, data);
   } else if (tipo === "cover") {
-    renderPortada(`contenido-${itemId}`);
-    fillPortadaData(itemId, data);
+    renderPortada(containerId);
+    fillPortadaData(containerId, data);
   }
 
   if (data.type === "question") {
@@ -225,13 +231,15 @@ export function setupPreguntas() {
   let items = [];
 
   function agregarItem() {
-    const itemId = `item-${items.length}`;
+    const numCards = document.querySelectorAll("#preguntaLista .card").length;
+    const order = numCards + 1;
+    const itemId = `item-${Date.now()}-${order}`;
     items.push(itemId);
 
     const itemHTML = `
       <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="">
           <div class="d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Elemento ${items.length}</h5>
+              <h5 class="mb-0">Elemento ${order}</h5>
               <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
           </div>
           <hr>
@@ -294,6 +302,7 @@ export function setupPreguntas() {
   document
     .getElementById("preguntaLista")
     .addEventListener("change", function (event) {
+      if (window.isFilling) return;
       const target = event.target;
       const preguntaCard = target.closest(".card");
 
@@ -306,7 +315,6 @@ export function setupPreguntas() {
       );
       const respuestaContainer = preguntaCard.querySelector(".listaRespuestas");
       const addRespuestaButton = preguntaCard.querySelector(".addRespuesta");
-      const titleAnswer = preguntaCard.querySelector(".title-respuesta");
 
       if (target.classList.contains("tipoPregunta")) {
         if (target.value === "computable") {
@@ -334,7 +342,6 @@ export function setupPreguntas() {
 
           if (addRespuestaButton) {
             addRespuestaButton.style.display = "none";
-            titleAnswer.style.display = "none";
           }
         } else {
           respuestaContainer.innerHTML = `<div class="listaRespuestas mt-2"></div>`;
@@ -488,15 +495,18 @@ export function obtenerPreguntas() {
     }
 
     if (tipoContenido === "portada") {
-      elemento.title = card.querySelector("#tituloPortada")?.value || "";
+      const tituloPortada = card.querySelector("[id^='tituloPortada-']");
+      elemento.title = tituloPortada ? tituloPortada.value : "";
       const quillDescripcion = card.querySelector(".ql-editor");
-      elemento.description = quillDescripcion?.innerHTML || "";
+      elemento.description = quillDescripcion ? quillDescripcion.innerHTML : "";
     }
 
     if (tipoContenido === "formulario") {
-      const selectForm = card.querySelector("#selectFormulario");
+      const selectForm = card.querySelector("select[id^='selectFormulario-']");
       if (selectForm) {
+        const formId = selectForm.getAttribute("data-selectedform-id") || null;
         elemento.selectedForm = {
+          id: formId ? Number(formId) : null,
           value: selectForm.value,
           label: selectForm.options[selectForm.selectedIndex]?.text || "",
         };
@@ -611,27 +621,43 @@ function fillFormularioData(containerId, data) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const formularioDisplay = container.querySelector(
-    "#formularioDisplay-" + containerId
+  const selectFormulario = container.querySelector(
+    `#selectFormulario-${containerId}`
   );
-  const selectFormulario = container.querySelector("#selectFormulario");
-  if (formularioDisplay && selectFormulario && data.selectedForm) {
-    formularioDisplay.value = data.selectedForm.label || "";
+  if (selectFormulario && data.selectedForm) {
     selectFormulario.value = data.selectedForm.value || "";
+    selectFormulario.setAttribute(
+      "data-selectedform-id",
+      data.selectedForm.id || ""
+    );
   }
 }
 
-function fillPortadaData(itemId, data) {
-  const preguntaCard = document.getElementById(itemId);
-  if (!preguntaCard) return;
+function fillPortadaData(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-  const tituloPortada = preguntaCard.querySelector("#tituloPortada");
+  const card = container.closest(".card");
+  if (card && data.id) {
+    card.setAttribute("data-elementid", data.id);
+  }
+
+  const tituloPortada = container.querySelector(
+    `#tituloPortada-${containerId}`
+  );
   if (tituloPortada) {
     tituloPortada.value = data.title || "";
   }
 
-  const quillContainer = preguntaCard.querySelector(".ql-editor");
-  if (quillContainer) {
-    quillContainer.innerHTML = data.description || "";
+  const descContainer = document.getElementById(
+    `descripcionPortada-${containerId}`
+  );
+  if (descContainer) {
+    const quillEditor = descContainer.querySelector(".ql-editor");
+    if (quillEditor) {
+      quillEditor.innerHTML = data.description || "";
+    } else {
+      descContainer.innerHTML = data.description || "";
+    }
   }
 }

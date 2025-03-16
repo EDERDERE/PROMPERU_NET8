@@ -9,6 +9,8 @@ import {
 import { fetchData } from "../../../shared/js/apiService.js";
 
 let loadedTestType = null;
+window.isFilling = false;
+
 
 document.addEventListener("DOMContentLoaded", async function () {
   await cargarCursosYFormularios();
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 async function cargarTestParaEditar(testId) {
+
   try {
     const response = await fetchData(`/Test/ObtenerTest/${testId}`);
 
@@ -39,6 +42,8 @@ async function cargarTestParaEditar(testId) {
     const testData = response.test;
 
     loadedTestType = testData.testType;
+
+    window.isFilling = true;
     const selectTest = document.getElementById("selectTest");
     if (selectTest) {
       let optionExists = false;
@@ -65,6 +70,7 @@ async function cargarTestParaEditar(testId) {
     }
 
     llenarPreguntas(testData.elements);
+    window.isFilling = false;
   } catch (error) {
     console.error("❌ Error al cargar el test para edición:", error);
   }
