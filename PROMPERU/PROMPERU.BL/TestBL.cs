@@ -432,6 +432,7 @@ namespace PROMPERU.BL
                         })
                 );
 
+                test.Elements = test.Elements.OrderBy(y => y.Order).ToList();
                 return test;
             }
             catch (Exception ex)
