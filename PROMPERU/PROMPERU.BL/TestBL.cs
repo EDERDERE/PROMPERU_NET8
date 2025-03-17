@@ -382,11 +382,11 @@ namespace PROMPERU.BL
                             Label=p.Preg_Etiqueta,
                             Category = p.Preg_Categoria,
                             AnswerType = p.Preg_TipoRespuesta,
-                            Course = new Course
+                            Course = (bool)p.Preg_EsComputable ? new Course
                             {
                                 Value = p.Curs_ID,
                                 Label = p.Curs_Nombre_Curso
-                            },
+                            } : null,
                             Answers = respuestaTest
                                 .Where(r => r.Preg_ID == p.ID)
                                 .Select(r => new Answer
