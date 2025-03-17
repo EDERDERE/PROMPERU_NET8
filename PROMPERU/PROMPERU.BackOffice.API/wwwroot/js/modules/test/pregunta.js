@@ -234,7 +234,7 @@ export function setupPreguntas() {
   let items = [];
 
   function agregarItem() {
-    const cards = document.querySelectorAll("#preguntaLista > .card[id^='pregunta-']");
+    const cards = document.querySelectorAll("#preguntaLista > .card");
     const numCards = cards.length;
     const order = numCards + 1;
     const itemId = `item-${Date.now()}-${order}`;
