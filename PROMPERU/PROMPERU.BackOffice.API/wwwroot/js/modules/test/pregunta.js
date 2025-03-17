@@ -115,8 +115,6 @@ export function renderPortada(containerId) {
 }
 
 export function agregarPregunta(data = {}, order = null) {
-
-  console.log(order)
   const preguntaLista = document.getElementById("preguntaLista");
   if (!preguntaLista) return;
 
@@ -127,7 +125,7 @@ export function agregarPregunta(data = {}, order = null) {
   const elementIdAttr = data.id ? data.id : "";
 
   const preguntaHTML = `
-    <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}">
+    <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}" data-original-type="${tipo}">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Elemento ${finalOrder}</h5>
             <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
@@ -298,6 +296,11 @@ export function setupPreguntas() {
           renderPortada(contenidoId);
         } else {
           renderTemplate(contenidoId, "");
+        }
+
+        const originalType = itemCard.getAttribute("data-original-type");
+        if (target.value !== originalType) {
+          itemCard.setAttribute("data-elementid", "");
         }
       }
     });
