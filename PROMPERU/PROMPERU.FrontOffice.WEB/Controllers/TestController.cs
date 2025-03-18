@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BL;
 using ServiceExterno;
@@ -138,6 +140,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 }).ToList();
 
                 var testDiagnostico = await _testBL.ObtenerTestPorIdAsync(2);
+                // Guardar datos en la sesión
+                HttpContext.Session.SetString("RUC",ruc);
                 return Ok(new
                 {
                     success = true,
@@ -157,7 +161,15 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return StatusCode(500, new { success = false, message = "Ocurrió un error inesperado al procesar la consulta." });
             }
         }
-            
+
+        [HttpPost]
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Especificamos el esquema
+            HttpContext.Session.Clear();
+            return Json(new { success = true });
+        }
+
 
     }
 }
