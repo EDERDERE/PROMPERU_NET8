@@ -133,6 +133,39 @@ namespace ServiceExterno
                 throw new Exception($"Error al consultar el RUC {ruc}. Inténtelo nuevamente.");
             }
         }
+        public async Task<(bool esValido, JsonElement? evaluadoResult)> ValidarSunatPromPeruAsync(string jsonResponse)
+        {
+            using JsonDocument doc = JsonDocument.Parse(jsonResponse);
+            JsonElement root = doc.RootElement;
+
+            if (root.TryGetProperty("status", out JsonElement statusElement) &&
+                statusElement.GetString() == "200" &&
+                root.TryGetProperty("result", out JsonElement resultElement) &&
+                resultElement.ValueKind == JsonValueKind.Array &&
+                resultElement.GetArrayLength() > 0)
+            {
+                JsonElement contribuyente = resultElement[0]; // Tomamos el primer objeto del array
+
+                // Copiamos los valores para que no dependan del JsonDocument
+                string estado = contribuyente.TryGetProperty("estadocontribuyente", out JsonElement estadoElement)
+                                ? estadoElement.GetString() ?? string.Empty
+                                : string.Empty;
+
+                string condicion = contribuyente.TryGetProperty("condicioncontribuyente", out JsonElement condicionElement)
+                                   ? condicionElement.GetString() ?? string.Empty
+                                   : string.Empty;
+
+                bool esValido = estado.Equals("ACTIVO", StringComparison.OrdinalIgnoreCase) &&
+                                condicion.Equals("HABIDO", StringComparison.OrdinalIgnoreCase);
+
+                // 🔹 Copiamos el "resultElement" para evitar el error de objeto eliminado
+                JsonElement resultCopy = resultElement.Clone();
+
+                return (esValido, resultCopy);
+            }
+
+            return (false, null);
+        }
 
     }
 

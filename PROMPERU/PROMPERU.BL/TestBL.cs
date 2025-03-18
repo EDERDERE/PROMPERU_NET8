@@ -53,7 +53,6 @@ namespace PROMPERU.BL
                 throw new Exception("Error en la lógica de negocio al listar los Maestros", ex);
             }
         }
-
         public async Task<List<MaestrosBE>> ListarMaestrosAsync()
         {
             try
@@ -91,7 +90,6 @@ namespace PROMPERU.BL
                 throw new Exception("Error en la lógica de negocio al listar los Maestros", ex);
             }
         }
-
         public async Task<TestModelDto> CrearTestAsync(TestModelDto testModel, string usuario, string ip)
         {
             if (testModel == null) throw new ArgumentNullException(nameof(testModel));
@@ -352,22 +350,25 @@ namespace PROMPERU.BL
                     .FirstOrDefault() ?? new TestType();
 
                 // Obtener portada
-           
-                test.Instructions = portadaTes
-                    .Where(x => x.Insc_ID == Id)
-                    .Select(e => new Instructions
-                    {
-                        ID = e.Ptes_ID,
-                        Title = e.Ptes_Titulo,
-                        Description = e.Ptes_Descripcion,
-                        Alert = e.Ptes_MensajeAlert,
-                        AlertIcon = e.Ptes_UrlIconoAlrt,
-                        ButtonText = e.Ptes_NombreBoton,
-                        ButtonIcon = e.Ptes_UrlIconoBoton
-                    })
-                    .FirstOrDefault() ?? new Instructions();
 
-                test.HasInstructions = test.Instructions.ID > 0 ? true : false;
+                var instruction = portadaTes?
+                   .Where(x => x.Insc_ID == Id)
+                   .Select(e => new Instructions
+                   {
+                       ID = e.Ptes_ID,
+                       Title = e.Ptes_Titulo,
+                       Description = e.Ptes_Descripcion,
+                       Alert = e.Ptes_MensajeAlert,
+                       AlertIcon = e.Ptes_UrlIconoAlrt,
+                       ButtonText = e.Ptes_NombreBoton,
+                       ButtonIcon = e.Ptes_UrlIconoBoton
+                   })
+                   .FirstOrDefault();
+
+                test.Instructions = instruction?.ID > 0 ? instruction : null;
+                test.HasInstructions = test.Instructions != null;
+
+
                 // Agregar preguntas
                 test.Elements.AddRange(
                     preguntaTest
@@ -504,6 +505,17 @@ namespace PROMPERU.BL
                 throw new Exception("Error al eliminar el Test.", ex);
             }
         }
-
+        public async Task<List<ProcesoTestBE>> ListarProcesoTestAsync(string ruc)
+        {
+            try
+            {
+                var ListadoTest = await _testDA.ListarProcesoTestsAsync(ruc);
+                return ListadoTest;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
+            }
+        }
     }
 }

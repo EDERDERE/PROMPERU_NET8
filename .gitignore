@@ -23,4 +23,5 @@ packages/
 
 #Ignoras cambios de Logs
 PROMPERU/PROMPERU.BackOffice.API/Logs/*
+**/Logs/
 

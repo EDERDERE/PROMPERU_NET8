@@ -13,11 +13,13 @@ namespace ServiceExterno
     {
         private readonly HttpClient _httpClient;
         private readonly SunatApiSettings _settings;
+        private readonly SunatPromPeruService _sunatPromPeruService;
 
-        public SunatService(HttpClient httpClient, IOptions<SunatApiSettings> settings)
+        public SunatService(HttpClient httpClient, IOptions<SunatApiSettings> settings,SunatPromPeruService sunatPromPeruService)
         {
             _httpClient = httpClient;
-            _settings = settings.Value;     
+            _settings = settings.Value;
+            _sunatPromPeruService = sunatPromPeruService;
         }
 
         private async Task<string> ObtenerTokenAsync()
@@ -111,7 +113,8 @@ namespace ServiceExterno
                 // Manejo de Errores
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception($"Error HTTP ({response.StatusCode}) al consultar RUC {ruc}. Respuesta: {responseContent}");
+                    // Consulta API INTERNO (SUNAT)
+                    responseContent = await _sunatPromPeruService.ConsultarRUCAsync(ruc);
                 }
 
                 return responseContent;
@@ -125,6 +128,46 @@ namespace ServiceExterno
                 throw new Exception($"Error al consultar el RUC {ruc}: {ex.Message}", ex);
             }
         }
-    }
+        public async Task<(bool esValido, JsonElement? evaluadoResult)> ValidarSunatAsync(string jsonResponse)
+        {
+            using JsonDocument doc = JsonDocument.Parse(jsonResponse);
+            JsonElement root = doc.RootElement;
 
+            // 🔹 Caso 1: JSON con "status" y "result" (Formato esperado inicialmente)
+            if (root.TryGetProperty("status", out JsonElement statusElement) &&
+                statusElement.GetString() == "200" &&
+                root.TryGetProperty("result", out JsonElement resultElement) &&
+                resultElement.ValueKind == JsonValueKind.Array &&
+                resultElement.GetArrayLength() > 0)
+            {
+                JsonElement contribuyente = resultElement[0]; // Tomamos el primer objeto del array
+
+                string estado = contribuyente.TryGetProperty("estadocontribuyente", out JsonElement estadoElement)
+                                ? estadoElement.GetString() ?? string.Empty
+                                : string.Empty;
+
+                string condicion = contribuyente.TryGetProperty("condicioncontribuyente", out JsonElement condicionElement)
+                                   ? condicionElement.GetString() ?? string.Empty
+                                   : string.Empty;
+
+                bool esValido = estado.Equals("ACTIVO", StringComparison.OrdinalIgnoreCase) &&
+                                condicion.Equals("HABIDO", StringComparison.OrdinalIgnoreCase);
+
+                return (esValido, resultElement.Clone());
+            }
+
+            // 🔹 Caso 2: JSON sin "status" y "result" (Ejemplo que proporcionaste)
+            if (root.TryGetProperty("RUC", out JsonElement rucElement) &&
+                root.TryGetProperty("RazonSocial", out JsonElement razonSocialElement))
+            {
+                bool esValido = !string.IsNullOrWhiteSpace(rucElement.GetString()) &&
+                                !string.IsNullOrWhiteSpace(razonSocialElement.GetString());
+
+                return (esValido, root.Clone());
+            }
+
+            return (false, null);
+        }
+
+    }
 }
