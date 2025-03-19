@@ -3,16 +3,26 @@ import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
   async function fetchCompanyData(ruc) {
-    // Simulación de llamada a API con un retraso de 1.5s
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          ruc,
-          name: "Empresa Ejemplo SAC",
-          address: "Av. Falsa 123, Lima",
-        });
-      }, 1500);
-    });
+    const formData = new FormData()
+    formData.append('ruc', ruc)
+    try {
+      const response = await fetch("http://localhost:5095/Test/ConsultarRUC", {
+        method: 'POST',
+        body: formData
+      });
+
+      const responseJson = await response.json()
+
+      console.log(responseJson)
+
+      if(responseJson.success){
+        store.setState({ test: responseJson.test });
+        return responseJson.test.evaluado
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async function handleSubmit(event) {
@@ -28,7 +38,7 @@ const FindBusinessForm = () => {
     const companyData = await fetchCompanyData(ruc);
 
     // Guarda los datos en el estado global
-    const hasInstructions = store.getState().test.hasInstructions;
+    const hasInstructions = store.getState().test.testDiagnostico.hasInstructions;
     if (hasInstructions) {
       store.setState({ currentStep: "intro" });
     } else {

@@ -3,7 +3,7 @@ import { store } from "../state.js";
 const TestSteps = () =>{
 
   const steps = () => {
-     const tests = store.getState().test?.tests
+     const tests = store.getState().test?.etapas
     if(tests.length){
       const currentIndex = tests.findIndex(test => test.current)
       return tests.map((test, index) => {
@@ -22,7 +22,7 @@ const TestSteps = () =>{
   }
 
   const progress = () =>{
-    const tests = store.getState().test?.tests
+    const tests = store.getState().test?.etapas
     if(tests.length){
       const currentIndex = tests.findIndex(test => test.current)
 

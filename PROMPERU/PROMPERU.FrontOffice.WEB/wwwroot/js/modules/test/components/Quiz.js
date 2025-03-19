@@ -1,10 +1,35 @@
-const Quiz = (data) => {
+import { renderForm } from "../utils/renderForm.js";
+import { registerEvent } from "../utils/eventHandler.js";
+import { store } from "../state.js";
 
+import form from "../forms/index.js";
+const Quiz = (data) => {
+    const selectOption = (e) =>{
+      const target = e.target
+      const index = parseInt(target.dataset.option)
+
+      let state = store.getState()
+      let currentTest = state.test.testDiagnostico.elements[state.currentStep]
+      if(data.answerType == 'multipleChoice'){
+        const currentOptions = currentTest?.selectOption || []
+        if(currentOptions.includes(index)) {
+          currentTest.selectOption = currentOptions.filter(item => item !== index)
+        }else{
+          currentOptions.push(index)
+          currentTest.selectOption = currentOptions
+        }
+      }else{
+        currentTest.selectOption = [index]
+      }
+      store.setState({test: state.test})
+    } 
+
+    registerEvent("click", "quizOption", selectOption);
     const renderOptions = () =>{
         const alphabet = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").split("");
         return data.answers.map((item, index) => {
             return `
-            <div class="question-box mb-3">
+            <div class="question-box mb-3 ${data?.selectOption && data?.selectOption.includes(index) ? 'selected':''}" data-event="quizOption" data-option=${index}>
                 <span class="option-label">${alphabet[index]}</span> ${item.text}
             </div>
             `
@@ -63,7 +88,7 @@ const Quiz = (data) => {
       }
 
       if(data.type == 'form'){
-        return coverLayout(data.selectedForm.label)
+        return renderForm(form[data.selectedForm.value])
       }
     }
 
