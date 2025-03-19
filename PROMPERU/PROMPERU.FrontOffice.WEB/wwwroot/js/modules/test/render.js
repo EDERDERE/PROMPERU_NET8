@@ -5,8 +5,6 @@ import renderSectionTitle from "./components/renderSectionTitle.js";
 import TestSteps from "./components/TestSteps.js";
 import Results from "./components/results.js";
 import { useState } from "./utils/useState.js";
-
-import TestLayout from "./layouts/TestLayout.js";
 import Quiz from "./components/Quiz.js";
 
 const Render = (state) => {
@@ -92,9 +90,7 @@ const Render = (state) => {
     }
     const componentRender = component.getState()
 
-    return TestLayout(
-        componentRender
-    )
+    return componentRender
 }
 
 export default Render;

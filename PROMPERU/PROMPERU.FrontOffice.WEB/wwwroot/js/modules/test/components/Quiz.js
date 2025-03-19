@@ -45,12 +45,13 @@ const Quiz = (data) => {
     }
 
     const questionLayout = (content) =>{
+      // TODO: contador del test
       return `
        <section>
         <div class="container">
           <div class="col-11 mx-auto">
             <div class="d-flex justify-content-start">
-              <span class="progress-indicator">1 <i>de</i> 55</span>
+              <span class="progress-indicator">1 <i>de</i> 55</span> 
             </div>
             <h2 class="question-title mt-4 mb-4">${data.category}</h2>
             <p class="text-muted">${data.questionText}</p>

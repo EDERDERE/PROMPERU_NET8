@@ -7,8 +7,8 @@ const Results = (`
             </h2>
         </div>
     </div>
-
-    <div class="row">
+    <div class="container-sm">
+     <div class="row">
         <div class="col-6">
         <div class="col-8 mx-auto mb-4">
                   <div class="card-custom">
@@ -168,7 +168,8 @@ const Results = (`
                 </div>
         </div>
     </div>
-    
+    </div>
+   
     <div class="container">
         <div class="my-5 py-5 d-flex justify-content-center align-items-center flex-column">
             <h2 class="section_title" id="section_title">

@@ -10,9 +10,9 @@ const TestSteps = () =>{
         return `
         <div class="pasos  ${test.current || index < currentIndex ? 'step_active': ''}">
           <div class="step-icon ${test.current || index < currentIndex ? 'activado': ''}">
-            <img src="${test.icon}" alt="diagnostic" />
+            <img src="${test.urIcono}" alt="diagnostic" />
           </div>
-          <div class="step-text">${test.title}</div>
+          <div class="step-text">${test.nombreIcono}</div>
         </div>
         `
       }).join('')

@@ -23,7 +23,7 @@ const NavigationButtons = (
   };
 
   const prevStep = () => {
-    store.setState({ currentStep: store.getState().previusStep });
+    store.setState({ currentStep: store.getState().previusStep }); // TODO: Corregir navegación
   };
 
   registerEvent("click", "nextStep", nextStep);

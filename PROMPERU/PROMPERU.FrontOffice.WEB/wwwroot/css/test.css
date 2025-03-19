@@ -50,12 +50,7 @@
     align-items: center;
     justify-content: flex-start;
   }
-  
-  .step-icon.activado{
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    background-color: #C41221;
-  }
-  
+
   .step-icon {
     width: 80px;
     height: 80px;
@@ -71,8 +66,19 @@
   .step-icon img {
     width: 50px;
     height: 50px;
+    filter: brightness(0.7);
   }
 
+  
+  .step-icon.activado{
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    background-color: #C41221;
+  }
+
+  .step-icon.activado img{
+    filter: brightness(1);
+  }
+  
 
 #test-content .text{
   font-size: 1.3rem;
@@ -338,3 +344,28 @@
   font-size: 9.29px;
   font-weight: normal;
 }
+
+.loader {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  display: none;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
+
+  .loading .loader{
+    display: inline-block;
+  }

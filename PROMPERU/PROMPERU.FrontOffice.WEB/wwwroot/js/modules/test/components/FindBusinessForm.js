@@ -2,6 +2,8 @@ import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
+
+  const state = store.getState()
   async function fetchCompanyData(ruc) {
     const formData = new FormData()
     formData.append('ruc', ruc)
@@ -33,7 +35,8 @@ const FindBusinessForm = () => {
       alert("Ingrese un RUC válido");
       return;
     }
-
+    store.setState({ loading: true });
+    console.log(store.getState())
     // Simula la llamada al endpoint
     const companyData = await fetchCompanyData(ruc);
 
@@ -46,6 +49,7 @@ const FindBusinessForm = () => {
     }
 
     store.setState({ companyData });
+    store.setState({ loading: false });
   }
 
   registerEvent("submit", "companyFormSubmit", handleSubmit);
@@ -64,7 +68,8 @@ const FindBusinessForm = () => {
                         </div>
                     </a>
                     <span class="col-6 text-decoration-none">
-                        <button type="submit" class="button-test d-flex align-items-center border-0">
+                        <button type="submit" class="button-test d-flex align-items-center border-0 ${state.loading ? 'loading': ''}">
+                        <span class="loader"></span>
                         <span>Buscar</span>
                         <img src="../../shared/assets/inscripcion/search.svg" alt="home" class="image-home" />
                         </button>
