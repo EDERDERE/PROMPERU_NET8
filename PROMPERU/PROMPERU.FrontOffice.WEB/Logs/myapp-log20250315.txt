@@ -1,0 +1,285 @@
+2025-03-15 13:57:48.467 -05:00 [INF] User profile is available. Using '/Users/francisdelcastillo/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-03-15 13:57:48.545 -05:00 [INF] Now listening on: http://localhost:5095
+2025-03-15 13:57:48.547 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-15 13:57:48.547 -05:00 [INF] Hosting environment: Development
+2025-03-15 13:57:48.547 -05:00 [INF] Content root path: /Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB
+2025-03-15 13:57:48.917 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/ - null null
+2025-03-15 13:57:48.939 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-03-15 13:57:48.959 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.HomeController.Index (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:48.977 -05:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.HomeController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:48.982 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-15 13:57:49.019 -05:00 [INF] Executed ViewResult - view Index executed in 37.2809ms.
+2025-03-15 13:57:49.026 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.HomeController.Index (PROMPERU.FrontOffice.WEB) in 47.4012ms
+2025-03-15 13:57:49.027 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.HomeController.Index (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.039 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/ - 200 null text/html; charset=utf-8 125.6687ms
+2025-03-15 13:57:49.069 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-15 13:57:49.070 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/libraries/swiper-11.2.0/swiper-bundle.min.js - null null
+2025-03-15 13:57:49.069 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css - null null
+2025-03-15 13:57:49.075 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 6.2088ms
+2025-03-15 13:57:49.077 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/home.js - null null
+2025-03-15 13:57:49.084 -05:00 [INF] The file /js/home.js was not modified
+2025-03-15 13:57:49.085 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/home.js - 304 null text/javascript 8.3344ms
+2025-03-15 13:57:49.105 -05:00 [INF] Sending file. Request path: '/shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css'
+2025-03-15 13:57:49.105 -05:00 [INF] Sending file. Request path: '/shared/libraries/swiper-11.2.0/swiper-bundle.min.js'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/libraries/swiper-11.2.0/swiper-bundle.min.js'
+2025-03-15 13:57:49.106 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/libraries/bootstrap-5.3.3/css/bootstrap.min.css - 200 232803 text/css 36.7848ms
+2025-03-15 13:57:49.106 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/libraries/swiper-11.2.0/swiper-bundle.min.js - 200 152991 text/javascript 37.4977ms
+2025-03-15 13:57:49.205 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/curso/curso.js - null null
+2025-03-15 13:57:49.205 -05:00 [INF] The file /js/modules/curso/curso.js was not modified
+2025-03-15 13:57:49.206 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/curso/curso.js - 304 null text/javascript 0.9588ms
+2025-03-15 13:57:49.206 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/contacto/render.js - null null
+2025-03-15 13:57:49.207 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/inscripcion/render.js - null null
+2025-03-15 13:57:49.207 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/layout/render.js - null null
+2025-03-15 13:57:49.207 -05:00 [INF] The file /js/modules/contacto/render.js was not modified
+2025-03-15 13:57:49.207 -05:00 [INF] The file /js/modules/inscripcion/render.js was not modified
+2025-03-15 13:57:49.207 -05:00 [INF] The file /js/modules/layout/render.js was not modified
+2025-03-15 13:57:49.207 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/inscripcion/render.js - 304 null text/javascript 1.0279ms
+2025-03-15 13:57:49.207 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/layout/render.js - 304 null text/javascript 1.329ms
+2025-03-15 13:57:49.207 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/contacto/render.js - 304 null text/javascript 1.1642ms
+2025-03-15 13:57:49.210 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/curso/render.js - null null
+2025-03-15 13:57:49.211 -05:00 [INF] The file /js/modules/curso/render.js was not modified
+2025-03-15 13:57:49.211 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/curso/render.js - 304 null text/javascript 0.769ms
+2025-03-15 13:57:49.217 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Inscripcion/ListarInscripcions - null null
+2025-03-15 13:57:49.218 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Curso/ListarCursos - null null
+2025-03-15 13:57:49.218 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Menu/ListarMenus - null null
+2025-03-15 13:57:49.218 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Footer/ListarFooters - null null
+2025-03-15 13:57:49.218 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/FormularioContacto/ListarFormularioContactos - null null
+2025-03-15 13:57:49.220 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Logo/ListarLogos - null null
+2025-03-15 13:57:49.220 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.CursoController.ListarCursos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.220 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.222 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.MenuController.ListarMenus (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.220 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.InscripcionController.ListarInscripcions (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.222 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FooterController.ListarFooters (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.227 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:49.230 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Logo"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.FrontOffice.WEB.Controllers.LogoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:49.230 -05:00 [INF] Route matched with {action = "ListarFooters", controller = "Footer"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarFooters() on controller PROMPERU.FrontOffice.WEB.Controllers.FooterController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:49.234 -05:00 [INF] Route matched with {action = "ListarCursos", controller = "Curso"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarCursos() on controller PROMPERU.FrontOffice.WEB.Controllers.CursoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:49.234 -05:00 [INF] Route matched with {action = "ListarMenus", controller = "Menu"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarMenus() on controller PROMPERU.FrontOffice.WEB.Controllers.MenuController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:49.237 -05:00 [INF] Route matched with {action = "ListarInscripcions", controller = "Inscripcion"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarInscripcions() on controller PROMPERU.FrontOffice.WEB.Controllers.InscripcionController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:49.237 -05:00 [INF] Route matched with {action = "ListarFormularioContactos", controller = "FormularioContacto"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarFormularioContactos() on controller PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:50.739 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:50.782 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB) in 1551.2171ms
+2025-03-15 13:57:50.782 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:50.783 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Logo/ListarLogos - 200 null application/json; charset=utf-8 1563.0559ms
+2025-03-15 13:57:50.783 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Informacion/ListarInformacions - null null
+2025-03-15 13:57:50.787 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.InformacionController.ListarInformacions (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:50.792 -05:00 [INF] Route matched with {action = "ListarInformacions", controller = "Informacion"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarInformacions() on controller PROMPERU.FrontOffice.WEB.Controllers.InformacionController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.004 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType14`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.InformacionBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.009 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.InformacionController.ListarInformacions (PROMPERU.FrontOffice.WEB) in 217.4709ms
+2025-03-15 13:57:51.009 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.InformacionController.ListarInformacions (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.009 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Informacion/ListarInformacions - 200 null application/json; charset=utf-8 226.0675ms
+2025-03-15 13:57:51.010 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Requisito/ListarRequisitos - null null
+2025-03-15 13:57:51.011 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.RequisitoController.ListarRequisitos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.014 -05:00 [INF] Route matched with {action = "ListarRequisitos", controller = "Requisito"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarRequisitos() on controller PROMPERU.FrontOffice.WEB.Controllers.RequisitoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.225 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType21`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.RequisitoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.227 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.RequisitoController.ListarRequisitos (PROMPERU.FrontOffice.WEB) in 213.4872ms
+2025-03-15 13:57:51.227 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.RequisitoController.ListarRequisitos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.227 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Requisito/ListarRequisitos - 200 null application/json; charset=utf-8 217.0627ms
+2025-03-15 13:57:51.228 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Beneficio/ListarBeneficios - null null
+2025-03-15 13:57:51.229 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.BeneficioController.ListarBeneficios (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.232 -05:00 [INF] Route matched with {action = "ListarBeneficios", controller = "Beneficio"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarBeneficios() on controller PROMPERU.FrontOffice.WEB.Controllers.BeneficioController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.443 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType2`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.BeneficioBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.446 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.BeneficioController.ListarBeneficios (PROMPERU.FrontOffice.WEB) in 213.5972ms
+2025-03-15 13:57:51.446 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.BeneficioController.ListarBeneficios (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.446 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Beneficio/ListarBeneficios - 200 null application/json; charset=utf-8 217.555ms
+2025-03-15 13:57:51.447 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Caso/ListarCasos - null null
+2025-03-15 13:57:51.447 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.CasoController.ListarCasos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.450 -05:00 [INF] Route matched with {action = "ListarCasos", controller = "Caso"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarCasos() on controller PROMPERU.FrontOffice.WEB.Controllers.CasoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.648 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType15`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.InscripcionBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.650 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.InscripcionController.ListarInscripcions (PROMPERU.FrontOffice.WEB) in 2413.1251ms
+2025-03-15 13:57:51.650 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.InscripcionController.ListarInscripcions (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.650 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Inscripcion/ListarInscripcions - 200 null application/json; charset=utf-8 2433.3189ms
+2025-03-15 13:57:51.651 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Banner/ListarBanners - null null
+2025-03-15 13:57:51.651 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.BannerController.ListarBanners (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.654 -05:00 [INF] Route matched with {action = "ListarBanners", controller = "Banner"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarBanners() on controller PROMPERU.FrontOffice.WEB.Controllers.BannerController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.661 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType4`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.CasoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.664 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.CasoController.ListarCasos (PROMPERU.FrontOffice.WEB) in 214.4713ms
+2025-03-15 13:57:51.664 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.CasoController.ListarCasos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.664 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Caso/ListarCasos - 200 null application/json; charset=utf-8 217.1662ms
+2025-03-15 13:57:51.665 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Logro/ListarLogros - null null
+2025-03-15 13:57:51.666 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogroController.ListarLogros (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.669 -05:00 [INF] Route matched with {action = "ListarLogros", controller = "Logro"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogros() on controller PROMPERU.FrontOffice.WEB.Controllers.LogroController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:51.849 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.BannerBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:51.851 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.BannerController.ListarBanners (PROMPERU.FrontOffice.WEB) in 197.3537ms
+2025-03-15 13:57:51.851 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.BannerController.ListarBanners (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.851 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Banner/ListarBanners - 200 null application/json; charset=utf-8 199.8593ms
+2025-03-15 13:57:51.853 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Testimonio/ListarTestimonios - null null
+2025-03-15 13:57:51.853 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestimonioController.ListarTestimonios (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:51.855 -05:00 [INF] Route matched with {action = "ListarTestimonios", controller = "Testimonio"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarTestimonios() on controller PROMPERU.FrontOffice.WEB.Controllers.TestimonioController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:52.051 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType24`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.TestimonioBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.054 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestimonioController.ListarTestimonios (PROMPERU.FrontOffice.WEB) in 198.6825ms
+2025-03-15 13:57:52.054 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestimonioController.ListarTestimonios (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.054 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Testimonio/ListarTestimonios - 200 null application/json; charset=utf-8 201.3185ms
+2025-03-15 13:57:52.055 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/PerfilEmpresarial/ListarPerfilEmpresarials - null null
+2025-03-15 13:57:52.055 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.PerfilEmpresarialController.ListarPerfilEmpresarials (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.057 -05:00 [INF] Route matched with {action = "ListarPerfilEmpresarials", controller = "PerfilEmpresarial"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarPerfilEmpresarials() on controller PROMPERU.FrontOffice.WEB.Controllers.PerfilEmpresarialController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:52.253 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType20`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.PerfilEmpresarialBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.255 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.PerfilEmpresarialController.ListarPerfilEmpresarials (PROMPERU.FrontOffice.WEB) in 197.4833ms
+2025-03-15 13:57:52.255 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.PerfilEmpresarialController.ListarPerfilEmpresarials (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.255 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/PerfilEmpresarial/ListarPerfilEmpresarials - 200 null application/json; charset=utf-8 200.1139ms
+2025-03-15 13:57:52.256 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Empresa/ListarEmpresas - null null
+2025-03-15 13:57:52.256 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.EmpresaController.ListarEmpresas (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.259 -05:00 [INF] Route matched with {action = "ListarEmpresas", controller = "Empresa"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarEmpresas() on controller PROMPERU.FrontOffice.WEB.Controllers.EmpresaController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:52.306 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType18`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType17`5[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], PROMPERU.FrontOffice.WEB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.309 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.LogroController.ListarLogros (PROMPERU.FrontOffice.WEB) in 639.8051ms
+2025-03-15 13:57:52.309 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogroController.ListarLogros (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.309 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Logro/ListarLogros - 200 null application/json; charset=utf-8 643.8201ms
+2025-03-15 13:57:52.310 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/cursos/hero.png - null null
+2025-03-15 13:57:52.314 -05:00 [INF] Sending file. Request path: '/shared/assets/cursos/hero.png'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/assets/cursos/hero.png'
+2025-03-15 13:57:52.314 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/cursos/hero.png - 200 1004899 image/png 3.8527ms
+2025-03-15 13:57:52.454 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType9`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.EmpresaBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.458 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.EmpresaController.ListarEmpresas (PROMPERU.FrontOffice.WEB) in 199.8787ms
+2025-03-15 13:57:52.459 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.EmpresaController.ListarEmpresas (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.459 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Empresa/ListarEmpresas - 200 null application/json; charset=utf-8 202.4778ms
+2025-03-15 13:57:52.472 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/home/beneficios/img_beneficios.png - null null
+2025-03-15 13:57:52.477 -05:00 [INF] Sending file. Request path: '/shared/assets/home/beneficios/img_beneficios.png'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/assets/home/beneficios/img_beneficios.png'
+2025-03-15 13:57:52.477 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/home/beneficios/img_beneficios.png - 200 907144 image/png 4.7208ms
+2025-03-15 13:57:52.489 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/que-es/perfil-item.png - null null
+2025-03-15 13:57:52.496 -05:00 [INF] Sending file. Request path: '/shared/assets/que-es/perfil-item.png'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/assets/que-es/perfil-item.png'
+2025-03-15 13:57:52.496 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/que-es/perfil-item.png - 200 178084 image/png 6.6668ms
+2025-03-15 13:57:52.632 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType12`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.FooterBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.634 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.FooterController.ListarFooters (PROMPERU.FrontOffice.WEB) in 3401.5123ms
+2025-03-15 13:57:52.635 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FooterController.ListarFooters (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.635 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Footer/ListarFooters - 200 null application/json; charset=utf-8 3416.3562ms
+2025-03-15 13:57:52.647 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType19`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.MenuBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.648 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.MenuController.ListarMenus (PROMPERU.FrontOffice.WEB) in 3414.358ms
+2025-03-15 13:57:52.648 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.MenuController.ListarMenus (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.648 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Menu/ListarMenus - 200 null application/json; charset=utf-8 3430.0654ms
+2025-03-15 13:57:52.653 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/Logo/ListarLogos - null null
+2025-03-15 13:57:52.654 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.654 -05:00 [INF] Route matched with {action = "ListarLogos", controller = "Logo"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarLogos() on controller PROMPERU.FrontOffice.WEB.Controllers.LogoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:52.862 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType16`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.LogoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:52.862 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB) in 208.3597ms
+2025-03-15 13:57:52.862 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.LogoController.ListarLogos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:52.863 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Logo/ListarLogos - 200 null application/json; charset=utf-8 209.563ms
+2025-03-15 13:57:53.605 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType7`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.CursoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:53.617 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.CursoController.ListarCursos (PROMPERU.FrontOffice.WEB) in 4383.5993ms
+2025-03-15 13:57:53.617 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.CursoController.ListarCursos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:53.617 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/Curso/ListarCursos - 200 null application/json; charset=utf-8 4399.5917ms
+2025-03-15 13:57:53.620 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType13`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.FormularioContactoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:53.623 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB) in 4386.2616ms
+2025-03-15 13:57:53.623 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:53.623 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/FormularioContacto/ListarFormularioContactos - 200 null application/json; charset=utf-8 4405.3425ms
+2025-03-15 13:57:53.624 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/FormularioContacto/ListarFormularioContactos - null null
+2025-03-15 13:57:53.625 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:53.625 -05:00 [INF] Route matched with {action = "ListarFormularioContactos", controller = "FormularioContacto"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListarFormularioContactos() on controller PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:57:53.628 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/requisitos/requisitos.png - null null
+2025-03-15 13:57:53.631 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/data - null null
+2025-03-15 13:57:53.633 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/data - 404 0 null 1.6289ms
+2025-03-15 13:57:53.633 -05:00 [INF] Sending file. Request path: '/shared/assets/requisitos/requisitos.png'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/shared/assets/requisitos/requisitos.png'
+2025-03-15 13:57:53.633 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/requisitos/requisitos.png - 200 801531 image/png 5.0813ms
+2025-03-15 13:57:53.633 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5095/data, Response status code: 404
+2025-03-15 13:57:53.833 -05:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType13`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[PROMPERU.BE.FormularioContactoBE, PROMPERU.BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-15 13:57:53.834 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB) in 208.6712ms
+2025-03-15 13:57:53.834 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.FormularioContactoController.ListarFormularioContactos (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:57:53.834 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/FormularioContacto/ListarFormularioContactos - 200 null application/json; charset=utf-8 209.8317ms
+2025-03-15 13:58:22.318 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/test - null null
+2025-03-15 13:58:22.320 -05:00 [INF] Executing endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:58:22.322 -05:00 [INF] Route matched with {action = "Index", controller = "Test"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PROMPERU.FrontOffice.WEB.Controllers.TestController (PROMPERU.FrontOffice.WEB).
+2025-03-15 13:58:22.324 -05:00 [INF] Executing ViewResult, running view Index.
+2025-03-15 13:58:22.342 -05:00 [INF] Executed ViewResult - view Index executed in 18.9151ms.
+2025-03-15 13:58:22.342 -05:00 [INF] Executed action PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.FrontOffice.WEB) in 20.1907ms
+2025-03-15 13:58:22.342 -05:00 [INF] Executed endpoint 'PROMPERU.FrontOffice.WEB.Controllers.TestController.Index (PROMPERU.FrontOffice.WEB)'
+2025-03-15 13:58:22.342 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/test - 200 null text/html; charset=utf-8 23.791ms
+2025-03-15 13:58:22.376 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-15 13:58:22.377 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 1.7207ms
+2025-03-15 13:58:22.382 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/css/test.css - null null
+2025-03-15 13:58:22.387 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/index.js - null null
+2025-03-15 13:58:22.388 -05:00 [INF] The file /js/modules/test/index.js was not modified
+2025-03-15 13:58:22.389 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/index.js - 304 null text/javascript 1.3083ms
+2025-03-15 13:58:22.388 -05:00 [INF] The file /css/test.css was not modified
+2025-03-15 13:58:22.389 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/css/test.css - 304 null text/css 6.6882ms
+2025-03-15 13:58:22.405 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-15 13:58:22.405 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2558ms
+2025-03-15 13:58:22.410 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/test.js - null null
+2025-03-15 13:58:22.410 -05:00 [INF] The file /js/modules/test/test.js was not modified
+2025-03-15 13:58:22.411 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/test.js - 304 null text/javascript 0.9965ms
+2025-03-15 13:58:22.415 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/state.js - null null
+2025-03-15 13:58:22.415 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/mocks/test.js - null null
+2025-03-15 13:58:22.415 -05:00 [INF] The file /js/modules/test/state.js was not modified
+2025-03-15 13:58:22.415 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/state.js - 304 null text/javascript 0.7976ms
+2025-03-15 13:58:22.416 -05:00 [INF] Sending file. Request path: '/js/modules/test/mocks/test.js'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/js/modules/test/mocks/test.js'
+2025-03-15 13:58:22.416 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/mocks/test.js - 200 3603 text/javascript 1.5826ms
+2025-03-15 13:58:22.417 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/render.js - null null
+2025-03-15 13:58:22.417 -05:00 [INF] The file /js/modules/test/render.js was not modified
+2025-03-15 13:58:22.417 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/render.js - 304 null text/javascript 0.5228ms
+2025-03-15 13:58:22.424 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/store.js - null null
+2025-03-15 13:58:22.424 -05:00 [INF] The file /js/modules/test/utils/store.js was not modified
+2025-03-15 13:58:22.424 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/store.js - 304 null text/javascript 0.6027ms
+2025-03-15 13:58:22.425 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/FindBusinessForm.js - null null
+2025-03-15 13:58:22.425 -05:00 [INF] The file /js/modules/test/components/FindBusinessForm.js was not modified
+2025-03-15 13:58:22.425 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/FindBusinessForm.js - 304 null text/javascript 0.3018ms
+2025-03-15 13:58:22.425 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Instructions.js - null null
+2025-03-15 13:58:22.426 -05:00 [INF] The file /js/modules/test/components/Instructions.js was not modified
+2025-03-15 13:58:22.426 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Instructions.js - 304 null text/javascript 0.4695ms
+2025-03-15 13:58:22.426 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/NavigationButtons.js - null null
+2025-03-15 13:58:22.426 -05:00 [INF] The file /js/modules/test/components/NavigationButtons.js was not modified
+2025-03-15 13:58:22.427 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/NavigationButtons.js - 304 null text/javascript 0.1859ms
+2025-03-15 13:58:22.427 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/renderSectionTitle.js - null null
+2025-03-15 13:58:22.427 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/useState.js - null null
+2025-03-15 13:58:22.427 -05:00 [INF] The file /js/modules/test/components/renderSectionTitle.js was not modified
+2025-03-15 13:58:22.427 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/layouts/TestLayout.js - null null
+2025-03-15 13:58:22.428 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Quiz.js - null null
+2025-03-15 13:58:22.431 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/renderSectionTitle.js - 304 null text/javascript 4.6282ms
+2025-03-15 13:58:22.431 -05:00 [INF] The file /js/modules/test/utils/useState.js was not modified
+2025-03-15 13:58:22.431 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/useState.js - 304 null text/javascript 4.6448ms
+2025-03-15 13:58:22.431 -05:00 [INF] The file /js/modules/test/components/Quiz.js was not modified
+2025-03-15 13:58:22.432 -05:00 [INF] The file /js/modules/test/layouts/TestLayout.js was not modified
+2025-03-15 13:58:22.432 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Quiz.js - 304 null text/javascript 3.7415ms
+2025-03-15 13:58:22.432 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/layouts/TestLayout.js - 304 null text/javascript 4.1817ms
+2025-03-15 13:58:22.434 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/eventHandler.js - null null
+2025-03-15 13:58:22.435 -05:00 [INF] The file /js/modules/test/utils/eventHandler.js was not modified
+2025-03-15 13:58:22.435 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/eventHandler.js - 304 null text/javascript 0.5605ms
+2025-03-15 13:58:22.436 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/TestSteps.js - null null
+2025-03-15 13:58:22.437 -05:00 [INF] The file /js/modules/test/components/TestSteps.js was not modified
+2025-03-15 13:58:22.437 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/TestSteps.js - 304 null text/javascript 0.4865ms
+2025-03-15 13:58:22.443 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/inscripcion/search.svg - null null
+2025-03-15 13:58:22.443 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/shared/assets/inscripcion/diagnostic.svg - null null
+2025-03-15 13:58:22.444 -05:00 [INF] The file /shared/assets/inscripcion/search.svg was not modified
+2025-03-15 13:58:22.444 -05:00 [INF] The file /shared/assets/inscripcion/diagnostic.svg was not modified
+2025-03-15 13:58:22.444 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/inscripcion/search.svg - 304 null image/svg+xml 0.47ms
+2025-03-15 13:58:22.444 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/shared/assets/inscripcion/diagnostic.svg - 304 null image/svg+xml 0.6402ms
+2025-03-15 13:58:23.073 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/index.js - null null
+2025-03-15 13:58:23.074 -05:00 [INF] The file /js/modules/test/index.js was not modified
+2025-03-15 13:58:23.074 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/index.js - 304 null text/javascript 0.4472ms
+2025-03-15 13:58:23.092 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/state.js - null null
+2025-03-15 13:58:23.092 -05:00 [INF] The file /js/modules/test/state.js was not modified
+2025-03-15 13:58:23.093 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/state.js - 304 null text/javascript 0.5172ms
+2025-03-15 13:58:23.093 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/mocks/test.js - null null
+2025-03-15 13:58:23.093 -05:00 [INF] Sending file. Request path: '/js/modules/test/mocks/test.js'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/js/modules/test/mocks/test.js'
+2025-03-15 13:58:23.093 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/mocks/test.js - 200 3603 text/javascript 0.4345ms
+2025-03-15 13:58:23.093 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/render.js - null null
+2025-03-15 13:58:23.095 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/test.js - null null
+2025-03-15 13:58:23.095 -05:00 [INF] Sending file. Request path: '/js/modules/test/render.js'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/js/modules/test/render.js'
+2025-03-15 13:58:23.095 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Instructions.js - null null
+2025-03-15 13:58:23.095 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/render.js - 200 1416 text/javascript 1.9556ms
+2025-03-15 13:58:23.095 -05:00 [INF] The file /js/modules/test/test.js was not modified
+2025-03-15 13:58:23.095 -05:00 [INF] The file /js/modules/test/components/Instructions.js was not modified
+2025-03-15 13:58:23.095 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/store.js - null null
+2025-03-15 13:58:23.095 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Instructions.js - 304 null text/javascript 0.1362ms
+2025-03-15 13:58:23.095 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/FindBusinessForm.js - null null
+2025-03-15 13:58:23.096 -05:00 [INF] The file /js/modules/test/utils/store.js was not modified
+2025-03-15 13:58:23.096 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/store.js - 304 null text/javascript 0.1989ms
+2025-03-15 13:58:23.096 -05:00 [INF] The file /js/modules/test/components/FindBusinessForm.js was not modified
+2025-03-15 13:58:23.096 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/FindBusinessForm.js - 304 null text/javascript 0.1569ms
+2025-03-15 13:58:23.096 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/renderSectionTitle.js - null null
+2025-03-15 13:58:23.095 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/test.js - 304 null text/javascript 0.3153ms
+2025-03-15 13:58:23.096 -05:00 [INF] The file /js/modules/test/components/renderSectionTitle.js was not modified
+2025-03-15 13:58:23.096 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/renderSectionTitle.js - 304 null text/javascript 0.1166ms
+2025-03-15 13:58:23.096 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Quiz.js - null null
+2025-03-15 13:58:23.097 -05:00 [INF] Sending file. Request path: '/js/modules/test/components/Quiz.js'. Physical path: '/Volumes/Externo/CODE/Personal/PROMPERU_NET8/PROMPERU/PROMPERU.FrontOffice.WEB/wwwroot/js/modules/test/components/Quiz.js'
+2025-03-15 13:58:23.097 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/Quiz.js - 200 1906 text/javascript 0.7599ms
+2025-03-15 13:58:23.097 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/NavigationButtons.js - null null
+2025-03-15 13:58:23.097 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/useState.js - null null
+2025-03-15 13:58:23.097 -05:00 [INF] The file /js/modules/test/components/NavigationButtons.js was not modified
+2025-03-15 13:58:23.097 -05:00 [INF] The file /js/modules/test/utils/useState.js was not modified
+2025-03-15 13:58:23.098 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/useState.js - 304 null text/javascript 0.3178ms
+2025-03-15 13:58:23.098 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/layouts/TestLayout.js - null null
+2025-03-15 13:58:23.098 -05:00 [INF] The file /js/modules/test/layouts/TestLayout.js was not modified
+2025-03-15 13:58:23.098 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/NavigationButtons.js - 304 null text/javascript 0.394ms
+2025-03-15 13:58:23.098 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/layouts/TestLayout.js - 304 null text/javascript 0.1177ms
+2025-03-15 13:58:23.098 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/eventHandler.js - null null
+2025-03-15 13:58:23.098 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5095/js/modules/test/components/TestSteps.js - null null
+2025-03-15 13:58:23.098 -05:00 [INF] The file /js/modules/test/utils/eventHandler.js was not modified
+2025-03-15 13:58:23.098 -05:00 [INF] The file /js/modules/test/components/TestSteps.js was not modified
+2025-03-15 13:58:23.098 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/utils/eventHandler.js - 304 null text/javascript 0.18ms
+2025-03-15 13:58:23.098 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5095/js/modules/test/components/TestSteps.js - 304 null text/javascript 0.1172ms

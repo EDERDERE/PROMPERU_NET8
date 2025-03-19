@@ -2,47 +2,45 @@ import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
-
-    async function fetchCompanyData(ruc) {
-        // Simulación de llamada a API con un retraso de 1.5s
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    ruc,
-                    name: "Empresa Ejemplo SAC",
-                    address: "Av. Falsa 123, Lima",
-                });
-            }, 1500);
+  async function fetchCompanyData(ruc) {
+    // Simulación de llamada a API con un retraso de 1.5s
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          ruc,
+          name: "Empresa Ejemplo SAC",
+          address: "Av. Falsa 123, Lima",
         });
+      }, 1500);
+    });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const ruc = document.getElementById("rucInput").value;
+
+    if (!ruc) {
+      alert("Ingrese un RUC válido");
+      return;
     }
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const ruc = document.getElementById("rucInput").value;
+    // Simula la llamada al endpoint
+    const companyData = await fetchCompanyData(ruc);
 
-        if (!ruc) {
-            alert("Ingrese un RUC válido");
-            return;
-        }
-
-        // Simula la llamada al endpoint
-        const companyData = await fetchCompanyData(ruc);
-
-        // Guarda los datos en el estado global
-        const hasInstructions = store.getState().test.hasInstructions
-        if(hasInstructions){
-            store.setState({ currentStep: 'intro' });
-        }else{
-            store.setState({ currentStep: 0 });
-        }
-
-        console.log(store.getState())
-        store.setState({ companyData });
+    // Guarda los datos en el estado global
+    const hasInstructions = store.getState().test.hasInstructions;
+    if (hasInstructions) {
+      store.setState({ currentStep: "intro" });
+    } else {
+      store.setState({ currentStep: 0 });
     }
 
-    registerEvent("submit", "companyFormSubmit", handleSubmit);
+    store.setState({ companyData });
+  }
 
-    return `
+  registerEvent("submit", "companyFormSubmit", handleSubmit);
+
+  return `
             <section id="search_business">
                 <form id="companyForm" class="container" data-event="companyFormSubmit">
 
@@ -66,6 +64,6 @@ const FindBusinessForm = () => {
                 </form>
             </section>
         `;
-}
+};
 
 export default FindBusinessForm;
