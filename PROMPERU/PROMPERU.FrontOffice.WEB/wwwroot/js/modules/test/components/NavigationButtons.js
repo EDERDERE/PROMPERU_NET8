@@ -5,7 +5,7 @@ const NavigationButtons = (
   showBack = true,
   showNext = true,
   backText = "Anterior",
-  nextText = "Guardar y continuar",
+  nextText = "Guardar y continuar"
 ) => {
   const nextStep = () => {
     let currentStep = store.getState().currentStep;
@@ -15,15 +15,21 @@ const NavigationButtons = (
       store.setState({ currentStep: 0 });
       return;
     }
-    if(currentStep + 1 >= store.getState().test?.testDiagnostico?.elements.length){
-      store.setState({ currentStep: 'results' });
-      return 
+    if (
+      currentStep + 1 >=
+      store.getState().test?.testDiagnostico?.elements.length
+    ) {
+      store.setState({ currentStep: "results" });
+      return;
     }
     store.setState({ currentStep: currentStep + 1 });
   };
 
   const prevStep = () => {
-    store.setState({ currentStep: store.getState().previusStep }); // TODO: Corregir navegación
+    const currentStep = store.getState().currentStep;
+    if (typeof currentStep === "number" && currentStep > 0) {
+      store.setState({ currentStep: currentStep - 1 });
+    }
   };
 
   registerEvent("click", "nextStep", nextStep);
