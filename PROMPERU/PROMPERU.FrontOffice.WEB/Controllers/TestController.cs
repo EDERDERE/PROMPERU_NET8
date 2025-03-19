@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PROMPERU.BL;
 using ServiceExterno;
 using System.Text.Json;
+using PROMPERU.BL.Dtos;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
@@ -105,7 +106,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 }
 
                 // 3. Validar en otras entidades
-                var validaciones = new Dictionary<string, bool>
+                var validations = new Dictionary<string, bool>
                     {
                         { "SUNAT", esValidoSunat },
                         // { "MINCETUR", await _minceturService.ValidarRUCAsync(ruc) },
@@ -114,7 +115,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         // { "Declaración Jurada", await _declaracionService.ValidarRUCAsync(ruc) }
                     };
 
-                var validacionesFallidas = validaciones.Where(v => !v.Value).Select(v => v.Key).ToList();
+                var validacionesFallidas = validations.Where(v => !v.Value).Select(v => v.Key).ToList();
                 if (validacionesFallidas.Any())
                 {
                     _logger.LogWarning($"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}");
@@ -123,7 +124,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     {
                         success = false,
                         message = $"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnóstico.",
-                        validaciones
+                        validations
                     });
                 }
 
@@ -139,19 +140,69 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return e;
                 }).ToList();
 
-                var testDiagnostico = await _testBL.ObtenerTestPorIdAsync(2);
-                // Guardar datos en la sesión
-                HttpContext.Session.SetString("RUC",ruc);
+                var activeTest = await _testBL.ObtenerTestPorIdAsync(2);
+
+                var steps = etapas.Select(e => new Step
+                {
+                    Id = e.id,
+                    StepNumber = e.paso,
+                    IconName = e.nombreIcono,
+                    IconUrl = e.urIcono,
+                    Current = e.Current ?? false,
+                    IsComplete = false,
+                    isApproved = false
+                }).ToList();
+
+
+                JsonElement evaluatedData = default;
+
+                // Verificamos si evaluadoResult tiene un valor
+                if (evaluadoResult.HasValue)
+                {
+                    if (evaluadoResult.Value.ValueKind == JsonValueKind.Array)
+                    {
+                        // Si es un array, tomamos el primer elemento
+                        evaluatedData = evaluadoResult.Value.EnumerateArray().FirstOrDefault();
+                    }
+                    else if (evaluadoResult.Value.ValueKind == JsonValueKind.Object)
+                    {
+                        // Si es un objeto, lo usamos directamente
+                        evaluatedData = evaluadoResult.Value;
+                    }
+                }
+
+                var evaluated = evaluatedData.ValueKind == JsonValueKind.Object
+                    ? new Evaluated
+                    {
+                        Ruc = ruc,
+                        LegalName = evaluatedData.TryGetProperty("razon", out var razon)
+                                     ? razon.GetString()
+                                     : (evaluatedData.TryGetProperty("RazonSocial", out var razonSocial) ? razonSocial.GetString() : ""),
+
+                        TradeName = evaluatedData.TryGetProperty("nombrecomercial", out var nombreComercial)
+                                     ? nombreComercial.GetString()
+                                     : (evaluatedData.TryGetProperty("NombreComercial", out var nombreComercial2) ? nombreComercial2.GetString() : ""),
+
+                        Phone = evaluatedData.TryGetProperty("Telefono", out var telefono) ? telefono.GetString() : "",
+                        Email = evaluatedData.TryGetProperty("Correo", out var correo) ? correo.GetString() : "",
+                        Address = evaluatedData.TryGetProperty("direccionfiscal", out var direccion) ? direccion.GetString() : "",
+                        Region = evaluatedData.TryGetProperty("Region", out var region) ? region.GetString() : "",
+                        Province = evaluatedData.TryGetProperty("Provincia", out var provincia) ? provincia.GetString() : ""
+                    }
+                    : null;
+
+
+
                 return Ok(new
                 {
                     success = true,
                     message = "Validaciones completadas. Iniciando Test de Diagnóstico.",
-                    validaciones,
+                    validations,
                     test = new
                     {
-                        etapas,
-                        testDiagnostico,
-                        evaluado = evaluadoResult
+                        steps,
+                        activeTest,
+                        evaluated
                     }
                 });
             }
