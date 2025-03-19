@@ -81,7 +81,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return BadRequest("El modelo no puede ser nulo.");        
 
         
-                await _testBL.crearTestAsync(testModel, usuario, ip); // Llamada asincr�nica           
+                await _testBL.CrearTestAsync(testModel, usuario, ip); // Llamada asincr�nica           
 
                 return Ok(new { success = true, message = "Test creado correctamente." });
             }
@@ -92,7 +92,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             }
         }
 
-
         public async Task<IActionResult> ActualizarTest( int id,TestModelDto testModel)
         {
             try
@@ -102,7 +101,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
           
                 if (testModel == null)
-                    return BadRequest("El modelo no puede ser nulo.");
+                    return BadRequest("El modelo no puede ser nulo.");          
+               
 
                 await _testBL.ActualizarTestAsync(testModel, usuario, ip,id); // Llamada asincr�nica           
 

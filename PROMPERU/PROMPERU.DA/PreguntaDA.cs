@@ -31,6 +31,7 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Preg_NumeroPregunta", pregunta.Preg_NumeroPregunta);                
                 comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
                 comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
+                comando.Parameters.AddWithValue("@Preg_Etiqueta", pregunta.Preg_Etiqueta);
                 comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
                 comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
                 comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
@@ -121,6 +122,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Preg_NumeroPregunta", pregunta.Preg_NumeroPregunta);
                     comando.Parameters.AddWithValue("@Preg_TextoPregunta", pregunta.Preg_TextoPregunta);
                     comando.Parameters.AddWithValue("@Preg_EsComputable", pregunta.Preg_EsComputable);
+                    comando.Parameters.AddWithValue("@Preg_Etiqueta", pregunta.Preg_Etiqueta);
                     comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
                     comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
                     comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
@@ -184,6 +186,7 @@ namespace PROMPERU.DA
                         Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),               
                         Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
                         Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
+                        Preg_Etiqueta = reader["Preg_Etiqueta"] != DBNull.Value ? reader["Preg_Etiqueta"].ToString() : "",
                         Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
                         Preg_Categoria = reader["Preg_Categoria"].ToString()                   
                     });

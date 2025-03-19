@@ -72,7 +72,7 @@ namespace PROMPERU.DA
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    comando.Parameters.AddWithValue("@Tes_ID", id);
+                    comando.Parameters.AddWithValue("@Insc_ID", id);
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
 
                     if (filasAfectadas > 0)
@@ -188,6 +188,40 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los Tests", ex);
             }
         }
+        public async Task<List<ProcesoTestBE>> ListarProcesoTestsAsync(string ruc)
+        {
+            try
+            {
+                var Tests = new List<ProcesoTestBE>();
 
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_ProcesoTest_SEL", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Eval_RUC", ruc);
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    Tests.Add(new ProcesoTestBE
+                    {
+                        Eval_ID = Convert.ToInt32(reader["Eval_ID"]),
+                        Eval_RUC = reader["Eval_RUC"].ToString(),
+                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
+                        Eval_Etapa = reader["Eval_Etapa"].ToString(),
+                        Ieva_Estado = reader["Ieva_Estado"].ToString()
+                    });
+                }
+
+                return Tests;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Tests", ex);
+            }
+        }
     }
 }

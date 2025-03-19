@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.DA;
@@ -18,11 +19,35 @@ builder.Host.UseSerilog((context, services, configuration) =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Configurar sesiones
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración
+    options.Cookie.HttpOnly = true; // Evitar acceso desde JavaScript
+    options.Cookie.IsEssential = true; // Requerido para funcionalidad de sesión
+});
+
+// Agregar autenticación con cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Test/Index"; // Redirige a Login si no está autenticado
+        options.LogoutPath = "/Test/CerrarSesion"; // Ruta para cerrar sesión
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Expira en 30 minutos
+    });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //servicios externos (SUNAT)
 builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatApiSettings"));
 builder.Services.AddHttpClient<SunatService>();
+
+//servicios externos (SUNAT PROM PERU)
+builder.Services.Configure<SunatPromPeruApiSettings>(builder.Configuration.GetSection("SunatPromPeruApiSettings"));
+builder.Services.AddHttpClient<SunatPromPeruService>();
+
 //servicios externos (CORREO)
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddScoped<EmailService>();
@@ -104,7 +129,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Activar sesiones
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

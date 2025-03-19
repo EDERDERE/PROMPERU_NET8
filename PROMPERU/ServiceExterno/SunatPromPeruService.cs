@@ -6,33 +6,48 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using PROMPERU.BE;
 using System.Text.Json;
+using System.Text;
 
 namespace ServiceExterno
 {
-    public class SunatService
+    public class SunatPromPeruService
     {
         private readonly HttpClient _httpClient;
-        private readonly SunatApiSettings _settings;
-        private readonly SunatPromPeruService _sunatPromPeruService;
+        private readonly SunatPromPeruApiSettings _settings;
 
-        public SunatService(HttpClient httpClient, IOptions<SunatApiSettings> settings,SunatPromPeruService sunatPromPeruService)
+        public SunatPromPeruService(HttpClient httpClient, IOptions<SunatPromPeruApiSettings> settings)
         {
             _httpClient = httpClient;
             _settings = settings.Value;
-            _sunatPromPeruService = sunatPromPeruService;
+
         }
 
         private async Task<string> ObtenerTokenAsync()
         {
             try
             {
-                var parametros = new FormUrlEncodedContent(new[]
-                {
-            new KeyValuePair<string, string>("Username", _settings.Username),
-            new KeyValuePair<string, string>("Password", _settings.Password)
-        });
+                // desactivar en entornos de PROD
 
-                HttpResponseMessage response = await _httpClient.PostAsync(_settings.AuthUrl, parametros);
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+                };
+
+                using var client = new HttpClient(handler);
+
+                var requestBody = new
+                {
+                    Usuario = _settings.Username,
+                    Password = _settings.Password
+                };
+                string jsonBody = JsonSerializer.Serialize(requestBody);
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                // desactivar en entornos de PROD
+                HttpResponseMessage response = await client.PostAsync(_settings.AuthUrl, content);
+                // ACTIVAR en entornos de PROD
+                //HttpResponseMessage response = await _httpClient.PostAsync(_settings.AuthUrl, content);
+
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -40,12 +55,10 @@ namespace ServiceExterno
                     throw new HttpRequestException($"Error en la autenticación con PROMPERÚ. Código: {response.StatusCode}, Detalle: {errorContent}");
                 }
 
-                // Leer el JSON completo
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                // Intentar extraer el token
                 using JsonDocument jsonDoc = JsonDocument.Parse(jsonResponse);
-                if (jsonDoc.RootElement.TryGetProperty("message", out JsonElement tokenElement))
+                if (jsonDoc.RootElement.TryGetProperty("token", out JsonElement tokenElement))
                 {
                     string token = tokenElement.GetString();
                     if (!string.IsNullOrEmpty(token))
@@ -71,6 +84,7 @@ namespace ServiceExterno
         }
 
 
+
         public async Task<string> ConsultarRUCAsync(string ruc)
         {
             try
@@ -80,60 +94,50 @@ namespace ServiceExterno
                     throw new ArgumentException("El RUC no puede estar vacío.");
                 }
 
-                // Obtener Token
                 string token = await ObtenerTokenAsync();
-                if (string.IsNullOrWhiteSpace(token))
-                {
-                    throw new Exception("Error: No se pudo obtener el token de autenticación.");
-                }
 
-                // Validar URL
-                if (string.IsNullOrWhiteSpace(_settings.ConsultaRucUrl))
-                {
-                    throw new Exception("Error: La URL de consulta de RUC no está configurada.");
-                }
+                // Construir la URL con el parámetro RUC
+                string url = $"{_settings.ConsultaRucUrl}?RUC={ruc}";
 
-                // Preparar Request
-                var parametros = new Dictionary<string, string> { { "ruc", ruc } };
-                using var request = new HttpRequestMessage(HttpMethod.Post, new Uri(_settings.ConsultaRucUrl));
+                // Crear un HttpClientHandler para ignorar errores de SSL (Deshabilitar en Producción)
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+                };
+
+                using var httpClient = new HttpClient(handler);
+
+                using var request = new HttpRequestMessage(HttpMethod.Get, new Uri(url));
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim());
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                request.Content = new FormUrlEncodedContent(parametros);
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-                Console.WriteLine($"Enviando solicitud a: {_settings.ConsultaRucUrl}");
                 Console.WriteLine($"Authorization: {request.Headers.Authorization}");
 
-                // Ejecutar Petición HTTP
-                var response = await _httpClient.SendAsync(request);
+                // Realizar la solicitud
+                var response = await httpClient.SendAsync(request);
+
+                // En producción, usar _httpClient en lugar de httpClient con handler
+                // var response = await _httpClient.SendAsync(request);
+
                 string responseContent = await response.Content.ReadAsStringAsync();
 
-                Console.WriteLine($"Respuesta HTTP: {response.StatusCode} - {responseContent}");
-
-                // Manejo de Errores
                 if (!response.IsSuccessStatusCode)
                 {
-                    // Consulta API INTERNO (SUNAT)
-                    responseContent = await _sunatPromPeruService.ConsultarRUCAsync(ruc);
+                    throw new Exception($"Error al consultar RUC {ruc}. Detalles: {responseContent}");
                 }
 
                 return responseContent;
             }
-            catch (HttpRequestException httpEx)
-            {
-                throw new Exception($"Error en la conexión con el servicio SUNAT. Detalles: {httpEx.Message}");
-            }
             catch (Exception ex)
             {
-                throw new Exception($"Error al consultar el RUC {ruc}: {ex.Message}", ex);
+                throw new Exception($"Error al consultar el RUC {ruc}. Inténtelo nuevamente.");
             }
         }
-        public async Task<(bool esValido, JsonElement? evaluadoResult)> ValidarSunatAsync(string jsonResponse)
+        public async Task<(bool esValido, JsonElement? evaluadoResult)> ValidarSunatPromPeruAsync(string jsonResponse)
         {
             using JsonDocument doc = JsonDocument.Parse(jsonResponse);
             JsonElement root = doc.RootElement;
 
-            // 🔹 Caso 1: JSON con "status" y "result" (Formato esperado inicialmente)
             if (root.TryGetProperty("status", out JsonElement statusElement) &&
                 statusElement.GetString() == "200" &&
                 root.TryGetProperty("result", out JsonElement resultElement) &&
@@ -142,6 +146,7 @@ namespace ServiceExterno
             {
                 JsonElement contribuyente = resultElement[0]; // Tomamos el primer objeto del array
 
+                // Copiamos los valores para que no dependan del JsonDocument
                 string estado = contribuyente.TryGetProperty("estadocontribuyente", out JsonElement estadoElement)
                                 ? estadoElement.GetString() ?? string.Empty
                                 : string.Empty;
@@ -153,21 +158,15 @@ namespace ServiceExterno
                 bool esValido = estado.Equals("ACTIVO", StringComparison.OrdinalIgnoreCase) &&
                                 condicion.Equals("HABIDO", StringComparison.OrdinalIgnoreCase);
 
-                return (esValido, resultElement.Clone());
-            }
+                // 🔹 Copiamos el "resultElement" para evitar el error de objeto eliminado
+                JsonElement resultCopy = resultElement.Clone();
 
-            // 🔹 Caso 2: JSON sin "status" y "result" (Ejemplo que proporcionaste)
-            if (root.TryGetProperty("RUC", out JsonElement rucElement) &&
-                root.TryGetProperty("RazonSocial", out JsonElement razonSocialElement))
-            {
-                bool esValido = !string.IsNullOrWhiteSpace(rucElement.GetString()) &&
-                                !string.IsNullOrWhiteSpace(razonSocialElement.GetString());
-
-                return (esValido, root.Clone());
+                return (esValido, resultCopy);
             }
 
             return (false, null);
         }
 
     }
+
 }

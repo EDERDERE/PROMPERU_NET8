@@ -4,6 +4,13 @@ import { fetchData } from "../../../shared/js/apiService.js";
 
 let coursesList = [];
 
+let contadorPreguntas = 0;
+
+function generarIdPregunta() {
+  contadorPreguntas++;
+  return `pregunta-${Date.now()}-${contadorPreguntas}`;
+}
+
 export function renderPregunta(containerId) {
   renderTemplate(
     containerId,
@@ -50,10 +57,14 @@ export function renderPregunta(containerId) {
             </select>
         </div>
 
-        <div class="mb-3">
-            <h6 class="title-respuesta">Respuestas</h6>
+        <div class="mb-3 content-respuestas" >
             <button type="button" class="btn btn-primary btn-sm addRespuesta">Agregar Respuesta</button>
             <div class="listaRespuestas mt-2"></div>
+        </div>
+
+        <div class="mb-3 respuesta-texto-block" style="display:none;">
+            <label class="form-label">Agrega placeholder</label>
+            <input type="text" class="form-control respuestaTextoUnica" placeholder="Escribe la respuesta aquí">
         </div>
     `
   );
@@ -64,8 +75,8 @@ export function renderFormulario(containerId) {
     containerId,
     () => `
       <div class="mb-3">
-          <label for="selectFormulario" class="form-label">Selecciona un formulario</label>
-          <select id="selectFormulario" class="form-select">
+          <label for="selectFormulario-${containerId}" class="form-label">Selecciona un formulario</label>
+          <select id="selectFormulario-${containerId}" class="form-select">
               <option value="" selected disabled>Selecciona un formulario</option>
               <option value="formulario1">Formulario 1</option>
               <option value="formulario2">Formulario 2</option>
@@ -81,12 +92,12 @@ export function renderPortada(containerId) {
     () => `
       <div class="card p-4 shadow-sm">
           <div class="mb-3">
-              <label for="tituloPortada" class="form-label">Título de Portada</label>
-              <input type="text" id="tituloPortada" class="form-control">
+              <label for="tituloPortada-${containerId}" class="form-label">Título de Portada</label>
+              <input type="text" id="tituloPortada-${containerId}" class="form-control">
           </div>
 
           <div class="mb-3">
-              <label for="descripcionPortada" class="form-label">Descripción</label>
+              <label for="descripcionPortada-${containerId}" class="form-label">Descripción</label>
               <div id="descripcionPortada-${containerId}" class="form-control" style="height: 150px;"></div>
           </div>
       </div>
@@ -107,16 +118,16 @@ export function agregarPregunta(data = {}, order = null) {
   const preguntaLista = document.getElementById("preguntaLista");
   if (!preguntaLista) return;
 
-  const itemId = `pregunta-${Date.now()}`;
+  const itemId = generarIdPregunta();
   const containerId = `contenido-${itemId}`;
   const tipo = data.type || "question";
-
+  const finalOrder = order ?? "Nuevo";
   const elementIdAttr = data.id ? data.id : "";
 
   const preguntaHTML = `
-    <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}">
+    <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="${elementIdAttr}" data-original-type="${tipo}">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Elemento ${order || "Nuevo"}</h5>
+            <h5 class="mb-0">Elemento ${finalOrder}</h5>
             <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
         </div>
         <hr>
@@ -147,10 +158,10 @@ export function agregarPregunta(data = {}, order = null) {
     fillPreguntaData(itemId, data);
   } else if (tipo === "form") {
     renderFormulario(`contenido-${itemId}`);
-    fillFormularioData(itemId, data);
+    fillFormularioData(`contenido-${itemId}`, data);
   } else if (tipo === "cover") {
-    renderPortada(`contenido-${itemId}`);
-    fillPortadaData(itemId, data);
+    renderPortada(containerId);
+    fillPortadaData(containerId, data);
   }
 
   if (data.type === "question") {
@@ -191,9 +202,10 @@ export function addRespuesta(listaRespuestas, tipoRespuesta, answer) {
   const respuestaId = `respuesta-${Date.now()}-${Math.floor(
     Math.random() * 1000
   )}`;
+  const existingId = answer && answer.id ? answer.id : "";
 
   let respuestaHTML = `
-    <div class="d-flex gap-2 mb-2" id="${respuestaId}">
+    <div class="d-flex gap-2 mb-2" id="${respuestaId}" data-answerid="${existingId}">
       <input type="text" class="form-control respuesta-texto" placeholder="Texto de la respuesta" value="${
         answer.text || ""
       }">
@@ -220,13 +232,16 @@ export function setupPreguntas() {
   let items = [];
 
   function agregarItem() {
-    const itemId = `item-${items.length}`;
+    const cards = document.querySelectorAll("#preguntaLista > .card");
+    const numCards = cards.length;
+    const order = numCards + 1;
+    const itemId = `item-${Date.now()}-${order}`;
     items.push(itemId);
 
     const itemHTML = `
       <div class="card p-3 mb-4 shadow-sm" id="${itemId}" data-elementid="">
           <div class="d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Elemento ${items.length}</h5>
+              <h5 class="mb-0">Elemento ${order}</h5>
               <button type="button" class="btn btn-danger btn-sm removeItem" data-id="${itemId}">X</button>
           </div>
           <hr>
@@ -282,6 +297,11 @@ export function setupPreguntas() {
         } else {
           renderTemplate(contenidoId, "");
         }
+
+        const originalType = itemCard.getAttribute("data-original-type");
+        if (target.value !== originalType) {
+          itemCard.setAttribute("data-elementid", "");
+        }
       }
     });
 
@@ -289,6 +309,7 @@ export function setupPreguntas() {
   document
     .getElementById("preguntaLista")
     .addEventListener("change", function (event) {
+      if (window.isFilling) return;
       const target = event.target;
       const preguntaCard = target.closest(".card");
 
@@ -301,7 +322,6 @@ export function setupPreguntas() {
       );
       const respuestaContainer = preguntaCard.querySelector(".listaRespuestas");
       const addRespuestaButton = preguntaCard.querySelector(".addRespuesta");
-      const titleAnswer = preguntaCard.querySelector(".title-respuesta");
 
       if (target.classList.contains("tipoPregunta")) {
         if (target.value === "computable") {
@@ -318,18 +338,21 @@ export function setupPreguntas() {
 
         respuestaContainer.innerHTML = "";
 
+        const respuestasBlock = preguntaCard.querySelector(".respuestas-block");
+        const respuestaTextoBlock = preguntaCard.querySelector(
+          ".respuesta-texto-block"
+        );
+
         if (target.value === "texto") {
-          respuestaContainer.innerHTML = `
-          <label class="form-label">Respuesta</label>
-          <input type="text" class="form-control respuestaTexto" placeholder="Escribe la respuesta aquí">
-        `;
+          if (respuestasBlock) respuestasBlock.style.display = "none";
+          if (respuestaTextoBlock) respuestaTextoBlock.style.display = "block";
 
           if (addRespuestaButton) {
             addRespuestaButton.style.display = "none";
-            titleAnswer.style.display = "none";
           }
         } else {
           respuestaContainer.innerHTML = `<div class="listaRespuestas mt-2"></div>`;
+          if (respuestaTextoBlock) respuestaTextoBlock.style.display = "none";
 
           if (addRespuestaButton) {
             addRespuestaButton.style.display = "inline-block";
@@ -451,6 +474,12 @@ export function obtenerPreguntas() {
           : null;
 
       // **Obtener respuestas**
+
+      if (elemento.answerType === "text") {
+        const respuestaInput = card.querySelector(".respuestaTextoUnica");
+        elemento.label = respuestaInput ? respuestaInput.value : "";
+        elemento.answers = [];
+      }
       const respuestas = [];
       card
         .querySelectorAll(".listaRespuestas > div")
@@ -458,9 +487,14 @@ export function obtenerPreguntas() {
           const text = respDiv.querySelector(".respuesta-texto")?.value || "";
           const value =
             parseFloat(respDiv.querySelector(".respuesta-valor")?.value) || 0;
-
+          const answerId = respDiv.getAttribute("data-answerid");
           if (text.trim() !== "") {
-            respuestas.push({ order: idx + 1, text, value });
+            respuestas.push({
+              id: answerId ? Number(answerId) : null,
+              order: idx + 1,
+              text,
+              value,
+            });
           }
         });
 
@@ -468,15 +502,18 @@ export function obtenerPreguntas() {
     }
 
     if (tipoContenido === "portada") {
-      elemento.title = card.querySelector("#tituloPortada")?.value || "";
+      const tituloPortada = card.querySelector("[id^='tituloPortada-']");
+      elemento.title = tituloPortada ? tituloPortada.value : "";
       const quillDescripcion = card.querySelector(".ql-editor");
-      elemento.description = quillDescripcion?.innerHTML || "";
+      elemento.description = quillDescripcion ? quillDescripcion.innerHTML : "";
     }
 
     if (tipoContenido === "formulario") {
-      const selectForm = card.querySelector("#selectFormulario");
+      const selectForm = card.querySelector("select[id^='selectFormulario-']");
       if (selectForm) {
+        const formId = selectForm.getAttribute("data-selectedform-id") || null;
         elemento.selectedForm = {
+          id: formId ? Number(formId) : null,
           value: selectForm.value,
           label: selectForm.options[selectForm.selectedIndex]?.text || "",
         };
@@ -486,15 +523,14 @@ export function obtenerPreguntas() {
     preguntas.push(elemento);
   });
 
-  console.log("✅ Preguntas extraídas:", preguntas);
   return preguntas;
 }
 
 export function llenarPreguntas(elements) {
   if (!elements || elements.length === 0) return;
 
-  elements.forEach((element, index) => {
-    agregarPregunta(element, index + 1);
+  elements.forEach((element) => {
+    agregarPregunta(element, element.order);
   });
 }
 
@@ -514,6 +550,16 @@ function fillPreguntaData(containerId, data) {
       : "no_computable";
   }
 
+  const computableSection = container.querySelector(".computableSection");
+  const noComputableSection = container.querySelector(".noComputableSection");
+  if (data.isComputable) {
+    if (computableSection) computableSection.classList.remove("d-none");
+    if (noComputableSection) noComputableSection.classList.add("d-none");
+  } else {
+    if (computableSection) computableSection.classList.add("d-none");
+    if (noComputableSection) noComputableSection.classList.remove("d-none");
+  }
+
   if (data.isComputable) {
     const cursoSelect = container.querySelector(".curso");
     if (cursoSelect && data.course) {
@@ -527,6 +573,11 @@ function fillPreguntaData(containerId, data) {
   }
 
   const tipoRespuestaSelect = container.querySelector(".tipoRespuesta");
+  const addRespuestaButton = container.querySelector(".addRespuesta");
+  const respuestaContainer = container.querySelector(".listaRespuestas");
+  const respuestaTextoBlock = container.querySelector(".respuesta-texto-block");
+  const inputUnica = container.querySelector(".respuestaTextoUnica");
+
   if (tipoRespuestaSelect) {
     if (data.answerType === "singleChoice") {
       tipoRespuestaSelect.value = "unica";
@@ -534,6 +585,28 @@ function fillPreguntaData(containerId, data) {
       tipoRespuestaSelect.value = "multiple";
     } else if (data.answerType === "text") {
       tipoRespuestaSelect.value = "texto";
+    }
+
+    if (tipoRespuestaSelect && tipoRespuestaSelect.value === "texto") {
+      if (addRespuestaButton) {
+        addRespuestaButton.style.display = "none";
+      }
+
+      if (respuestaContainer) {
+        respuestaContainer.innerHTML = "";
+      }
+
+      if (respuestaTextoBlock) {
+        respuestaTextoBlock.style.display = "block";
+      }
+
+      if (inputUnica) {
+        inputUnica.value = data.label || "";
+      }
+    } else {
+      if (respuestaTextoBlock) {
+        respuestaTextoBlock.style.display = "none";
+      }
     }
   }
 
@@ -554,12 +627,43 @@ function fillFormularioData(containerId, data) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const formularioDisplay = container.querySelector(
-    "#formularioDisplay-" + containerId
+  const selectFormulario = container.querySelector(
+    `#selectFormulario-${containerId}`
   );
-  const selectFormulario = container.querySelector("#selectFormulario");
-  if (formularioDisplay && selectFormulario && data.selectedForm) {
-    formularioDisplay.value = data.selectedForm.label || "";
+  if (selectFormulario && data.selectedForm) {
     selectFormulario.value = data.selectedForm.value || "";
+    selectFormulario.setAttribute(
+      "data-selectedform-id",
+      data.selectedForm.id || ""
+    );
+  }
+}
+
+function fillPortadaData(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const card = container.closest(".card");
+  if (card && data.id) {
+    card.setAttribute("data-elementid", data.id);
+  }
+
+  const tituloPortada = container.querySelector(
+    `#tituloPortada-${containerId}`
+  );
+  if (tituloPortada) {
+    tituloPortada.value = data.title || "";
+  }
+
+  const descContainer = document.getElementById(
+    `descripcionPortada-${containerId}`
+  );
+  if (descContainer) {
+    const quillEditor = descContainer.querySelector(".ql-editor");
+    if (quillEditor) {
+      quillEditor.innerHTML = data.description || "";
+    } else {
+      descContainer.innerHTML = data.description || "";
+    }
   }
 }
