@@ -3,16 +3,16 @@ import { store } from "../state.js";
 const TestSteps = () =>{
 
   const steps = () => {
-     const tests = store.getState().test?.tests
+     const tests = store.getState().test?.etapas
     if(tests.length){
       const currentIndex = tests.findIndex(test => test.current)
       return tests.map((test, index) => {
         return `
         <div class="pasos  ${test.current || index < currentIndex ? 'step_active': ''}">
           <div class="step-icon ${test.current || index < currentIndex ? 'activado': ''}">
-            <img src="${test.icon}" alt="diagnostic" />
+            <img src="${test.urIcono}" alt="diagnostic" />
           </div>
-          <div class="step-text">${test.title}</div>
+          <div class="step-text">${test.nombreIcono}</div>
         </div>
         `
       }).join('')
@@ -22,7 +22,7 @@ const TestSteps = () =>{
   }
 
   const progress = () =>{
-    const tests = store.getState().test?.tests
+    const tests = store.getState().test?.etapas
     if(tests.length){
       const currentIndex = tests.findIndex(test => test.current)
 

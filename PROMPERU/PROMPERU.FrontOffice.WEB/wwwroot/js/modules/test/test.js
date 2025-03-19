@@ -1,21 +1,15 @@
 import { store } from "./state.js";
-import test from "./mocks/test.js";
 import Render from "./render.js";
 
 const container = document.getElementById("app");
 
 export function init() {
-    store.subscribe((newState) => {
-        container.innerHTML = Render(newState)
-    });
-    fetchTest()
-}
+  container.innerHTML = Render(store.getState())
+  store.subscribe((newState) => {
+    container.innerHTML = Render(newState);
+    const state = store.getState()
+    console.log(state)
 
-async function fetchTest(){
-    try {
-        store.setState({ test });
-    } catch (error) {
-        
-    }
+    // TODO: Llenar formularios
+  });
 }
-

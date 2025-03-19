@@ -3,46 +3,58 @@ import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
 
-    async function fetchCompanyData(ruc) {
-        // Simulación de llamada a API con un retraso de 1.5s
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    ruc,
-                    name: "Empresa Ejemplo SAC",
-                    address: "Av. Falsa 123, Lima",
-                });
-            }, 1500);
-        });
+  const state = store.getState()
+  async function fetchCompanyData(ruc) {
+    const formData = new FormData()
+    formData.append('ruc', ruc)
+    try {
+      const response = await fetch("http://localhost:5095/Test/ConsultarRUC", {
+        method: 'POST',
+        body: formData
+      });
+
+      const responseJson = await response.json()
+
+      console.log(responseJson)
+
+      if(responseJson.success){
+        store.setState({ test: responseJson.test });
+        return responseJson.test.evaluado
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const ruc = document.getElementById("rucInput").value;
+
+    if (!ruc) {
+      alert("Ingrese un RUC válido");
+      return;
+    }
+    store.setState({ loading: true });
+    console.log(store.getState())
+    // Simula la llamada al endpoint
+    const companyData = await fetchCompanyData(ruc);
+
+    // Guarda los datos en el estado global
+    const hasInstructions = store.getState().test.testDiagnostico.hasInstructions;
+    if (hasInstructions) {
+      store.setState({ currentStep: "intro" });
+    } else {
+      store.setState({ currentStep: 0 });
     }
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const ruc = document.getElementById("rucInput").value;
+    store.setState({ companyData });
+    store.setState({ loading: false });
+  }
 
-        if (!ruc) {
-            alert("Ingrese un RUC válido");
-            return;
-        }
+  registerEvent("submit", "companyFormSubmit", handleSubmit);
 
-        // Simula la llamada al endpoint
-        const companyData = await fetchCompanyData(ruc);
-
-        // Guarda los datos en el estado global
-        const hasInstructions = store.getState().test.hasInstructions
-        if(hasInstructions){
-            store.setState({ currentStep: 'intro' });
-        }else{
-            store.setState({ currentStep: 0 });
-        }
-
-        console.log(store.getState())
-        store.setState({ companyData });
-    }
-
-    registerEvent("submit", "companyFormSubmit", handleSubmit);
-
-    return `
+  return `
             <section id="search_business">
                 <form id="companyForm" class="container" data-event="companyFormSubmit">
 
@@ -56,7 +68,8 @@ const FindBusinessForm = () => {
                         </div>
                     </a>
                     <span class="col-6 text-decoration-none">
-                        <button type="submit" class="button-test d-flex align-items-center border-0">
+                        <button type="submit" class="button-test d-flex align-items-center border-0 ${state.loading ? 'loading': ''}">
+                        <span class="loader"></span>
                         <span>Buscar</span>
                         <img src="../../shared/assets/inscripcion/search.svg" alt="home" class="image-home" />
                         </button>
@@ -66,6 +79,6 @@ const FindBusinessForm = () => {
                 </form>
             </section>
         `;
-}
+};
 
 export default FindBusinessForm;

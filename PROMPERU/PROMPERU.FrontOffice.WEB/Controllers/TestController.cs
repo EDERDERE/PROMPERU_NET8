@@ -27,7 +27,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
         public IActionResult Index()
         {            
-          return View(); // Asegúrate de tener una vista asociada         
+          return View(); // Asegï¿½rate de tener una vista asociada         
         }
 
         //[HttpGet]
@@ -35,7 +35,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         //{
         //    try
         //    {
-        //        var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync(); // Cambio a versión asincrónica
+        //        var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync(); // Cambio a versiï¿½n asincrï¿½nica
         //        if (etapas != null && etapas.Any())
         //        {
         //            return Json(new
@@ -59,18 +59,18 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         //        return Json(new
         //        {
         //            success = false,
-        //            message = "Ocurrió un error al intentar obtener los Inscripcions. Por favor, inténtelo nuevamente."
+        //            message = "Ocurriï¿½ un error al intentar obtener los Inscripcions. Por favor, intï¿½ntelo nuevamente."
 
         //        });
         //    }
         //}
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> ConsultarRUC(string ruc)
         {
             if (string.IsNullOrWhiteSpace(ruc))
             {
-                return BadRequest(new { success = false, message = "Debe ingresar un RUC válido." });
+                return BadRequest(new { success = false, message = "Debe ingresar un RUC vï¿½lido." });
             }
 
             try
@@ -112,25 +112,25 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         // { "MINCETUR", await _minceturService.ValidarRUCAsync(ruc) },
                         // { "INDECOPI", await _indecopiService.ValidarRUCAsync(ruc) },
                         // { "Adeudo", await _adeudoService.ValidarRUCAsync(ruc) },
-                        // { "Declaración Jurada", await _declaracionService.ValidarRUCAsync(ruc) }
+                        // { "Declaraciï¿½n Jurada", await _declaracionService.ValidarRUCAsync(ruc) }
                     };
 
                 var validacionesFallidas = validations.Where(v => !v.Value).Select(v => v.Key).ToList();
                 if (validacionesFallidas.Any())
                 {
-                    _logger.LogWarning($"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}");
+                    _logger.LogWarning($"El RUC {ruc} no pasï¿½ las siguientes validaciones: {string.Join(", ", validacionesFallidas)}");
 
                     return BadRequest(new
                     {
                         success = false,
-                        message = $"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnóstico.",
+                        message = $"El RUC {ruc} no pasï¿½ las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnï¿½stico.",
                         validations
                     });
                 }
 
-                _logger.LogInformation($"El RUC {ruc} pasó todas las validaciones. Iniciando Test de Diagnóstico...");
+                _logger.LogInformation($"El RUC {ruc} pasï¿½ todas las validaciones. Iniciando Test de Diagnï¿½stico...");
 
-                // 4. Obtener Test de Diagnóstico
+                // 4. Obtener Test de Diagnï¿½stico
                 var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync();
 
                 // Asignar "Current = true" solo cuando id == 2, el resto a false
@@ -196,7 +196,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return Ok(new
                 {
                     success = true,
-                    message = "Validaciones completadas. Iniciando Test de Diagnóstico.",
+                    message = "Validaciones completadas. Iniciando Test de Diagnï¿½stico.",
                     validations,
                     test = new
                     {
@@ -209,7 +209,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error al consultar el RUC {ruc}");
-                return StatusCode(500, new { success = false, message = "Ocurrió un error inesperado al procesar la consulta." });
+                return StatusCode(500, new { success = false, message = "Ocurriï¿½ un error inesperado al procesar la consulta." });
             }
         }
 

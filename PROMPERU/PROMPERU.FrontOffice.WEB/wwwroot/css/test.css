@@ -50,12 +50,7 @@
     align-items: center;
     justify-content: flex-start;
   }
-  
-  .step-icon.activado{
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    background-color: #C41221;
-  }
-  
+
   .step-icon {
     width: 80px;
     height: 80px;
@@ -71,8 +66,19 @@
   .step-icon img {
     width: 50px;
     height: 50px;
+    filter: brightness(0.7);
   }
 
+  
+  .step-icon.activado{
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    background-color: #C41221;
+  }
+
+  .step-icon.activado img{
+    filter: brightness(1);
+  }
+  
 
 #test-content .text{
   font-size: 1.3rem;
@@ -130,8 +136,14 @@
 }
 
 .question-box:hover {
-  border-color: #0d6efd;
+  border-color: #0070BA;
   background-color: #e9f1ff;
+}
+
+.question-box.selected{
+  border-color: #0070BA;
+  background-color: #0070BA;
+  color: #fff;
 }
 
 .option-label {
@@ -155,9 +167,15 @@
   line-height: 1.5;
 }
 .question-box:hover .option-label {
-  border-color: #0d6efd;
-  color: #0d6efd;
+  border-color: #0070BA;
+  color: #0070BA;
 }
+.question-box.selected .option-label{
+  border-color: #0070BA;
+  background-color: #fff;
+  color: #0070BA;
+}
+
 
 .btn-custom {
   border-radius: 25px;
@@ -201,3 +219,153 @@
   width: 50px;
   height: 50px;
 }
+.form-section{
+  margin-bottom: 2rem;
+}
+.form-section-fields{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group label{
+  color: #0070BA;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.form-group input, .form-group select{
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #B2B2B2;
+}
+
+.card-custom {
+  border-radius: 15px;
+  padding: 20px;
+  text-align: left;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.approved {
+  background-color: #e0efff;
+  color: #0d6efd;
+}
+
+.failed {
+  background-color: #fde8e8;
+  color: #dc3545;
+}
+
+.progress {
+  height: 11.48px;
+  border-radius: 10px;
+  background-color: rgba(78, 151, 206, 0.2);
+}
+
+.progress-bar-approved {
+  border-radius: 8px;
+  background-color: #4E97CE;
+}
+
+.progress-bar-failed {
+  border-radius: 8px;
+  background-color: #dc3545;
+}
+
+/* Indicador semicircular */
+#chart-container {
+  position: relative;
+  width: 350px;
+  margin: auto;
+}
+.custom-label {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+}
+.center-text {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+.small-text {
+  font-size: 9.29px;
+  margin-top: 75px;
+  font-weight: normal;
+}
+
+.small-text-right{
+  font-size: 9.29px;
+  margin-top: 13px;
+  font-weight: normal;
+}
+.small-text-nota1{
+  margin-bottom: -45px;
+}
+.left-label {
+  font-size: 9.29px;
+  top: 44%;
+  left: 10%;
+  text-align: center;
+}
+.right-label {
+  font-size: 9.29px;
+  top: 50%;
+  right: 30px;
+  text-align: right;
+}
+
+.box-notanumber{
+  display: flex;
+  flex-direction: column;
+}
+
+.small-text-centro {
+  font-size: 9.29px;
+  font-weight: normal;
+}
+
+.loader {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  display: none;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
+
+  .loading .loader{
+    display: inline-block;
+  }
