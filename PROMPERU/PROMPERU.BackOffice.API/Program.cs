@@ -49,6 +49,10 @@ builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnect
 builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatPromPeruApiSettings"));
 builder.Services.AddHttpClient<SunatService>();
 
+//servicios externos (SUNAT PROM PERU)
+builder.Services.Configure<SunatPromPeruApiSettings>(builder.Configuration.GetSection("SunatPromPeruApiSettings"));
+builder.Services.AddHttpClient<SunatPromPeruService>();
+
 // Registrar los servicios
 builder.Services.AddScoped<UsuarioDA>();
 builder.Services.AddScoped<UsuarioBL>();
