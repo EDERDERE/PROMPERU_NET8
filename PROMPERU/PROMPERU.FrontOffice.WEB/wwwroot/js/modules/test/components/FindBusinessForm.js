@@ -18,7 +18,7 @@ const FindBusinessForm = () => {
 
       if (responseJson.success) {
         store.setState({ test: responseJson.test });
-        return responseJson.test.evaluado;
+        return responseJson.test.evaluated;
       }
     } catch (error) {
       console.log(error);
@@ -39,8 +39,7 @@ const FindBusinessForm = () => {
     const companyData = await fetchCompanyData(ruc);
 
     // Guarda los datos en el estado global
-    const hasInstructions =
-      store.getState().test.testDiagnostico.hasInstructions;
+    const hasInstructions = store.getState().test.activeTest.hasInstructions;
     if (hasInstructions) {
       store.setState({ currentStep: "intro" });
     } else {

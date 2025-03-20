@@ -15,10 +15,7 @@ const NavigationButtons = (
       store.setState({ currentStep: 0 });
       return;
     }
-    if (
-      currentStep + 1 >=
-      store.getState().test?.testDiagnostico?.elements.length
-    ) {
+    if (currentStep + 1 >= store.getState().test?.activeTest?.elements.length) {
       store.setState({ currentStep: "results" });
       return;
     }

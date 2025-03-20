@@ -1,36 +1,41 @@
 import { store } from "../state.js";
 
-const TestSteps = () =>{
-
+const TestSteps = () => {
   const steps = () => {
-     const tests = store.getState().test?.etapas
-    if(tests.length){
-      const currentIndex = tests.findIndex(test => test.current)
-      return tests.map((test, index) => {
-        return `
-        <div class="pasos  ${test.current || index < currentIndex ? 'step_active': ''}">
-          <div class="step-icon ${test.current || index < currentIndex ? 'activado': ''}">
-            <img src="${test.urIcono}" alt="diagnostic" />
+    const tests = store.getState().test?.steps;
+    if (tests.length) {
+      const currentIndex = tests.findIndex((test) => test.current);
+      return tests
+        .map((test, index) => {
+          return `
+        <div class="pasos  ${
+          test.current || index < currentIndex ? "step_active" : ""
+        }">
+          <div class="step-icon ${
+            test.current || index < currentIndex ? "activado" : ""
+          }">
+            <img src="${test.iconUrl}" alt="diagnostic" />
           </div>
-          <div class="step-text">${test.nombreIcono}</div>
+          <div class="step-text">${test.iconName}</div>
         </div>
-        `
-      }).join('')
+        `;
+        })
+        .join("");
     }
 
-    return ''
-  }
+    return "";
+  };
 
-  const progress = () =>{
-    const tests = store.getState().test?.etapas
-    if(tests.length){
-      const currentIndex = tests.findIndex(test => test.current)
+  const progress = () => {
+    const tests = store.getState().test?.steps;
+    if (tests.length) {
+      const currentIndex = tests.findIndex((test) => test.current);
 
-      if(currentIndex + 1 < tests.length) return currentIndex + 1
-      return currentIndex
+      if (currentIndex + 1 < tests.length) return currentIndex + 1;
+      return currentIndex;
     }
-    return 1
-  }
+    return 1;
+  };
 
   return `
     <div class="bgwhite my-5 py-3">
@@ -43,7 +48,7 @@ const TestSteps = () =>{
         </div>
       </div>
     </div>
-    `
-}
+    `;
+};
 
 export default TestSteps;

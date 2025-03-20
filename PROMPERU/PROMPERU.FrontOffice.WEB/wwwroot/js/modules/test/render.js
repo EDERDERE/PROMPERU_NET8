@@ -8,89 +8,88 @@ import { useState } from "./utils/useState.js";
 import Quiz from "./components/Quiz.js";
 
 const Render = (state) => {
-    const component = useState("")
+  const component = useState("");
 
-    if(state.currentStep !== 'results'){
-    if(!state.companyData){
-        const title ='Encuentra tu empresa'
-        component.setState(
-            renderSectionTitle(title)+
-            FindBusinessForm()
-        )
-    } else if(state.test.testDiagnostico.hasInstructions && state.currentStep == 'intro'){
-        const instructions = state.test.testDiagnostico.instructions
-        const title =instructions.title
-        component.setState(
-            TestSteps()+
-            renderSectionTitle(title)+
-            Instrucciones(instructions)+
-            NavigationButtons()
-        )
+  if (state.currentStep !== "results") {
+    if (!state.companyData) {
+      const title = "Encuentra tu empresa";
+      component.setState(renderSectionTitle(title) + FindBusinessForm());
+    } else if (
+      state.test.activeTest.hasInstructions &&
+      state.currentStep == "intro"
+    ) {
+      const instructions = state.test.activeTest.instructions;
+      const title = instructions.title;
+      component.setState(
+        TestSteps() +
+          renderSectionTitle(title) +
+          Instrucciones(instructions) +
+          NavigationButtons()
+      );
     } else {
-        const data = state.test?.testDiagnostico?.elements[state.currentStep]
-        const title = data?.title || state.test?.testDiagnostico?.testType.label
-        component.setState(
-            TestSteps()+
-            renderSectionTitle(title)+
-            Quiz(data)+
-            NavigationButtons()
-        )
+      const data = state.test?.activeTest?.elements[state.currentStep];
+      const title = data?.title || state.test?.activeTest?.testType.label;
+      component.setState(
+        TestSteps() +
+          renderSectionTitle(title) +
+          Quiz(data) +
+          NavigationButtons()
+      );
     }
+  } else {
+    component.setState(Results);
 
-    }else{
-        component.setState( Results)
+    setTimeout(() => {
+      var options = {
+        series: [80], // Ajusta el porcentaje aquí
+        colors: ["#4E97CE"],
+        chart: {
+          height: 300,
+          type: "radialBar",
+        },
+        plotOptions: {
+          radialBar: {
+            hollow: {
+              margin: 0,
+              size: "70%",
+            },
+            startAngle: -90,
+            endAngle: 90,
+            track: {
+              background: "rgba(78, 151, 206, 0.21)",
+              startAngle: -90,
+              endAngle: 90,
+              opacity: 1,
+            },
+            dataLabels: {
+              show: false,
+            },
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shade: "dark",
+            type: "vertical",
+            gradientToColors: ["#4E97CE"],
+            stops: [0, 100],
+          },
+        },
+        stroke: {
+          lineCap: "round",
+        },
+        labels: ["Innovación"],
+      };
 
-        setTimeout(() => {
-            var options = {
-                series: [80], // Ajusta el porcentaje aquí
-                colors: ["#4E97CE"],
-                chart: {
-                    height: 300,
-                    type: 'radialBar'
-                },
-                plotOptions: {
-                    radialBar: {
-                        hollow: {
-                            margin: 0,
-                            size: "70%",
-                          },
-                        startAngle: -90,
-                        endAngle: 90,
-                        track: {
-                            background: 'rgba(78, 151, 206, 0.21)',
-                            startAngle: -90,
-                            endAngle: 90,
-                            opacity: 1
-                        },
-                        dataLabels: {
-                            show: false
-                        }
-                    }
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        shade: "dark",
-                        type: "vertical",
-                        gradientToColors: ["#4E97CE"],
-                        stops: [0, 100]
-                    }
-                },
-                stroke: {
-                    lineCap: "round"
-                },
-                labels: ['Innovación']
-            };
-            
-            document.querySelectorAll("#chart").forEach(item => {
-                const chart = new ApexCharts(item, options);
-                chart.render();
-            })
-        }, 100);
-    }
-    const componentRender = component.getState()
+      document.querySelectorAll("#chart").forEach((item) => {
+        const chart = new ApexCharts(item, options);
+        chart.render();
+      });
+    }, 100);
+  }
+  const componentRender = component.getState();
 
-    return componentRender
-}
+  return componentRender;
+};
 
 export default Render;

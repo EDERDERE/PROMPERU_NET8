@@ -1,4 +1,4 @@
-const Results = (`
+const Results = `
     <div class="container">
         <div class="my-5 py-5 d-flex justify-content-center align-items-center flex-column">
             <h2 class="section_title" id="section_title">
@@ -178,6 +178,6 @@ const Results = (`
             </h2>
         </div>
     </div>
-    `)
+    `;
 
-export default Results
+export default Results;

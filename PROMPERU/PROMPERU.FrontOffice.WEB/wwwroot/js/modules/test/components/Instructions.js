@@ -1,5 +1,5 @@
 const Instrucciones = (data) => {
-    return  `
+  return `
     <section>
         <div class="container">
             <div class="text">
@@ -7,18 +7,20 @@ const Instrucciones = (data) => {
             </div>
             <br/>
             ${
-                data.alert ? `
+              data.alert
+                ? `
                 <div class="alert">
                     <img src="${data.alertIcon}" />
                     <span>
                         ${data.alert}
                     </span>
                 </div>
-                `: ''
+                `
+                : ""
             }
         </div>
     </section>
     `;
-}
+};
 
 export default Instrucciones;

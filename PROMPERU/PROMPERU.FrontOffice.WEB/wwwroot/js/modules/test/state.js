@@ -6,5 +6,5 @@ export const store = createState({
   currentStep: 0,
   previusStep: null,
   answers: null,
-  loading: false
+  loading: false,
 });
