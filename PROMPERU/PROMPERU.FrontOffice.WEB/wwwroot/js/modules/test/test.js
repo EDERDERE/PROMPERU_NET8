@@ -1,9 +1,11 @@
 import { store } from "./state.js";
 import Render from "./render.js";
+import { preloadInscriptions } from "./utils/preloadInscriptions.js";
 
 const container = document.getElementById("app");
 
-export function init() {
+export async function init() {
+  await preloadInscriptions();
   container.innerHTML = Render(store.getState());
   store.subscribe((newState) => {
     container.innerHTML = Render(newState);

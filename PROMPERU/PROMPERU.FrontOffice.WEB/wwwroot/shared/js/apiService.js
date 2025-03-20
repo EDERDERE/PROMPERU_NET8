@@ -1,4 +1,9 @@
-export async function fetchData(url, method = "GET", data = null) {
+export async function fetchData(
+  url,
+  method = "GET",
+  data = null,
+  useFormData = false
+) {
   try {
     const options = {
       type: method,
@@ -8,7 +13,12 @@ export async function fetchData(url, method = "GET", data = null) {
 
     if (data) {
       options.data = data;
-      options.contentType = "application/json; charset=utf-8";
+      if (!useFormData) {
+        options.contentType = "application/json; charset=utf-8";
+      } else {
+        options.processData = false;
+        options.contentType = false;
+      }
     }
 
     const response = await $.ajax(options);

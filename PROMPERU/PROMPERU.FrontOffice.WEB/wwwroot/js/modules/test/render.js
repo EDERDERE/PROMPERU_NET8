@@ -10,21 +10,28 @@ import Quiz from "./components/Quiz.js";
 const Render = (state) => {
   const component = useState("");
 
+  const stepsHtml = state.inscriptions
+    ? TestSteps(state.inscriptions)
+    : TestSteps();
+
   if (state.currentStep !== "results") {
     if (!state.companyData) {
       const title = "Encuentra tu empresa";
-      component.setState(renderSectionTitle(title) + FindBusinessForm());
+      component.setState(
+        stepsHtml + renderSectionTitle(title) + FindBusinessForm()
+      );
     } else if (
       state.test.activeTest.hasInstructions &&
       state.currentStep == "intro"
     ) {
       const instructions = state.test.activeTest.instructions;
       const title = instructions.title;
+      console.log('instrucciones')
       component.setState(
         TestSteps() +
           renderSectionTitle(title) +
           Instrucciones(instructions) +
-          NavigationButtons()
+          NavigationButtons(false, true, "", instructions.buttonText)
       );
     } else {
       const data = state.test?.activeTest?.elements[state.currentStep];

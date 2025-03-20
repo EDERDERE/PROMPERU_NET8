@@ -1,24 +1,27 @@
 import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
+import { fetchData } from "../../../../shared/js/apiService.js";
+import { showAlertError } from "./Alert.js";
+import { numericRegex } from "../utils/regex.js";
+
 
 const FindBusinessForm = () => {
   const state = store.getState();
+
   async function fetchCompanyData(ruc) {
     const formData = new FormData();
     formData.append("ruc", ruc);
     try {
-      const response = await fetch("http://localhost:5095/Test/ConsultarRUC", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetchData(
+        "/Test/ConsultarRUC",
+        "POST",
+        formData,
+        true
+      );
 
-      const responseJson = await response.json();
-
-      console.log(responseJson);
-
-      if (responseJson.success) {
-        store.setState({ test: responseJson.test });
-        return responseJson.test.evaluated;
+      if (response.success) {
+        store.setState({ test: response.test });
+        return response.test.evaluated;
       }
     } catch (error) {
       console.log(error);
@@ -29,25 +32,39 @@ const FindBusinessForm = () => {
     event.preventDefault();
     const ruc = document.getElementById("rucInput").value;
 
-    if (!ruc) {
-      alert("Ingrese un RUC válido");
+    if (!ruc || ruc.length !== 11 || !numericRegex.test(ruc)) {
+      showAlertError(
+        "Ingrese un RUC válido de 11 dígitos numéricos",
+        "Validación"
+      );
       return;
     }
     store.setState({ loading: true });
+
     console.log(store.getState());
-    // Simula la llamada al endpoint
-    const companyData = await fetchCompanyData(ruc);
 
-    // Guarda los datos en el estado global
-    const hasInstructions = store.getState().test.activeTest.hasInstructions;
-    if (hasInstructions) {
-      store.setState({ currentStep: "intro" });
-    } else {
-      store.setState({ currentStep: 0 });
+    try {
+      const companyData = await fetchCompanyData(ruc);
+
+      if (!companyData) {
+        return;
+      }
+
+      // Guarda los datos en el estado global
+      const hasInstructions = store.getState().test.activeTest.hasInstructions;
+      if (hasInstructions) {
+        store.setState({ currentStep: "intro" });
+      } else {
+        store.setState({ currentStep: 0 });
+      }
+
+      store.setState({ companyData });
+      store.setState({ loading: false });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      store.setState({ loading: false });
     }
-
-    store.setState({ companyData });
-    store.setState({ loading: false });
   }
 
   registerEvent("submit", "companyFormSubmit", handleSubmit);
@@ -55,7 +72,6 @@ const FindBusinessForm = () => {
   return `
             <section id="search_business">
                 <form id="companyForm" class="container" data-event="companyFormSubmit">
-
                 <div class="mt-5 mb-4 d-flex justify-content-center align-items-center flex-column">
                     <input type="text" class="form-control num_ruc" id="rucInput" placeholder="Ingresa tu número de RUC" />
                     <div class="row buttons_group">
