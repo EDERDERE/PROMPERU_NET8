@@ -30,6 +30,7 @@
         public string? Category { get; set; }
         public string? AnswerType { get; set; }
         public List<Answer>? Answers { get; set; }
+        public List<SelectAnswer>? SelectAnswers { get; set; }
         public Course? Course { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }

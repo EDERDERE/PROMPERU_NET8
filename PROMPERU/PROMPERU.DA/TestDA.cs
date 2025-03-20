@@ -2,6 +2,9 @@
 using PROMPERU.BE;
 using PROMPERU.DB;
 using System.Data;
+using System.Data.Common;
+using System.Transactions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PROMPERU.DA
 {
@@ -16,48 +19,78 @@ namespace PROMPERU.DA
             _auditoriaDA = auditoriaDA;
         }
 
-        // Inserta un nuevo Test y devuelve la fila creada
-        //public async Task<int> InsertarTestAsync(EtapaBE test, string usuario, string ip)
-        //{
-        //    try
-        //    {
-        //        await using var conexion = await _conexionDB.ObtenerConexionAsync();
-        //        await using var comando = new SqlCommand("USP_Test_INS", conexion)
-        //        {
-        //            CommandType = CommandType.StoredProcedure
-        //        };
+        // Inserta un nuevo Test 
+        public async Task<int> InsertarProgresoTestAsync(ProcesoTestBE test)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
 
-        //        comando.Parameters.AddWithValue("@Insc_ID", Test.Insc_ID);
-        //        comando.Parameters.AddWithValue("@Preg_NumeroTest", Test.Preg_NumeroTest);                
-        //        comando.Parameters.AddWithValue("@Preg_TextoTest", Test.Preg_TextoTest);
-        //        comando.Parameters.AddWithValue("@Preg_EsComputable", Test.Preg_EsComputable);
-        //        comando.Parameters.AddWithValue("@Preg_TipoRespuesta", Test.Preg_TipoRespuesta);
-        //        comando.Parameters.AddWithValue("@Preg_Categoria", Test.Preg_Categoria);          
+            try
+            {
+                await using var comando = new SqlCommand("USP_Inscripcion_Evaluado_INS", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
-        //        var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
-        //        {
-        //            Direction = ParameterDirection.Output
-        //        };
-        //        comando.Parameters.Add(outNuevoID);
+                comando.Parameters.AddWithValue("@Eval_RUC", test.Eval_RUC);
+                comando.Parameters.AddWithValue("@Insc_ID", test.Insc_ID);
+                comando.Parameters.AddWithValue("@Ieva_Estado", test.Ieva_Estado);
 
-        //        await comando.ExecuteNonQueryAsync();
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                comando.Parameters.Add(outNuevoID);
 
-        //        int nuevoID = (int)outNuevoID.Value;
+                await comando.ExecuteNonQueryAsync();
 
-        //        if (nuevoID > 0)
-        //        {
-        //            await _auditoriaDA.RegistrarAuditoriaAsync(usuario, "I","Test", ip, nuevoID);
-        //        }
+                await transaction.CommitAsync(); // Confirma la transacción
 
-        //        return nuevoID;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al insertar el Test", ex);
-        //    }
-        //}
+                return (int)outNuevoID.Value;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
+            }
+        }
 
 
+        public async Task<int> InsertarRespuestaSelectTestAsync(RespuestaSeleccionadaBE rSel)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
+            
+            try
+            {             
+                await using var comando = new SqlCommand("USP_RespuestaSeleccionada_INS", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Insc_ID", rSel.Preg_ID);
+                comando.Parameters.AddWithValue("@Preg_NumeroTest", rSel.Eval_RUC);
+                comando.Parameters.AddWithValue("@Preg_TextoTest", rSel.Rsel_TextoRespuesta);
+                comando.Parameters.AddWithValue("@Preg_EsComputable", rSel.Resp_ID);           
+
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                comando.Parameters.Add(outNuevoID);
+
+                await comando.ExecuteNonQueryAsync();               
+
+                await transaction.CommitAsync(); // Confirma la transacción
+
+                return (int)outNuevoID.Value;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
+            }
+        }
         public async Task<int> EliminarTestAsync(string usuario, string ip, int id)
         {
             try
@@ -213,6 +246,40 @@ namespace PROMPERU.DA
                         Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
                         Eval_Etapa = reader["Eval_Etapa"].ToString(),
                         Ieva_Estado = reader["Ieva_Estado"].ToString()
+                    });
+                }
+
+                return Tests;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Tests", ex);
+            }
+        }
+        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string ruc)
+        {
+            try
+            {
+                var Tests = new List<RespuestaSeleccionadaBE>();
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_RespuestaSeleccionada_SEL", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Eval_RUC", ruc);
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    Tests.Add(new RespuestaSeleccionadaBE
+                    {
+                        Preg_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Preg_ID"]) : 0,
+                        Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
+                        Rsel_TextoRespuesta = reader["Rsel_TextoRespuesta"] != DBNull.Value ? reader["Rsel_TextoRespuesta"].ToString() : "",
+                        Resp_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Resp_ID"]) : 0
                     });
                 }
 

@@ -5,10 +5,12 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
 using PROMPERU.DA;
+using ServiceExterno;
 using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Xml.Linq;
 using static PROMPERU.BE.MaestrosBE;
@@ -26,10 +28,12 @@ namespace PROMPERU.BL
         private readonly PortadaTestDA _portadaTestDA;
         private readonly ContenidoTestDA _contenidoTestDA;
         private readonly FormularioTestDA _formularioTestDA;
+        private readonly InscripcionBL _inscripcionBL;
+        private readonly SunatService _sunatService;
         private readonly TestDA _testDA;
 
         // Constructor con inyección de dependencias
-        public TestBL(CursoDA cursoDA , InscripcionDA inscripcionDA, PortadaTestDA portadaTestDA, ContenidoTestDA contenidoTestDA, FormularioTestDA formularioTestDA, PreguntaDA preguntaDA, RespuestaDA respuestaDA, PreguntaCursoDA preguntaCursoDA,TestDA testDA)
+        public TestBL(CursoDA cursoDA , InscripcionDA inscripcionDA, PortadaTestDA portadaTestDA, ContenidoTestDA contenidoTestDA, FormularioTestDA formularioTestDA, PreguntaDA preguntaDA, RespuestaDA respuestaDA, PreguntaCursoDA preguntaCursoDA, TestDA testDA, InscripcionBL inscripcionBL, SunatService sunatService)
         {
             _cursoDA = cursoDA;
             _inscripcionDA = inscripcionDA;
@@ -39,7 +43,10 @@ namespace PROMPERU.BL
             _preguntaDA = preguntaDA;
             _respuestaDA = respuestaDA;
             _preguntaCursoDA = preguntaCursoDA;
+            _inscripcionBL = inscripcionBL;
             _testDA = testDA;
+            _inscripcionBL = inscripcionBL;
+            _sunatService = sunatService;
         }
         public async Task<List<EtapaBE>> ListarTestAsync()
         {
@@ -510,6 +517,244 @@ namespace PROMPERU.BL
             try
             {
                 var ListadoTest = await _testDA.ListarProcesoTestsAsync(ruc);
+                return ListadoTest;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
+            }
+        }
+        public async Task<(bool, JsonElement?)> ValidarRespuestaSunat(string resultadoSunatJson)
+        {
+            if (string.IsNullOrWhiteSpace(resultadoSunatJson))
+            {
+                return (false, null);
+            }
+
+            try
+            {
+                return await _sunatService.ValidarSunatAsync(resultadoSunatJson);
+            }
+            catch (Exception ex)
+            {                
+                return (false, null);
+            }
+        }
+
+        public async Task<List<Step>> ObtenerPasosInscripcion()
+        {
+            var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync();
+            etapas = etapas.Select(e =>
+            {
+                e.Current = (e.id == 2); // Marcar como actual solo el Test de Diagnóstico
+                return e;
+            }).ToList();
+
+            return etapas.Select(e => new Step
+            {
+                Id = e.id,
+                StepNumber = e.paso,
+                IconName = e.nombreIcono,
+                IconUrl = e.urIcono,
+                Current = e.Current ?? false,
+                IsComplete = false,
+                isApproved = false
+            }).ToList();
+        }
+        public Evaluated ExtraerDatosEvaluacion(JsonElement? evaluadoResult, string ruc)
+        {
+            if (!evaluadoResult.HasValue)
+            {
+                return null;
+            }
+
+            var evaluatedData = evaluadoResult.Value.ValueKind == JsonValueKind.Array
+                ? evaluadoResult.Value.EnumerateArray().FirstOrDefault()
+                : evaluadoResult.Value;
+
+            return evaluatedData.ValueKind == JsonValueKind.Object
+                ? new Evaluated
+                {
+                    Ruc = ruc,
+                    LegalName = ObtenerValorPropiedad(evaluatedData, "razon", "RazonSocial"),
+                    TradeName = ObtenerValorPropiedad(evaluatedData, "nombrecomercial", "NombreComercial"),
+                    Phone = ObtenerValorPropiedad(evaluatedData, "Telefono"),
+                    Email = ObtenerValorPropiedad(evaluatedData, "Correo"),
+                    Address = ObtenerValorPropiedad(evaluatedData, "direccionfiscal"),
+                    Region = ObtenerValorPropiedad(evaluatedData, "Region"),
+                    Province = ObtenerValorPropiedad(evaluatedData, "Provincia")
+                }
+                : null;
+        }
+        public string ObtenerValorPropiedad(JsonElement json, params string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                if (json.TryGetProperty(key, out var value))
+                {
+                    return value.GetString();
+                }
+            }
+            return string.Empty;
+        }
+        public async Task<TestModelRequestDto> GuardarProgresoTest(TestModelRequestDto testModel)
+        {
+            if (testModel == null) throw new ArgumentNullException(nameof(testModel));
+
+            try
+            {
+                var tasks = new List<Task>();
+
+                // Obtener el estado del Test 
+                var statusTest = testModel.Steps.FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
+                string ruc = testModel.GeneralData?.Ruc?.Trim() ?? string.Empty;
+                bool isComplete = statusTest?.IsComplete ?? false; 
+
+                // Guardar Test
+                var test = new ProcesoTestBE
+                {
+                    Eval_RUC = ruc, 
+                    Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,   
+                    Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
+                };
+
+                tasks.Add(_testDA.InsertarProgresoTestAsync(test));
+
+                //2. Guardar Preguntas y respuesta seleccionada
+
+                if (testModel.ActiveTest?.Elements?.Any() == true) 
+                {
+                    foreach (var item in testModel.ActiveTest.Elements)
+                    {
+                        if (item?.SelectAnswers?.Any() == true) 
+                        {
+                            foreach (var item2 in item.SelectAnswers)
+                            {
+                                var respuestaSelect = new RespuestaSeleccionadaBE
+                                {
+                                    Preg_ID = item.Id,
+                                    Eval_RUC = ruc,
+                                    Rsel_TextoRespuesta = item2?.Input ?? string.Empty, // Evita nulos en Input
+                                    Resp_ID = item2?.Id
+                                };
+
+                                tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
+                            }
+                        }
+                    }
+                }
+
+                
+
+
+
+
+
+
+                //3. Guardar Datos Generales
+                //4. Guardar Inscripcion
+                //5. Guardar Malla Curricular
+                //6. Guardar Logica de Cursos
+
+                // Insertar Portada Principal si existe
+                //if (testModel.HasInstructions && testModel.Instructions != null)
+                //{
+                //    var portada = new PortadaTestBE
+                //    {
+                //        Insc_ID = testModel.TestType?.Value ?? 0,
+                //        Ptes_Titulo = testModel.Instructions.Title,
+                //        Ptes_Descripcion = testModel.Instructions.Description,
+                //        Ptes_NombreBoton = testModel.Instructions.ButtonText,
+                //        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
+                //        Ptes_MensajeAlert = testModel.Instructions.Alert,
+                //        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
+                //    };
+
+                //    tasks.Add(_portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip));
+                //}
+
+                //// Validar elementos antes de iterar
+                //if (testModel.Elements?.Count > 0)
+                //{
+                //    foreach (var e in testModel.Elements)
+                //    {
+                //        if (e.Type == "question")
+                //        {
+                //            // Insertar Pregunta
+                //            var pregunta = new PreguntaBE
+                //            {
+                //                Insc_ID = testModel.TestType?.Value ?? 0,
+                //                Preg_NumeroPregunta = e.Order,
+                //                Preg_TextoPregunta = e.QuestionText ?? string.Empty,
+                //                Preg_EsComputable = e.IsComputable ?? false,
+                //                Preg_Etiqueta = e.Label ?? string.Empty,
+                //                Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
+                //                Preg_Categoria = e.Category ?? string.Empty,
+                //                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
+                //            };
+
+                //            var preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
+
+                //            // Insertar Respuestas en paralelo si existen
+                //            if (e.Answers?.Count > 0)
+                //            {
+                //                tasks.AddRange(e.Answers.Select(resp =>
+                //                    _respuestaDA.InsertarRespuestaAsync(new RespuestaBE
+                //                    {
+                //                        Preg_ID = preguntaID,
+                //                        Resp_Orden = resp.Order,
+                //                        Resp_Respuesta = resp.Text ?? string.Empty,
+                //                        Resp_Valor = resp.Value
+                //                    }, usuario, ip)));
+                //            }
+                //        }
+
+                //        // Insertar Contenido si tiene título o descripción
+                //        if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
+                //        {
+                //            var contenido = new ContenidoTestBE
+                //            {
+                //                Insc_ID = testModel.TestType?.Value ?? 0,
+                //                Ctes_Orden = e.Order,
+                //                Ctes_Titulo = e.Title,
+                //                Ctes_Descripcion = e.Description
+                //            };
+
+                //            tasks.Add(_contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip));
+                //        }
+
+                //        // Insertar Formulario si existe
+                //        if (e.SelectedForm != null)
+                //        {
+                //            var formulario = new FormularioTestBE
+                //            {
+                //                Insc_ID = testModel.TestType?.Value ?? 0,
+                //                Ftes_Orden = e.Order,
+                //                Ftes_Texto = e.SelectedForm.Label,
+                //                Ftes_Valor = e.SelectedForm.Value
+                //            };
+
+                //            tasks.Add(_formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip));
+                //        }
+                //    }
+                //}
+
+                // Esperar todas las inserciones en paralelo
+                await Task.WhenAll(tasks);
+
+                return testModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al crear el test", ex);
+            }
+        }
+
+        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string ruc)
+        {
+            try
+            {
+                var ListadoTest = await _testDA.ListarRespuestaSelectTestsAsync(ruc);
                 return ListadoTest;
             }
             catch (Exception ex)
