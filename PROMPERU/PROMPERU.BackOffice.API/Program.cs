@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using PROMPERU.BE;
 using PROMPERU.BL;
 using PROMPERU.DA;
 using PROMPERU.DB;
 using Serilog;
+using ServiceExterno;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,11 @@ builder.Services.AddAuthorization();
 
 //Configurar DatabaseContext
 builder.Services.AddScoped(sp => new ConexionDB(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+//servicios externos (SUNAT PROM PERU)
+builder.Services.Configure<SunatApiSettings>(builder.Configuration.GetSection("SunatPromPeruApiSettings"));
+builder.Services.AddHttpClient<SunatService>();
 
 // Registrar los servicios
 builder.Services.AddScoped<UsuarioDA>();
