@@ -183,6 +183,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 return StatusCode(500, new { success = false, message = "Ocurrió un error inesperado al procesar la consulta." });
             }
         }
+
+        [HttpPost]
         public async Task<IActionResult> GuardarProgresoTest(TestModelRequestDto testModel)
         {
             try
