@@ -2,28 +2,26 @@ import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
 
 const FindBusinessForm = () => {
-
-  const state = store.getState()
+  const state = store.getState();
   async function fetchCompanyData(ruc) {
-    const formData = new FormData()
-    formData.append('ruc', ruc)
+    const formData = new FormData();
+    formData.append("ruc", ruc);
     try {
       const response = await fetch("http://localhost:5095/Test/ConsultarRUC", {
-        method: 'POST',
-        body: formData
+        method: "POST",
+        body: formData,
       });
 
-      const responseJson = await response.json()
+      const responseJson = await response.json();
 
-      console.log(responseJson)
+      console.log(responseJson);
 
-      if(responseJson.success){
+      if (responseJson.success) {
         store.setState({ test: responseJson.test });
-        return responseJson.test.evaluado
+        return responseJson.test.evaluado;
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -36,12 +34,13 @@ const FindBusinessForm = () => {
       return;
     }
     store.setState({ loading: true });
-    console.log(store.getState())
+    console.log(store.getState());
     // Simula la llamada al endpoint
     const companyData = await fetchCompanyData(ruc);
 
     // Guarda los datos en el estado global
-    const hasInstructions = store.getState().test.testDiagnostico.hasInstructions;
+    const hasInstructions =
+      store.getState().test.testDiagnostico.hasInstructions;
     if (hasInstructions) {
       store.setState({ currentStep: "intro" });
     } else {
@@ -68,7 +67,9 @@ const FindBusinessForm = () => {
                         </div>
                     </a>
                     <span class="col-6 text-decoration-none">
-                        <button type="submit" class="button-test d-flex align-items-center border-0 ${state.loading ? 'loading': ''}">
+                        <button type="submit" class="button-test d-flex align-items-center border-0 ${
+                          state.loading ? "loading" : ""
+                        }">
                         <span class="loader"></span>
                         <span>Buscar</span>
                         <img src="../../shared/assets/inscripcion/search.svg" alt="home" class="image-home" />
