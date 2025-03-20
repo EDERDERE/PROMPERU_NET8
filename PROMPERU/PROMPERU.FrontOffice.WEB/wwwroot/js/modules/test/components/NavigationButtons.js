@@ -5,7 +5,7 @@ const NavigationButtons = (
   showBack = true,
   showNext = true,
   backText = "Anterior",
-  nextText = "Guardar y continuar"
+  nextText = "Siguiente"
 ) => {
   const nextStep = () => {
     let currentStep = store.getState().currentStep;
