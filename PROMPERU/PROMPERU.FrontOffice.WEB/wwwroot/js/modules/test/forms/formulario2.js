@@ -1,3 +1,5 @@
+import { regionOptions } from "../constants/region.js";
+
 export default {
   id: "userForm",
   sections: [
@@ -17,7 +19,7 @@ export default {
         },
         {
           type: "text",
-          name: "razon-social",
+          name: "legalName",
           label: "Razón Social",
           placeholder: "Ingresa tu Razón Social",
           required: true,
@@ -28,7 +30,7 @@ export default {
         },
         {
           type: "text",
-          name: "nombre-comercial",
+          name: "tradeName",
           label: "Nombre Comercial",
           placeholder: "Ingresa tu Nombre Comercial",
           required: true,
@@ -50,7 +52,7 @@ export default {
         },
         {
           type: "text",
-          name: "names",
+          name: "fullName",
           label: "Nombres y Apellidos",
           placeholder: "Ingresa tus Nombres y Apellidos",
           required: true,
@@ -70,22 +72,14 @@ export default {
           type: "select",
           name: "region",
           label: "Región",
-          options: [
-            { value: "1", text: "Costa" },
-            { value: "2", text: "Sierra" },
-            { value: "3", text: "Selva" },
-          ],
+          options: regionOptions,
           required: true,
         },
         {
           type: "select",
           name: "provincia",
           label: "Provincia",
-          options: [
-            { value: "1", text: "Lima" },
-            { value: "2", text: "Junin" },
-            { value: "3", text: "Ucayali" },
-          ],
+          options: [],
           required: true,
         },
         {

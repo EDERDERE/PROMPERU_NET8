@@ -1,8 +1,8 @@
 import { renderForm } from "../utils/renderForm.js";
 import { registerEvent } from "../utils/eventHandler.js";
 import { store } from "../state.js";
-
 import form from "../forms/index.js";
+
 const Quiz = (data) => {
   const selectOption = (e) => {
     const target = e.target;
@@ -55,15 +55,29 @@ const Quiz = (data) => {
   };
 
   const questionLayout = (content) => {
-    // TODO: contador del test
+    const state = store.getState();
+    const activeTest = state.test.activeTest;
+    const total = activeTest.elements.length;
+    const currentIndex =
+      typeof state.currentStep === "number" ? state.currentStep : 0;
+    const progressIndicator = `<span class="progress-indicator">${
+      currentIndex + 1
+    } <i>de</i> ${total}</span>`;
+
+    let subTitle = ''
+    if(data.isComputable){
+      subTitle = data.course.label
+    }else {
+      subTitle = data.category
+    }
     return `
        <section>
         <div class="container">
-          <div class="col-11 mx-auto">
+          <div class="col-12 mx-auto">
             <div class="d-flex justify-content-start">
-              <span class="progress-indicator">1 <i>de</i> 55</span> 
+             ${progressIndicator}
             </div>
-            <h2 class="question-title mt-4 mb-4">${data.category}</h2>
+            <h2 class="question-title mt-4 mb-4">  ${subTitle}</h2>
             <p class="text-muted">${data.questionText}</p>
             <div class="mt-5">
             ${content}
@@ -99,7 +113,8 @@ const Quiz = (data) => {
     }
 
     if (data.type == "form") {
-      return renderForm(form[data.selectedForm.value]);
+      const state = store.getState();
+      return renderForm(form[data.selectedForm.value], state.companyData);
     }
   };
 

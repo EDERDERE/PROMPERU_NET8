@@ -26,7 +26,6 @@ const Render = (state) => {
     ) {
       const instructions = state.test.activeTest.instructions;
       const title = instructions.title;
-      console.log('instrucciones')
       component.setState(
         TestSteps() +
           renderSectionTitle(title) +
@@ -48,7 +47,7 @@ const Render = (state) => {
 
     setTimeout(() => {
       var options = {
-        series: [80], // Ajusta el porcentaje aquí
+        series: [80],
         colors: ["#4E97CE"],
         chart: {
           height: 300,

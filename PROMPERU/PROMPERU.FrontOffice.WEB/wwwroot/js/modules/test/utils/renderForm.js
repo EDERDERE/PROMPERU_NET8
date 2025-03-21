@@ -1,4 +1,4 @@
-export function renderForm(schema) {
+export function renderForm(schema, initialData = {}) {
   const form = document.createElement("form");
   form.id = schema.id;
 
@@ -9,9 +9,11 @@ export function renderForm(schema) {
     const fieldsWrapper = document.createElement("div");
     fieldsWrapper.className = "form-section-fields";
 
-    const sectionTitle = document.createElement("h3");
-    sectionTitle.textContent = section.title;
-    sectionWrapper.appendChild(sectionTitle);
+    if (section.title) {
+      const sectionTitle = document.createElement("h3");
+      sectionTitle.textContent = section.title;
+      sectionWrapper.appendChild(sectionTitle);
+    }
 
     section.fields.forEach((field) => {
       const wrapper = document.createElement("div");
@@ -43,6 +45,16 @@ export function renderForm(schema) {
       if (field.validation?.minLength)
         input.minLength = field.validation.minLength;
 
+
+      if (
+        initialData[field.name] !== undefined &&
+        initialData[field.name].toString().trim() !== ""
+      ) {
+        input.value = initialData[field.name];
+        input.setAttribute("value", initialData[field.name]);
+        input.disabled = true;
+      }
+
       wrapper.appendChild(input);
 
       if (field.validation?.message) {
@@ -53,8 +65,8 @@ export function renderForm(schema) {
       }
 
       fieldsWrapper.appendChild(wrapper);
-      sectionWrapper.appendChild(fieldsWrapper);
     });
+    sectionWrapper.appendChild(fieldsWrapper);
     form.appendChild(sectionWrapper);
   });
 

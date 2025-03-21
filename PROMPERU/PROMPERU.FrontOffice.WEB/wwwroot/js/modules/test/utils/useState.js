@@ -4,7 +4,7 @@ export function useState(initialValue) {
 
   const setState = (newValue) => {
     state = newValue;
-    listeners.forEach((listener) => listener(state)); // Notificar a los suscriptores
+    listeners.forEach((listener) => listener(state));
   };
 
   const getState = () => state;
