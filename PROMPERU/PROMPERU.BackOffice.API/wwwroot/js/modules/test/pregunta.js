@@ -78,8 +78,13 @@ export function renderFormulario(containerId) {
           <label for="selectFormulario-${containerId}" class="form-label">Selecciona un formulario</label>
           <select id="selectFormulario-${containerId}" class="form-select">
               <option value="" selected disabled>Selecciona un formulario</option>
-              <option value="formulario1">Formulario 1</option>
-              <option value="formulario2">Formulario 2</option>
+              <option value="generalBusinessTest">Datos Generales - Test Empresarial / Test Salida</option>
+              <option value="generalEnrollment">Datos Generales - Inscripción</option>
+              <option value="registrationEnrollment">Inscripción Registro - Inscripción</option>
+              <option value="legalRepresentativeEnrollment">Datos Representante Legal - Inscripción</option>
+              <option value="generalRegistration">Datos Generales - Matrícula</option>
+              <option value="participantEnrollment">Inscripción Participante - Matrícula</option>
+              <option value="additionalRepresentativesEnrollment">Inscripción Representantes Adicionales - Matrícula</option>
           </select>
       </div>
     `
