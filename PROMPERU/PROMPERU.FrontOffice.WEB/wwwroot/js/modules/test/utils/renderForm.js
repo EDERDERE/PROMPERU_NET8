@@ -2,6 +2,8 @@ export function renderForm(schema, initialData = {}) {
   const form = document.createElement("form");
   form.id = schema.id;
 
+  const errors = initialData.errors || {};
+
   schema.sections.forEach((section) => {
     const sectionWrapper = document.createElement("div");
     sectionWrapper.className = "form-section";
@@ -31,6 +33,13 @@ export function renderForm(schema, initialData = {}) {
           const opt = document.createElement("option");
           opt.value = option.value;
           opt.textContent = option.text;
+          if (
+            initialData[field.name] !== undefined &&
+            initialData[field.name] === option.value
+          ) {
+            opt.selected = true;
+            opt.setAttribute("selected", "selected");
+          }
           input.appendChild(opt);
         });
       } else {
@@ -45,14 +54,19 @@ export function renderForm(schema, initialData = {}) {
       if (field.validation?.minLength)
         input.minLength = field.validation.minLength;
 
-
       if (
         initialData[field.name] !== undefined &&
         initialData[field.name].toString().trim() !== ""
       ) {
         input.value = initialData[field.name];
         input.setAttribute("value", initialData[field.name]);
-        input.disabled = true;
+        if (["ruc", "legalName", "tradeName"].includes(field.name)) {
+          input.disabled = true;
+        }
+      }
+
+      if (errors[field.name] && errors[field.name].trim() !== "") {
+        input.classList.add("is-invalid");
       }
 
       wrapper.appendChild(input);
@@ -60,7 +74,7 @@ export function renderForm(schema, initialData = {}) {
       if (field.validation?.message) {
         const error = document.createElement("div");
         error.className = "invalid-feedback";
-        error.textContent = field.validation.message;
+        error.textContent = errors[field.name] || field.validation.message;
         wrapper.appendChild(error);
       }
 

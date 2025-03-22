@@ -3,7 +3,7 @@ import {
   EMAIL_REGEX,
   NAME_REGEX,
   NUMBERS_REGEX,
-} from "../utils/validatiors.js";
+} from "../utils/validators.js";
 
 export default {
   id: "userForm",
@@ -18,7 +18,7 @@ export default {
           placeholder: "Ingresa tu ruc",
           required: true,
           validation: {
-            pattern: "",
+            pattern: NUMBERS_REGEX,
             message: "Por favor, ingresa tu RUC",
           },
         },
@@ -91,7 +91,7 @@ export default {
         },
         {
           type: "select",
-          name: "provincia",
+          name: "province",
           label: "Provincia",
           options: [{ value: "", text: "Seleccione una provincia" }],
           required: true,

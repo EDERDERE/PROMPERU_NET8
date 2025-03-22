@@ -1,5 +1,5 @@
-import formulario2 from "./formulario2.js";
+import generalBusinessTest from "./generalBusinessTest.js";
 
 export default {
-  formulario2,
+  generalBusinessTest,
 };

@@ -55,12 +55,11 @@ const Quiz = (data) => {
   };
 
   const questionLayout = (content) => {
-    
-    let subTitle = ''
-    if(data.isComputable){
-      subTitle = data.course.label
-    }else {
-      subTitle = data.category
+    let subTitle = "";
+    if (data.isComputable) {
+      subTitle = data.course.label;
+    } else {
+      subTitle = data.category;
     }
     return `
        <section>
@@ -104,7 +103,15 @@ const Quiz = (data) => {
 
     if (data.type == "form") {
       const state = store.getState();
-      return renderForm(form[data.selectedForm.value], state.companyData);
+
+      const initialData = {
+        ...state.companyData,
+        ...(state.saveTest && state.saveTest.companyData
+          ? state.saveTest.companyData
+          : {}),
+        errors: (state.saveTest && state.saveTest.errors) || {},
+      };
+      return renderForm(form[data.selectedForm.value], initialData);
     }
   };
 
