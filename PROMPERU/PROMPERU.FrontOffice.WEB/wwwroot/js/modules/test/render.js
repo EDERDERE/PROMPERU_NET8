@@ -6,6 +6,8 @@ import TestSteps from "./components/TestSteps.js";
 import Results from "./components/results.js";
 import { useState } from "./utils/useState.js";
 import Quiz from "./components/Quiz.js";
+import StepProgress from "./components/StepProgress.js";
+import form from "./forms/index.js";
 
 const Render = (state) => {
   const component = useState("");
@@ -34,12 +36,30 @@ const Render = (state) => {
       );
     } else {
       const data = state.test?.activeTest?.elements[state.currentStep];
-      const title = data?.title || state.test?.activeTest?.testType.label;
+      let title = data?.title || state.test?.activeTest?.testType.label;
+
+      if (data?.type === "form") {
+        const formSchema = form[data.selectedForm.value];
+        if (formSchema.title) {
+          title = formSchema.title;
+        }
+      }
+
+      const stepProgressHtml = StepProgress();
+
+      const showBack = state.currentStep > 0;
+      const totalElements = state.test.activeTest.elements.length;
+      const isLastElement =
+        typeof state.currentStep === "number" &&
+        state.currentStep === totalElements - 1;
+      const nextText = isLastElement ? "Enviar" : "Siguiente";
+
       component.setState(
         TestSteps() +
           renderSectionTitle(title) +
+          stepProgressHtml +
           Quiz(data) +
-          NavigationButtons()
+          NavigationButtons(showBack, true, "Anterior", nextText)
       );
     }
   } else {

@@ -1,4 +1,5 @@
 export const regionOptions = [
+  { value: "", text: "Seleccione una región" },
   { value: "Amazonas", text: "Amazonas" },
   { value: "Ancash", text: "Ancash" },
   { value: "Apurímac", text: "Apurímac" },

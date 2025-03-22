@@ -58,8 +58,8 @@ export function renderForm(schema, initialData = {}) {
       wrapper.appendChild(input);
 
       if (field.validation?.message) {
-        const error = document.createElement("span");
-        error.className = "error-message";
+        const error = document.createElement("div");
+        error.className = "invalid-feedback";
         error.textContent = field.validation.message;
         wrapper.appendChild(error);
       }

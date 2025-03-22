@@ -55,15 +55,7 @@ const Quiz = (data) => {
   };
 
   const questionLayout = (content) => {
-    const state = store.getState();
-    const activeTest = state.test.activeTest;
-    const total = activeTest.elements.length;
-    const currentIndex =
-      typeof state.currentStep === "number" ? state.currentStep : 0;
-    const progressIndicator = `<span class="progress-indicator">${
-      currentIndex + 1
-    } <i>de</i> ${total}</span>`;
-
+    
     let subTitle = ''
     if(data.isComputable){
       subTitle = data.course.label
@@ -74,9 +66,7 @@ const Quiz = (data) => {
        <section>
         <div class="container">
           <div class="col-12 mx-auto">
-            <div class="d-flex justify-content-start">
-             ${progressIndicator}
-            </div>
+           
             <h2 class="question-title mt-4 mb-4">  ${subTitle}</h2>
             <p class="text-muted">${data.questionText}</p>
             <div class="mt-5">
