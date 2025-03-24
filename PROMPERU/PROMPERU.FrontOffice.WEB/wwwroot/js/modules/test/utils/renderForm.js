@@ -45,6 +45,12 @@ export function renderForm(schema, initialData = {}) {
       } else {
         input = document.createElement("input");
         input.type = field.type;
+        if(field.min){
+          input.min = field.min
+        }
+        if(field.max){
+          input.max = field.max
+        }
       }
 
       input.name = field.name;

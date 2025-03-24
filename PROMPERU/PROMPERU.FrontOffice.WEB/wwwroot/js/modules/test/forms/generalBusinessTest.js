@@ -3,6 +3,7 @@ import {
   EMAIL_REGEX,
   NAME_REGEX,
   NUMBERS_REGEX,
+  PHONE_REGEX
 } from "../utils/validators.js";
 
 export default {
@@ -45,13 +46,14 @@ export default {
           },
         },
         {
-          type: "text",
+          type: "number",
           name: "phone",
           label: "Teléfono",
           placeholder: "Ingresa tu Teléfono ",
+          min: 9,
           required: true,
           validation: {
-            pattern: NUMBERS_REGEX,
+            pattern: PHONE_REGEX,
             message:
               "Ingresa un teléfono válido: este campo es obligatorio y solo acepta números.",
           },

@@ -6,22 +6,22 @@ import form from "../forms/index.js";
 const Quiz = (data) => {
   const selectOption = (e) => {
     const target = e.target;
-    const index = parseInt(target.dataset.option);
+    const id = parseInt(target.dataset.option);
 
     let state = store.getState();
     let currentTest = state.test.activeTest.elements[state.currentStep];
     if (data.answerType == "multipleChoice") {
-      const currentOptions = currentTest?.selectOption || [];
-      if (currentOptions.includes(index)) {
-        currentTest.selectOption = currentOptions.filter(
-          (item) => item !== index
+      const currentOptions = currentTest?.selectAnswers || [];
+      if (currentOptions.includes(id)) {
+        currentTest.selectAnswers = currentOptions.filter(
+          (item) => item.id !== id,
         );
       } else {
-        currentOptions.push(index);
-        currentTest.selectOption = currentOptions;
+        currentOptions.push({id});
+        currentTest.selectAnswers = currentOptions;
       }
     } else {
-      currentTest.selectOption = [index];
+      currentTest.selectAnswers = [{id}];
     }
     store.setState({ test: state.test });
   };
@@ -33,23 +33,33 @@ const Quiz = (data) => {
       .map((item, index) => {
         return `
             <div class="question-box mb-3 ${
-              data?.selectOption && data?.selectOption.includes(index)
+              data?.selectAnswers && data?.selectAnswers.find(answer => answer.id == item.id)
                 ? "selected"
                 : ""
-            }" data-event="quizOption" data-option=${index}>
+            }" data-event="quizOption" data-option=${item.id}>
                 <span class="option-label">${alphabet[index]}</span> ${
-          item.text
-        }
+                  item.text
+                }
             </div>
             `;
       })
       .join("");
   };
 
+  const handleInput = (e) => {
+    const input = e.target.value;
+
+    let state = store.getState();
+    let currentTest = state.test.activeTest.elements[state.currentStep];
+    currentTest.selectAnswers = [{input}];
+    store.setState({ test: state.test });
+  }
+
+  registerEvent("change", "handleInput", handleInput);
   const renderInput = () => {
     return `
       <div class="mt-5 mb-4 d-flex justify-content-center align-items-center flex-column">
-          <input type="text" class="form-control num_ruc py-3 px-4" id="text-answer-${data.id}" placeholder="Escribe tu respuesta">
+          <input type="text" class="form-control num_ruc py-3 px-4" id="text-answer-${data.id}" placeholder="Escribe tu respuesta" data-event="handleInput" value="${data?.selectAnswers?.length ? data?.selectAnswers[0]?.input : ''}">
       </div>
       `;
   };
