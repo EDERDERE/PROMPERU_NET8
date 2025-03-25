@@ -92,8 +92,15 @@
   font-weight: 400;
   text-decoration: none;
 }
+
+#search_business {
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
 #search_business .num_ruc {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 1rem 1rem;
@@ -372,7 +379,6 @@
   display: inline-block;
 }
 
-
 .invalid-feedback {
   font-size: 1rem;
 }
@@ -382,9 +388,62 @@
   background-color: #ccc;
 }
 
-
 @media (max-width: 768px) {
   .form-section-fields {
     grid-template-columns: 1fr;
+  }
+  .steps-content {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .steps-content {
+    --step-circle-width: 60px;
+    --step-space-width: 20px;
+  }
+  .pasos {
+    max-width: var(--step-circle-width);
+  }
+  .step-icon {
+    width: var(--step-circle-width);
+    height: var(--step-circle-width);
+  }
+  .step-icon img {
+    width: 70%;
+    height: 70%;
+  }
+  .step-text {
+    font-size: 10px;
+  }
+  .progress_bar {
+    left: calc(var(--step-circle-width) / 2);
+    top: calc(var(--step-circle-width) / 2 - 10px);
+    height: 30px;
+    width: calc(
+      (var(--step-circle-width) + var(--step-space-width)) *
+        var(--step-multipler)
+    );
+  }
+  #search_business .buttons_group {
+    min-width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 350px) {
+  #search_business .num_ruc {
+    width: 100%;
+  }
+
+  #search_business .buttons_group {
+    gap: 1rem;
+  }
+
+  #search_business .buttons_group > .col-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: grid;
   }
 }

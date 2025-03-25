@@ -35,10 +35,10 @@ export async function updateSaveTest() {
 
 
 
-  try {
-    const response = await saveTestProgress(saveTest);
-    console.log("Progreso del test guardado correctamente:", response);
-  } catch (error) {
-    console.error("Error al guardar el progreso del test:", error);
-  }
+  // try {
+  //   const response = await saveTestProgress(saveTest);
+  //   console.log("Progreso del test guardado correctamente:", response);
+  // } catch (error) {
+  //   console.error("Error al guardar el progreso del test:", error);
+  // }
 }

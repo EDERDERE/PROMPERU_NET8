@@ -51,7 +51,7 @@ export default {
           },
         },
         {
-          type: "number",
+          type: "text",
           name: "phone",
           label: "Teléfono",
           placeholder: "Ingresa tu Teléfono ",
