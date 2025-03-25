@@ -9,10 +9,7 @@ export function attachFormListeners() {
     input.addEventListener("change", (e) => {
       const { name, value } = e.target;
       const state = store.getState();
-      const currentData =
-        (state.saveTest && state.saveTest.companyData) ||
-        state.companyData ||
-        {};
+      const currentData = state.companyData || {};
       const updatedData = { ...currentData, [name]: value };
 
       let errorMsg = "";
@@ -20,14 +17,12 @@ export function attachFormListeners() {
         errorMsg = input.validationMessage || "Campo inválido";
       }
 
-      const currentErrors = (state.saveTest && state.saveTest.errors) || {};
+      const currentErrors = state.errors || {};
       const updatedErrors = { ...currentErrors, [name]: errorMsg };
 
       store.setState({
-        saveTest: {
-          companyData: updatedData,
-          errors: updatedErrors,
-        },
+        companyData: updatedData,
+        errors: updatedErrors,
       });
     });
   });

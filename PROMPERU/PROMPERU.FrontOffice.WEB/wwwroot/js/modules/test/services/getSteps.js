@@ -1,5 +1,5 @@
-import { store } from "../state.js";
 import { fetchData } from "../../../../shared/js/apiService.js";
+import { store } from "../state.js";
 
 export async function preloadInscriptions() {
   try {

@@ -1,5 +1,5 @@
 export default {
-    "tests": [
+ "tests": [
     {
       "title": "Test Tipo A",
       "icon": "icono-test-a.png",

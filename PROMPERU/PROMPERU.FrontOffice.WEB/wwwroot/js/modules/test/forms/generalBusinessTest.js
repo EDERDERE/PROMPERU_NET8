@@ -1,9 +1,11 @@
 import { regionOptions } from "../constants/region.js";
+import { tourismBusinessTypeOptions } from "../constants/selects.js";
 import {
+  ANY_INPUT_REGEX,
   EMAIL_REGEX,
   NAME_REGEX,
   NUMBERS_REGEX,
-  PHONE_REGEX
+  PHONE_REGEX,
 } from "../utils/validators.js";
 
 export default {
@@ -18,6 +20,7 @@ export default {
           label: "RUC",
           placeholder: "Ingresa tu ruc",
           required: true,
+          disabled: true,
           validation: {
             pattern: NUMBERS_REGEX,
             message: "Por favor, ingresa tu RUC",
@@ -29,6 +32,7 @@ export default {
           label: "Razón Social",
           placeholder: "Ingresa tu Razón Social",
           required: true,
+          disabled: true,
           validation: {
             pattern: NAME_REGEX,
             message: "Por favor, ingresa la Razón Social",
@@ -40,6 +44,7 @@ export default {
           label: "Nombre Comercial",
           placeholder: "Ingresa tu Nombre Comercial",
           required: true,
+          disabled: true,
           validation: {
             pattern: NAME_REGEX,
             message: "Por favor, ingresa el Nombre Comercial",
@@ -103,32 +108,23 @@ export default {
         },
         {
           type: "select",
-          name: "tipo-empresa",
+          name: "tourismBusinessType",
           label: "¿Cuál es el tipo de su empresa turística?",
-          options: [
-            { value: "", text: "Selecciona tipo de empresa" },
-            { value: "1", text: "microempresa" },
-            { value: "2", text: "pequeña empresa" },
-            { value: "3", text: "empresa" },
-          ],
+          options: tourismBusinessTypeOptions,
           required: true,
           validation: {
             message: "Selecciona el tipo de empresa",
           },
         },
         {
-          type: "select",
-          name: "hospedaje",
+          type: "text",
+          name: "lodgingCategory",
           label:
             "¿Cuál es la categoría y/o clasificación de su establecimiento de hospedaje?",
-          options: [
-            { value: "", text: "Selecciona Categoria" },
-            { value: "1", text: "casa" },
-            { value: "2", text: "departamento" },
-            { value: "3", text: "alquiler" },
-          ],
+
           required: true,
           validation: {
+            pattern: ANY_INPUT_REGEX,
             message: "Selecciona la categoría de hospedaje",
           },
         },

@@ -45,11 +45,11 @@ export function renderForm(schema, initialData = {}) {
       } else {
         input = document.createElement("input");
         input.type = field.type;
-        if(field.min){
-          input.min = field.min
+        if (field.min) {
+          input.min = field.min;
         }
-        if(field.max){
-          input.max = field.max
+        if (field.max) {
+          input.max = field.max;
         }
       }
 
@@ -66,9 +66,10 @@ export function renderForm(schema, initialData = {}) {
       ) {
         input.value = initialData[field.name];
         input.setAttribute("value", initialData[field.name]);
-        if (["ruc", "legalName", "tradeName"].includes(field.name)) {
-          input.disabled = true;
-        }
+      }
+
+      if (field.disabled === true) {
+        input.disabled = true;
       }
 
       if (errors[field.name] && errors[field.name].trim() !== "") {

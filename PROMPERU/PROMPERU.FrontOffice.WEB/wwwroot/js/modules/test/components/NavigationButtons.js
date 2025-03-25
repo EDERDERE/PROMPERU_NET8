@@ -1,5 +1,8 @@
 import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
+import { updateSaveTest } from "../utils/testAction.js";
+import { setupFormListeners } from "../utils/updateNextButton.js";
+import { validateFormIfNeeded } from "../utils/validateForm.js";
 
 const NavigationButtons = (
   showBack = true,
@@ -9,26 +12,24 @@ const NavigationButtons = (
 ) => {
   const nextStep = () => {
     const state = store.getState();
+
+    if (!validateFormIfNeeded(state)) return;
+
+    updateSaveTest();
+
     const currentStep = state.currentStep;
-    const activeElement = state.test?.activeTest?.elements[currentStep];
-
-    if (activeElement && activeElement.type === "form") {
-      const formEl = document.getElementById("userForm");
-      if (!formEl.checkValidity()) {
-        formEl.classList.add("was-validated");
-        return;
-      }
-    }
-
     store.setState({ previusStep: currentStep });
+
     if (typeof currentStep !== "number") {
       store.setState({ currentStep: 0 });
       return;
     }
+
     if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
       store.setState({ currentStep: "results" });
       return;
     }
+
     store.setState({ currentStep: currentStep + 1 });
   };
 
@@ -43,32 +44,7 @@ const NavigationButtons = (
   registerEvent("click", "nextStep", nextStep);
   registerEvent("click", "prevStep", prevStep);
 
-  const updateNextButtonState = () => {
-    const state = store.getState();
-    const currentStep = state.currentStep;
-    const activeElement = state.test?.activeTest?.elements[currentStep];
-    if (activeElement && activeElement.type === "form") {
-      const formEl = document.getElementById("userForm");
-      const nextButton = document.querySelector("[data-event='nextStep']");
-      if (formEl && nextButton) {
-        if (!formEl.checkValidity()) {
-          nextButton.classList.add("button-disabled");
-          nextButton.style.pointerEvents = "none";
-        } else {
-          nextButton.classList.remove("button-disabled");
-          nextButton.style.pointerEvents = "auto";
-        }
-      }
-    }
-  };
-
-  setTimeout(() => {
-    const formEl = document.getElementById("userForm");
-    if (formEl) {
-      formEl.addEventListener("input", updateNextButtonState);
-      updateNextButtonState();
-    }
-  }, 0);
+  setupFormListeners();
 
   return `
     <div class="d-flex justify-content-end">

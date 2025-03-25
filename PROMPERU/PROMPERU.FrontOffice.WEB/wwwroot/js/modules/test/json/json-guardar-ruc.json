@@ -1,0 +1,168 @@
+{
+  "steps": [
+    {
+      "id": 2,
+      "step": 1,
+      "iconName": "Diagnostic Test",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": true,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 3,
+      "step": 2,
+      "iconName": "Program Enrollment",
+      "iconUrl": "../../shared/assets/home/etapas/inscripcion.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 4,
+      "step": 3,
+      "iconName": "Course Enrollment",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 6,
+      "step": 5,
+      "iconName": "Trial Test",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 5,
+      "step": 4,
+      "iconName": "Exit Test",
+      "iconUrl": "../../shared/assets/home/etapas/test.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    }
+  ],
+  "activeTest": {
+    "testType": {
+      "id": 1,
+      "name": "Test de Diagnóstico"
+    },
+    "elements": [
+      {
+        "id": 90,
+        "order": 1,
+        "type": "question",
+        "questionText": "Pregunta",
+        "isComputable": false,
+        "label": "123123123",
+        "category": "Categoría",
+        "answerType": "text",
+        "selectAnswers": [
+          {
+            "input": "Ingreso texto Hola Mundo"
+          }
+        ],
+        "course": null,
+        "isComplete": true
+      },
+      {
+        "id": 91,
+        "order": 4,
+        "type": "question",
+        "questionText": "Pregunta 1",
+        "isComputable": true,
+        "label": "",
+        "category": "",
+        "answerType": "multipleChoice",
+        "selectAnswers": [
+          {
+            "id": 126
+          },
+          {
+            "id": 127
+          }
+        ],
+        "course": {
+          "value": 13,
+          "label": "Ventas"
+        },
+        "isComplete": true
+      },
+      {
+        "id": 91,
+        "order": 4,
+        "type": "form",
+        "selectedForm": {
+          "id": 35,
+          "label": "Datos Generales - Test Empresarial / Test Salida",
+          "value": "generalBusinessTest"
+        },
+        "isComplete": true
+      }
+    ]
+  },
+  "companyData": {
+    "ruc": "20602423621",
+    "legalName": "CANBAZ SAC",
+    "tradeName": "Pamuri Andes Lodge",
+    "phone": "51987467076",
+    "fullName": "Giancarlo Andreé Ravina Paredes",
+    "email": "Andree.ravina@pamuriandeslodge.com",
+    "region": "Huancavelica",
+    "province": "Tayacaja",
+    "tourismBusinessType": "Hospedaje",
+    "lodgingCategory": "3 Estrellas",
+
+    "startDate": "2020-05-10",
+    "legalEntityType": "Sociedad Anónima Cerrada",
+    "companyType": "Microempresa",
+    "businessActivity": "Hospedaje y Turismo",
+    "tourismServiceProviderType": "Alojamiento",
+    "landline": "012345678",
+    "website": "https://pamuriandeslodge.com"
+  },
+
+
+
+  
+  "registration": {
+    "registrationNumber": "123456",
+    "entryNumber": "7890",
+    "city": "Lima",
+    "home": {
+      "address": "Av. Principal 123",
+      "district": "Miraflores",
+      "urbanization": "Residencial Lima",
+      "postalCode": "15074"
+    }
+  },
+  "titularRepresentative": {
+    "fullName": "Juan Pérez",
+    "gender": "Masculino",
+    "age": 45,
+    "educationLevel": "Universitario",
+    "representativePosition": "Gerente General",
+    "representativePhone": "987654321",
+    "additionalRepresentatives": [
+      {
+        "fullName": "María González",
+        "email": "maria.gonzalez@example.com",
+        "phoneNumber": "912345678"
+      },
+      {
+        "fullName": "María González",
+        "email": "maria.gonzalez@example.com",
+        "phoneNumber": "912345678"
+      },
+      {
+        "fullName": "María González",
+        "email": "maria.gonzalez@example.com",
+        "phoneNumber": "912345678"
+      }
+    ]
+  }
+}

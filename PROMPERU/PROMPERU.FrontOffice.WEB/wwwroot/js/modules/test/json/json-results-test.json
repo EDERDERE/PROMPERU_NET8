@@ -1,0 +1,101 @@
+{
+  "steps": [
+    {
+      "id": 2,
+      "step": 1,
+      "iconName": "Diagnostic Test",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": true,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 3,
+      "step": 2,
+      "iconName": "Program Enrollment",
+      "iconUrl": "../../shared/assets/home/etapas/inscripcion.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 4,
+      "step": 3,
+      "iconName": "Course Enrollment",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 6,
+      "step": 5,
+      "iconName": "Trial Test",
+      "iconUrl": "../../shared/assets/home/etapas/cursos.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    },
+    {
+      "id": 5,
+      "step": 4,
+      "iconName": "Exit Test",
+      "iconUrl": "../../shared/assets/home/etapas/test.svg",
+      "current": false,
+      "isComplete": false,
+      "isApproved": false
+    }
+  ],
+  "approved_courses": 2,
+  "failed_courses": 1,
+  "total_courses": 3,
+  "results": {
+    "approved_courses": [
+      {
+        "name": "Innovación",
+        "individual_score": 4.6,
+        "global_score": 1.4
+      },
+      {
+        "name": "Fidelización",
+        "score": 4.6,
+        "individual_score": 4.6,
+        "global_score": 1.4
+      },
+      {
+        "name": "Dirección Mkt",
+        "score": 4.6
+      },
+      {
+        "name": "Segmentación",
+        "score": 4.6
+      },
+      {
+        "name": "Ventas",
+        "score": 4.6
+      }
+    ],
+    "failed_courses": [
+      {
+        "name": "Innovación",
+        "score": 4.6
+      },
+      {
+        "name": "Fidelización",
+        "score": 4.6
+      },
+      {
+        "name": "Dirección Mkt",
+        "score": 4.6
+      },
+      {
+        "name": "Segmentación",
+        "score": 4.6
+      },
+      {
+        "name": "Ventas",
+        "score": 4.6
+      }
+    ]
+  }
+}

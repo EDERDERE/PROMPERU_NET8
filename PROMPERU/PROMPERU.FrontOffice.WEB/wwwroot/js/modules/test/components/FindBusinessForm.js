@@ -1,32 +1,11 @@
 import { store } from "../state.js";
 import { registerEvent } from "../utils/eventHandler.js";
-import { fetchData } from "../../../../shared/js/apiService.js";
 import { showAlertError } from "./Alert.js";
 import { numericRegex } from "../utils/regex.js";
-
+import { fetchCompanyData } from "../services/getTest.js";
 
 const FindBusinessForm = () => {
   const state = store.getState();
-
-  async function fetchCompanyData(ruc) {
-    const formData = new FormData();
-    formData.append("ruc", ruc);
-    try {
-      const response = await fetchData(
-        "/Test/ConsultarRUC",
-        "POST",
-        formData,
-        true
-      );
-
-      if (response.success) {
-        store.setState({ test: response.test });
-        return response.test.evaluated;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -50,7 +29,6 @@ const FindBusinessForm = () => {
         return;
       }
 
-      // Guarda los datos en el estado global
       const hasInstructions = store.getState().test.activeTest.hasInstructions;
       if (hasInstructions) {
         store.setState({ currentStep: "intro" });
@@ -73,7 +51,7 @@ const FindBusinessForm = () => {
             <section id="search_business">
                 <form id="companyForm" class="container" data-event="companyFormSubmit">
                 <div class="mt-5 mb-4 d-flex justify-content-center align-items-center flex-column">
-                    <input type="number" class="form-control num_ruc" id="rucInput" placeholder="Ingresa tu número de RUC" />
+                    <input type="text" class="form-control num_ruc" id="rucInput" placeholder="Ingresa tu número de RUC" />
                     <div class="row buttons_group">
                     <a href="/" class="col-6 text-decoration-none">
                         <div class="button-test d-flex align-items-center">
