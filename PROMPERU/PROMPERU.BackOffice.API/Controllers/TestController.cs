@@ -68,7 +68,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {            
             return View();
         }
-
+        [HttpPost]
         public async Task<IActionResult> CrearTest(TestModelDto testModel)
         {
             try

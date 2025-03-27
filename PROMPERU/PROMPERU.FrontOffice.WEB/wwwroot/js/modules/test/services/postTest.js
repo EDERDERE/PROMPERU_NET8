@@ -1,25 +1,18 @@
-import { fetchData } from "../../../../shared/js/apiService.js";
-
+﻿import { fetchData } from "../../../../shared/js/apiService.js";
+import { fetchData2 } from "../../../../shared/js/apiService.js";
 export async function saveTestProgress(saveTest) {
-  const formData = new FormData();
 
-  formData.append("testModel", JSON.stringify(saveTest));
-  try {
-    const response = await fetchData(
-      "/Test/GuardarProgresoTest",
-      "POST",
-      formData,
-      true
-    );
-
-    if (response.success) {
-      return response;
-    } else {
-      console.error("Error al guardar el progreso del test", response);
-      return response;
+    try {
+        const response = await fetchData2("/Test/GuardarProgresoTest", "POST", saveTest);
+        if (response && response.success) {
+            alert("✅ Test creado exitosamente.");        
+        } else {
+            alert("❌ Ocurrió un error al guardar el Test.");
+        }
+    } catch (error) {
+        console.error("❌ Error al guardar el Test:", error);
     }
-  } catch (error) {
-    console.error("Error en el servicio saveTestProgress", error);
-    throw error;
-  }
 }
+   
+
+

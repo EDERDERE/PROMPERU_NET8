@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace PROMPERU.BL.Dtos
 {
+    public class TestModelRequestDto2
+    {
+        public List<Step> Steps { get; set; }     
+    }
     public class TestModelRequestDto
     {
         public List<Step> Steps { get; set; }
         public ActiveTest ActiveTest { get; set; }
-        public GeneralData? GeneralData { get; set; }
+        public GeneralData? CompanyData { get; set; }
         public Registration? Registration { get; set; }
-        public TitularRepresentative? TitularRepresentative { get; set;}
+        public TitularRepresentative? TitularRepresentative { get; set; }
     }
 
     public class SelectAnswer

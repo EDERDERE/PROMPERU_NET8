@@ -607,7 +607,7 @@ namespace PROMPERU.BL
 
                 // Obtener el estado del Test 
                 var statusTest = testModel.Steps.FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
-                string ruc = testModel.GeneralData?.Ruc?.Trim() ?? string.Empty;
+                string ruc = testModel.CompanyData?.Ruc?.Trim() ?? string.Empty;
                 bool isComplete = statusTest?.IsComplete ?? false; 
 
                 // Guardar Test
