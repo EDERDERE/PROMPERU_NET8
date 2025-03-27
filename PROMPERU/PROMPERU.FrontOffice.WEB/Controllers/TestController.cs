@@ -31,7 +31,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
           return View(); // Aseg�rate de tener una vista asociada         
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> ConsultarRUC(string ruc)
         {
             if (string.IsNullOrWhiteSpace(ruc))
