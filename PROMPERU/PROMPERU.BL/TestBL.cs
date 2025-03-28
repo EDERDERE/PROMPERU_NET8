@@ -644,100 +644,21 @@ namespace PROMPERU.BL
                     }
                 }
 
-                
-
-
-
-
-
-
                 //3. Guardar Datos Generales
+                if (testModel.CompanyData != null)
+                {
+                    var datos = new DatosGeneralesBE
+                    {
+
+                    };
+                    tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
+                }
+
+              
                 //4. Guardar Inscripcion
                 //5. Guardar Malla Curricular
                 //6. Guardar Logica de Cursos
 
-                // Insertar Portada Principal si existe
-                //if (testModel.HasInstructions && testModel.Instructions != null)
-                //{
-                //    var portada = new PortadaTestBE
-                //    {
-                //        Insc_ID = testModel.TestType?.Value ?? 0,
-                //        Ptes_Titulo = testModel.Instructions.Title,
-                //        Ptes_Descripcion = testModel.Instructions.Description,
-                //        Ptes_NombreBoton = testModel.Instructions.ButtonText,
-                //        Ptes_UrlIconoBoton = testModel.Instructions.ButtonIcon,
-                //        Ptes_MensajeAlert = testModel.Instructions.Alert,
-                //        Ptes_UrlIconoAlrt = testModel.Instructions.AlertIcon
-                //    };
-
-                //    tasks.Add(_portadaTestDA.InsertarPortadaTestAsync(portada, usuario, ip));
-                //}
-
-                //// Validar elementos antes de iterar
-                //if (testModel.Elements?.Count > 0)
-                //{
-                //    foreach (var e in testModel.Elements)
-                //    {
-                //        if (e.Type == "question")
-                //        {
-                //            // Insertar Pregunta
-                //            var pregunta = new PreguntaBE
-                //            {
-                //                Insc_ID = testModel.TestType?.Value ?? 0,
-                //                Preg_NumeroPregunta = e.Order,
-                //                Preg_TextoPregunta = e.QuestionText ?? string.Empty,
-                //                Preg_EsComputable = e.IsComputable ?? false,
-                //                Preg_Etiqueta = e.Label ?? string.Empty,
-                //                Preg_TipoRespuesta = e.AnswerType ?? string.Empty,
-                //                Preg_Categoria = e.Category ?? string.Empty,
-                //                Curs_ID = (e.IsComputable == true && e.Course?.Value > 0) ? e.Course.Value : 0
-                //            };
-
-                //            var preguntaID = await _preguntaDA.InsertarPreguntaAsync(pregunta, usuario, ip);
-
-                //            // Insertar Respuestas en paralelo si existen
-                //            if (e.Answers?.Count > 0)
-                //            {
-                //                tasks.AddRange(e.Answers.Select(resp =>
-                //                    _respuestaDA.InsertarRespuestaAsync(new RespuestaBE
-                //                    {
-                //                        Preg_ID = preguntaID,
-                //                        Resp_Orden = resp.Order,
-                //                        Resp_Respuesta = resp.Text ?? string.Empty,
-                //                        Resp_Valor = resp.Value
-                //                    }, usuario, ip)));
-                //            }
-                //        }
-
-                //        // Insertar Contenido si tiene título o descripción
-                //        if (!string.IsNullOrEmpty(e.Title) || !string.IsNullOrEmpty(e.Description))
-                //        {
-                //            var contenido = new ContenidoTestBE
-                //            {
-                //                Insc_ID = testModel.TestType?.Value ?? 0,
-                //                Ctes_Orden = e.Order,
-                //                Ctes_Titulo = e.Title,
-                //                Ctes_Descripcion = e.Description
-                //            };
-
-                //            tasks.Add(_contenidoTestDA.InsertarContenidoTestAsync(contenido, usuario, ip));
-                //        }
-
-                //        // Insertar Formulario si existe
-                //        if (e.SelectedForm != null)
-                //        {
-                //            var formulario = new FormularioTestBE
-                //            {
-                //                Insc_ID = testModel.TestType?.Value ?? 0,
-                //                Ftes_Orden = e.Order,
-                //                Ftes_Texto = e.SelectedForm.Label,
-                //                Ftes_Valor = e.SelectedForm.Value
-                //            };
-
-                //            tasks.Add(_formularioTestDA.InsertarFormularioTestAsync(formulario, usuario, ip));
-                //        }
-                //    }
-                //}
 
                 // Esperar todas las inserciones en paralelo
                 await Task.WhenAll(tasks);

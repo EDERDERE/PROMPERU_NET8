@@ -50,6 +50,7 @@ namespace PROMPERU.BL.Dtos
 
     public class GeneralData
     {
+        public int? Id { get; set; }
         public string BusinessName { get; set; } // Razón Social
         public string FullName { get; set; } // Nombres y Apellidos
         public string TradeName { get; set; } // Nombre Comercial
