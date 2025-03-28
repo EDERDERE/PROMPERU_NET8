@@ -56,7 +56,51 @@ namespace PROMPERU.DA
             }
         }
 
+        public async Task<int> ActualizarProgresoTestAsync(ProcesoTestBE test)
+        {
+        
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var transaccion = await conexion.BeginTransactionAsync(); // Inicia transacción
 
+
+                // Configuración del comando SQL
+                await using var comando = new SqlCommand("USP_Inscripcion_Evaluado_UPD", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                // Parámetros del procedimiento almacenado
+                    comando.Parameters.AddWithValue("@Eval_RUC", test.Eval_RUC);
+                    comando.Parameters.AddWithValue("@Insc_ID", test.Insc_ID);
+                    comando.Parameters.AddWithValue("@Ieva_Estado", test.Ieva_Estado);
+
+
+                    // Ejecución del comando
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                    if (filasAfectadas > 0)
+                    {               
+                        // Confirmar la transacción
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        // Si no se afecta ninguna fila, deshacer la transacción
+                        await transaccion.RollbackAsync();
+                    }
+
+
+                    return filasAfectadas;
+            }
+            catch (Exception ex)
+            {
+                // En caso de excepción, deshacer la transacción               
+                throw new Exception("Error en ActualizarTestAsync: La transacción fue revertida.", ex);
+            }           
+        
+        }
         public async Task<int> InsertarRespuestaSelectTestAsync(RespuestaSeleccionadaBE rSel)
         {
             await using var conexion = await _conexionDB.ObtenerConexionAsync();
@@ -242,6 +286,7 @@ namespace PROMPERU.DA
                 {
                     Tests.Add(new ProcesoTestBE
                     {
+                        ID = reader["Ieva_ID"] != DBNull.Value ? Convert.ToInt32(reader["Ieva_ID"]) : 0,
                         Eval_ID = reader["Eval_ID"] != DBNull.Value ? Convert.ToInt32(reader["Eval_ID"]) : 0,
                         Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
                         Insc_ID = reader["Insc_ID"] != DBNull.Value ? Convert.ToInt32(reader["Insc_ID"]) : 0,
@@ -337,6 +382,56 @@ namespace PROMPERU.DA
             {
                 await transaction.RollbackAsync(); // Revierte la transacción en caso de error
                 throw new Exception("Error al insertar el Test", ex);
+            }
+        }
+
+        public async Task<List<DatosGeneralesBE>> ListarDatosGeneralesTestsAsync(string ruc)
+        {
+            try
+            {
+                var Tests = new List<DatosGeneralesBE>();
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_DatosGenerales_SEL", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Dgen_Ruc", ruc);
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    Tests.Add(new DatosGeneralesBE
+                    {
+                        ID = reader["Dgen_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dgen_ID"]) : 0,
+                        RazonSocial = reader["Dgen_RazonSocial"] != DBNull.Value ? reader["Dgen_RazonSocial"].ToString() : "",                     
+                        NombresApellidos = reader["Dgen_NombresApellidos"] != DBNull.Value ? reader["Dgen_NombresApellidos"].ToString() : "",
+                        NombreComercial = reader["Dgen_NombreComercial"] != DBNull.Value ? reader["Dgen_NombreComercial"].ToString() : "",
+                        Ruc = reader["Dgen_Ruc"] != DBNull.Value ? reader["Dgen_Ruc"].ToString() : "",
+                        Region = reader["Dgen_Region"] != DBNull.Value ? reader["Dgen_Region"].ToString() : "",
+                        Provincia = reader["Dgen_Provincia"] != DBNull.Value ? reader["Dgen_Provincia"].ToString() : "",
+                        Telefono = reader["Dgen_Telefono"] != DBNull.Value ? reader["Dgen_Telefono"].ToString() : "",
+                        CorreoElectronico = reader["Dgen_CorreoElectronico"] != DBNull.Value ? reader["Dgen_CorreoElectronico"].ToString() : "",
+                        FechaInicioActividades = reader["Dgen_FechaInicioActividades"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Dgen_FechaInicioActividades"]),
+                        TipoPersoneria = reader["Dgen_TipoPersoneria"] != DBNull.Value ? reader["Dgen_TipoPersoneria"].ToString() : "",
+                        TipoEmpresa = reader["Dgen_TipoEmpresa"] != DBNull.Value ? reader["Dgen_TipoEmpresa"].ToString() : "",
+                        TipoPrestadorServiciosTuristicos = reader["Dgen_TipoPrestadorServiciosTuristicos"] != DBNull.Value ? reader["Dgen_TipoPrestadorServiciosTuristicos"].ToString() : "",
+                        ActividadEconomica = reader["Dgen_ActividadEconomica"] != DBNull.Value ? reader["Dgen_ActividadEconomica"].ToString() : "",
+                        TelefonoFijo = reader["Dgen_TelefonoFijo"] != DBNull.Value ? reader["Dgen_TelefonoFijo"].ToString() : "",
+                        PaginaWeb = reader["Dgen_PaginaWeb"] != DBNull.Value ? reader["Dgen_PaginaWeb"].ToString() : "",
+                        TipoEmpresaTuristica = reader["Dgen_TipoEmpresaTuristica"] != DBNull.Value ? reader["Dgen_TipoEmpresaTuristica"].ToString() : "",
+                        CategoriaHospedaje = reader["Dgen_CategoriaHospedaje"] != DBNull.Value ? reader["Dgen_CategoriaHospedaje"].ToString() : "",
+                        
+                    });
+                }
+
+                return Tests;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Tests", ex);
             }
         }
 

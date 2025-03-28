@@ -2,6 +2,7 @@
 {
     public class ProcesoTestBE
     {
+        public int? ID { get; set; }
         public int Eval_ID { get; set; }
         public string Eval_RUC { get; set; }
         public int Insc_ID { get; set; }

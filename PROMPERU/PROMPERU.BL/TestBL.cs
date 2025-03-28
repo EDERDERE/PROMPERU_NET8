@@ -603,36 +603,46 @@ namespace PROMPERU.BL
 
             try
             {
-                var tasks = new List<Task>();
+                var tasks = new List<Task>();           
 
                 // Obtener el estado del Test 
                 var statusTest = testModel.Steps.FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
                 string ruc = testModel.CompanyData?.Ruc?.Trim() ?? string.Empty;
-                bool isComplete = statusTest?.IsComplete ?? false; 
+                bool isComplete = statusTest?.IsComplete ?? false;
 
-                // Guardar Test
-                var test = new ProcesoTestBE
-                {
-                    Eval_RUC = ruc, 
-                    Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,   
-                    Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
-                };
+                // Consultar el progreso del test
+                var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);      
+              
+                    // Guardar Test
+                    var test = new ProcesoTestBE
+                    {
+                        ID = procesoTest.Count > 0 ? procesoTest.FirstOrDefault().ID : 0,
+                        Eval_RUC = ruc,
+                        Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,
+                        Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
+                    };
+                if(procesoTest.FirstOrDefault().ID < 0) 
 
-                tasks.Add(_testDA.InsertarProgresoTestAsync(test));
+                    tasks.Add(_testDA.InsertarProgresoTestAsync(test));
+
+                else
+                    tasks.Add(_testDA.ActualizarProgresoTestAsync(test));
+
 
                 //2. Guardar Preguntas y respuesta seleccionada
 
-                if (testModel.ActiveTest?.Elements?.Any() == true) 
+
+                if (testModel.ActiveTest?.Elements?.Any() == true)
                 {
                     foreach (var item in testModel.ActiveTest.Elements)
                     {
-                        if (item?.SelectAnswers?.Any() == true) 
+                        if (item?.SelectAnswers?.Any() == true)
                         {
                             foreach (var item2 in item.SelectAnswers)
                             {
                                 var respuestaSelect = new RespuestaSeleccionadaBE
                                 {
-                                    Preg_ID = item.Id,
+                                    Preg_ID = item.Id ?? 0,
                                     Eval_RUC = ruc,
                                     Rsel_TextoRespuesta = item2?.Input ?? string.Empty, // Evita nulos en Input
                                     Resp_ID = item2?.Id
@@ -645,12 +655,12 @@ namespace PROMPERU.BL
                 }
 
                 //3. Guardar Datos Generales
-                if (testModel.CompanyData != null)
+                if (testModel.CompanyData != null && testModel.CompanyData.LegalName != null)
                 {
                     var datos = new DatosGeneralesBE
                     {
                         ID = testModel.CompanyData.ID, 
-                        RazonSocial = testModel.CompanyData.BusinessName,
+                        RazonSocial = testModel.CompanyData.LegalName,
                         NombresApellidos  = testModel.CompanyData.FullName,
                         NombreComercial = testModel.CompanyData.TradeName,
                         Ruc = testModel.CompanyData.Ruc,
@@ -693,6 +703,19 @@ namespace PROMPERU.BL
             try
             {
                 var ListadoTest = await _testDA.ListarRespuestaSelectTestsAsync(ruc);
+                return ListadoTest;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
+            }
+        }
+
+        public async Task<List<DatosGeneralesBE>> ListarDatosGeneralesTestAsync(string ruc)
+        {
+            try
+            {
+                var ListadoTest = await _testDA.ListarDatosGeneralesTestsAsync(ruc);
                 return ListadoTest;
             }
             catch (Exception ex)

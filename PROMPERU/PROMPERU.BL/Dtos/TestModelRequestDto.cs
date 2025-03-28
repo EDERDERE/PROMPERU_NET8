@@ -32,7 +32,7 @@ namespace PROMPERU.BL.Dtos
 
     public class Element
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int Order { get; set; }
         public string Type { get; set; }
         public string QuestionText { get; set; }
@@ -48,7 +48,7 @@ namespace PROMPERU.BL.Dtos
     public class GeneralData
     {
         public int? ID { get; set; }
-        public string BusinessName { get; set; } // Razón Social
+        public string LegalName { get; set; } // Razón Social
         public string FullName { get; set; } // Nombres y Apellidos
         public string TradeName { get; set; } // Nombre Comercial
         public string Ruc { get; set; } // RUC
