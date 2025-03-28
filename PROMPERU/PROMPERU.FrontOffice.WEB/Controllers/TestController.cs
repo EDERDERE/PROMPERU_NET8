@@ -257,7 +257,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 // 4. Obtener Test de Diagnóstico
                 var steps = await _testBL.ObtenerPasosInscripcion();
                 var activeTest = await _testBL.ObtenerTestPorIdAsync(steps[0].Id);
-                var companyData = _testBL.ExtraerDatosEvaluacion(evaluadoResult, ruc);
+                var evaluated = _testBL.ExtraerDatosEvaluacion(evaluadoResult, ruc);
 
                 return Ok(new
                 {
@@ -268,7 +268,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     {
                         steps,
                         activeTest,
-                        companyData
+                        companyData = evaluated
                     }
                 });
             }
