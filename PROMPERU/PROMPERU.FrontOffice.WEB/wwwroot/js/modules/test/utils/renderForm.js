@@ -62,6 +62,7 @@ export function renderForm(schema, initialData = {}) {
 
       if (
         initialData[field.name] !== undefined &&
+        initialData[field.name] !== null &&
         initialData[field.name].toString().trim() !== ""
       ) {
         input.value = initialData[field.name];
