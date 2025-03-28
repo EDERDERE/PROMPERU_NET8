@@ -621,7 +621,7 @@ namespace PROMPERU.BL
                         Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,
                         Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
                     };
-                if(procesoTest.FirstOrDefault().ID < 0) 
+                if(procesoTest.Count == 0) 
 
                     tasks.Add(_testDA.InsertarProgresoTestAsync(test));
 
