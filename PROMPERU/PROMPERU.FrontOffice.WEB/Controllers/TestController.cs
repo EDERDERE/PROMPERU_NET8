@@ -157,15 +157,44 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                             ActiveTest = new ActiveTest
                             {
                                 // Si hay datos de ActiveTest, mapéalos aquí
+                                TestType = activeTestProgress.TestType,
+                                Elements = activeTestProgress.Elements.Select( e => new Element
+                                {
+                                    Id = e.ID,
+                                    Order = e.Order,
+                                    Type = e.Type,
+                                    QuestionText = e.QuestionText,
+                                    IsComputable = e.IsComputable,
+                                    Label = e.Label,
+                                    Category = e.Category,
+                                    AnswerType = e.AnswerType,
+                                    SelectAnswers = e.SelectAnswers,
+                                    Course = e.Course
+
+                                 }).ToList()
                             },
 
                             CompanyData = datos.Select(c => new GeneralData
                             {
-                                Region = c.Region,
-                                Ruc = c.Ruc,
                                 ID = c.ID,
+                                LegalName = c.RazonSocial,
+                                FullName = c.NombresApellidos,
+                                TradeName = c.NombreComercial,                              
+                                Ruc = c.Ruc,
+                                Region = c.Region,
+                                Province =c.Provincia,
+                                PhoneNumber = c.Telefono,
+                                Email = c.CorreoElectronico,
+                                StartDate = c.FechaInicioActividades,
+                                LegalEntityType = c.TipoPersoneria,
+                                CompanyType = c.TipoEmpresa,
+                                TourismServiceProviderType = c.TipoPrestadorServiciosTuristicos,                            
                                 BusinessActivity =  c.ActividadEconomica,
-                                
+                                Landline = c.TelefonoFijo,
+                                TourismBusinessType = c.TipoEmpresaTuristica,
+                                LodgingCategory = c.CategoriaHospedaje   
+
+
                             }).FirstOrDefault(),
 
                             Registration = new Registration

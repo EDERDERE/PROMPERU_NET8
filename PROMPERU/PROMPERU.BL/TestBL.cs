@@ -642,7 +642,7 @@ namespace PROMPERU.BL
                             {
                                 var respuestaSelect = new RespuestaSeleccionadaBE
                                 {
-                                    Preg_ID = item.Id,
+                                    Preg_ID = item.Id ?? 0,
                                     Eval_RUC = ruc,
                                     Rsel_TextoRespuesta = item2?.Input ?? string.Empty, // Evita nulos en Input
                                     Resp_ID = item2?.Id

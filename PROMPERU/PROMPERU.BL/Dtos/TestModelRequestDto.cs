@@ -32,7 +32,7 @@ namespace PROMPERU.BL.Dtos
 
     public class Element
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int Order { get; set; }
         public string Type { get; set; }
         public string QuestionText { get; set; }
