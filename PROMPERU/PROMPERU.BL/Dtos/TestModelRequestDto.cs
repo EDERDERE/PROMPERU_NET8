@@ -27,7 +27,7 @@ namespace PROMPERU.BL.Dtos
     public class ActiveTest
     {
         public TestType TestType { get; set; }
-        public List<Element>? Elements { get; set; }
+        public List<Elements>? Elements { get; set; }
         public bool HasInstructions { get; set; } = false; // Por defecto en false
         public Instructions? Instructions { get; set; }
     }
