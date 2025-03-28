@@ -2,10 +2,8 @@ import { fetchData } from "../../../../shared/js/apiService.js";
 import { store } from "../state.js";
 
 export async function fetchCompanyData(ruc) {
-
-  const formData = new FormData()
-
-  formData.append("ruc", ruc)
+  const formData = new FormData();
+  formData.append("ruc", ruc);
 
   try {
     const response = await fetchData(
