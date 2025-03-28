@@ -8,12 +8,13 @@ export async function fetchData(
     const options = {
       type: method,
       url,
-      dataType: "json",
+      
     };
 
     if (data) {
       options.data = data;
       if (useFormData) {
+        options.dataType = "json",
         options.processData = false;
         options.contentType = false;
       }
@@ -56,3 +57,6 @@ export async function fetchData(
     return null;
   }
 }
+
+
+

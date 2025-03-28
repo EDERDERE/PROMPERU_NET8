@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Transactions;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PROMPERU.DA
 {
@@ -241,11 +242,11 @@ namespace PROMPERU.DA
                 {
                     Tests.Add(new ProcesoTestBE
                     {
-                        Eval_ID = Convert.ToInt32(reader["Eval_ID"]),
-                        Eval_RUC = reader["Eval_RUC"].ToString(),
-                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
-                        Eval_Etapa = reader["Eval_Etapa"].ToString(),
-                        Ieva_Estado = reader["Ieva_Estado"].ToString()
+                        Eval_ID = reader["Eval_ID"] != DBNull.Value ? Convert.ToInt32(reader["Eval_ID"]) : 0,
+                        Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
+                        Insc_ID = reader["Insc_ID"] != DBNull.Value ? Convert.ToInt32(reader["Insc_ID"]) : 0,
+                        Eval_Etapa = reader["Eval_Etapa"] != DBNull.Value ? reader["Eval_Etapa"].ToString() : "",
+                        Ieva_Estado = reader["Ieva_Estado"] != DBNull.Value ? reader["Ieva_Estado"].ToString() : "",                     
                     });
                 }
 
@@ -290,5 +291,55 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los Tests", ex);
             }
         }
+        public async Task<int> InsertarDatosGeneralesTestAsync(DatosGeneralesBE datos)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
+
+            try
+            {
+                await using var comando = new SqlCommand("USP_DatosGenerales_INS", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@ID", (object)datos.ID ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@RazonSocial", datos.RazonSocial);
+                comando.Parameters.AddWithValue("@NombresApellidos", datos.NombresApellidos);
+                comando.Parameters.AddWithValue("@NombreComercial", datos.NombreComercial);
+                comando.Parameters.AddWithValue("@Ruc", datos.Ruc);
+                comando.Parameters.AddWithValue("@Region", datos.Region);
+                comando.Parameters.AddWithValue("@Provincia", datos.Provincia);
+                comando.Parameters.AddWithValue("@Telefono", datos.Telefono);
+                comando.Parameters.AddWithValue("@CorreoElectronico", datos.CorreoElectronico);
+                comando.Parameters.AddWithValue("@FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@TipoPersoneria", datos.TipoPersoneria);
+                comando.Parameters.AddWithValue("@TipoEmpresa", datos.TipoEmpresa);
+                comando.Parameters.AddWithValue("@TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
+                comando.Parameters.AddWithValue("@ActividadEconomica", datos.ActividadEconomica);
+                comando.Parameters.AddWithValue("@TelefonoFijo", datos.TelefonoFijo);
+                comando.Parameters.AddWithValue("@PaginaWeb", datos.PaginaWeb);
+                comando.Parameters.AddWithValue("@TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
+                comando.Parameters.AddWithValue("@CategoriaHospedaje", datos.CategoriaHospedaje);
+
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                comando.Parameters.Add(outNuevoID);
+
+                await comando.ExecuteNonQueryAsync();
+
+                await transaction.CommitAsync(); // Confirma la transacción
+
+                return (int)outNuevoID.Value;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
+            }
+        }
+
     }
 }
