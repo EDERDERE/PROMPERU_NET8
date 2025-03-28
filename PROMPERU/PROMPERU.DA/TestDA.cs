@@ -302,25 +302,24 @@ namespace PROMPERU.DA
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-
-                comando.Parameters.AddWithValue("@ID", (object)datos.ID ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@RazonSocial", datos.RazonSocial);
-                comando.Parameters.AddWithValue("@NombresApellidos", datos.NombresApellidos);
-                comando.Parameters.AddWithValue("@NombreComercial", datos.NombreComercial);
-                comando.Parameters.AddWithValue("@Ruc", datos.Ruc);
-                comando.Parameters.AddWithValue("@Region", datos.Region);
-                comando.Parameters.AddWithValue("@Provincia", datos.Provincia);
-                comando.Parameters.AddWithValue("@Telefono", datos.Telefono);
-                comando.Parameters.AddWithValue("@CorreoElectronico", datos.CorreoElectronico);
-                comando.Parameters.AddWithValue("@FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@TipoPersoneria", datos.TipoPersoneria);
-                comando.Parameters.AddWithValue("@TipoEmpresa", datos.TipoEmpresa);
-                comando.Parameters.AddWithValue("@TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
-                comando.Parameters.AddWithValue("@ActividadEconomica", datos.ActividadEconomica);
-                comando.Parameters.AddWithValue("@TelefonoFijo", datos.TelefonoFijo);
-                comando.Parameters.AddWithValue("@PaginaWeb", datos.PaginaWeb);
-                comando.Parameters.AddWithValue("@TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
-                comando.Parameters.AddWithValue("@CategoriaHospedaje", datos.CategoriaHospedaje);
+                               
+                comando.Parameters.AddWithValue("@Dgen_RazonSocial", datos.RazonSocial);
+                comando.Parameters.AddWithValue("@Dgen_NombresApellidos", datos.NombresApellidos);
+                comando.Parameters.AddWithValue("@Dgen_NombreComercial", datos.NombreComercial);
+                comando.Parameters.AddWithValue("@Dgen_Ruc", datos.Ruc);
+                comando.Parameters.AddWithValue("@Dgen_Region", datos.Region);
+                comando.Parameters.AddWithValue("@Dgen_Provincia", datos.Provincia);
+                comando.Parameters.AddWithValue("@Dgen_Telefono", datos.Telefono);
+                comando.Parameters.AddWithValue("@Dgen_CorreoElectronico", datos.CorreoElectronico);
+                comando.Parameters.AddWithValue("@Dgen_FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@Dgen_TipoPersoneria", datos.TipoPersoneria);
+                comando.Parameters.AddWithValue("@Dgen_TipoEmpresa", datos.TipoEmpresa);
+                comando.Parameters.AddWithValue("@Dgen_TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
+                comando.Parameters.AddWithValue("@Dgen_ActividadEconomica", datos.ActividadEconomica);
+                comando.Parameters.AddWithValue("@Dgen_TelefonoFijo", datos.TelefonoFijo);
+                comando.Parameters.AddWithValue("@Dgen_PaginaWeb", datos.PaginaWeb);
+                comando.Parameters.AddWithValue("@Dgen_TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
+                comando.Parameters.AddWithValue("@Dgen_CategoriaHospedaje", datos.CategoriaHospedaje);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {

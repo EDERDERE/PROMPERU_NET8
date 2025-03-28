@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace PROMPERU.BL.Dtos
 {
-    public class TestModelRequestDto2
-    {
-        public List<Step> Steps { get; set; }     
-    }
+  
     public class TestModelRequestDto
     {
         public List<Step> Steps { get; set; }
@@ -50,7 +47,7 @@ namespace PROMPERU.BL.Dtos
 
     public class GeneralData
     {
-        public int? Id { get; set; }
+        public int? ID { get; set; }
         public string BusinessName { get; set; } // Razón Social
         public string FullName { get; set; } // Nombres y Apellidos
         public string TradeName { get; set; } // Nombre Comercial
