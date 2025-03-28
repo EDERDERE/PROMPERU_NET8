@@ -61,123 +61,119 @@ const Results = `
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-6">
-        <div id="chart-container">
-                  <div id="chart"></div>
-                  <div class="custom-label left-label">
-                    <span class="small-text-nota1"></span>Nota
-                    <span class="small-text">Puntaje Global</span>
-                  </div>
-                  <div class="custom-label right-label">
-                    Nota
-                    <span class="small-text-right">Puntaje Individual</span>
-                  </div>
-                  <div class="center-text">
-                    <div class="box-notanumber">
-                      <span class="text-nota-centro">Nota</span>
-                      <span class="small-text-centro">de de 5</span>
-                    </div>
-                    <h3><b>Innovación </b></h3>
-                  </div>
-                </div>
+  <div class="container">
+    <div class="chart_grid gap-4">
+      <!-- Gráficos -->
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="item css">
+          <div class="content">
+            <h3>4.5 de 5</h3>
+            <span>Innovación</span>
+          </div>
+          <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
+              style="--percent: 25;" />
+          </svg>
         </div>
-        <div class="col-6">
-        <div id="chart-container">
-                  <div id="chart"></div>
-                  <div class="custom-label left-label">
-                    <span class="small-text-nota1"></span>Nota
-                    <span class="small-text">Puntaje Global</span>
-                  </div>
-                  <div class="custom-label right-label">
-                    Nota
-                    <span class="small-text-right">Puntaje Individual</span>
-                  </div>
-                  <div class="center-text">
-                    <div class="box-notanumber">
-                      <span class="text-nota-centro">Nota</span>
-                      <span class="small-text-centro">de de 5</span>
-                    </div>
-                    <h3><b>Innovación </b></h3>
-                  </div>
-                </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="row">
-        <div class="col-6">
-        <div id="chart-container">
-                  <div id="chart"></div>
-                  <div class="custom-label left-label">
-                    <span class="small-text-nota1"></span>Nota
-                    <span class="small-text">Puntaje Global</span>
-                  </div>
-                  <div class="custom-label right-label">
-                    Nota
-                    <span class="small-text-right">Puntaje Individual</span>
-                  </div>
-                  <div class="center-text">
-                    <div class="box-notanumber">
-                      <span class="text-nota-centro">Nota</span>
-                      <span class="small-text-centro">de de 5</span>
-                    </div>
-                    <h3><b>Innovación </b></h3>
-                  </div>
-                </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="item css">
+          <div class="content">
+            <h3>4.5 de 5</h3>
+            <span>Creatividad</span>
+          </div>
+          <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
+              style="--percent: 12;" />
+          </svg>
         </div>
-        <div class="col-6">
-        <div id="chart-container">
-                  <div id="chart"></div>
-                  <div class="custom-label left-label">
-                    <span class="small-text-nota1"></span>Nota
-                    <span class="small-text">Puntaje Global</span>
-                  </div>
-                  <div class="custom-label right-label">
-                    Nota
-                    <span class="small-text-right">Puntaje Individual</span>
-                  </div>
-                  <div class="center-text">
-                    <div class="box-notanumber">
-                      <span class="text-nota-centro">Nota</span>
-                      <span class="small-text-centro">de de 5</span>
-                    </div>
-                    <h3><b>Innovación </b></h3>
-                  </div>
-                </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="item css">
+          <div class="content">
+            <h3>4.5 de 5</h3>
+            <span>Creatividad</span>
+          </div>
+          <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
+              style="--percent: 12;" />
+          </svg>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6 m-auto">
-        <div id="chart-container">
-                  <div id="chart"></div>
-                  <div class="custom-label left-label">
-                    <span class="small-text-nota1"></span>Nota
-                    <span class="small-text">Puntaje Global</span>
-                  </div>
-                  <div class="custom-label right-label">
-                    Nota
-                    <span class="small-text-right">Puntaje Individual</span>
-                  </div>
-                  <div class="center-text">
-                    <div class="box-notanumber">
-                      <span class="text-nota-centro">Nota</span>
-                      <span class="small-text-centro">de de 5</span>
-                    </div>
-                    <h3><b>Innovación </b></h3>
-                  </div>
-                </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="item css">
+          <div class="content">
+            <h3>4.5 de 5</h3>
+            <span>Creatividad</span>
+          </div>
+          <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
+              style="--percent: 12;" />
+          </svg>
         </div>
-    </div>
-    </div>
-   
-    <div class="container">
-        <div class="my-5 py-5 d-flex justify-content-center align-items-center flex-column">
-            <h2 class="section_title" id="section_title">
-                <span>CURSOS QUE DEBES LLEGAR CON NOSOTROS</span>
-                <div class="red-linear"></div>
-            </h2>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="item css">
+          <div class="content">
+            <h3>4.5 de 5</h3>
+            <span>Resolución de Problemas</span>
+          </div>
+          <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
+              style="--percent: 45;" />
+          </svg>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="container">
+    <div class="my-5 py-5 d-flex justify-content-center align-items-center flex-column">
+      <h2 class="section_title">
+        <span>Resumen de Diagnóstico</span>
+        <div class="red-linear"></div>
+      </h2>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="chart_grid gap-4">
+      <div class="card-custom">
+        <div class="d-flex align-items-center">
+          <div class="circle"></div>
+          <span>Distrubución</span>
+        </div>
+      </div>
+      <div class="card-custom">
+        <div class="d-flex align-items-center">
+          <div class="circle"></div>
+          <span>Distrubución</span>
+        </div>
+      </div>
+      <div class="card-custom">
+        <div class="d-flex align-items-center">
+          <div class="circle"></div>
+          <span>Distrubución</span>
+        </div>
+      </div>
+      <div class="card-custom">
+        <div class="d-flex align-items-center">
+          <div class="circle"></div>
+          <span>Distrubución</span>
+        </div>
+      </div>
+      <div class="card-custom">
+        <div class="d-flex align-items-center">
+          <div class="circle"></div>
+          <span>Distrubución</span>
+        </div>
+      </div>
+    </div>
+  </div>
     `;
 
 export default Results;
