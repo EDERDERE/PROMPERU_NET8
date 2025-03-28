@@ -2,8 +2,9 @@ import { fetchData } from "../../../../shared/js/apiService.js";
 import { store } from "../state.js";
 
 export async function fetchCompanyData(ruc) {
-  const formData = new FormData();
-  formData.append("ruc", ruc);
+
+  const formData = new FormData()
+  formData.append("ruc", ruc)
 
   try {
     const response = await fetchData(
@@ -20,7 +21,7 @@ export async function fetchCompanyData(ruc) {
 
     if (response.success) {
       store.setState({ test: response.test });
-      return response.test.evaluated;
+      return response.test.companyData;
     } else {
       console.error("Error en la respuesta:", response.message);
       return null;
