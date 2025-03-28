@@ -171,9 +171,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                     SelectAnswers = e.SelectAnswers,
                                     Course = e.Course
 
-                                 }).ToList()
+                                 }).ToList(),
+                                HasInstructions = activeTestProgress.HasInstructions,
+                                Instructions = activeTestProgress.Instructions
                             },
-
+                       
                             CompanyData = datos.Select(c => new GeneralData
                             {
                                 ID = c.ID,

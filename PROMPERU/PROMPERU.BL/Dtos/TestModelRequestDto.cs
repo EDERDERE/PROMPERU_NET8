@@ -22,12 +22,14 @@ namespace PROMPERU.BL.Dtos
         public int? Id { get; set; }
     }
 
-  
+
 
     public class ActiveTest
     {
         public TestType TestType { get; set; }
         public List<Element>? Elements { get; set; }
+        public bool HasInstructions { get; set; } = false; // Por defecto en false
+        public Instructions? Instructions { get; set; }
     }
 
     public class Element
