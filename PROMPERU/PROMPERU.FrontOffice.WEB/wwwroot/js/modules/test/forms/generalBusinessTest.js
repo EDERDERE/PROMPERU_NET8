@@ -82,7 +82,6 @@ export default {
           placeholder: "Ingresa tu correo electrónico",
           required: true,
           validation: {
-            pattern: EMAIL_REGEX,
             message: "Por favor, ingresa un correo electrónico válido",
           },
         },

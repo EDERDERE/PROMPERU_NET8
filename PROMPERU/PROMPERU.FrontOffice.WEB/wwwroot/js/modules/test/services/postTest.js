@@ -1,8 +1,8 @@
-﻿import { fetchData } from "../../../../shared/js/apiService.js";
+﻿import { fetchJsonData } from "../../../../shared/js/apiService.js";
 
 export async function saveTestProgress(saveTest) {
   try {
-    const response = await fetchData(
+    const response = await fetchJsonData(
       "/Test/GuardarProgresoTest",
       "POST",
       saveTest

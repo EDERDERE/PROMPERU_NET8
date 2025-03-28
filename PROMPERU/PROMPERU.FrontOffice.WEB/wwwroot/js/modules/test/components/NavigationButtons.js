@@ -15,12 +15,19 @@ const NavigationButtons = (
 
     if (!validateFormIfNeeded(state)) return;
 
-    updateSaveTest();
-
+    const { activeTest } = state.test || {};
+    const hasInstructions = activeTest?.instructions;
     const currentStep = state.currentStep;
+
+    const inInstructions = hasInstructions && typeof currentStep !== "number";
+
+    if (!inInstructions) {
+      updateSaveTest();
+    }
+
     store.setState({ previusStep: currentStep });
 
-    if (typeof currentStep !== "number") {
+    if (inInstructions) {
       store.setState({ currentStep: 0 });
       return;
     }
