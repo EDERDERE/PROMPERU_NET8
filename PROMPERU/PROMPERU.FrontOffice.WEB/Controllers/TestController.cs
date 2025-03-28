@@ -268,7 +268,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     {
                         steps,
                         activeTest,
-                        evaluated
+                        companyData = evaluated
                     }
                 });
             }
