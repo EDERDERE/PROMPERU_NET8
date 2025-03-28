@@ -649,7 +649,24 @@ namespace PROMPERU.BL
                 {
                     var datos = new DatosGeneralesBE
                     {
-
+                        ID = testModel.CompanyData.ID, 
+                        RazonSocial = testModel.CompanyData.BusinessName,
+                        NombresApellidos  = testModel.CompanyData.FullName,
+                        NombreComercial = testModel.CompanyData.TradeName,
+                        Ruc = testModel.CompanyData.Ruc,
+                        Region = testModel.CompanyData.Region ,
+                        Provincia = testModel.CompanyData.Province ,
+                        Telefono = testModel.CompanyData.PhoneNumber ,
+                        CorreoElectronico = testModel.CompanyData.Email ,
+                        FechaInicioActividades = testModel.CompanyData.StartDate,
+                        TipoPersoneria = testModel.CompanyData.LegalEntityType,
+                        TipoEmpresa = testModel.CompanyData.CompanyType,
+                        TipoPrestadorServiciosTuristicos = testModel.CompanyData.TourismServiceProviderType,
+                        ActividadEconomica = testModel.CompanyData.BusinessActivity,
+                        TelefonoFijo = testModel.CompanyData.Landline,
+                        PaginaWeb  = testModel.CompanyData.Website,
+                        TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
+                        CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
                     tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
                 }
