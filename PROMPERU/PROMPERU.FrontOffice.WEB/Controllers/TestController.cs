@@ -47,42 +47,43 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
 
                 // 1. Validar si el RUC ya tiene un test en curso
-                var procesoTest = await _testBL.ListarProcesoTestAsync(ruc);
-                var datos = await _testBL.ListarDatosGeneralesTestAsync(ruc);
-
-                var generalDataList = new List<GeneralData>();
-
-                foreach (var item in datos)
-                {
-                    var companyData = new GeneralData
-                    {
-                        ID = item.ID,
-                        LegalName = item.RazonSocial,
-                        FullName = item.NombresApellidos,
-                        TradeName = item.NombreComercial,
-                        Ruc = item.Ruc,
-                        Region = item.Region,
-                        Province = item.Provincia,
-                        PhoneNumber = item.Telefono,
-                        Email = item.CorreoElectronico,
-                        StartDate = item.FechaInicioActividades,
-                        LegalEntityType = item.TipoPersoneria,
-                        CompanyType = item.TipoEmpresa,
-                        TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
-                        BusinessActivity = item.ActividadEconomica,
-                        Landline = item.TelefonoFijo,
-                        Website = item.PaginaWeb,
-                        TourismBusinessType = item.TipoEmpresaTuristica,
-                        LodgingCategory = item.CategoriaHospedaje,
-                    };
-
-                    generalDataList.Add(companyData);
-                }
-
+                var procesoTest = await _testBL.ListarProcesoTestAsync(ruc);            
 
                 if (procesoTest.Any())
                 {
-                    _logger.LogInformation($"El RUC {ruc} tiene un proceso de test activo.");             
+                    _logger.LogInformation($"El RUC {ruc} tiene un proceso de test activo.");
+
+                    var datos = await _testBL.ListarDatosGeneralesTestAsync(ruc);
+
+                    var generalDataList = new List<GeneralData>();
+
+                    foreach (var item in datos)
+                    {
+                        var companyData = new GeneralData
+                        {
+                            ID = item.ID,
+                            LegalName = item.RazonSocial,
+                            FullName = item.NombresApellidos,
+                            TradeName = item.NombreComercial,
+                            Ruc = item.Ruc,
+                            Region = item.Region,
+                            Province = item.Provincia,
+                            PhoneNumber = item.Telefono,
+                            Email = item.CorreoElectronico,
+                            StartDate = item.FechaInicioActividades,
+                            LegalEntityType = item.TipoPersoneria,
+                            CompanyType = item.TipoEmpresa,
+                            TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
+                            BusinessActivity = item.ActividadEconomica,
+                            Landline = item.TelefonoFijo,
+                            Website = item.PaginaWeb,
+                            TourismBusinessType = item.TipoEmpresaTuristica,
+                            LodgingCategory = item.CategoriaHospedaje,
+                        };
+
+                        generalDataList.Add(companyData);
+                    }
+
 
 
                     var testIncompleto =  procesoTest
