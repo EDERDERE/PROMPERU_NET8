@@ -168,6 +168,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                     Label = e.Label,
                                     Category = e.Category,
                                     AnswerType = e.AnswerType,
+                                    Answers = e.Answers,
                                     SelectAnswers = e.SelectAnswers,
                                     Course = e.Course,
                                     SelectedForm = e.SelectedForm,
