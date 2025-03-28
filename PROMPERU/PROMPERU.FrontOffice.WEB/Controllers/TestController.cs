@@ -158,9 +158,9 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                             {
                                 // Si hay datos de ActiveTest, mapéalos aquí
                                 TestType = activeTestProgress.TestType,
-                                Elements = activeTestProgress.Elements.Select( e => new Element
+                                Elements = activeTestProgress.Elements.Select( e => new Elements
                                 {
-                                    Id = e.ID,
+                                    ID = e.ID,
                                     Order = e.Order,
                                     Type = e.Type,
                                     QuestionText = e.QuestionText,
@@ -169,8 +169,10 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                     Category = e.Category,
                                     AnswerType = e.AnswerType,
                                     SelectAnswers = e.SelectAnswers,
-                                    Course = e.Course
-
+                                    Course = e.Course,
+                                    SelectedForm = e.SelectedForm,
+                                    Title = e.Title,
+                                    Description = e.Description,
                                  }).ToList(),
                                 HasInstructions = activeTestProgress.HasInstructions,
                                 Instructions = activeTestProgress.Instructions
