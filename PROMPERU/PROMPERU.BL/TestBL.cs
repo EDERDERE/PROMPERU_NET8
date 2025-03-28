@@ -561,7 +561,7 @@ namespace PROMPERU.BL
                 isApproved = false
             }).ToList();
         }
-        public Evaluated ExtraerDatosEvaluacion(JsonElement? evaluadoResult, string ruc)
+        public Evaluated ExtraerDatosEvaluado(JsonElement? evaluadoResult, string ruc)
         {
             if (!evaluadoResult.HasValue)
             {
@@ -578,7 +578,7 @@ namespace PROMPERU.BL
                     Ruc = ruc,
                     LegalName = ObtenerValorPropiedad(evaluatedData, "razon", "RazonSocial"),
                     TradeName = ObtenerValorPropiedad(evaluatedData, "nombrecomercial", "NombreComercial"),
-                    Phone = ObtenerValorPropiedad(evaluatedData, "Telefono"),
+                    PhoneNumber = ObtenerValorPropiedad(evaluatedData, "Telefono"),
                     Email = ObtenerValorPropiedad(evaluatedData, "Correo"),
                     Address = ObtenerValorPropiedad(evaluatedData, "direccionfiscal"),
                     Region = ObtenerValorPropiedad(evaluatedData, "Region"),

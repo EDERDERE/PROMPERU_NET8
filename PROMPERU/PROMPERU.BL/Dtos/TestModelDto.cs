@@ -35,6 +35,7 @@
         public string? Title { get; set; }
         public string? Description { get; set; }
         public SelectedForm? SelectedForm { get; set; }
+        public bool? IsComplete { get; set; }
     }
 
     public class Answer

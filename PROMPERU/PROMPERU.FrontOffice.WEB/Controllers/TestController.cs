@@ -42,6 +42,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
             try
             {
+                var test = new TestModelResponseDto();
+
                 _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
 
                 // 1. Validar si el RUC ya tiene un test en curso
@@ -139,7 +141,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                 }).ToList();
                         }
 
-                        var test = new TestModelRequestDto
+                        var test1 = new TestModelRequestDto
                         {
                             Steps = stepsProgress.Select(step => new Step
                             {
@@ -218,7 +220,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         {
                             success = true,
                             message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}",
-                            test
+                            test1
                         });
                     }
 
@@ -262,7 +264,38 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 // 4. Obtener Test de Diagnóstico
                 var steps = await _testBL.ObtenerPasosInscripcion();
                 var activeTest = await _testBL.ObtenerTestPorIdAsync(steps[0].Id);
-                var evaluated = _testBL.ExtraerDatosEvaluacion(evaluadoResult, ruc);
+                var evaluated = _testBL.ExtraerDatosEvaluado(evaluadoResult, ruc);
+
+                test = new TestModelResponseDto { 
+                  Steps = steps,
+                    ActiveTest = new ActiveTest
+                    {
+                        // Si hay datos de ActiveTest, mapéalos aquí
+                        TestType = activeTest.TestType,
+                        Elements = activeTest.Elements.Select(e => new Elements
+                        {
+                            ID = e.ID,
+                            Order = e.Order,
+                            Type = e.Type,
+                            QuestionText = e.QuestionText,
+                            IsComputable = e.IsComputable,
+                            Label = e.Label,
+                            Category = e.Category,
+                            AnswerType = e.AnswerType,
+                            Answers = e.Answers,
+                            SelectAnswers = e.SelectAnswers,
+                            Course = e.Course,
+                            SelectedForm = e.SelectedForm,
+                            Title = e.Title,
+                            Description = e.Description,
+                        }).ToList(),
+                        HasInstructions = activeTest.HasInstructions,
+                        Instructions = activeTest.Instructions
+                    },
+                    CompanyData = evaluated
+
+                };
+                
 
                 return Ok(new
                 {

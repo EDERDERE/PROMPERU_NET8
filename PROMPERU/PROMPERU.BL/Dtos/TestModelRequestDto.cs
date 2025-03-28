@@ -58,6 +58,7 @@ namespace PROMPERU.BL.Dtos
         public string Province { get; set; } // Provincia
         public string PhoneNumber { get; set; } // Teléfono
         public string Email { get; set; } // Correo Electrónico
+        public string Address { get; set; } // Dirección FIscal
         public DateTime? StartDate { get; set; } // Fecha de inicio de actividades
         public string LegalEntityType { get; set; } // Tipo de Personería
         public string CompanyType { get; set; } // Tipo de Empresa
