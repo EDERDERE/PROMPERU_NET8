@@ -6,6 +6,7 @@ using ServiceExterno;
 using System.Text.Json;
 using PROMPERU.BL.Dtos;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using PROMPERU.BE;
 
 namespace PROMPERU.FrontOffice.WEB.Controllers
 {
@@ -44,7 +45,38 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
 
                 // 1. Validar si el RUC ya tiene un test en curso
-                var procesoTest = await _testBL.ListarProcesoTestAsync(ruc);    
+                var procesoTest = await _testBL.ListarProcesoTestAsync(ruc);
+                var datos = await _testBL.ListarDatosGeneralesTestAsync(ruc);
+
+                var generalDataList = new List<GeneralData>();
+
+                foreach (var item in datos)
+                {
+                    var companyData = new GeneralData
+                    {
+                        ID = item.ID,
+                        LegalName = item.RazonSocial,
+                        FullName = item.NombresApellidos,
+                        TradeName = item.NombreComercial,
+                        Ruc = item.Ruc,
+                        Region = item.Region,
+                        Province = item.Provincia,
+                        PhoneNumber = item.Telefono,
+                        Email = item.CorreoElectronico,
+                        StartDate = item.FechaInicioActividades,
+                        LegalEntityType = item.TipoPersoneria,
+                        CompanyType = item.TipoEmpresa,
+                        TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
+                        BusinessActivity = item.ActividadEconomica,
+                        Landline = item.TelefonoFijo,
+                        Website = item.PaginaWeb,
+                        TourismBusinessType = item.TipoEmpresaTuristica,
+                        LodgingCategory = item.CategoriaHospedaje,
+                    };
+
+                    generalDataList.Add(companyData);
+                }
+
 
                 if (procesoTest.Any())
                 {
@@ -85,7 +117,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         var activeTestProgress = await _testBL.ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
 
 
-
                         // Agregar respuestas seleccionadas a las preguntas existentes en el test
                         // Recorrer cada pregunta en el test
                         foreach (var element in activeTestProgress.Elements)
@@ -108,17 +139,52 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                 }).ToList();
                         }
 
+                        var test = new TestModelRequestDto
+                        {
+                            Steps = stepsProgress.Select(step => new Step
+                            {
+                                // Mapea las propiedades de step según la estructura de Step
+                                // Suponiendo que step tiene propiedades equivalentes en la clase Step
+                                Id = step.Id,
+                                StepNumber = step.StepNumber,
+                                IconName = step.IconName,
+                                IconUrl = step.IconUrl,
+                                Current = step.Current,
+                                IsComplete = step.IsComplete,
+                                isApproved = step.isApproved
+                            }).ToList(),
+
+                            ActiveTest = new ActiveTest
+                            {
+                                // Si hay datos de ActiveTest, mapéalos aquí
+                            },
+
+                            CompanyData = datos.Select(c => new GeneralData
+                            {
+                                Region = c.Region,
+                                Ruc = c.Ruc,
+                                ID = c.ID,
+                                BusinessActivity =  c.ActividadEconomica,
+                                
+                            }).FirstOrDefault(),
+
+                            Registration = new Registration
+                            {
+                                // Si hay datos de Registration, mapéalos aquí
+                            },
+
+                            TitularRepresentative = new TitularRepresentative
+                            {
+                                // Si hay datos de TitularRepresentative, mapéalos aquí
+                            }
+                        }; 
 
 
                         return Ok(new
                         {
                             success = true,
                             message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}",
-                            test = new
-                            {
-                                steps=stepsProgress,
-                                activeTest =activeTestProgress                                
-                            }
+                            test
                         });
                     }
 

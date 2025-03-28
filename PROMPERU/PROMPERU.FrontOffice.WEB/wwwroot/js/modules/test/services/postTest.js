@@ -1,5 +1,4 @@
 ﻿import { fetchData } from "../../../../shared/js/apiService.js";
-import { fetchData2 } from "../../../../shared/js/apiService.js";
 export async function saveTestProgress(saveTest) {
 
     try {
