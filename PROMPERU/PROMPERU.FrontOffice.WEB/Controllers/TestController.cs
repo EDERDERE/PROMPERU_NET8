@@ -31,7 +31,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {            
           return View(); // Aseg�rate de tener una vista asociada         
         }
-
         [HttpPost]
         public async Task<IActionResult> ConsultarRUC(string ruc)
         {
@@ -39,289 +38,30 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             {
                 return BadRequest(new { success = false, message = "Debe ingresar un RUC válido." });
             }
-
+            _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
             try
             {
-                var test = new TestModelResponseDto();
+                var resultado = await _testBL.ConsultarRUCAsync(ruc);
 
-                _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
-
-                // 1. Validar si el RUC ya tiene un test en curso
-                var procesoTest = await _testBL.ListarProcesoTestAsync(ruc);            
-
-                if (procesoTest.Any())
+                if (!resultado.Success)
                 {
-                    _logger.LogInformation($"El RUC {ruc} tiene un proceso de test activo.");
-
-                    var datos = await _testBL.ListarDatosGeneralesTestAsync(ruc);
-
-                    var generalDataList = new List<Evaluated>();
-
-                    foreach (var item in datos)
-                    {
-                        var companyData = new Evaluated
-                        {
-                            ID = item.ID,
-                            LegalName = item.RazonSocial,
-                            FullName = item.NombresApellidos,
-                            TradeName = item.NombreComercial,
-                            Ruc = item.Ruc,
-                            Region = item.Region,
-                            Province = item.Provincia,
-                            Phone = item.Telefono,
-                            Email = item.CorreoElectronico,
-                            StartDate = item.FechaInicioActividades,
-                            LegalEntityType = item.TipoPersoneria,
-                            CompanyType = item.TipoEmpresa,
-                            TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
-                            BusinessActivity = item.ActividadEconomica,
-                            Landline = item.TelefonoFijo,
-                            Website = item.PaginaWeb,
-                            TourismBusinessType = item.TipoEmpresaTuristica,
-                            LodgingCategory = item.CategoriaHospedaje,
-                        };
-
-                        generalDataList.Add(companyData);
-                    }
-
-
-
-                    var testIncompleto =  procesoTest
-                                            .Where(x => x.Ieva_Estado == "PENDIENTE")
-                                            .OrderBy(Y => Y.Insc_ID)                                            
-                                            .FirstOrDefault();
-
-                    var testCompleto = procesoTest
-                                            .Where(x => x.Ieva_Estado == "COMPLETADO")
-                                            .OrderBy(Y => Y.Insc_ID)
-                                            .ToList();
-
-                    // 4. Obtener Test de Diagnóstico
-
-                    var stepsProgress = await _testBL.ObtenerPasosInscripcion();
-
-                    foreach (var step in stepsProgress)
-                    {
-                        var testRelacionado = procesoTest.FirstOrDefault(pt => pt.Insc_ID == step.Id);
-
-                        if (testRelacionado != null && ( testRelacionado.Ieva_Estado == "COMPLETADO" || testRelacionado.Ieva_Estado == "PENDIENTE"))
-                        {
-                            step.Current = true;
-                            step.IsComplete = testRelacionado.Ieva_Estado == "COMPLETADO";
-                        }
-                    }
-
-
-                    //1. Test en curso (PENDIENTE)
-                    if ((!string.IsNullOrEmpty(testIncompleto?.Ieva_Estado) && testIncompleto.Ieva_Estado == "PENDIENTE"))
-                    {
-                        var respuestaTest = await _testBL.ListarRespuestaSelectTestsAsync(ruc);
-
-                        var activeTestProgress = await _testBL.ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
-
-
-                        // Agregar respuestas seleccionadas a las preguntas existentes en el test
-                        // Recorrer cada pregunta en el test
-                        if (respuestaTest.Count > 0)
-                        {
-                            foreach (var element in activeTestProgress.Elements)
-                            {
-                                var respuestasFiltradas = respuestaTest
-                                    .Where(r => r.Preg_ID == element.ID)
-                                    .ToList();
-
-                                // Depuración: Verificar si se encontraron respuestas para la pregunta
-                                if (!respuestasFiltradas.Any())
-                                {
-                                    Console.WriteLine($"No hay respuestas para la Preg_ID: {element.ID}");
-                                }
-
-                                element.SelectAnswers = respuestasFiltradas
-                                    .Select(r => new SelectAnswer
-                                    {
-                                        ID = r.ID ?? 0,
-                                        Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null,  // Asegurar que no asigne 0 si es incorrecto
-                                        Input = !string.IsNullOrEmpty(r.Rsel_TextoRespuesta) ? r.Rsel_TextoRespuesta : ""
-                                    }).ToList();
-                            }
-
-                        }
-
-                        test = new TestModelResponseDto
-                        {
-                            Steps = stepsProgress.Select(step => new Step
-                            {
-                                // Mapea las propiedades de step según la estructura de Step
-                                // Suponiendo que step tiene propiedades equivalentes en la clase Step
-                                Id = step.Id,
-                                StepNumber = step.StepNumber,
-                                IconName = step.IconName,
-                                IconUrl = step.IconUrl,
-                                Current = step.Current,
-                                IsComplete = step.IsComplete,
-                                isApproved = step.isApproved
-                            }).ToList(),
-
-                            ActiveTest = new ActiveTest
-                            {
-                                // Si hay datos de ActiveTest, mapéalos aquí
-                                TestType = activeTestProgress.TestType,
-                                Elements = activeTestProgress.Elements.Select( e => new Elements
-                                {
-                                    ID = e.ID,
-                                    Order = e.Order,
-                                    Type = e.Type,
-                                    QuestionText = e.QuestionText,
-                                    IsComputable = e.IsComputable,
-                                    Label = e.Label,
-                                    Category = e.Category,
-                                    AnswerType = e.AnswerType,
-                                    Answers = e.Answers,
-                                    SelectAnswers = e.SelectAnswers,
-                                    Course = e.Course,
-                                    SelectedForm = e.SelectedForm,
-                                    Title = e.Title,
-                                    Description = e.Description,
-                                 }).ToList(),
-                                HasInstructions = activeTestProgress.HasInstructions,
-                                Instructions = activeTestProgress.Instructions
-                            },
-                       
-                            CompanyData = datos.Select(c => new Evaluated
-                            {
-                                ID = c.ID,
-                                LegalName = c.RazonSocial,
-                                FullName = c.NombresApellidos,
-                                TradeName = c.NombreComercial,                              
-                                Ruc = c.Ruc,
-                                Region = c.Region,
-                                Province =c.Provincia,
-                                Phone = c.Telefono,
-                                Email = c.CorreoElectronico,
-                                StartDate = c.FechaInicioActividades,
-                                LegalEntityType = c.TipoPersoneria,
-                                CompanyType = c.TipoEmpresa,
-                                TourismServiceProviderType = c.TipoPrestadorServiciosTuristicos,                            
-                                BusinessActivity =  c.ActividadEconomica,
-                                Landline = c.TelefonoFijo,
-                                TourismBusinessType = c.TipoEmpresaTuristica,
-                                LodgingCategory = c.CategoriaHospedaje   
-
-
-                            }).FirstOrDefault(),
-
-                            Registration = new Registration
-                            {
-                                // Si hay datos de Registration, mapéalos aquí
-                            },
-
-                            TitularRepresentative = new TitularRepresentative
-                            {
-                                // Si hay datos de TitularRepresentative, mapéalos aquí
-                            }
-                        }; 
-
-
-                        return Ok(new
-                        {
-                            success = true,
-                            message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}",
-                            test
-                        });
-                    }
-
-                    //2. Test Culminado (COMPLETADO)
-
-
-           
-                    //3. Test APROBADO x RUC
-
-
-                    return Ok(new { success = true, message = "El usuario ya tiene un proceso en curso.", data = procesoTest });
+                    return BadRequest(new { success = false, message = resultado.Message, validations = resultado.Validations });
                 }
-
-                _logger.LogInformation($"El RUC {ruc} no tiene un proceso activo. Consultando en fuentes externas...");
-
-                // 2. Consultar en SUNAT
-                var resultadoSunatJson = await _sunatService.ConsultarRUCAsync(ruc);
-                var (esValidoSunat, evaluadoResult) = await _testBL.ValidarRespuestaSunat(resultadoSunatJson);
-
-                // 3. Validar en otras entidades
-                var validaciones = new Dictionary<string, bool>
-                {
-                    { "SUNAT", esValidoSunat }
-                };
-
-                var validacionesFallidas = validaciones.Where(v => !v.Value).Select(v => v.Key).ToList();
-                if (validacionesFallidas.Any())
-                {
-                    _logger.LogWarning($"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}");
-
-                    return BadRequest(new
-                    {
-                        success = false,
-                        message = $"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnóstico.",
-                        validations = validaciones
-                    });
-                }
-
-                _logger.LogInformation($"El RUC {ruc} pasó todas las validaciones. Iniciando Test de Diagnóstico...");
-
-                // 4. Obtener Test de Diagnóstico
-                var steps = await _testBL.ObtenerPasosInscripcion();
-                var activeTest = await _testBL.ObtenerTestPorIdAsync(steps[0].Id);
-                var evaluated = _testBL.ExtraerDatosEvaluado(evaluadoResult, ruc);
-
-                test = new TestModelResponseDto { 
-                  Steps = steps,
-                    ActiveTest = new ActiveTest
-                    {
-                        // Si hay datos de ActiveTest, mapéalos aquí
-                        TestType = activeTest.TestType,
-                        Elements = activeTest.Elements.Select(e => new Elements
-                        {
-                            ID = e.ID,
-                            Order = e.Order,
-                            Type = e.Type,
-                            QuestionText = e.QuestionText,
-                            IsComputable = e.IsComputable,
-                            Label = e.Label,
-                            Category = e.Category,
-                            AnswerType = e.AnswerType,
-                            Answers = e.Answers,
-                            SelectAnswers = e.SelectAnswers,
-                            Course = e.Course,
-                            SelectedForm = e.SelectedForm,
-                            Title = e.Title,
-                            Description = e.Description,
-                        }).ToList(),
-                        HasInstructions = activeTest.HasInstructions,
-                        Instructions = activeTest.Instructions
-                    },
-                    CompanyData = evaluated
-
-                };
-                
 
                 return Ok(new
                 {
                     success = true,
-                    message = "Validaciones completadas. Iniciando Test de Diagnóstico.",
-                    validations = validaciones,
-                    test = new
-                    {
-                        steps,
-                        activeTest,
-                        companyData = evaluated
-                    }
+                    message = resultado.Message,
+                    test = resultado.Test
                 });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error al consultar el RUC {ruc}");
-                return StatusCode(500, new { success = false, message = "Ocurrió un error inesperado al procesar la consulta." });
+                _logger.LogError(ex, $"Error en la consulta del RUC {ruc}");
+                return StatusCode(500, new { success = false, message = "Ocurrió un error al procesar la solicitud." });
             }
         }
+                
 
         [HttpPost]
         public async Task<IActionResult> GuardarProgresoTest(TestModelRequestDto testModel)

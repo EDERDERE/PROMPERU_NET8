@@ -32,21 +32,7 @@ namespace PROMPERU.BL.Dtos
         public bool HasInstructions { get; set; } = false; // Por defecto en false
         public Instructions? Instructions { get; set; }
     }
-
-    public class Element
-    {
-        public int? Id { get; set; }
-        public int Order { get; set; }
-        public string Type { get; set; }
-        public string QuestionText { get; set; }
-        public bool? IsComputable { get; set; }
-        public string Label { get; set; }
-        public string Category { get; set; }
-        public string AnswerType { get; set; }
-        public List<Answer> Answers { get; set; }
-        public List<SelectAnswer> SelectAnswers { get; set; }
-        public Course Course { get; set; }        
-    }
+       
 
     public class Registration
     {

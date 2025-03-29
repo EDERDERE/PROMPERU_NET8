@@ -597,96 +597,159 @@ namespace PROMPERU.BL
             }
             return string.Empty;
         }
+        public async Task<TestResponseDto> ConsultarRUCAsync(string ruc)
+        {
+            var response = new TestResponseDto();
+
+            // 1. Validar si el RUC ya tiene un test en curso
+            var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
+            if (procesoTest.Any())
+            {
+                var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);
+                var stepsProgress = await ObtenerPasosInscripcion();
+                var testIncompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "PENDIENTE");
+                var testCompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "COMPLETADO");
+
+                var generalData = datos.Select(item => new Evaluated
+                {
+                    ID = item.ID,
+                    LegalName = item.RazonSocial,
+                    FullName = item.NombresApellidos,
+                    TradeName = item.NombreComercial,
+                    Ruc = item.Ruc,
+                    Region = item.Region,
+                    Province = item.Provincia,
+                    Phone = item.Telefono,
+                    Email = item.CorreoElectronico,
+                    StartDate = item.FechaInicioActividades,
+                    LegalEntityType = item.TipoPersoneria,
+                    CompanyType = item.TipoEmpresa,
+                    TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
+                    BusinessActivity = item.ActividadEconomica,
+                    Landline = item.TelefonoFijo,
+                    Website = item.PaginaWeb,
+                    TourismBusinessType = item.TipoEmpresaTuristica,
+                    LodgingCategory = item.CategoriaHospedaje
+                }).FirstOrDefault();
+
+                if (testIncompleto != null)
+                {
+                    response = await ConstruirTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
+                    return response;
+                }
+                else if (testCompleto != null)
+                {
+                    response =  await ConstruirTestCompleto(procesoTest, testCompleto, generalData, stepsProgress);
+                    return response;
+                }
+
+                response.Success = true;
+                response.Message = "El usuario ya tiene un proceso en curso.";
+                response.Test = new { procesoTest };
+                return response;
+
+              
+            }
+
+            // 2. Consultar en SUNAT
+            var resultadoSunatJson = await _sunatService.ConsultarRUCAsync(ruc);
+            var (esValidoSunat, evaluadoResult) = await ValidarRespuestaSunat(resultadoSunatJson);
+
+            // 3. Validar en otras entidades
+            var validaciones = new Dictionary<string, bool> { { "SUNAT", esValidoSunat } };
+            if (!esValidoSunat)
+            {
+                response.Success = false;
+                response.Message = $"El RUC {ruc} no pasó las validaciones requeridas.";
+                response.Validations = validaciones;
+                return response;
+            }    
+
+            // 4. Construir nuevo Test de Diagnóstico
+            response = await ConstruirNuevoTest(ruc, ExtraerDatosEvaluado(evaluadoResult, ruc));
+            return response;
+        }
+
         public async Task<TestModelRequestDto> GuardarProgresoTest(TestModelRequestDto testModel)
         {
             if (testModel == null) throw new ArgumentNullException(nameof(testModel));
 
             try
             {
-                var tasks = new List<Task>();           
+                var tasks = new List<Task>();
+                string ruc = testModel.CompanyData?.Ruc?.Trim() ?? string.Empty;
 
                 // Obtener el estado del Test 
                 var statusTest = testModel.Steps.FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
-                string ruc = testModel.CompanyData?.Ruc?.Trim() ?? string.Empty;
                 bool isComplete = statusTest?.IsComplete ?? false;
 
                 // Consultar el progreso del test
-                var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);      
-              
-                    // Guardar Test
-                    var test = new ProcesoTestBE
-                    {
-                        ID = procesoTest.Count > 0 ? procesoTest.FirstOrDefault().ID : 0,
-                        Eval_RUC = ruc,
-                        Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,
-                        Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
-                    };
-                if(procesoTest.Count == 0) 
-
-                    tasks.Add(_testDA.InsertarProgresoTestAsync(test));
-
-                else
-                    tasks.Add(_testDA.ActualizarProgresoTestAsync(test));
-
-
-                //2. Guardar Preguntas y respuesta seleccionada
-
-
-                if (testModel.ActiveTest?.Elements?.Any() == true)
+                var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
+                var testExistente = procesoTest.FirstOrDefault();
+                
+                // Guardar o actualizar el progreso del Test
+                var test = new ProcesoTestBE
                 {
-                    foreach (var item in testModel.ActiveTest.Elements)
-                    {
-                        if (item?.SelectAnswers?.Any() == true)
-                        {
-                            foreach (var item2 in item.SelectAnswers)
-                            {
-                                var respuestaSelect = new RespuestaSeleccionadaBE
-                                {
-                                    ID = item2.ID ?? 0,
-                                    Preg_ID = item.ID ?? 0,
-                                    Eval_RUC = ruc,
-                                    Rsel_TextoRespuesta = item2?.Input ?? string.Empty, // Evita nulos en Input
-                                    Resp_ID = item2?.Resp_ID
-                                };
-                                if (respuestaSelect.ID == 0 || respuestaSelect.ID == null)                              
-                                    tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
-                                else
-                                    tasks.Add(_testDA.ActualizarRespuestaSelectTestAsync(respuestaSelect));
+                    ID = testExistente?.ID ?? 0,
+                    Eval_RUC = ruc,
+                    Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,
+                    Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
+                };
 
-                            }
-                        }
+                tasks.Add(test.ID == 0
+                    ? _testDA.InsertarProgresoTestAsync(test)
+                    : _testDA.ActualizarProgresoTestAsync(test));
+           
+
+                // Guardar Preguntas y Respuestas
+                foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
+                {
+                    foreach (var respuesta in elemento.SelectAnswers ?? Enumerable.Empty<SelectAnswer>())
+                    {
+                        var respuestaSelect = new RespuestaSeleccionadaBE
+                        {
+                            ID = respuesta.ID ?? 0,
+                            Preg_ID = elemento.ID ?? 0,
+                            Eval_RUC = ruc,
+                            Rsel_TextoRespuesta = respuesta.Input ?? string.Empty,
+                            Resp_ID = respuesta.Resp_ID
+                        };
+
+                        tasks.Add(respuestaSelect.ID == 0
+                            ? _testDA.InsertarRespuestaSelectTestAsync(respuestaSelect)
+                            : _testDA.ActualizarRespuestaSelectTestAsync(respuestaSelect));
                     }
                 }
 
                 //3. Guardar Datos Generales
-                if (testModel.CompanyData != null && testModel.CompanyData.LegalName != null)
+                // Guardar Datos Generales
+                if (testModel.CompanyData?.LegalName is not null)
                 {
                     var datos = new EvaluadoBE
                     {
-                        ID = testModel.CompanyData.ID, 
+                        ID = testModel.CompanyData.ID,
                         RazonSocial = testModel.CompanyData.LegalName,
-                        NombresApellidos  = testModel.CompanyData.FullName,
+                        NombresApellidos = testModel.CompanyData.FullName,
                         NombreComercial = testModel.CompanyData.TradeName,
                         Ruc = testModel.CompanyData.Ruc,
-                        Region = testModel.CompanyData.Region ,
-                        Provincia = testModel.CompanyData.Province ,
-                        Telefono = testModel.CompanyData.Phone ,
-                        CorreoElectronico = testModel.CompanyData.Email ,
+                        Region = testModel.CompanyData.Region,
+                        Provincia = testModel.CompanyData.Province,
+                        Telefono = testModel.CompanyData.Phone,
+                        CorreoElectronico = testModel.CompanyData.Email,
                         FechaInicioActividades = testModel.CompanyData.StartDate,
                         TipoPersoneria = testModel.CompanyData.LegalEntityType,
                         TipoEmpresa = testModel.CompanyData.CompanyType,
                         TipoPrestadorServiciosTuristicos = testModel.CompanyData.TourismServiceProviderType,
                         ActividadEconomica = testModel.CompanyData.BusinessActivity,
                         TelefonoFijo = testModel.CompanyData.Landline,
-                        PaginaWeb  = testModel.CompanyData.Website,
+                        PaginaWeb = testModel.CompanyData.Website,
                         TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
-                    if (datos.ID == 0 || datos.ID == null)
-                        tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
-                    else
-                        tasks.Add(_testDA.ActualizarDatosGeneralesTestAsync(datos));
 
+                    tasks.Add(datos.ID == 0
+                        ? _testDA.InsertarDatosGeneralesTestAsync(datos)
+                        : _testDA.ActualizarDatosGeneralesTestAsync(datos));
                 }
 
 
@@ -730,6 +793,77 @@ namespace PROMPERU.BL
             {
                 throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
             }
+        }
+        private async Task<TestResponseDto> ConstruirNuevoTest(string ruc, Evaluated evaluado)
+        {
+            var steps = await ObtenerPasosInscripcion();
+            var activeTest = await ObtenerTestPorIdAsync(steps[0].Id);
+
+            return new TestResponseDto
+            {
+                Success = true,
+                Message = "Validaciones completadas. Iniciando Test de Diagnóstico.",
+                Test = new
+                {
+                    Steps = steps,
+                    ActiveTest = activeTest,
+                    CompanyData = evaluado
+                }
+            };
+        }
+
+        private async Task<TestResponseDto> ConstruirTestEnCurso(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
+      Evaluated datos, IEnumerable<Step> stepsProgress)
+        {
+            var response = new TestResponseDto { Success = true };
+
+            var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC);
+            var activeTestProgress = await ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
+
+            foreach (var element in activeTestProgress.Elements)
+            {
+                element.SelectAnswers = respuestaTest
+                    .Where(r => r.Preg_ID == element.ID)
+                    .Select(r => new SelectAnswer { ID = r.ID ?? 0, Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
+                    .ToList();
+            }
+
+            response.Message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}";
+            response.Test = new
+            {
+                Steps = stepsProgress,
+                ActiveTest = activeTestProgress,
+                CompanyData = datos
+            };
+
+            return response;
+        }
+
+        private async Task<TestResponseDto> ConstruirTestCompleto(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
+Evaluated datos, IEnumerable<Step> stepsProgress)
+        {
+            var response = new TestResponseDto { Success = true };
+
+            var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC);
+            var activeTestProgress = await ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
+
+            foreach (var element in activeTestProgress.Elements)
+            {
+                element.SelectAnswers = respuestaTest
+                    .Where(r => r.Preg_ID == element.ID)
+                    .Select(r => new SelectAnswer { ID = r.ID ?? 0, Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
+                    .ToList();
+            }
+
+            response.Message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}";
+            response.Test = new
+            {
+                Steps = stepsProgress,
+                ActiveTest = activeTestProgress,
+                CompanyData = datos
+            };
+
+            return response;
         }
     }
 }

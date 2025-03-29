@@ -48,4 +48,12 @@ namespace PROMPERU.BL.Dtos
         public string TourismBusinessType { get; set; } // Tipo de empresa turística
         public string LodgingCategory { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje     
     }
+    public class TestResponseDto
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public object Test { get; set; }
+        public Dictionary<string, bool> Validations { get; set; } = new();
+    }
+
 }
