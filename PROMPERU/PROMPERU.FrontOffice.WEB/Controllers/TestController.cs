@@ -146,7 +146,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
                         }
 
-                        var test1 = new TestModelRequestDto
+                        test = new TestModelResponseDto
                         {
                             Steps = stepsProgress.Select(step => new Step
                             {
@@ -186,7 +186,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                 Instructions = activeTestProgress.Instructions
                             },
                        
-                            CompanyData = datos.Select(c => new GeneralData
+                            CompanyData = datos.Select(c => new Evaluated
                             {
                                 ID = c.ID,
                                 LegalName = c.RazonSocial,
@@ -225,7 +225,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                         {
                             success = true,
                             message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}",
-                            test1
+                            test
                         });
                     }
 
