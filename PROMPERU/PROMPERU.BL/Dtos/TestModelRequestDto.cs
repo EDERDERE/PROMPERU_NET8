@@ -11,15 +11,16 @@ namespace PROMPERU.BL.Dtos
     {
         public List<Step> Steps { get; set; }
         public ActiveTest ActiveTest { get; set; }
-        public GeneralData? CompanyData { get; set; }
+        public Evaluated? CompanyData { get; set; }
         public Registration? Registration { get; set; }
         public TitularRepresentative? TitularRepresentative { get; set; }
     }
 
     public class SelectAnswer
     {
+        public int? ID { get; set; }
         public string? Input { get; set; }
-        public int? Id { get; set; }
+        public int? Resp_ID { get; set; }
     }
 
 
@@ -47,28 +48,6 @@ namespace PROMPERU.BL.Dtos
         public Course Course { get; set; }        
     }
 
-    public class GeneralData
-    {
-        public int? ID { get; set; }
-        public string LegalName { get; set; } // Razón Social
-        public string FullName { get; set; } // Nombres y Apellidos
-        public string TradeName { get; set; } // Nombre Comercial
-        public string Ruc { get; set; } // RUC
-        public string Region { get; set; } // Región
-        public string Province { get; set; } // Provincia
-        public string PhoneNumber { get; set; } // Teléfono
-        public string Email { get; set; } // Correo Electrónico
-        public string Address { get; set; } // Dirección FIscal
-        public DateTime? StartDate { get; set; } // Fecha de inicio de actividades
-        public string LegalEntityType { get; set; } // Tipo de Personería
-        public string CompanyType { get; set; } // Tipo de Empresa
-        public string TourismServiceProviderType { get; set; } // Tipo de prestador de servicios turísticos
-        public string BusinessActivity { get; set; } // Objeto social / Actividad económica
-        public string Landline { get; set; } // Teléfono fijo
-        public string Website { get; set; } // Página web
-        public string TourismBusinessType { get; set; } // Tipo de empresa turística
-        public string LodgingCategory { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje     
-    }
     public class Registration
     {
         // Información de inscripción

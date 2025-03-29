@@ -35,7 +35,7 @@ namespace PROMPERU.BL.Dtos
         public string Ruc { get; set; } // RUC
         public string Region { get; set; } // Región
         public string Province { get; set; } // Provincia
-        public string PhoneNumber { get; set; } // Teléfono
+        public string Phone { get; set; } // Teléfono
         public string Email { get; set; } // Correo Electrónico
         public string Address { get; set; } // Dirección FIscal
         public DateTime? StartDate { get; set; } // Fecha de inicio de actividades

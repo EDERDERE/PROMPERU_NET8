@@ -578,7 +578,7 @@ namespace PROMPERU.BL
                     Ruc = ruc,
                     LegalName = ObtenerValorPropiedad(evaluatedData, "razon", "RazonSocial"),
                     TradeName = ObtenerValorPropiedad(evaluatedData, "nombrecomercial", "NombreComercial"),
-                    PhoneNumber = ObtenerValorPropiedad(evaluatedData, "Telefono"),
+                    Phone = ObtenerValorPropiedad(evaluatedData, "Telefono"),
                     Email = ObtenerValorPropiedad(evaluatedData, "Correo"),
                     Address = ObtenerValorPropiedad(evaluatedData, "direccionfiscal"),
                     Region = ObtenerValorPropiedad(evaluatedData, "Region"),
@@ -642,13 +642,17 @@ namespace PROMPERU.BL
                             {
                                 var respuestaSelect = new RespuestaSeleccionadaBE
                                 {
+                                    ID = item2.ID ?? 0,
                                     Preg_ID = item.ID ?? 0,
                                     Eval_RUC = ruc,
                                     Rsel_TextoRespuesta = item2?.Input ?? string.Empty, // Evita nulos en Input
-                                    Resp_ID = item2?.Id
+                                    Resp_ID = item2?.Resp_ID
                                 };
+                                if (respuestaSelect.ID == 0 || respuestaSelect.ID == null)                              
+                                    tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
+                                else
+                                    tasks.Add(_testDA.ActualizarRespuestaSelectTestAsync(respuestaSelect));
 
-                                tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
                             }
                         }
                     }
@@ -666,7 +670,7 @@ namespace PROMPERU.BL
                         Ruc = testModel.CompanyData.Ruc,
                         Region = testModel.CompanyData.Region ,
                         Provincia = testModel.CompanyData.Province ,
-                        Telefono = testModel.CompanyData.PhoneNumber ,
+                        Telefono = testModel.CompanyData.Phone ,
                         CorreoElectronico = testModel.CompanyData.Email ,
                         FechaInicioActividades = testModel.CompanyData.StartDate,
                         TipoPersoneria = testModel.CompanyData.LegalEntityType,
@@ -678,7 +682,7 @@ namespace PROMPERU.BL
                         TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
-                    if (datos.ID > 0 || datos.ID == null)
+                    if (datos.ID == 0 || datos.ID == null)
                         tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
                     else
                         tasks.Add(_testDA.ActualizarDatosGeneralesTestAsync(datos));

@@ -72,6 +72,7 @@ namespace PROMPERU.DA
                     };
 
                 // Parámetros del procedimiento almacenado
+                    comando.Parameters.AddWithValue("@Ieva_ID", test.ID);
                     comando.Parameters.AddWithValue("@Eval_RUC", test.Eval_RUC);
                     comando.Parameters.AddWithValue("@Insc_ID", test.Insc_ID);
                     comando.Parameters.AddWithValue("@Ieva_Estado", test.Ieva_Estado);
@@ -113,10 +114,10 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Insc_ID", rSel.Preg_ID);
-                comando.Parameters.AddWithValue("@Preg_NumeroTest", rSel.Eval_RUC);
-                comando.Parameters.AddWithValue("@Preg_TextoTest", rSel.Rsel_TextoRespuesta);
-                comando.Parameters.AddWithValue("@Preg_EsComputable", rSel.Resp_ID);           
+                comando.Parameters.AddWithValue("@Preg_ID", rSel.Preg_ID);
+                comando.Parameters.AddWithValue("@Eval_RUC", rSel.Eval_RUC);
+                comando.Parameters.AddWithValue("@Rsel_TextoRespuesta", rSel.Rsel_TextoRespuesta);
+                comando.Parameters.AddWithValue("@Resp_ID", rSel.Resp_ID);           
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -129,6 +130,45 @@ namespace PROMPERU.DA
                 await transaction.CommitAsync(); // Confirma la transacción
 
                 return (int)outNuevoID.Value;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
+            }
+        }
+        public async Task<int> ActualizarRespuestaSelectTestAsync(RespuestaSeleccionadaBE rSel)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
+
+            try
+            {
+                await using var comando = new SqlCommand("USP_RespuestaSeleccionada_UPD", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Preg_ID", rSel.Preg_ID);
+                comando.Parameters.AddWithValue("@Eval_RUC", rSel.Eval_RUC);
+                comando.Parameters.AddWithValue("@Rsel_TextoRespuesta", rSel.Rsel_TextoRespuesta);
+                comando.Parameters.AddWithValue("@Resp_ID", rSel.Resp_ID);
+
+               
+                var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                if (filasAfectadas > 0)
+                {
+                   // Confirmar la transacción
+                    await transaction.CommitAsync();
+                }
+                else
+                {
+                    // Si no se afecta ninguna fila, deshacer la transacción
+                    await transaction.RollbackAsync();
+                }
+
+                return filasAfectadas;
             }
             catch (Exception ex)
             {
@@ -322,6 +362,7 @@ namespace PROMPERU.DA
                 {
                     Tests.Add(new RespuestaSeleccionadaBE
                     {
+                        ID = reader["Rsel_ID"] != DBNull.Value ? Convert.ToInt32(reader["Rsel_ID"]) : 0,
                         Preg_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Preg_ID"]) : 0,
                         Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
                         Rsel_TextoRespuesta = reader["Rsel_TextoRespuesta"] != DBNull.Value ? reader["Rsel_TextoRespuesta"].ToString() : "",

@@ -68,7 +68,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                             Ruc = item.Ruc,
                             Region = item.Region,
                             Province = item.Provincia,
-                            PhoneNumber = item.Telefono,
+                            Phone = item.Telefono,
                             Email = item.CorreoElectronico,
                             StartDate = item.FechaInicioActividades,
                             LegalEntityType = item.TipoPersoneria,
@@ -139,7 +139,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                 element.SelectAnswers = respuestasFiltradas
                                     .Select(r => new SelectAnswer
                                     {
-                                        Id = r.Resp_ID > 0 ? r.Resp_ID : null,  // Asegurar que no asigne 0 si es incorrecto
+                                        ID = r.ID ?? 0,
+                                        Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null,  // Asegurar que no asigne 0 si es incorrecto
                                         Input = !string.IsNullOrEmpty(r.Rsel_TextoRespuesta) ? r.Rsel_TextoRespuesta : ""
                                     }).ToList();
                             }
@@ -195,7 +196,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                                 Ruc = c.Ruc,
                                 Region = c.Region,
                                 Province =c.Provincia,
-                                PhoneNumber = c.Telefono,
+                                Phone = c.Telefono,
                                 Email = c.CorreoElectronico,
                                 StartDate = c.FechaInicioActividades,
                                 LegalEntityType = c.TipoPersoneria,
