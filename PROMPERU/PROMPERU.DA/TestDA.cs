@@ -530,5 +530,44 @@ namespace PROMPERU.DA
             }
         }
 
+        public async Task<List<ProcesoCursoBE>> ObtenerProgresoCursoTestAsync(string ruc , int id)
+        {
+            try
+            {
+                var test = new List<ProcesoCursoBE>();
+
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+                await using var comando = new SqlCommand("USP_ProcesoCurso_SEL", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                await using var reader = await comando.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    test.Add(new ProcesoCursoBE
+                    {
+                        ID = Convert.ToInt32(reader["Preg_ID"]),
+                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
+                        Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
+                        Curs_CodigoCurso = reader["Curs_CodigoCurso"] != DBNull.Value ? reader["Curs_CodigoCurso"].ToString() : "",
+                        //Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),
+                        //Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
+                        //Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
+                        //Preg_Etiqueta = reader["Preg_Etiqueta"] != DBNull.Value ? reader["Preg_Etiqueta"].ToString() : "",
+                        //Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
+                        //Preg_Categoria = reader["Preg_Categoria"].ToString()
+                    });
+                }
+
+                return test;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los progreso curso", ex);
+            }
+        }
+
     }
 }

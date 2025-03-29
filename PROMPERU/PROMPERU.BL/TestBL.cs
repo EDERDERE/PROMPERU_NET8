@@ -839,13 +839,14 @@ namespace PROMPERU.BL
             return response;
         }
 
-        private async Task<TestResponseDto> ConstruirTestCompleto(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
+        private async Task<TestResponseDto> ConstruirTestCompleto(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testCompleto,
 Evaluated datos, IEnumerable<Step> stepsProgress)
         {
             var response = new TestResponseDto { Success = true };
 
-            var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC);
-            var activeTestProgress = await ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
+            var respuestaTest = await ListarRespuestaSelectTestsAsync(testCompleto.Eval_RUC);
+            var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
+            var progresoCurso =     await _testDA.ObtenerProgresoCursoTestAsync(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
             foreach (var element in activeTestProgress.Elements)
             {
@@ -855,7 +856,7 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
                     .ToList();
             }
 
-            response.Message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}";
+            response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
             response.Test = new
             {
                 Steps = stepsProgress,
