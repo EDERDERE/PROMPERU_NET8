@@ -1,6 +1,6 @@
 ﻿namespace PROMPERU.BE
 {
-    public class DatosGeneralesBE
+    public class EvaluadoBE
     {
         public int? ID { get; set; } // id
         public string RazonSocial { get; set; } // Razón Social

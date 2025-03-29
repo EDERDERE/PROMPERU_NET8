@@ -55,11 +55,11 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
                     var datos = await _testBL.ListarDatosGeneralesTestAsync(ruc);
 
-                    var generalDataList = new List<GeneralData>();
+                    var generalDataList = new List<Evaluated>();
 
                     foreach (var item in datos)
                     {
-                        var companyData = new GeneralData
+                        var companyData = new Evaluated
                         {
                             ID = item.ID,
                             LegalName = item.RazonSocial,
@@ -122,24 +122,28 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
                         // Agregar respuestas seleccionadas a las preguntas existentes en el test
                         // Recorrer cada pregunta en el test
-                        foreach (var element in activeTestProgress.Elements)
+                        if (respuestaTest.Count > 0)
                         {
-                            var respuestasFiltradas = respuestaTest
-                                .Where(r => r.Preg_ID == element.ID)
-                                .ToList();
-
-                            // Depuración: Verificar si se encontraron respuestas para la pregunta
-                            if (!respuestasFiltradas.Any())
+                            foreach (var element in activeTestProgress.Elements)
                             {
-                                Console.WriteLine($"No hay respuestas para la Preg_ID: {element.ID}");
+                                var respuestasFiltradas = respuestaTest
+                                    .Where(r => r.Preg_ID == element.ID)
+                                    .ToList();
+
+                                // Depuración: Verificar si se encontraron respuestas para la pregunta
+                                if (!respuestasFiltradas.Any())
+                                {
+                                    Console.WriteLine($"No hay respuestas para la Preg_ID: {element.ID}");
+                                }
+
+                                element.SelectAnswers = respuestasFiltradas
+                                    .Select(r => new SelectAnswer
+                                    {
+                                        Id = r.Resp_ID > 0 ? r.Resp_ID : null,  // Asegurar que no asigne 0 si es incorrecto
+                                        Input = !string.IsNullOrEmpty(r.Rsel_TextoRespuesta) ? r.Rsel_TextoRespuesta : ""
+                                    }).ToList();
                             }
 
-                            element.SelectAnswers = respuestasFiltradas
-                                .Select(r => new SelectAnswer
-                                {
-                                    Id = r.Resp_ID > 0 ? r.Resp_ID : null,  // Asegurar que no asigne 0 si es incorrecto
-                                    Input = !string.IsNullOrEmpty(r.Rsel_TextoRespuesta) ? r.Rsel_TextoRespuesta : ""
-                                }).ToList();
                         }
 
                         var test1 = new TestModelRequestDto

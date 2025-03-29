@@ -657,7 +657,7 @@ namespace PROMPERU.BL
                 //3. Guardar Datos Generales
                 if (testModel.CompanyData != null && testModel.CompanyData.LegalName != null)
                 {
-                    var datos = new DatosGeneralesBE
+                    var datos = new EvaluadoBE
                     {
                         ID = testModel.CompanyData.ID, 
                         RazonSocial = testModel.CompanyData.LegalName,
@@ -678,10 +678,14 @@ namespace PROMPERU.BL
                         TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
-                    tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
+                    if (datos.ID > 0 || datos.ID == null)
+                        tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
+                    else
+                        tasks.Add(_testDA.ActualizarDatosGeneralesTestAsync(datos));
+
                 }
 
-              
+
                 //4. Guardar Inscripcion
                 //5. Guardar Malla Curricular
                 //6. Guardar Logica de Cursos
@@ -711,7 +715,7 @@ namespace PROMPERU.BL
             }
         }
 
-        public async Task<List<DatosGeneralesBE>> ListarDatosGeneralesTestAsync(string ruc)
+        public async Task<List<EvaluadoBE>> ListarDatosGeneralesTestAsync(string ruc)
         {
             try
             {

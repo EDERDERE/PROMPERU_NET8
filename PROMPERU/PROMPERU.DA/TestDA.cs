@@ -336,7 +336,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los Tests", ex);
             }
         }
-        public async Task<int> InsertarDatosGeneralesTestAsync(DatosGeneralesBE datos)
+        public async Task<int> InsertarDatosGeneralesTestAsync(EvaluadoBE datos)
         {
             await using var conexion = await _conexionDB.ObtenerConexionAsync();
             await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
@@ -348,23 +348,23 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
                                
-                comando.Parameters.AddWithValue("@Dgen_RazonSocial", datos.RazonSocial);
-                comando.Parameters.AddWithValue("@Dgen_NombresApellidos", datos.NombresApellidos);
-                comando.Parameters.AddWithValue("@Dgen_NombreComercial", datos.NombreComercial);
-                comando.Parameters.AddWithValue("@Dgen_Ruc", datos.Ruc);
-                comando.Parameters.AddWithValue("@Dgen_Region", datos.Region);
-                comando.Parameters.AddWithValue("@Dgen_Provincia", datos.Provincia);
-                comando.Parameters.AddWithValue("@Dgen_Telefono", datos.Telefono);
-                comando.Parameters.AddWithValue("@Dgen_CorreoElectronico", datos.CorreoElectronico);
-                comando.Parameters.AddWithValue("@Dgen_FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
-                comando.Parameters.AddWithValue("@Dgen_TipoPersoneria", datos.TipoPersoneria);
-                comando.Parameters.AddWithValue("@Dgen_TipoEmpresa", datos.TipoEmpresa);
-                comando.Parameters.AddWithValue("@Dgen_TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
-                comando.Parameters.AddWithValue("@Dgen_ActividadEconomica", datos.ActividadEconomica);
-                comando.Parameters.AddWithValue("@Dgen_TelefonoFijo", datos.TelefonoFijo);
-                comando.Parameters.AddWithValue("@Dgen_PaginaWeb", datos.PaginaWeb);
-                comando.Parameters.AddWithValue("@Dgen_TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
-                comando.Parameters.AddWithValue("@Dgen_CategoriaHospedaje", datos.CategoriaHospedaje);
+                comando.Parameters.AddWithValue("@Eval_RazonSocial", datos.RazonSocial);
+                comando.Parameters.AddWithValue("@Eval_NombresApellidos", datos.NombresApellidos);
+                comando.Parameters.AddWithValue("@Eval_NombreComercial", datos.NombreComercial);
+                comando.Parameters.AddWithValue("@Eval_Ruc", datos.Ruc);
+                comando.Parameters.AddWithValue("@Eval_Region", datos.Region);
+                comando.Parameters.AddWithValue("@Eval_Provincia", datos.Provincia);
+                comando.Parameters.AddWithValue("@Eval_Telefono", datos.Telefono);
+                comando.Parameters.AddWithValue("@Eval_CorreoElectronico", datos.CorreoElectronico);
+                comando.Parameters.AddWithValue("@Eval_FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@Eval_TipoPersoneria", datos.TipoPersoneria);
+                comando.Parameters.AddWithValue("@Eval_TipoEmpresa", datos.TipoEmpresa);
+                comando.Parameters.AddWithValue("@Eval_TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
+                comando.Parameters.AddWithValue("@Eval_ActividadEconomica", datos.ActividadEconomica);
+                comando.Parameters.AddWithValue("@Eval_TelefonoFijo", datos.TelefonoFijo);
+                comando.Parameters.AddWithValue("@Eval_PaginaWeb", datos.PaginaWeb);
+                comando.Parameters.AddWithValue("@Eval_TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
+                comando.Parameters.AddWithValue("@Eval_CategoriaHospedaje", datos.CategoriaHospedaje);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -385,11 +385,11 @@ namespace PROMPERU.DA
             }
         }
 
-        public async Task<List<DatosGeneralesBE>> ListarDatosGeneralesTestsAsync(string ruc)
+        public async Task<List<EvaluadoBE>> ListarDatosGeneralesTestsAsync(string ruc)
         {
             try
             {
-                var Tests = new List<DatosGeneralesBE>();
+                var Tests = new List<EvaluadoBE>();
 
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
                 await using var comando = new SqlCommand("USP_DatosGenerales_SEL", conexion)
@@ -397,32 +397,32 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Dgen_Ruc", ruc);
+                comando.Parameters.AddWithValue("@Eval_Ruc", ruc);
 
                 await using var reader = await comando.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
                 {
-                    Tests.Add(new DatosGeneralesBE
+                    Tests.Add(new EvaluadoBE
                     {
-                        ID = reader["Dgen_ID"] != DBNull.Value ? Convert.ToInt32(reader["Dgen_ID"]) : 0,
-                        RazonSocial = reader["Dgen_RazonSocial"] != DBNull.Value ? reader["Dgen_RazonSocial"].ToString() : "",                     
-                        NombresApellidos = reader["Dgen_NombresApellidos"] != DBNull.Value ? reader["Dgen_NombresApellidos"].ToString() : "",
-                        NombreComercial = reader["Dgen_NombreComercial"] != DBNull.Value ? reader["Dgen_NombreComercial"].ToString() : "",
-                        Ruc = reader["Dgen_Ruc"] != DBNull.Value ? reader["Dgen_Ruc"].ToString() : "",
-                        Region = reader["Dgen_Region"] != DBNull.Value ? reader["Dgen_Region"].ToString() : "",
-                        Provincia = reader["Dgen_Provincia"] != DBNull.Value ? reader["Dgen_Provincia"].ToString() : "",
-                        Telefono = reader["Dgen_Telefono"] != DBNull.Value ? reader["Dgen_Telefono"].ToString() : "",
-                        CorreoElectronico = reader["Dgen_CorreoElectronico"] != DBNull.Value ? reader["Dgen_CorreoElectronico"].ToString() : "",
-                        FechaInicioActividades = reader["Dgen_FechaInicioActividades"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Dgen_FechaInicioActividades"]),
-                        TipoPersoneria = reader["Dgen_TipoPersoneria"] != DBNull.Value ? reader["Dgen_TipoPersoneria"].ToString() : "",
-                        TipoEmpresa = reader["Dgen_TipoEmpresa"] != DBNull.Value ? reader["Dgen_TipoEmpresa"].ToString() : "",
-                        TipoPrestadorServiciosTuristicos = reader["Dgen_TipoPrestadorServiciosTuristicos"] != DBNull.Value ? reader["Dgen_TipoPrestadorServiciosTuristicos"].ToString() : "",
-                        ActividadEconomica = reader["Dgen_ActividadEconomica"] != DBNull.Value ? reader["Dgen_ActividadEconomica"].ToString() : "",
-                        TelefonoFijo = reader["Dgen_TelefonoFijo"] != DBNull.Value ? reader["Dgen_TelefonoFijo"].ToString() : "",
-                        PaginaWeb = reader["Dgen_PaginaWeb"] != DBNull.Value ? reader["Dgen_PaginaWeb"].ToString() : "",
-                        TipoEmpresaTuristica = reader["Dgen_TipoEmpresaTuristica"] != DBNull.Value ? reader["Dgen_TipoEmpresaTuristica"].ToString() : "",
-                        CategoriaHospedaje = reader["Dgen_CategoriaHospedaje"] != DBNull.Value ? reader["Dgen_CategoriaHospedaje"].ToString() : "",
+                        ID = reader["Eval_ID"] != DBNull.Value ? Convert.ToInt32(reader["Eval_ID"]) : 0,
+                        RazonSocial = reader["Eval_RazonSocial"] != DBNull.Value ? reader["Eval_RazonSocial"].ToString() : "",                     
+                        NombresApellidos = reader["Eval_NombresApellidos"] != DBNull.Value ? reader["Eval_NombresApellidos"].ToString() : "",
+                        NombreComercial = reader["Eval_NombreComercial"] != DBNull.Value ? reader["Eval_NombreComercial"].ToString() : "",
+                        Ruc = reader["Eval_Ruc"] != DBNull.Value ? reader["Eval_Ruc"].ToString() : "",
+                        Region = reader["Eval_Region"] != DBNull.Value ? reader["Eval_Region"].ToString() : "",
+                        Provincia = reader["Eval_Provincia"] != DBNull.Value ? reader["Eval_Provincia"].ToString() : "",
+                        Telefono = reader["Eval_Telefono"] != DBNull.Value ? reader["Eval_Telefono"].ToString() : "",
+                        CorreoElectronico = reader["Eval_CorreoElectronico"] != DBNull.Value ? reader["Eval_CorreoElectronico"].ToString() : "",
+                        FechaInicioActividades = reader["Eval_FechaInicioActividades"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Eval_FechaInicioActividades"]),
+                        TipoPersoneria = reader["Eval_TipoPersoneria"] != DBNull.Value ? reader["Eval_TipoPersoneria"].ToString() : "",
+                        TipoEmpresa = reader["Eval_TipoEmpresa"] != DBNull.Value ? reader["Eval_TipoEmpresa"].ToString() : "",
+                        TipoPrestadorServiciosTuristicos = reader["Eval_TipoPrestadorServiciosTuristicos"] != DBNull.Value ? reader["Eval_TipoPrestadorServiciosTuristicos"].ToString() : "",
+                        ActividadEconomica = reader["Eval_ActividadEconomica"] != DBNull.Value ? reader["Eval_ActividadEconomica"].ToString() : "",
+                        TelefonoFijo = reader["Eval_TelefonoFijo"] != DBNull.Value ? reader["Eval_TelefonoFijo"].ToString() : "",
+                        PaginaWeb = reader["Eval_PaginaWeb"] != DBNull.Value ? reader["Eval_PaginaWeb"].ToString() : "",
+                        TipoEmpresaTuristica = reader["Eval_TipoEmpresaTuristica"] != DBNull.Value ? reader["Eval_TipoEmpresaTuristica"].ToString() : "",
+                        CategoriaHospedaje = reader["Eval_CategoriaHospedaje"] != DBNull.Value ? reader["Eval_CategoriaHospedaje"].ToString() : "",
                         
                     });
                 }
@@ -432,6 +432,60 @@ namespace PROMPERU.DA
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los Tests", ex);
+            }
+        }
+
+        public async Task<int> ActualizarDatosGeneralesTestAsync(EvaluadoBE datos)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
+
+            try
+            {              
+                await using var comando = new SqlCommand("USP_DatosGenerales_UPD", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Eval_ID", datos.ID);
+                comando.Parameters.AddWithValue("@Eval_RazonSocial", datos.RazonSocial);
+                comando.Parameters.AddWithValue("@Eval_NombresApellidos", datos.NombresApellidos);
+                comando.Parameters.AddWithValue("@Eval_NombreComercial", datos.NombreComercial);
+                comando.Parameters.AddWithValue("@Eval_Ruc", datos.Ruc);
+                comando.Parameters.AddWithValue("@Eval_Region", datos.Region);
+                comando.Parameters.AddWithValue("@Eval_Provincia", datos.Provincia);
+                comando.Parameters.AddWithValue("@Eval_Telefono", datos.Telefono);
+                comando.Parameters.AddWithValue("@Eval_CorreoElectronico", datos.CorreoElectronico);
+                comando.Parameters.AddWithValue("@Eval_FechaInicioActividades", (object)datos.FechaInicioActividades ?? DBNull.Value);
+                comando.Parameters.AddWithValue("@Eval_TipoPersoneria", datos.TipoPersoneria);
+                comando.Parameters.AddWithValue("@Eval_TipoEmpresa", datos.TipoEmpresa);
+                comando.Parameters.AddWithValue("@Eval_TipoPrestadorServiciosTuristicos", datos.TipoPrestadorServiciosTuristicos);
+                comando.Parameters.AddWithValue("@Eval_ActividadEconomica", datos.ActividadEconomica);
+                comando.Parameters.AddWithValue("@Eval_TelefonoFijo", datos.TelefonoFijo);
+                comando.Parameters.AddWithValue("@Eval_PaginaWeb", datos.PaginaWeb);
+                comando.Parameters.AddWithValue("@Eval_TipoEmpresaTuristica", datos.TipoEmpresaTuristica);
+                comando.Parameters.AddWithValue("@Eval_CategoriaHospedaje", datos.CategoriaHospedaje);
+
+
+                var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                if (filasAfectadas > 0)
+                {           
+                    // Confirmar la transacción
+                    await transaction.CommitAsync();
+                }
+                else
+                {
+                    // Si no se afecta ninguna fila, deshacer la transacción
+                    await transaction.RollbackAsync();
+                }
+
+                return filasAfectadas;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
             }
         }
 
