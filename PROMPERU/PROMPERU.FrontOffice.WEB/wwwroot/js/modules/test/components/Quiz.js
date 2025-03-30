@@ -16,16 +16,16 @@ const Quiz = (data) => {
     let currentTest = state.test.activeTest.elements[state.currentStep];
     if (data.answerType == "multipleChoice") {
       const currentOptions = currentTest?.selectAnswers || [];
-      if (currentOptions.includes(item => item.resp_id === id)) {
+      if (currentOptions.includes(id)) {
         currentTest.selectAnswers = currentOptions.filter(
-          (item) => item.resp_id !== id
+          (item) => item.id !== id
         );
       } else {
-        currentOptions.push({ resp_id: id });
+        currentOptions.push({  id });
         currentTest.selectAnswers = currentOptions;
       }
     } else {
-      currentTest.selectAnswers = [{ resp_id: id }];
+      currentTest.selectAnswers = [{ id }];
     }
     store.setState({ test: state.test });
   };
