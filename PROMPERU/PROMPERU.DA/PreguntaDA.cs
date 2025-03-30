@@ -179,12 +179,12 @@ namespace PROMPERU.DA
                 {
                     preguntas.Add(new PreguntaBE
                     {
-                        ID = Convert.ToInt32(reader["Preg_ID"]),
-                        Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
+                        ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Preg_ID"]) : 0,
+                        Insc_ID = reader["Insc_ID"] != DBNull.Value ? Convert.ToInt32(reader["Insc_ID"]) : 0,
                         Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
                         Curs_Nombre_Curso = reader["Curs_Nombre_Curso"] != DBNull.Value ? reader["Curs_Nombre_Curso"].ToString() : "",
-                        Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),               
-                        Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
+                        Preg_NumeroPregunta = reader["Preg_NumeroPregunta"] != DBNull.Value ? Convert.ToInt32(reader["Preg_NumeroPregunta"]) : 0,               
+                        Preg_TextoPregunta = reader["Preg_TextoPregunta"] != DBNull.Value ? reader["Preg_TextoPregunta"].ToString() : "",
                         Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
                         Preg_Etiqueta = reader["Preg_Etiqueta"] != DBNull.Value ? reader["Preg_Etiqueta"].ToString() : "",
                         Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
