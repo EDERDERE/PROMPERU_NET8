@@ -727,7 +727,7 @@ namespace PROMPERU.BL
                 {
                     var datos = new EvaluadoBE
                     {
-                        ID = testModel.CompanyData.ID,
+                        ID = testModel.CompanyData.ID ?? 0,
                         RazonSocial = testModel.CompanyData.LegalName,
                         NombresApellidos = testModel.CompanyData.FullName,
                         NombreComercial = testModel.CompanyData.TradeName,
