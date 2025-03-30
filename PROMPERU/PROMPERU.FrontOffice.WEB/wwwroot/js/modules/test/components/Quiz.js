@@ -16,7 +16,7 @@ const Quiz = (data) => {
     let currentTest = state.test.activeTest.elements[state.currentStep];
     if (data.answerType == "multipleChoice") {
       const currentOptions = currentTest?.selectAnswers || [];
-      if (currentOptions.includes(id)) {
+      if (currentOptions.includes(item => item.resp_id === id)) {
         currentTest.selectAnswers = currentOptions.filter(
           (item) => item.resp_id !== id
         );

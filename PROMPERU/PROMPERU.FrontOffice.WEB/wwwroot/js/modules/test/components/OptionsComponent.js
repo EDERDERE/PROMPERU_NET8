@@ -3,7 +3,7 @@ export function OptionsComponent({ answers, selectAnswers }) {
   return answers
     .map((item, index) => {
       const selected =
-        selectAnswers && selectAnswers.find((answer) => answer.id == item.id)
+        selectAnswers && selectAnswers.find((answer) => answer.resp_id == item.id)
           ? "selected"
           : "";
       return `
