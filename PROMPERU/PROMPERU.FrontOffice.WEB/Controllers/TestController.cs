@@ -64,7 +64,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                 
 
         [HttpPost]
-        public async Task<IActionResult> GuardarProgresoTest(TestModelRequestDto testModel)
+        public async Task<IActionResult> GuardarProgresoTest([FromBody]TestModelRequestDto testModel)
         {
             try
             {
