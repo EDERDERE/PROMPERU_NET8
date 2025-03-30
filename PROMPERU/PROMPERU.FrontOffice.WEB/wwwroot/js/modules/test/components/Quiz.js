@@ -18,14 +18,14 @@ const Quiz = (data) => {
       const currentOptions = currentTest?.selectAnswers || [];
       if (currentOptions.includes(id)) {
         currentTest.selectAnswers = currentOptions.filter(
-          (item) => item.id !== id
+          (item) => item.resp_id !== id
         );
       } else {
-        currentOptions.push({ id });
+        currentOptions.push({ resp_id: id });
         currentTest.selectAnswers = currentOptions;
       }
     } else {
-      currentTest.selectAnswers = [{ id }];
+      currentTest.selectAnswers = [{ resp_id: id }];
     }
     store.setState({ test: state.test });
   };
