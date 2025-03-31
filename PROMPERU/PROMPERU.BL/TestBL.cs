@@ -957,20 +957,39 @@ Evaluated datos, IEnumerable<Step> stepsProgress,string WebRootPath)
                 GlobalSettings = new GlobalSettings()
                 {
                     ColorMode = ColorMode.Color,
-                    Orientation = DinkToPdf.Orientation.Portrait,
+                    Orientation = Orientation.Portrait,
                     PaperSize = PaperKind.A4
                 },
-                Objects = { new ObjectSettings() { HtmlContent = html } }
+                Objects =
+                    {
+                        new ObjectSettings()
+                        {
+                            HtmlContent = html,
+                            WebSettings = { DefaultEncoding = "utf-8" },
+                            UseLocalLinks = true
+                        }
+                    }
             };
+            try
+            {
+                // 📌 Convertir HTML a PDF en memoria
+                byte[] pdfBytes = converter.Convert(pdfDoc);
 
-            // 📌 Convertir HTML a PDF en memoria
-            byte[] pdfBytes = converter.Convert(pdfDoc);
 
-            // 📌 Guardar el PDF en el sistema de archivos
-            File.WriteAllBytes(rutaArchivo, pdfBytes);
+                // 📌 Guardar el PDF en el sistema de archivos
+                File.WriteAllBytes(rutaArchivo, pdfBytes);
 
-            // 📌 Retornar la ruta y los bytes del PDF
-            return (rutaArchivo, pdfBytes);
+                // 📌 Retornar la ruta y los bytes del PDF
+                return (rutaArchivo, pdfBytes);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("ERRO PDF", ex);
+            }  
+      
+
+
         }
 
 

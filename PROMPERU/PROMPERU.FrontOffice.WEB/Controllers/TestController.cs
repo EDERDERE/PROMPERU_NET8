@@ -47,14 +47,14 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
 
                 if (!resultado.Success)
                 {
-                    return BadRequest(new { success = false, message = resultado.Message, validations = resultado.Validations });
+                    return BadRequest(new { success = false, message = resultado.Message, validations = resultado.Validations});
                 }
 
                 return Ok(new
                 {
                     success = true,
                     message = resultado.Message,
-                    test = resultado.Test
+                    test = resultado.Test                  
                 });
             }
             catch (Exception ex)

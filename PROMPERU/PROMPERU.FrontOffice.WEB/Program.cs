@@ -8,6 +8,7 @@ using PROMPERU.DB;
 using Serilog;
 using ServiceExterno;
 using PROMPERU.FrontOffice.WEB.Helpers;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -115,14 +116,11 @@ builder.Services.AddScoped<RespuestaDA>();
 
 // Ruta personalizada para wkhtmltopdf.exe
 var context = new CustomAssemblyLoadContext();
-context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "bin", "wkhtmltopdf", "wkhtmltox.dll"));
+context.LoadUnmanagedLibrary(Path.Combine(AppContext.BaseDirectory, "wkhtmltopdf", "libwkhtmltox.dll"));
+// Registrar DinkToPdf como servicio
+builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
-
-// Registrar DinkToPdf como servicio
-builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
-
-
 
 var app = builder.Build();
 
