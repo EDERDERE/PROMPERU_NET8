@@ -115,7 +115,7 @@ builder.Services.AddScoped<RespuestaDA>();
 
 // Ruta personalizada para wkhtmltopdf.exe
 var context = new CustomAssemblyLoadContext();
-context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "bin", "wkhtmltopdf", "libwkhtmltox.dll"));
+context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "bin", "wkhtmltopdf", "wkhtmltox.dll"));
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
 
