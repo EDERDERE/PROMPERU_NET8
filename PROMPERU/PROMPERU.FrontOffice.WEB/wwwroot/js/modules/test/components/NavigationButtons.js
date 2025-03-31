@@ -10,18 +10,16 @@ const NavigationButtons = (
   backText = "Anterior",
   nextText = "Siguiente"
 ) => {
-  const state = store.getState();
+  const disabledClass = store.getState().isSavingElement ? "d-none" : "";
 
-  const disabledClass = state.isSavingElement ? "d-none" : "";
-
-  const nextContent = state.isSavingElement
+  const nextContent = store.getState().isSavingElement
     ? `<div class="loading">
-        <span class="loader">
-        </span>
+        <span class="loader"></span>
       </div>`
     : `<span>${nextText}</span>`;
 
   const nextStep = async () => {
+    const state = store.getState();
     if (state.isSavingElement) return;
     if (!validateFormIfNeeded(state)) return;
 
@@ -55,6 +53,7 @@ const NavigationButtons = (
   };
 
   const prevStep = () => {
+    const state = store.getState();
     if (state.isSavingElement) return;
 
     const currentStep = state.currentStep;

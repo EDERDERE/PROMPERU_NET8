@@ -44,9 +44,7 @@ export default {
           label: "Nombre Comercial",
           placeholder: "Ingresa tu Nombre Comercial",
           required: true,
-          disabled: true,
           validation: {
-            pattern: NAME_REGEX,
             message: "Por favor, ingresa el Nombre Comercial",
           },
         },
