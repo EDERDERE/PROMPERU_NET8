@@ -834,27 +834,42 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
         {
             var response = new TestResponseDto { Success = true };
 
-            var respuestaTest = await ListarRespuestaSelectTestsAsync(testCompleto.Eval_RUC);
-            var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
+            //var respuestaTest = await ListarRespuestaSelectTestsAsync(testCompleto.Eval_RUC);
+            //var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
             var progresoCurso =     await _testDA.ObtenerProgresoCursoTestAsync(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
-            var cursoDesaproando = progresoCurso.FirstOrDefault(x => x.Ceva_Estado == "PENDIENTE");
-            var cursoAprobado = progresoCurso.FirstOrDefault(x => x.Ceva_Estado == "APROBADO");
+            var failedCourses = progresoCurso.Where(x => x.Ceva_Estado == "PENDIENTE").ToList();
+            var approvedCourses = progresoCurso.Where(x => x.Ceva_Estado == "APROBADO").ToList();
 
-            foreach (var element in activeTestProgress.Elements)
+            // Método para mapear la lista de cursos
+            List<ProcesoCursoDto> MapCourses(List<ProcesoCursoBE> courses)
             {
-                element.SelectAnswers = respuestaTest
-                    .Where(r => r.Preg_ID == element.ID)
-                    .Select(r => new SelectAnswer { ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
-                    .ToList();
+                return courses.Select(item => new ProcesoCursoDto
+                {
+                    ID = item.ID,
+                    RUC = item.Eval_RUC,
+                    Insc_ID = item.Insc_ID,
+                    CourseID = item.Curs_ID,
+                    CourseCode = item.Curs_CodigoCurso,
+                    CourseName = item.Curs_NombreCurso,
+                    CourseButtonLink = item.Curs_LinkBoton,
+                    EventType = item.TipoEvento,
+                    CourseStartDate = item.Cmod_FechaInicio,
+                    CourseEndDate = item.Cmod_FechaFin,
+                    IndividualScore = item.Ceva_PuntajeIndividual,
+                    GlobalScore = item.Ceva_PuntajeGlobal,
+                    Status = item.Ceva_Estado
+                }).ToList();
             }
 
             response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
             response.Test = new
             {
                 Steps = stepsProgress,
-                ActiveTest = activeTestProgress,
-                CompanyData = datos
+                //ActiveTest = activeTestProgress,
+                CompanyData = datos,
+                ApprovedCourses = MapCourses(approvedCourses),
+                FailedCourses = MapCourses(failedCourses)
             };
 
             return response;

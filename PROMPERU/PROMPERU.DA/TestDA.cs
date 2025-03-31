@@ -569,7 +569,7 @@ namespace PROMPERU.DA
             }
         }
 
-        public async Task<List<ProcesoCursoBE>> ObtenerProgresoCursoTestAsync(string ruc , int id)
+        public async Task<List<ProcesoCursoBE>> ObtenerProgresoCursoTestAsync(string ruc , int Insc_ID)
         {
             try
             {
@@ -581,22 +581,28 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
+                comando.Parameters.AddWithValue("@Eval_Ruc", ruc);
+                comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);
                 await using var reader = await comando.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
                 {
                     test.Add(new ProcesoCursoBE
-                    {
-                        ID = Convert.ToInt32(reader["Preg_ID"]),
+                    {                       
                         Insc_ID = Convert.ToInt32(reader["Insc_ID"]),
                         Curs_ID = reader["Curs_ID"] != DBNull.Value ? Convert.ToInt32(reader["Curs_ID"]) : 0,
                         Curs_CodigoCurso = reader["Curs_CodigoCurso"] != DBNull.Value ? reader["Curs_CodigoCurso"].ToString() : "",
-                        //Preg_NumeroPregunta = Convert.ToInt32(reader["Preg_NumeroPregunta"]),
-                        //Preg_TextoPregunta = reader["Preg_TextoPregunta"].ToString(),
-                        //Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
-                        //Preg_Etiqueta = reader["Preg_Etiqueta"] != DBNull.Value ? reader["Preg_Etiqueta"].ToString() : "",
-                        //Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
-                        //Preg_Categoria = reader["Preg_Categoria"].ToString()
+                        Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
+                        Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : "",
+                        TipoEvento = reader["Teve_Nombre"] != DBNull.Value ? reader["Teve_Nombre"].ToString() : "",
+                        Cmod_FechaInicio = reader["Cmod_FechaInicio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaInicio"]),
+                        Cmod_FechaFin = reader["Cmod_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaFin"]),
+                        Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
+                        Ceva_PuntajeIndividual = reader["Ceva_PuntajeIndividual"] != DBNull.Value ? Convert.ToDecimal(reader["Ceva_PuntajeIndividual"]) : 0,
+                        Ceva_PuntajeGlobal = reader["Ceva_PuntajeGlobal"] != DBNull.Value ? Convert.ToDecimal(reader["Ceva_PuntajeGlobal"]) : 0,
+                        Ceva_Estado = reader["Ceva_Estado"] != DBNull.Value ? reader["Ceva_Estado"].ToString() : "",
+
+
                     });
                 }
 
