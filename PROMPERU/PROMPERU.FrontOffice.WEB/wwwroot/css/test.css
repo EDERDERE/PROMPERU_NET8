@@ -386,6 +386,7 @@
 .button-disabled {
   opacity: 0.5;
   background-color: #ccc;
+  border-radius: 13px;
 }
 
 @media (max-width: 768px) {
@@ -393,7 +394,7 @@
     grid-template-columns: 1fr;
   }
   .steps-content {
-    flex-wrap: wrap;
+    flex-wrap: wrap;  
     justify-content: center;
   }
 }

@@ -10,9 +10,19 @@ const NavigationButtons = (
   backText = "Anterior",
   nextText = "Siguiente"
 ) => {
-  const nextStep = () => {
-    const state = store.getState();
+  const state = store.getState();
 
+  const disabledClass = state.isSavingElement ? "d-none" : "";
+
+  const nextContent = state.isSavingElement
+    ? `<div class="loading">
+        <span class="loader">
+        </span>
+      </div>`
+    : `<span>${nextText}</span>`;
+
+  const nextStep = async () => {
+    if (state.isSavingElement) return;
     if (!validateFormIfNeeded(state)) return;
 
     const { activeTest } = state.test || {};
@@ -22,7 +32,11 @@ const NavigationButtons = (
     const inInstructions = hasInstructions && typeof currentStep !== "number";
 
     if (!inInstructions) {
-      updateSaveTest();
+      const currentElement = activeTest.elements[currentStep];
+      if (currentElement) {
+        currentElement.isComplete = true;
+      }
+      await updateSaveTest();
     }
 
     store.setState({ previusStep: currentStep });
@@ -41,7 +55,8 @@ const NavigationButtons = (
   };
 
   const prevStep = () => {
-    const state = store.getState();
+    if (state.isSavingElement) return;
+
     const currentStep = state.currentStep;
     if (typeof currentStep === "number" && currentStep > 0) {
       store.setState({ currentStep: currentStep - 1 });
@@ -59,7 +74,7 @@ const NavigationButtons = (
         ${
           showBack
             ? `
-              <div class="text-decoration-none" data-event="prevStep">
+              <div class="text-decoration-none ${disabledClass}" data-event="prevStep">
                 <div class="button-outline d-flex align-items-center h-100">
                   <span>${backText}</span>
                 </div>
@@ -70,9 +85,9 @@ const NavigationButtons = (
         ${
           showNext
             ? `
-              <div class="text-decoration-none" data-event="nextStep">
+              <div class="text-decoration-none " data-event="nextStep">
                 <div class="button-test d-flex align-items-center">
-                  <span>${nextText}</span>
+                  ${nextContent}
                 </div>
               </div>
               `

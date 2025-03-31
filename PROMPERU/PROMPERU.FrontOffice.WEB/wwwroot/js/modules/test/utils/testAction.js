@@ -31,14 +31,13 @@ export async function updateSaveTest() {
     companyData,
   };
 
-  store.setState({ saveTest });
+  store.setState({ saveTest, isSavingElement: true });
 
-
-
-   try {
-     const response = await saveTestProgress(saveTest);
-     console.log("Progreso del test guardado correctamente:", response);
-   } catch (error) {
-     console.error("Error al guardar el progreso del test:", error);
-   }
+  try {
+    await saveTestProgress(saveTest);
+  } catch (error) {
+    console.error("Error al guardar el progreso del test:", error);
+  } finally {
+    store.setState({ isSavingElement: false });
+  }
 }

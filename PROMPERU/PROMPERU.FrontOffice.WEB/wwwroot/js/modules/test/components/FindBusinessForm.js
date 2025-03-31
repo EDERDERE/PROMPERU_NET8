@@ -20,8 +20,6 @@ const FindBusinessForm = () => {
     }
     store.setState({ loading: true });
 
-    console.log(store.getState());
-
     try {
       const companyData = await fetchCompanyData(ruc);
 

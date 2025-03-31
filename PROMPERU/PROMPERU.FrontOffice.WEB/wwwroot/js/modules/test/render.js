@@ -8,6 +8,7 @@ import { useState } from "./utils/useState.js";
 import Quiz from "./components/Quiz.js";
 import StepProgress from "./components/StepProgress.js";
 import form from "./forms/index.js";
+import { store } from "./state.js";
 
 const Render = (state) => {
   const component = useState("");
@@ -35,7 +36,18 @@ const Render = (state) => {
           NavigationButtons(false, true, "", instructions.buttonText)
       );
     } else {
-      const data = state.test?.activeTest?.elements[state.currentStep];
+      const elements = state.test.activeTest.elements;
+      let currentStep = state.currentStep;
+
+      const firstIncompleteIndex = elements.findIndex(
+        (element) => !element.isComplete
+      );
+
+      if (firstIncompleteIndex !== -1 && currentStep < firstIncompleteIndex) {
+        store.setState({ currentStep: firstIncompleteIndex });
+      }
+
+      const data = elements[currentStep];
       let title = data?.title || state.test?.activeTest?.testType.label;
 
       if (data?.type === "form") {
