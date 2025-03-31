@@ -390,6 +390,7 @@ namespace PROMPERU.BL
                             Label=p.Preg_Etiqueta,
                             Category = p.Preg_Categoria,
                             AnswerType = p.Preg_TipoRespuesta,
+                            IsComplete = p.Preg_EsCompletada,
                             Course = (bool)p.Preg_EsComputable ? new Course
                             {
                                 Value = p.Curs_ID,

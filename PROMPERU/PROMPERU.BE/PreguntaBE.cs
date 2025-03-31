@@ -12,5 +12,6 @@
         public string Preg_Categoria { get; set; }
         public int Curs_ID { get; set; }
         public string Curs_Nombre_Curso { get; set; }
+        public bool? Preg_EsCompletada { get; set; } 
     }
 }

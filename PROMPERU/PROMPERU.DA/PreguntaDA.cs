@@ -188,7 +188,9 @@ namespace PROMPERU.DA
                         Preg_EsComputable = Convert.ToBoolean(reader["Preg_EsComputable"]),
                         Preg_Etiqueta = reader["Preg_Etiqueta"] != DBNull.Value ? reader["Preg_Etiqueta"].ToString() : "",
                         Preg_TipoRespuesta = reader["Preg_TipoRespuesta"].ToString(),
-                        Preg_Categoria = reader["Preg_Categoria"].ToString()                   
+                        Preg_Categoria = reader["Preg_Categoria"].ToString()  ,
+                        Preg_EsCompletada = Convert.ToBoolean(reader["Preg_EsCompletada"]),
+
                     });
                 }
 
