@@ -1,19 +1,11 @@
-﻿using Azure;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System.Data;
+using System.Text;
+using System.Text.Json;
+using DinkToPdf;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
 using PROMPERU.DA;
 using ServiceExterno;
-using System.Collections.Generic;
-using System.Data;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Xml.Linq;
-using static PROMPERU.BE.MaestrosBE;
 
 namespace PROMPERU.BL
 {
@@ -31,9 +23,9 @@ namespace PROMPERU.BL
         private readonly InscripcionBL _inscripcionBL;
         private readonly SunatService _sunatService;
         private readonly TestDA _testDA;
-
+        private readonly EmailService _emailService; 
         // Constructor con inyección de dependencias
-        public TestBL(CursoDA cursoDA , InscripcionDA inscripcionDA, PortadaTestDA portadaTestDA, ContenidoTestDA contenidoTestDA, FormularioTestDA formularioTestDA, PreguntaDA preguntaDA, RespuestaDA respuestaDA, PreguntaCursoDA preguntaCursoDA, TestDA testDA, InscripcionBL inscripcionBL, SunatService sunatService)
+        public TestBL(CursoDA cursoDA , InscripcionDA inscripcionDA, PortadaTestDA portadaTestDA, ContenidoTestDA contenidoTestDA, FormularioTestDA formularioTestDA, PreguntaDA preguntaDA, RespuestaDA respuestaDA, PreguntaCursoDA preguntaCursoDA, TestDA testDA, InscripcionBL inscripcionBL, SunatService sunatService,EmailService emailService)
         {
             _cursoDA = cursoDA;
             _inscripcionDA = inscripcionDA;
@@ -47,6 +39,7 @@ namespace PROMPERU.BL
             _testDA = testDA;
             _inscripcionBL = inscripcionBL;
             _sunatService = sunatService;
+            _emailService = emailService;
         }
         public async Task<List<EtapaBE>> ListarTestAsync()
         {
@@ -587,7 +580,7 @@ namespace PROMPERU.BL
             }
             return string.Empty;
         }
-        public async Task<TestResponseDto> ConsultarRUCAsync(string ruc)
+        public async Task<TestResponseDto> ConsultarRUCAsync(string ruc, string WebRootPath)
         {
             var response = new TestResponseDto();
 
@@ -629,7 +622,7 @@ namespace PROMPERU.BL
                 }
                 else if (testCompleto != null)
                 {
-                    response =  await ConstruirTestCompleto(procesoTest, testCompleto, generalData, stepsProgress);
+                    response =  await ConstruirTestCompleto(procesoTest, testCompleto, generalData, stepsProgress, WebRootPath);
                     return response;
                 }
 
@@ -698,6 +691,9 @@ namespace PROMPERU.BL
                 // Guardar Preguntas y Respuestas
                 foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
                 {
+                    if (elemento.IsComplete == true && elemento.ID != null) // Actualiza la pregunta como activa
+                  tasks.Add(_testDA.ActualizarPreguntaActivaTestAsync(elemento.ID ?? 0));
+
                     foreach (var respuesta in elemento.SelectAnswers ?? Enumerable.Empty<SelectAnswer>())
                     {
                         var respuestaSelect = new RespuestaSeleccionadaBE
@@ -708,7 +704,7 @@ namespace PROMPERU.BL
                             Rsel_TextoRespuesta = respuesta.Input ?? string.Empty,
                             Resp_ID = respuesta.ID
                         };
-
+              
                         tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
                     }
                 }
@@ -830,7 +826,7 @@ namespace PROMPERU.BL
         }
 
         private async Task<TestResponseDto> ConstruirTestCompleto(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testCompleto,
-Evaluated datos, IEnumerable<Step> stepsProgress)
+Evaluated datos, IEnumerable<Step> stepsProgress,string WebRootPath)
         {
             var response = new TestResponseDto { Success = true };
 
@@ -838,7 +834,7 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
             //var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
             var progresoCurso =     await _testDA.ObtenerProgresoCursoTestAsync(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
-            var failedCourses = progresoCurso.Where(x => x.Ceva_Estado == "PENDIENTE").ToList();
+           var failedCourses = progresoCurso.Where(x => x.Ceva_Estado == "PENDIENTE").ToList();
             var approvedCourses = progresoCurso.Where(x => x.Ceva_Estado == "APROBADO").ToList();
 
             // Método para mapear la lista de cursos
@@ -862,6 +858,15 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
                 }).ToList();
             }
 
+
+            var html = GenerarHtml(MapCourses(approvedCourses), MapCourses(failedCourses), WebRootPath);
+            var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(datos.Ruc,html,WebRootPath);
+
+            // descomentar en PROD
+            //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
+
+            await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+
             response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
             response.Test = new
             {
@@ -869,10 +874,172 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
                 //ActiveTest = activeTestProgress,
                 CompanyData = datos,
                 ApprovedCourses = MapCourses(approvedCourses),
-                FailedCourses = MapCourses(failedCourses)
+                FailedCourses = MapCourses(failedCourses),
+                FilePath = rutaArchivoPdf
             };
 
             return response;
         }
+
+        private string GenerarHtml(List<ProcesoCursoDto> approvedCourses, List<ProcesoCursoDto> failedCourses, string WebRootPath)
+        {
+            // Ruta del archivo HTML
+            string filePath = Path.Combine(WebRootPath, "js", "modules", "test", "templates", "resumen", "resultados_test.html");
+
+            // Leer el archivo HTML
+            string htmlContent = System.IO.File.ReadAllText(filePath, Encoding.UTF8);
+
+            // Datos dinámicos
+            decimal CantidadCursosAprobados = approvedCourses.Count();
+            decimal CantidadTotalCursos = approvedCourses.Count() + failedCourses.Count();
+            decimal CantidadCursosDesaprobados = failedCourses.Count();
+
+            // Generar HTML dinámico para los cursos
+            StringBuilder ListaCursosAprobadosHtml = new StringBuilder();
+            StringBuilder ListaCursosDesaprobadosHtml = new StringBuilder();
+
+            foreach (var curso in approvedCourses)
+            {
+                ListaCursosAprobadosHtml.AppendLine($" <div class=\"d-flex align-items-center justify-content-center\">\r\n\t\t\t<div class=\"item css\">\r\n\t\t\t  <div class=\"content\">\r\n\t\t\t\t<h3>{curso.IndividualScore} de {curso.GlobalScore}</h3>\r\n\t\t\t\t<span>{curso.CourseName}</span>\r\n\t\t\t  </div>\r\n\t\t\t  <svg class=\"chart-svg\" width=\"200\" height=\"200\" xmlns=\"http://www.w3.org/2000/svg\">\r\n\t\t\t\t<circle class=\"circle_animation\" r=\"96\" cy=\"100\" cx=\"100\" stroke-width=\"8\" stroke=\"#69aff4\" fill=\"none\"\r\n\t\t\t\t  style=\"--percent: 25;\" />\r\n\t\t\t  </svg>\r\n\t\t\t</div>\r\n\t\t  </div>");
+            }
+
+            foreach (var curso in failedCourses)
+            {
+                ListaCursosDesaprobadosHtml.AppendLine($" <div class=\"card-custom\">\r\n\t\t\t<div class=\"d-flex align-items-center\">\r\n\t\t\t  <div class=\"circle\"></div>\r\n\t\t\t  <span>{curso.CourseName}</span>\r\n\t\t\t</div>\r\n\t\t  </div>");
+            }            
+
+
+            // Reemplazar placeholders con valores reales
+            htmlContent = htmlContent.Replace("{CantidadCursosAprobados}", CantidadCursosAprobados.ToString())
+                                     .Replace("{CantidadTotalCursos}", CantidadTotalCursos.ToString())
+                                     .Replace("{CantidadCursosDesaprobados}", CantidadCursosDesaprobados.ToString())
+                                     .Replace("{ListaCursosAprobados}", ListaCursosAprobadosHtml.ToString())
+                                     .Replace("{ListaCursosDesaprobados}", ListaCursosDesaprobadosHtml.ToString());
+            return htmlContent;
+        }
+
+        public byte[] ConvertirHtmlAPdf(string html)
+        {
+            var converter = new BasicConverter(new PdfTools());
+
+            var doc = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = DinkToPdf.Orientation.Portrait,
+                    PaperSize = PaperKind.A4
+                },
+                Objects = { new ObjectSettings { HtmlContent = html } }
+            };
+
+            return converter.Convert(doc);
+        }
+
+        public (string rutaArchivo, byte[] pdfBytes) GenerarYGuardarPdf(string dni, string html, string webRootPath)
+        {
+            string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", "resumen");
+
+            // 📌 Asegurar que la carpeta de destino existe
+            if (!Directory.Exists(rutaBase))
+                Directory.CreateDirectory(rutaBase);
+
+            // Obtener el número correlativo basado en los archivos existentes
+            var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{dni}_*.pdf");
+            int correlativo = archivos.Length + 1;
+            string nombreArchivo = $"ReporteCursos_{dni}_{correlativo:D3}.pdf";
+            string rutaArchivo = Path.Combine(rutaBase, nombreArchivo);
+
+            // Configuración del documento PDF
+            var converter = new BasicConverter(new PdfTools());
+            var pdfDoc = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings()
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = DinkToPdf.Orientation.Portrait,
+                    PaperSize = PaperKind.A4
+                },
+                Objects = { new ObjectSettings() { HtmlContent = html } }
+            };
+
+            // 📌 Convertir HTML a PDF en memoria
+            byte[] pdfBytes = converter.Convert(pdfDoc);
+
+            // 📌 Guardar el PDF en el sistema de archivos
+            File.WriteAllBytes(rutaArchivo, pdfBytes);
+
+            // 📌 Retornar la ruta y los bytes del PDF
+            return (rutaArchivo, pdfBytes);
+        }
+
+
+        //public (string rutaArchivo, byte[] pdfBytes) GenerarYGuardarPdf(string dni, string html, string webRootPath)
+        //{
+        //    // 📌 Activar licencia gratuita de QuestPDF
+        //    QuestPDF.Settings.License = LicenseType.Community;
+
+        //    string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", "resumen");
+
+        //    // 📌 Asegurar que la carpeta de destino existe
+        //    if (!Directory.Exists(rutaBase))
+        //        Directory.CreateDirectory(rutaBase);
+
+        //    // Obtener el número correlativo basado en los archivos existentes
+        //    var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{dni}_*.pdf");
+        //    int correlativo = archivos.Length + 1;
+        //    string nombreArchivo = $"ReporteCursos_{dni}_{correlativo:D3}.pdf";
+        //    string rutaArchivo = Path.Combine(rutaBase, nombreArchivo);
+
+        //    // 📌 Limpiar el contenido HTML para evitar que se muestre como código
+        //    string textoLimpio = LimpiarHtml(html);
+
+        //    // 📌 Generar PDF con QuestPDF
+        //    byte[] pdfBytes = GeneratePdf(textoLimpio);
+
+        //    // 📌 Guardar el PDF en el sistema de archivos
+        //    File.WriteAllBytes(rutaArchivo, pdfBytes);
+
+        //    // 📌 Retornar la ruta y los bytes del PDF
+        //    return (rutaArchivo, pdfBytes);
+        //}
+
+        //private byte[] GeneratePdf(string contenidoLimpio)
+        //{
+        //    return Document.Create(container =>
+        //    {
+        //        container.Page(page =>
+        //        {
+        //            page.Size(PageSizes.A4);
+        //            page.Margin(30);
+        //            page.DefaultTextStyle(x => x.FontSize(12));
+
+        //            page.Header().Text("Reporte de Cursos").Bold().FontSize(18).AlignCenter();
+
+        //            page.Content().PaddingVertical(20).Column(col =>
+        //            {
+        //                // Agregar cada párrafo de manera estructurada
+        //                foreach (var parrafo in contenidoLimpio.Split("\n"))
+        //                {
+        //                    col.Item().Text(parrafo.Trim()).FontSize(12);
+        //                }
+        //            });
+
+        //            page.Footer().AlignRight().Text(x => x.CurrentPageNumber());
+        //        });
+        //    }).GeneratePdf();
+        //}
+
+        //private string LimpiarHtml(string html)
+        //{
+        //    // 1️⃣ Remover etiquetas HTML usando una expresión regular
+        //    string textoPlano = Regex.Replace(html, "<.*?>", String.Empty);
+
+        //    // 2️⃣ Decodificar caracteres HTML (&lt;, &gt;, &amp;)
+        //    textoPlano = System.Web.HttpUtility.HtmlDecode(textoPlano);
+
+        //    // 3️⃣ Eliminar espacios en blanco adicionales
+        //    return textoPlano.Trim();
+        //}
     }
 }

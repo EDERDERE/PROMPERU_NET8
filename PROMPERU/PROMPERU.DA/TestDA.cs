@@ -595,6 +595,7 @@ namespace PROMPERU.DA
                         Curs_NombreCurso = reader["Curs_NombreCurso"] != DBNull.Value ? reader["Curs_NombreCurso"].ToString() : "",
                         Curs_LinkBoton = reader["Curs_LinkBoton"] != DBNull.Value ? reader["Curs_LinkBoton"].ToString() : "",
                         TipoEvento = reader["Teve_Nombre"] != DBNull.Value ? reader["Teve_Nombre"].ToString() : "",
+                        TipoModalidad = reader["Tmod_Nombre"] != DBNull.Value ? reader["Tmod_Nombre"].ToString() : "",
                         Cmod_FechaInicio = reader["Cmod_FechaInicio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaInicio"]),
                         Cmod_FechaFin = reader["Cmod_FechaFin"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["Cmod_FechaFin"]),
                         Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
@@ -613,6 +614,55 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los progreso curso", ex);
             }
         }
+
+        public async Task<int> ActualizarPreguntaActivaTestAsync(int Preg_ID)
+        {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
+
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    // Configuración del comando SQL
+                    await using var comando = new SqlCommand("USP_PreguntaActiva_UPD", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    // Parámetros del procedimiento almacenado
+                    comando.Parameters.AddWithValue("@Preg_ID", Preg_ID);            
+
+                    // Ejecución del comando
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                    if (filasAfectadas > 0)
+                    {
+                        // Confirmar la transacción
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        // Si no se afecta ninguna fila, deshacer la transacción
+                        await transaccion.RollbackAsync();
+                    }
+
+                    return filasAfectadas;
+                }
+                catch (Exception ex)
+                {
+                    // En caso de excepción, deshacer la transacción
+                    await transaccion.RollbackAsync();
+                    throw new Exception("Error en ActualizarPreguntaAsync: La transacción fue revertida.", ex);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                throw new Exception("Error al actualizar el Pregunta", ex);
+            }
+        }
+
 
     }
 }

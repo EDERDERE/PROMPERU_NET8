@@ -10,6 +10,7 @@
         public string Curs_NombreCurso { get; set; }        
         public string Curs_LinkBoton { get; set; }
         public string TipoEvento { get; set; }
+        public string TipoModalidad { get; set; }        
         public DateTime? Cmod_FechaInicio { get; set; }
         public DateTime? Cmod_FechaFin { get; set; }         
         public decimal Ceva_PuntajeIndividual { get; set; }

@@ -126,6 +126,7 @@ namespace PROMPERU.DA
                     comando.Parameters.AddWithValue("@Preg_TipoRespuesta", pregunta.Preg_TipoRespuesta);
                     comando.Parameters.AddWithValue("@Preg_Categoria", pregunta.Preg_Categoria);
                     comando.Parameters.AddWithValue("@Curs_ID", pregunta.Curs_ID);
+                    comando.Parameters.AddWithValue("@Preg_EsCompletada", pregunta.Preg_EsCompletada);
 
                     // Ejecución del comando
                     var filasAfectadas = (int)(await comando.ExecuteScalarAsync());

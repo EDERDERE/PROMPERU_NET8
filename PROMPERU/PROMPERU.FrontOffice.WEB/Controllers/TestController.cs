@@ -17,14 +17,16 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         private readonly TestBL _testBL;
         private readonly SunatService _sunatService;
         private readonly SunatPromPeruService _sunatPromPeruService;
+        private readonly IWebHostEnvironment _env;
 
-        public TestController(ILogger<TestController> logger,InscripcionBL inscripcionBL, TestBL testBL,SunatService sunatService,SunatPromPeruService sunatPromPeruService)
+        public TestController(ILogger<TestController> logger,InscripcionBL inscripcionBL, TestBL testBL,SunatService sunatService,SunatPromPeruService sunatPromPeruService, IWebHostEnvironment env)
         {
             _logger = logger;
             _testBL = testBL;
             _inscripcionBL = inscripcionBL;
             _sunatService = sunatService;
             _sunatPromPeruService = sunatPromPeruService;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -41,7 +43,7 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
             _logger.LogInformation($"Iniciando consulta para el RUC: {ruc}");
             try
             {
-                var resultado = await _testBL.ConsultarRUCAsync(ruc);
+                var resultado = await _testBL.ConsultarRUCAsync(ruc,_env.WebRootPath);
 
                 if (!resultado.Success)
                 {

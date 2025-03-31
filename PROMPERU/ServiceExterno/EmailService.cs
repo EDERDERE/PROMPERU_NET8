@@ -14,22 +14,19 @@ namespace ServiceExterno
             _config = config;
         }
 
-        public async Task EnviarCorreoAsync(string mensaje, string tipoCorreo)
+        public async Task EnviarCorreoAsync(string mensaje, string tipoCorreo, byte[]? archivoAdjunto = null, string? destinatarioExtra = null)
         {
             try
             {
                 var smtpSettings = _config.GetSection("SmtpSettings");
-                string destinatario = smtpSettings["Destinatario"];
+                string destinatarioConfig = smtpSettings["Destinatario"]; // Destinatario desde configuración
                 string asunto = ObtenerAsunto(tipoCorreo); // Asunto dinámico según tipo
 
-                // Validar configuración SMTP
                 if (smtpSettings == null)
                     throw new Exception("No se encontró la configuración de SMTP en appsettings.json");
-              
 
-                // Validar destinatario
-                if (string.IsNullOrWhiteSpace(destinatario))
-                    throw new ArgumentException("El destinatario del correo no puede estar vacío.", nameof(destinatario));
+                if (string.IsNullOrWhiteSpace(destinatarioConfig) && string.IsNullOrWhiteSpace(destinatarioExtra))
+                    throw new ArgumentException("Debe haber al menos un destinatario.", nameof(destinatarioExtra));
 
                 using (var client = new SmtpClient(smtpSettings["Host"], int.Parse(smtpSettings["Port"])))
                 {
@@ -44,30 +41,45 @@ namespace ServiceExterno
                         IsBodyHtml = true // Permitir formato HTML
                     };
 
-                    mailMessage.To.Add(destinatario);
+                    // Agregar destinatarios
+                    if (!string.IsNullOrWhiteSpace(destinatarioConfig))
+                        mailMessage.To.Add(destinatarioConfig);
+                    if (!string.IsNullOrWhiteSpace(destinatarioExtra))
+                        mailMessage.To.Add(destinatarioExtra);
 
-                    await client.SendMailAsync(mailMessage);
+                    // Adjuntar PDF si existe
+                    if (archivoAdjunto != null && archivoAdjunto.Length > 0)
+                    {
+                        using (MemoryStream pdfStream = new MemoryStream(archivoAdjunto))
+                        {
+                            mailMessage.Attachments.Add(new Attachment(pdfStream, "ReporteCursos.pdf", "application/pdf"));
+                            await client.SendMailAsync(mailMessage);
+                        }
+                    }
+                    else
+                    {
+                        await client.SendMailAsync(mailMessage);
+                    }
                 }
             }
             catch (SmtpException smtpEx)
             {
-                // Error específico de SMTP
                 Console.WriteLine($"Error de SMTP: {smtpEx.Message}");
                 throw new Exception("Error al enviar el correo: " + smtpEx.Message, smtpEx);
             }
             catch (FormatException formatEx)
             {
-                // Error de formato en los datos
                 Console.WriteLine($"Error de formato: {formatEx.Message}");
                 throw new Exception("Error en el formato de la configuración de correo.", formatEx);
             }
             catch (Exception ex)
             {
-                // Cualquier otro error
                 Console.WriteLine($"Error general: {ex.Message}");
                 throw new Exception("Ocurrió un error inesperado al enviar el correo.", ex);
             }
         }
+
+
         private string ObtenerAsunto(string tipo)
         {
             var smtpSettings = _config.GetSection("SmtpSettings:Asuntos");
@@ -75,7 +87,7 @@ namespace ServiceExterno
             return tipo switch
             {
                 "Contacto" => smtpSettings["Contacto"] ?? "Nuevo Contacto Registrado",
-                "Test" => smtpSettings["Test"] ?? "Nueva Empresa Registrada",
+                "Test" => smtpSettings["Test"] ?? "Test Registrado",
                 _ => smtpSettings["Otro"] ?? "Nuevo Registro en la Plataforma"
             };
         }

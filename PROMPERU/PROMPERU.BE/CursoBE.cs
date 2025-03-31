@@ -12,10 +12,7 @@
         public string Curs_CodigoCurso { get; set; }
         public string Curs_Objetivo { get; set; }
         public string Curs_Descripcion { get; set; }
-        public string Curs_Modalidad { get; set; }       
-        public int Curs_DuracionHoras { get; set; }
-        public DateTime? Curs_FechaInicio { get; set; }
-        public DateTime? Curs_FechaFin { get; set; }
+        public string Curs_Modalidad { get; set; }    
         public string Curs_NombreBoton { get; set; }
         public string Curs_UrlIcon { get; set; }
         public string Curs_UrlImagen { get; set; }

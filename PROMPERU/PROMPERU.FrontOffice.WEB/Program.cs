@@ -1,3 +1,5 @@
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using PROMPERU.BE;
 using PROMPERU.BL;
@@ -5,6 +7,7 @@ using PROMPERU.DA;
 using PROMPERU.DB;
 using Serilog;
 using ServiceExterno;
+using PROMPERU.FrontOffice.WEB.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -110,8 +113,15 @@ builder.Services.AddScoped<PreguntaDA>();
 builder.Services.AddScoped<PreguntaCursoDA>();
 builder.Services.AddScoped<RespuestaDA>();
 
+// Ruta personalizada para wkhtmltopdf.exe
+var context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "bin", "wkhtmltopdf", "libwkhtmltox.dll"));
 
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
+
+// Registrar DinkToPdf como servicio
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
 
 
 var app = builder.Build();
@@ -127,10 +137,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseStaticFiles(); // Para cargar archivos CSS o imágenes
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+var env = app.Services.GetRequiredService<IWebHostEnvironment>();
 
 // Activar sesiones
 app.UseSession();
