@@ -512,18 +512,7 @@ namespace PROMPERU.BL
                 throw new Exception("Error al eliminar el Test.", ex);
             }
         }
-        public async Task<List<ProcesoTestBE>> ListarProcesoTestAsync(string ruc)
-        {
-            try
-            {
-                var ListadoTest = await _testDA.ListarProcesoTestsAsync(ruc);
-                return ListadoTest;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
-            }
-        }
+   
         public async Task<(bool, JsonElement?)> ValidarRespuestaSunat(string resultadoSunatJson)
         {
             if (string.IsNullOrWhiteSpace(resultadoSunatJson))
@@ -686,7 +675,11 @@ namespace PROMPERU.BL
                 // Consultar el progreso del test
                 var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
                 var testExistente = procesoTest.FirstOrDefault();
-                
+
+
+                // Eliminar registros previos antes de insertar
+                await _testDA.EliminarProgresoTestAsync(testModel.ActiveTest.TestType.Value,ruc);
+
                 // Guardar o actualizar el progreso del Test
                 var test = new ProcesoTestBE
                 {
@@ -712,12 +705,10 @@ namespace PROMPERU.BL
                             Preg_ID = elemento.ID ?? 0,
                             Eval_RUC = ruc,
                             Rsel_TextoRespuesta = respuesta.Input ?? string.Empty,
-                            Resp_ID = respuesta.Resp_ID
+                            Resp_ID = respuesta.ID
                         };
 
-                        tasks.Add(respuestaSelect.ID == 0
-                            ? _testDA.InsertarRespuestaSelectTestAsync(respuestaSelect)
-                            : _testDA.ActualizarRespuestaSelectTestAsync(respuestaSelect));
+                        tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
                     }
                 }
 
@@ -747,9 +738,7 @@ namespace PROMPERU.BL
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
 
-                    tasks.Add(datos.ID == 0
-                        ? _testDA.InsertarDatosGeneralesTestAsync(datos)
-                        : _testDA.ActualizarDatosGeneralesTestAsync(datos));
+                    tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
                 }
 
 
@@ -824,7 +813,7 @@ namespace PROMPERU.BL
             {
                 element.SelectAnswers = respuestaTest
                     .Where(r => r.Preg_ID == element.ID)
-                    .Select(r => new SelectAnswer { ID = r.ID ?? 0, Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
+                    .Select(r => new SelectAnswer { ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
                     .ToList();
             }
 
@@ -848,11 +837,14 @@ Evaluated datos, IEnumerable<Step> stepsProgress)
             var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
             var progresoCurso =     await _testDA.ObtenerProgresoCursoTestAsync(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
+            var cursoDesaproando = progresoCurso.FirstOrDefault(x => x.Ceva_Estado == "PENDIENTE");
+            var cursoAprobado = progresoCurso.FirstOrDefault(x => x.Ceva_Estado == "APROBADO");
+
             foreach (var element in activeTestProgress.Elements)
             {
                 element.SelectAnswers = respuestaTest
                     .Where(r => r.Preg_ID == element.ID)
-                    .Select(r => new SelectAnswer { ID = r.ID ?? 0, Resp_ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
+                    .Select(r => new SelectAnswer { ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
                     .ToList();
             }
 

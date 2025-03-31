@@ -216,7 +216,46 @@ namespace PROMPERU.DA
                 throw new Exception("Error al eliminar el Test", ex);
             }
         }
+        public async Task<int> EliminarProgresoTestAsync(int Insc_ID, string ruc)
+            {
+            try
+            {
+                await using var conexion = await _conexionDB.ObtenerConexionAsync();
 
+                await using var transaccion = await conexion.BeginTransactionAsync();
+                try
+                {
+                    await using var comando = new SqlCommand("USP_ProgresoTest_DEL", conexion, (SqlTransaction)transaccion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);
+                    comando.Parameters.AddWithValue("@Eval_RUC", ruc);
+                    var filasAfectadas = (int)(await comando.ExecuteScalarAsync());
+
+                    if (filasAfectadas > 0)
+                    {
+                        await transaccion.CommitAsync();
+                    }
+                    else
+                    {
+                        await transaccion.RollbackAsync();
+                    }
+
+                    return filasAfectadas;
+                }
+                catch
+                {
+                    await transaccion.RollbackAsync();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el Test", ex);
+            }
+        }
         //public async Task<int> ActualizarTestAsync(TestBE Test, string usuario, string ip, int id)
         //{
         //    try

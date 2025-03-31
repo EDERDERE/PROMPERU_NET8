@@ -19,8 +19,7 @@ namespace PROMPERU.BL.Dtos
     public class SelectAnswer
     {
         public int? ID { get; set; }
-        public string? Input { get; set; }
-        public int? Resp_ID { get; set; }
+        public string? Input { get; set; }   
     }
 
 
