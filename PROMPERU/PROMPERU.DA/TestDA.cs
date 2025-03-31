@@ -405,7 +405,7 @@ namespace PROMPERU.DA
                         Preg_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Preg_ID"]) : 0,
                         Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
                         Rsel_TextoRespuesta = reader["Rsel_TextoRespuesta"] != DBNull.Value ? reader["Rsel_TextoRespuesta"].ToString() : "",
-                        Resp_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Resp_ID"]) : 0
+                        Resp_ID = reader["Resp_ID"] != DBNull.Value ? Convert.ToInt32(reader["Resp_ID"]) : 0
                     });
                 }
 
