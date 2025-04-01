@@ -21,21 +21,30 @@ const FindBusinessForm = () => {
     store.setState({ loading: true });
 
     try {
-      const companyData = await fetchCompanyData(ruc);
-
-      if (!companyData) {
+      const test = await fetchCompanyData(ruc);
+      if (!test) {
         return;
       }
 
-      const hasInstructions = store.getState().test.activeTest.hasInstructions;
+      const hasInstructions = test.activeTest.hasInstructions;
+      let step = 0;
       if (hasInstructions) {
-        store.setState({ currentStep: "intro" });
+        step = "intro";
       } else {
-        store.setState({ currentStep: 0 });
+        step = 0;
       }
 
-      store.setState({ companyData });
-      store.setState({ loading: false });
+      const lastElementCompleted = test.activeTest.elements.filter(
+        (element) => element.isComplete
+      ).map((element, index) => index);
+      const lastCompletedIndex = lastElementCompleted.length > 0 ? lastElementCompleted[lastElementCompleted.length - 1] : 0;
+      // all the elements before the last completed element are completed
+      const completedElements = test.activeTest.elements.slice(0, lastCompletedIndex + 1);
+      completedElements.forEach(element => element.isComplete = true);
+      // the next element after the last completed element is the current step
+      step = lastCompletedIndex + 1;
+
+      store.setState({ companyData: test.companyData, test, currentStep: step, loading: false });
     } catch (error) {
       console.error(error);
     } finally {

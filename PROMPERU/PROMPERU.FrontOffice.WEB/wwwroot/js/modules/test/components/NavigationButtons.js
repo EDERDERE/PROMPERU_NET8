@@ -18,39 +18,48 @@ const NavigationButtons = (
       </div>`
     : `<span>${nextText}</span>`;
 
-  const nextStep = async () => {
-    const state = store.getState();
-    if (state.isSavingElement) return;
-    if (!validateFormIfNeeded(state)) return;
+const nextStep = async () => {
+  const state = store.getState();
+  if (state.isSavingElement) return;
+  if (!validateFormIfNeeded(state)) return;
 
-    const { activeTest } = state.test || {};
-    const hasInstructions = activeTest?.instructions;
-    const currentStep = state.currentStep;
+  const { activeTest } = state.test || {};
+  const hasInstructions = activeTest?.instructions;
+  const currentStep = state.currentStep;
 
-    const inInstructions = hasInstructions && typeof currentStep !== "number";
+  const inInstructions = hasInstructions && typeof currentStep !== "number";
 
-    if (!inInstructions) {
-      const currentElement = activeTest.elements[currentStep];
-      if (currentElement) {
-        currentElement.isComplete = true;
-      }
-      await updateSaveTest();
-    }
-
-    store.setState({ previusStep: currentStep });
-
-    if (inInstructions) {
-      store.setState({ currentStep: 0 });
-      return;
+  if (!inInstructions) {
+    const currentElement = activeTest.elements[currentStep];
+    if (currentElement) {
+      currentElement.isComplete = true;
     }
 
     if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
-      store.setState({ currentStep: "results" });
-      return;
+      const test = state.test;
+      const activeStep = test.steps.find((step) => step.current);
+      if (activeStep) {
+        activeStep.isComplete = true;
+      }
     }
 
-    store.setState({ currentStep: currentStep + 1 });
-  };
+    await updateSaveTest();
+  }
+
+  store.setState({ previusStep: currentStep });
+
+  if (inInstructions) {
+    store.setState({ currentStep: 0 });
+    return;
+  }
+
+  if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
+    store.setState({ currentStep: "results" });
+    return;
+  }
+
+  store.setState({ currentStep: currentStep + 1 });
+};
 
   const prevStep = () => {
     const state = store.getState();

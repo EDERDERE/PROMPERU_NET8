@@ -2,8 +2,9 @@
 
 export async function saveTestProgress(saveTest) {
   try {
-    await fetchJsonData("/Test/GuardarProgresoTest", "POST", saveTest);
+    return await fetchJsonData("/Test/GuardarProgresoTest", "POST", saveTest);
   } catch (error) {
     console.error("❌ Error al guardar el Test:", error);
+    return false;
   }
 }

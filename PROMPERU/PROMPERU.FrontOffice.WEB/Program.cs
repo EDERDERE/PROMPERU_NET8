@@ -13,11 +13,11 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configurar Serilog desde appsettings.json
-// Configuración de Serilog desde appsettings.json
+// Configuraciï¿½n de Serilog desde appsettings.json
 builder.Host.UseSerilog((context, services, configuration) =>
     configuration
-        .ReadFrom.Configuration(context.Configuration) // Cargar configuración de appsettings.json
-        .WriteTo.Console() // Escribir también en consola (opcional)
+        .ReadFrom.Configuration(context.Configuration) // Cargar configuraciï¿½n de appsettings.json
+        .WriteTo.Console() // Escribir tambiï¿½n en consola (opcional)
 );
 
 // Add services to the container.
@@ -26,17 +26,17 @@ builder.Services.AddControllersWithViews();
 // Configurar sesiones
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiraciï¿½n
     options.Cookie.HttpOnly = true; // Evitar acceso desde JavaScript
-    options.Cookie.IsEssential = true; // Requerido para funcionalidad de sesión
+    options.Cookie.IsEssential = true; // Requerido para funcionalidad de sesiï¿½n
 });
 
-// Agregar autenticación con cookies
+// Agregar autenticaciï¿½n con cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Test/Index"; // Redirige a Login si no está autenticado
-        options.LogoutPath = "/Test/CerrarSesion"; // Ruta para cerrar sesión
+        options.LoginPath = "/Test/Index"; // Redirige a Login si no estï¿½ autenticado
+        options.LogoutPath = "/Test/CerrarSesion"; // Ruta para cerrar sesiï¿½n
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Expira en 30 minutos
     });
 
@@ -135,7 +135,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseStaticFiles(); // Para cargar archivos CSS o imágenes
+app.UseStaticFiles(); // Para cargar archivos CSS o imï¿½genes
 app.UseRouting();
 
 app.UseAuthentication();

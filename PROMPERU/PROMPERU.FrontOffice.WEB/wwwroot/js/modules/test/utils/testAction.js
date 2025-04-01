@@ -34,9 +34,10 @@ export async function updateSaveTest() {
   store.setState({ saveTest, isSavingElement: true });
 
   try {
-    await saveTestProgress(saveTest);
+    return await saveTestProgress(saveTest);
   } catch (error) {
     console.error("Error al guardar el progreso del test:", error);
+    return false;
   } finally {
     store.setState({ isSavingElement: false });
   }

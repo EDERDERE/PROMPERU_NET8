@@ -66,6 +66,15 @@ const Render = (state) => {
         state.currentStep === totalElements - 1;
       const nextText = isLastElement ? "Enviar" : "Siguiente";
 
+      // if (isLastElement) {
+      //   let test = state.test;
+      //   let activeTest = test.steps.find((step) => step.current);
+      //   if (activeTest) {
+      //     activeTest.isComplete = true;
+      //   }
+      //   store.setState({ test });
+      // }
+
       component.setState(
         TestSteps() +
           renderSectionTitle(title) +
@@ -76,54 +85,6 @@ const Render = (state) => {
     }
   } else {
     component.setState(Results);
-
-    setTimeout(() => {
-      var options = {
-        series: [80],
-        colors: ["#4E97CE"],
-        chart: {
-          height: 300,
-          type: "radialBar",
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              margin: 0,
-              size: "70%",
-            },
-            startAngle: -90,
-            endAngle: 90,
-            track: {
-              background: "rgba(78, 151, 206, 0.21)",
-              startAngle: -90,
-              endAngle: 90,
-              opacity: 1,
-            },
-            dataLabels: {
-              show: false,
-            },
-          },
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shade: "dark",
-            type: "vertical",
-            gradientToColors: ["#4E97CE"],
-            stops: [0, 100],
-          },
-        },
-        stroke: {
-          lineCap: "round",
-        },
-        labels: ["Innovación"],
-      };
-
-      document.querySelectorAll("#chart").forEach((item) => {
-        const chart = new ApexCharts(item, options);
-        chart.render();
-      });
-    }, 100);
   }
   const componentRender = component.getState();
 

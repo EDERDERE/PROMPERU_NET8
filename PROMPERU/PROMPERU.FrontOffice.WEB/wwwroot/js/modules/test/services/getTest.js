@@ -19,8 +19,7 @@ export async function fetchCompanyData(ruc) {
     }
 
     if (response.success) {
-      store.setState({ test: response.test });
-      return response.test.companyData;
+      return response.test;
     } else {
       console.error("Error en la respuesta:", response.message);
       return null;
