@@ -663,6 +663,39 @@ namespace PROMPERU.DA
             }
         }
 
+        public async Task<int> InsertarProgresoCursoTestAsync(int Curs_ID, string Eval_RUC, int Insc_ID)
+        {
+            await using var conexion = await _conexionDB.ObtenerConexionAsync();
+            await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
 
+            try
+            {
+                await using var comando = new SqlCommand("USP_CursoEvaluacion_INS", conexion, (SqlTransaction)transaction)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                comando.Parameters.AddWithValue("@Curs_ID", Curs_ID);
+                comando.Parameters.AddWithValue("@Eval_RUC", Eval_RUC);
+                comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);               
+
+                var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                comando.Parameters.Add(outNuevoID);
+
+                await comando.ExecuteNonQueryAsync();
+
+                await transaction.CommitAsync(); // Confirma la transacción
+
+                return (int)outNuevoID.Value;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(); // Revierte la transacción en caso de error
+                throw new Exception("Error al insertar el Test", ex);
+            }
+        }
     }
 }

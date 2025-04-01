@@ -24,9 +24,9 @@ namespace PROMPERU.BL.Dtos
         public bool Current { get; set; }
         public bool IsComplete { get; set; }
         public bool isApproved { get; set; }
-        
-    }   
-    public  class Evaluated
+
+    }
+    public class Evaluated
     {
         public int? ID { get; set; }
         public string LegalName { get; set; } // Razón Social
@@ -55,5 +55,22 @@ namespace PROMPERU.BL.Dtos
         public object Test { get; set; }
         public Dictionary<string, bool> Validations { get; set; } = new();
     }
+    
+    public class ResponseTestDiagnosticoInicialDto
+    {
+        public decimal FailedCoursesCount { get; set; }
+        public decimal ApprovedCoursesCount { get; set; }
+        public decimal CoursesCount { get; set; }
+        public IEnumerable<CoursesScore> ApprovedCourses { get; set; }
+        public IEnumerable<CoursesScore> FailedCourses { get; set; }
+        public decimal GlobalScore { get; set; }
 
+    }
+
+    public class CoursesScore
+    {
+        public string CourseName { get; set; }
+        public decimal IndividualScore { get; set; }
+        public decimal GlobalScore { get; set; }
+    }      
 }

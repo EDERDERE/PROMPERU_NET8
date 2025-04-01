@@ -107,7 +107,7 @@ builder.Services.AddScoped<FormularioTestDA>();
 builder.Services.AddScoped<PreguntaDA>();
 builder.Services.AddScoped<PreguntaCursoDA>();
 builder.Services.AddScoped<RespuestaDA>();
-
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<PROMPERU.BL.Interfaces.ILoggerService, PROMPERU.BL.Services.LoggerService>();
 
 

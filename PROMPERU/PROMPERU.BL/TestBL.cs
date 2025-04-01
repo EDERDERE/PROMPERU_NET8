@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using DinkToPdf;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
@@ -622,7 +623,7 @@ namespace PROMPERU.BL
                 }
                 else if (testCompleto != null)
                 {
-                    response =  await ConstruirTestCompleto(procesoTest, testCompleto, generalData, stepsProgress, WebRootPath);
+                    response =  await ConstruirTestCompleto(testCompleto, generalData, stepsProgress, WebRootPath);
                     return response;
                 }
 
@@ -653,7 +654,7 @@ namespace PROMPERU.BL
             return response;
         }
 
-        public async Task<TestModelRequestDto> GuardarProgresoTest(TestModelRequestDto testModel)
+        public async Task<TestModelRequestDto> GuardarProgresoTest(TestModelRequestDto testModel, string WebRootPath)
         {
             if (testModel == null) throw new ArgumentNullException(nameof(testModel));
 
@@ -690,10 +691,7 @@ namespace PROMPERU.BL
 
                 // Guardar Preguntas y Respuestas
                 foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
-                {
-                    if (elemento.IsComplete == true && elemento.ID != null) // Actualiza la pregunta como activa
-                  tasks.Add(_testDA.ActualizarPreguntaActivaTestAsync(elemento.ID ?? 0));
-
+                {                   
                     foreach (var respuesta in elemento.SelectAnswers ?? Enumerable.Empty<SelectAnswer>())
                     {
                         var respuestaSelect = new RespuestaSeleccionadaBE
@@ -742,7 +740,35 @@ namespace PROMPERU.BL
                 //4. Guardar Inscripcion
                 //5. Guardar Malla Curricular
                 //6. Guardar Logica de Cursos
+                if (isComplete == true)
+                {
+                    foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
+                    {
+                        tasks.Add(_testDA.InsertarProgresoCursoTestAsync(elemento.Course.Value,ruc, testModel.ActiveTest?.TestType?.Value ?? 0));
+                    }
 
+                    if (testModel.ActiveTest?.TestType?.Value == 2) {
+                        // Resultados para Diagnostico Inicio 
+                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+
+
+                        var html = GenerarHtml(resul.ApprovedCourses, resul.FailedCourses, WebRootPath);
+                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+
+                        // descomentar en PROD
+                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
+
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+
+                    }
+
+
+
+
+                    // Resultado para  Inscripcion
+                    // Resultado para  Malla Curricular.
+                    // Resultado para Diagnostico Salida
+                }
 
                 // Esperar todas las inserciones en paralelo
                 await Task.WhenAll(tasks);
@@ -825,63 +851,104 @@ namespace PROMPERU.BL
             return response;
         }
 
-        private async Task<TestResponseDto> ConstruirTestCompleto(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testCompleto,
-Evaluated datos, IEnumerable<Step> stepsProgress,string WebRootPath)
+        private async Task<TestResponseDto> ConstruirTestCompleto(ProcesoTestBE testCompleto,
+      Evaluated datos, IEnumerable<Step> stepsProgress, string WebRootPath)
         {
             var response = new TestResponseDto { Success = true };
 
-            //var respuestaTest = await ListarRespuestaSelectTestsAsync(testCompleto.Eval_RUC);
-            //var activeTestProgress = await ObtenerTestPorIdAsync(testCompleto.Insc_ID);
-            var progresoCurso =     await _testDA.ObtenerProgresoCursoTestAsync(testCompleto.Eval_RUC, testCompleto.Insc_ID);
-
-           var failedCourses = progresoCurso.Where(x => x.Ceva_Estado == "PENDIENTE").ToList();
-            var approvedCourses = progresoCurso.Where(x => x.Ceva_Estado == "APROBADO").ToList();
-
-            // Método para mapear la lista de cursos
-            List<ProcesoCursoDto> MapCourses(List<ProcesoCursoBE> courses)
+            if (testCompleto.Insc_ID == 2)
             {
-                return courses.Select(item => new ProcesoCursoDto
+                var result = await ResultadoTestDiagnosticoInicial(testCompleto.Eval_RUC, testCompleto.Insc_ID);
+
+                response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
+                response.Test = new
                 {
-                    ID = item.ID,
-                    RUC = item.Eval_RUC,
-                    Insc_ID = item.Insc_ID,
-                    CourseID = item.Curs_ID,
-                    CourseCode = item.Curs_CodigoCurso,
-                    CourseName = item.Curs_NombreCurso,
-                    CourseButtonLink = item.Curs_LinkBoton,
-                    EventType = item.TipoEvento,
-                    CourseStartDate = item.Cmod_FechaInicio,
-                    CourseEndDate = item.Cmod_FechaFin,
-                    IndividualScore = item.Ceva_PuntajeIndividual,
-                    GlobalScore = item.Ceva_PuntajeGlobal,
-                    Status = item.Ceva_Estado
-                }).ToList();
+                    Steps = stepsProgress,
+                    CompanyData = datos,
+                    Resumen = result,
+                    FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
+                };
+                return response;
             }
 
-
-            var html = GenerarHtml(MapCourses(approvedCourses), MapCourses(failedCourses), WebRootPath);
-            var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(datos.Ruc,html,WebRootPath);
-
-            // descomentar en PROD
-            //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
-
-            await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
-
-            response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
-            response.Test = new
-            {
-                Steps = stepsProgress,
-                //ActiveTest = activeTestProgress,
-                CompanyData = datos,
-                ApprovedCourses = MapCourses(approvedCourses),
-                FailedCourses = MapCourses(failedCourses),
-                FilePath = rutaArchivoPdf
-            };
-
+            // Devolver una respuesta predeterminada si no entra en el if
+            response.Success = false;
+            response.Message = "No se encontraron datos para este proceso.";
             return response;
         }
 
-        private string GenerarHtml(List<ProcesoCursoDto> approvedCourses, List<ProcesoCursoDto> failedCourses, string WebRootPath)
+
+        private async Task<ResponseTestDiagnosticoInicialDto> ResultadoTestDiagnosticoInicial(string eval_RUC, int? insc_ID)
+        {
+            var progresoCurso = await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0);
+
+            var groupedCourses = progresoCurso
+                .GroupBy(x => x.Ceva_Estado)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            var approvedCourses = groupedCourses.TryGetValue("APROBADO", out var aprobados)
+                ? aprobados.Select(x => new CoursesScore
+                {
+                    CourseName = x.Curs_NombreCurso,
+                    IndividualScore = x.Ceva_PuntajeIndividual,
+                    GlobalScore = x.Ceva_PuntajeGlobal
+                }).ToList()
+                : new List<CoursesScore>();
+
+            var failedCourses = groupedCourses.TryGetValue("PENDIENTE", out var pendientes)
+                ? pendientes.Select(x => new CoursesScore
+                {
+                    CourseName = x.Curs_NombreCurso
+                }).ToList()
+                : new List<CoursesScore>();
+
+            return new ResponseTestDiagnosticoInicialDto
+            {
+                ApprovedCourses = approvedCourses,
+                FailedCourses = failedCourses,
+                ApprovedCoursesCount = approvedCourses.Count,
+                FailedCoursesCount = failedCourses.Count,
+                CoursesCount = progresoCurso.Count
+            };
+        }
+
+        private string ObtenerRutaMayorCorrelativo(string webRootPath, string ruc)
+        {
+            // Definir la ruta base donde están los archivos PDF
+            string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", "resumen");
+
+            // Verificar si la carpeta existe
+            if (!Directory.Exists(rutaBase))
+            {
+                return null; // No hay archivos, devolver null
+            }
+
+            // Obtener todos los archivos PDF que coincidan con el patrón
+            var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{ruc}_*.pdf");
+
+            // Expresión regular para extraer el correlativo
+            var regex = new Regex($@"ReporteCursos_{ruc}_(\d{{3}})\.pdf$", RegexOptions.IgnoreCase);
+
+            string archivoConMayorCorrelativo = null;
+            int mayorCorrelativo = 0;
+
+            foreach (var archivo in archivos)
+            {
+                var match = regex.Match(Path.GetFileName(archivo));
+                if (match.Success && int.TryParse(match.Groups[1].Value, out int correlativo))
+                {
+                    if (correlativo > mayorCorrelativo)
+                    {
+                        mayorCorrelativo = correlativo;
+                        archivoConMayorCorrelativo = archivo; // Guardar la ruta del archivo con mayor correlativo
+                    }
+                }
+            }
+
+            return archivoConMayorCorrelativo;
+        }
+
+        private string GenerarHtml(IEnumerable<CoursesScore> approvedCourses, IEnumerable<CoursesScore> failedCourses, string WebRootPath)
         {
             // Ruta del archivo HTML
             string filePath = Path.Combine(WebRootPath, "js", "modules", "test", "templates", "resumen", "resultados_test.html");
@@ -936,7 +1003,7 @@ Evaluated datos, IEnumerable<Step> stepsProgress,string WebRootPath)
             return converter.Convert(doc);
         }
 
-        public (string rutaArchivo, byte[] pdfBytes) GenerarYGuardarPdf(string dni, string html, string webRootPath)
+        public (string rutaArchivo, byte[] pdfBytes) GenerarYGuardarPdf(string ruc, string html, string webRootPath)
         {
             string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", "resumen");
 
@@ -945,9 +1012,9 @@ Evaluated datos, IEnumerable<Step> stepsProgress,string WebRootPath)
                 Directory.CreateDirectory(rutaBase);
 
             // Obtener el número correlativo basado en los archivos existentes
-            var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{dni}_*.pdf");
+            var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{ruc}_*.pdf");
             int correlativo = archivos.Length + 1;
-            string nombreArchivo = $"ReporteCursos_{dni}_{correlativo:D3}.pdf";
+            string nombreArchivo = $"ReporteCursos_{ruc}_{correlativo:D3}.pdf";
             string rutaArchivo = Path.Combine(rutaBase, nombreArchivo);
 
             // Configuración del documento PDF

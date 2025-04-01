@@ -74,8 +74,14 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
               if (testModel == null)
                     return BadRequest("El modelo no puede ser nulo.");
 
-                await _testBL.GuardarProgresoTest(testModel); // Llamada asincr�nica           
-
+                await _testBL.GuardarProgresoTest(testModel, _env.WebRootPath); // Llamada asincr�nica           
+                foreach (var item in testModel.Steps)
+                {
+                    if ( item.Current == true && item.IsComplete == true)
+                    {
+                        return RedirectToAction("ConsultarRUC", new { ruc = testModel.CompanyData.Ruc });
+                    }
+                }
                 return Ok(new { success = true, message = "Test creado correctamente." });
             }
             catch (Exception ex)
