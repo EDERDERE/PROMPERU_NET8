@@ -384,7 +384,7 @@ namespace PROMPERU.BL
                             Label=p.Preg_Etiqueta,
                             Category = p.Preg_Categoria,
                             AnswerType = p.Preg_TipoRespuesta,
-                            IsComplete = p.Preg_EsCompletada,
+                            IsComplete = false,
                             Course = (bool)p.Preg_EsComputable ? new Course
                             {
                                 Value = p.Curs_ID,
@@ -839,11 +839,23 @@ namespace PROMPERU.BL
 
             foreach (var element in activeTestProgress.Elements)
             {
+                if (respuestaTest == null)
+                    continue;
+
+                // Filtramos y asignamos respuestas
                 element.SelectAnswers = respuestaTest
                     .Where(r => r.Preg_ID == element.ID)
-                    .Select(r => new SelectAnswer { ID = r.Resp_ID > 0 ? r.Resp_ID : null, Input = r.Rsel_TextoRespuesta ?? "" })
+                    .Select(r => new SelectAnswer
+                    {
+                        ID = r.Resp_ID > 0 ? r.Resp_ID : null,
+                        Input = r.Rsel_TextoRespuesta ?? string.Empty
+                    })
                     .ToList();
+
+                // Si hay respuestas, marcamos como completo
+                element.IsComplete = element.SelectAnswers.Any();
             }
+
 
             response.Message = $"Validaciones completadas. {testIncompleto.Eval_Etapa}";
             response.Test = new
