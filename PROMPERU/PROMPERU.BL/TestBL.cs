@@ -742,9 +742,14 @@ namespace PROMPERU.BL
                 //6. Guardar Logica de Cursos
                 if (isComplete == true)
                 {
+
                     foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
                     {
-                        tasks.Add(_testDA.InsertarProgresoCursoTestAsync(elemento.Course.Value,ruc, testModel.ActiveTest?.TestType?.Value ?? 0));
+                        if (elemento.IsComputable == true)
+                        {
+                            tasks.Add(_testDA.InsertarProgresoCursoTestAsync(elemento.Course.Value, ruc, testModel.ActiveTest?.TestType?.Value ?? 0, elemento.ID ?? 0));
+
+                        }
                     }
 
                     if (testModel.ActiveTest?.TestType?.Value == 2) {
@@ -752,7 +757,7 @@ namespace PROMPERU.BL
                         var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
 
 
-                        var html = GenerarHtml(resul.ApprovedCourses, resul.FailedCourses, WebRootPath);
+                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
                         var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
@@ -882,33 +887,48 @@ namespace PROMPERU.BL
         {
             var progresoCurso = await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0);
 
+
             var groupedCourses = progresoCurso
-                .GroupBy(x => x.Ceva_Estado)
-                .ToDictionary(g => g.Key, g => g.ToList());
-
-            var approvedCourses = groupedCourses.TryGetValue("APROBADO", out var aprobados)
-                ? aprobados.Select(x => new CoursesScore
+            .GroupBy(y => new { y.Ceva_Estado, y.Curs_CodigoCurso }) // Agrupar antes de la proyección
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(y => new CoursesScore
                 {
-                    CourseName = x.Curs_NombreCurso,
-                    IndividualScore = x.Ceva_PuntajeIndividual,
-                    GlobalScore = x.Ceva_PuntajeGlobal
+                    CourseName = y.Curs_NombreCurso,
+                    IndividualScore = y.Ceva_PuntajeIndividual,
+                    GlobalScore = y.Ceva_PuntajeGlobal
                 }).ToList()
-                : new List<CoursesScore>();
+            );
 
-            var failedCourses = groupedCourses.TryGetValue("PENDIENTE", out var pendientes)
-                ? pendientes.Select(x => new CoursesScore
-                {
-                    CourseName = x.Curs_NombreCurso
-                }).ToList()
-                : new List<CoursesScore>();
+            //var groupedCourses = progresoCurso
+            //    .GroupBy(x => x.Ceva_Estado)
+            //    .ToDictionary(g => g.Key, g => g.ToList());
+
+            // Obtener listas de cursos aprobados y desaprobados
+            var approvedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == "APROBADO")
+                .SelectMany(kv => kv.Value) // Extraer todos los cursos de cada grupo
+                .ToList();
+
+            var disapprovedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == "DESAPROBADO") // O el estado que definas
+                .SelectMany(kv => kv.Value)
+                .ToList();
+
+            //var failedCourses = groupedCourses.TryGetValue("PENDIENTE", out var pendientes)
+            //    ? pendientes.Select(x => new CoursesScore
+            //    {
+            //        CourseName = x.Curs_NombreCurso
+            //    }).ToList()
+            //    : new List<CoursesScore>();
 
             return new ResponseTestDiagnosticoInicialDto
             {
                 ApprovedCourses = approvedCourses,
-                FailedCourses = failedCourses,
+                DisapprovedCourses = disapprovedCourses,
                 ApprovedCoursesCount = approvedCourses.Count,
-                FailedCoursesCount = failedCourses.Count,
-                CoursesCount = progresoCurso.Count
+                FailedCoursesCount = disapprovedCourses.Count,
+                CoursesCount = approvedCourses.Count + disapprovedCourses.Count
             };
         }
 

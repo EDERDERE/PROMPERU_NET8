@@ -62,7 +62,7 @@ namespace PROMPERU.BL.Dtos
         public decimal ApprovedCoursesCount { get; set; }
         public decimal CoursesCount { get; set; }
         public IEnumerable<CoursesScore> ApprovedCourses { get; set; }
-        public IEnumerable<CoursesScore> FailedCourses { get; set; }
+        public IEnumerable<CoursesScore> DisapprovedCourses { get; set; }
         public decimal GlobalScore { get; set; }
 
     }

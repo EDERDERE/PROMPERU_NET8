@@ -663,7 +663,7 @@ namespace PROMPERU.DA
             }
         }
 
-        public async Task<int> InsertarProgresoCursoTestAsync(int Curs_ID, string Eval_RUC, int Insc_ID)
+        public async Task<int> InsertarProgresoCursoTestAsync(int Curs_ID, string Eval_RUC, int Insc_ID,int? Preg_ID)
         {
             await using var conexion = await _conexionDB.ObtenerConexionAsync();
             await using var transaction = await conexion.BeginTransactionAsync(); // Inicia transacción
@@ -677,7 +677,8 @@ namespace PROMPERU.DA
 
                 comando.Parameters.AddWithValue("@Curs_ID", Curs_ID);
                 comando.Parameters.AddWithValue("@Eval_RUC", Eval_RUC);
-                comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);               
+                comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);
+                comando.Parameters.AddWithValue("@Preg_ID", Preg_ID);
 
                 var outNuevoID = new SqlParameter("@NuevoID", SqlDbType.Int)
                 {
@@ -694,7 +695,7 @@ namespace PROMPERU.DA
             catch (Exception ex)
             {
                 await transaction.RollbackAsync(); // Revierte la transacción en caso de error
-                throw new Exception("Error al insertar el Test", ex);
+                throw new Exception("Error al insertar progreso curso el Test", ex);
             }
         }
     }
