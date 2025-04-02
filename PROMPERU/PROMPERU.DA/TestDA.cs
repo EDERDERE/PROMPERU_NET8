@@ -357,7 +357,7 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Eval_RUC", ruc);
+                comando.Parameters.AddWithValue("@Eval_RUC", ruc);     
 
                 await using var reader = await comando.ExecuteReaderAsync();
 

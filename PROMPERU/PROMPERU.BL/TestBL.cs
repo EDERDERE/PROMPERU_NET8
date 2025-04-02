@@ -2,9 +2,11 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Azure;
 using DinkToPdf;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
+using PROMPERU.BL.Utilities;
 using PROMPERU.DA;
 using ServiceExterno;
 
@@ -525,12 +527,12 @@ namespace PROMPERU.BL
             }
         }
 
-        public async Task<List<Step>> ObtenerPasosInscripcion()
+        public async Task<List<Step>> ObtenerPasosInscripcion( int Insc_ID)
         {
             var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync();
             etapas = etapas.Select(e =>
             {
-                e.Current = (e.id == 2); // Marcar como actual solo el Test de Diagnóstico
+                e.Current = (e.id == Insc_ID); // Marcar como actual solo el Test de Diagnóstico
                 return e;
             }).ToList();
 
@@ -589,10 +591,9 @@ namespace PROMPERU.BL
             var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
             if (procesoTest.Any())
             {
-                var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);
-                var stepsProgress = await ObtenerPasosInscripcion();
+                var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);              
                 var testIncompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "PENDIENTE");
-                var testCompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "COMPLETADO");
+                var testCompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "COMPLETADO");               
 
                 var generalData = datos.Select(item => new Evaluated
                 {
@@ -618,12 +619,14 @@ namespace PROMPERU.BL
 
                 if (testIncompleto != null)
                 {
-                    response = await ConstruirTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
+                    var stepsProgress = await ObtenerPasosInscripcion(testIncompleto.Insc_ID);
+                    response = await ObtenerTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
                     return response;
                 }
                 else if (testCompleto != null)
                 {
-                    response =  await ConstruirTestCompleto(testCompleto, generalData, stepsProgress, WebRootPath);
+                    var stepsProgress = await ObtenerPasosInscripcion(testCompleto.Insc_ID);
+                    response =  await ObtenerTestCompleto(testCompleto, generalData, stepsProgress, WebRootPath);
                     return response;
                 }
 
@@ -650,7 +653,7 @@ namespace PROMPERU.BL
             }    
 
             // 4. Construir nuevo Test de Diagnóstico
-            response = await ConstruirNuevoTest(ruc, ExtraerDatosEvaluado(evaluadoResult, ruc));
+            response = await ObtenerNuevoTest(ruc, ExtraerDatosEvaluado(evaluadoResult, ruc));
             return response;
         }
 
@@ -664,34 +667,38 @@ namespace PROMPERU.BL
                 string ruc = testModel.CompanyData?.Ruc?.Trim() ?? string.Empty;
 
                 // Obtener el estado del Test 
-                var statusTest = testModel.Steps.FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
+                var statusTest = testModel.Steps.Where( y => y.Current == true).FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
                 bool isComplete = statusTest?.IsComplete ?? false;
+
+                int Insc_ID = statusTest.Id;
 
                 // Consultar el progreso del test
                 var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
-                var testExistente = procesoTest.FirstOrDefault();
+                var testExistente = procesoTest
+                                    .Where( x => x.Ieva_Estado == "PENDIENTE" || x.Ieva_Estado == "COMPLETADO" && x.Insc_ID == statusTest.Id)
+                                    .FirstOrDefault();
 
 
                 // Eliminar registros previos antes de insertar
-                await _testDA.EliminarProgresoTestAsync(testModel.ActiveTest.TestType.Value,ruc);
+                //await _testDA.EliminarProgresoTestAsync(Insc_ID, ruc);
 
                 // Guardar o actualizar el progreso del Test
                 var test = new ProcesoTestBE
                 {
                     ID = testExistente?.ID ?? 0,
                     Eval_RUC = ruc,
-                    Insc_ID = testModel.ActiveTest?.TestType?.Value ?? 0,
+                    Insc_ID = Insc_ID,
                     Ieva_Estado = isComplete ? "COMPLETADO" : "PENDIENTE"
                 };
 
                 tasks.Add(test.ID == 0
                     ? _testDA.InsertarProgresoTestAsync(test)
                     : _testDA.ActualizarProgresoTestAsync(test));
-           
+
 
                 // Guardar Preguntas y Respuestas
                 foreach (var elemento in testModel.ActiveTest?.Elements ?? Enumerable.Empty<Elements>())
-                {                   
+                {
                     foreach (var respuesta in elemento.SelectAnswers ?? Enumerable.Empty<SelectAnswer>())
                     {
                         var respuestaSelect = new RespuestaSeleccionadaBE
@@ -702,7 +709,7 @@ namespace PROMPERU.BL
                             Rsel_TextoRespuesta = respuesta.Input ?? string.Empty,
                             Resp_ID = respuesta.ID
                         };
-              
+
                         tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
                     }
                 }
@@ -752,7 +759,26 @@ namespace PROMPERU.BL
                         }
                     }
 
-                    if (testModel.ActiveTest?.TestType?.Value == 2) {
+                    if (Insc_ID == EtapasConstants.TesDiagnostico)
+                    {
+                        // Resultados para Diagnostico Inicio 
+                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+
+
+                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+
+                        // descomentar en PROD
+                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
+
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+
+                    }
+
+                    // Resultado para  Inscripcion Programa
+
+                    if (Insc_ID == EtapasConstants.TesInscripcionPrograma)
+                    {
                         // Resultados para Diagnostico Inicio 
                         var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
 
@@ -768,11 +794,38 @@ namespace PROMPERU.BL
                     }
 
 
+                    // Resultado para  Inscripcion Curso
+                    if (Insc_ID == EtapasConstants.TesInscripcionCurso)
+                    {
+                        // Resultados para Diagnostico Inicio 
+                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
 
 
-                    // Resultado para  Inscripcion
-                    // Resultado para  Malla Curricular.
+                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+
+                        // descomentar en PROD
+                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
+
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+
+                    }
                     // Resultado para Diagnostico Salida
+                    if (Insc_ID == EtapasConstants.TesSalida)
+                    {
+                        // Resultados para Diagnostico Inicio 
+                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+
+
+                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+
+                        // descomentar en PROD
+                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
+
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+
+                    }
                 }
 
                 // Esperar todas las inserciones en paralelo
@@ -811,9 +864,9 @@ namespace PROMPERU.BL
                 throw new Exception("Error en la lógica de negocio al listar el proceso del test", ex);
             }
         }
-        private async Task<TestResponseDto> ConstruirNuevoTest(string ruc, Evaluated evaluado)
+        private async Task<TestResponseDto> ObtenerNuevoTest(string ruc, Evaluated evaluado)
         {
-            var steps = await ObtenerPasosInscripcion();
+            var steps = await ObtenerPasosInscripcion(EtapasConstants.TesDiagnostico);// Test Diagnostico
             var activeTest = await ObtenerTestPorIdAsync(steps[0].Id);
 
             return new TestResponseDto
@@ -829,7 +882,7 @@ namespace PROMPERU.BL
             };
         }
 
-        private async Task<TestResponseDto> ConstruirTestEnCurso(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
+        private async Task<TestResponseDto> ObtenerTestEnCurso(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
       Evaluated datos, IEnumerable<Step> stepsProgress)
         {
             var response = new TestResponseDto { Success = true };
@@ -868,12 +921,12 @@ namespace PROMPERU.BL
             return response;
         }
 
-        private async Task<TestResponseDto> ConstruirTestCompleto(ProcesoTestBE testCompleto,
+        private async Task<TestResponseDto> ObtenerTestCompleto(ProcesoTestBE testCompleto,
       Evaluated datos, IEnumerable<Step> stepsProgress, string WebRootPath)
         {
             var response = new TestResponseDto { Success = true };
 
-            if (testCompleto.Insc_ID == 2)
+            if (testCompleto.Insc_ID == EtapasConstants.TesDiagnostico)
             {
                 var result = await ResultadoTestDiagnosticoInicial(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
