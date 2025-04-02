@@ -5,16 +5,11 @@ export async function fetchData(
   useFormData = false
 ) {
   try {
-    const options = {
-      type: method,
-      url,
-      
-    };
-
+    const options = { type: method, url };
     if (data) {
       options.data = data;
       if (useFormData) {
-        options.dataType = "json",
+        options.dataType = "json";
         options.processData = false;
         options.contentType = false;
       }
@@ -23,7 +18,7 @@ export async function fetchData(
     const response = await $.ajax(options);
 
     if (!response.success) {
-      throw new Error(response.message || "Error en la respuesta del servidor");
+      throw { status: 400, responseJSON: response };
     }
 
     return response;
@@ -45,51 +40,96 @@ export async function fetchData(
 
     let errorMessage =
       errorMessages[error.status] ||
-      error.responseJSON?.message ||
+      (error.responseJSON && error.responseJSON.message) ||
       "Hubo un problema al obtener los datos. Inténtelo más tarde.";
 
+    let dynamicTitle = "Error en la solicitud";
+    let dynamicIcon = "error";
+
+    if (
+      error.status === 400 &&
+      error.responseJSON &&
+      error.responseJSON.validations
+    ) {
+      const { validations } = error.responseJSON;
+      const messages = [];
+
+      if (validations.SUNAT === false) {
+        messages.push("No se encuentra registrada en el directorio");
+        messages.push(
+          "No tiene más de un año de operación en  servicios turísticos a nivel nacional"
+        );
+
+        messages.push("Tiene sanciones en INDECOPI");
+        messages.push("Tiene adeudos en PROMPERÚ");
+      }
+
+      if (validations.INDECOPI === false) {
+        messages.push(
+          "El RUC no pasó las validaciones requeridas para INDECOPI."
+        );
+      }
+
+      if (messages.length > 0) {
+        errorMessage = `  <ol class="text-start pb-3">
+        ${messages.map((msg) => `<li class="mb-2">${msg}</li>`).join("")}
+        </ol>`;
+
+        const sunatError = validations.SUNAT === false;
+        const indecopiError = validations.INDECOPI === false;
+
+        if (sunatError && indecopiError) {
+          dynamicTitle = "Errores en SUNAT e INDECOPI";
+          dynamicIcon = "info";
+        } else if (sunatError) {
+          dynamicTitle = "No cumple con los siguientes requisitos";
+          dynamicIcon = "info";
+        } else if (indecopiError) {
+          dynamicTitle = "Error en INDECOPI";
+          dynamicIcon = "info";
+        }
+      }
+    }
+
     Swal.fire({
-      icon: "error",
-      title: "Error en la solicitud",
-      text: errorMessage,
+      icon: dynamicIcon,
+      title: dynamicTitle,
+      html: errorMessage,
     });
 
     return null;
   }
 }
 
-
-
 export async function fetchJsonData(url, method = "GET", data = null) {
-    try {
-        const options = {
-            type: method,
-            url,
-            contentType: "application/json", // 👈 Asegura que el backend reciba JSON
-            dataType: "json", // 👈 Espera una respuesta JSON
-        };
+  try {
+    const options = {
+      type: method,
+      url,
+      contentType: "application/json",
+      dataType: "json",
+    };
 
-        if (data) {
-            options.data = JSON.stringify(data); // 👈 Convierte el objeto a JSON
-        }
-
-        const response = await $.ajax(options);
-
-        if (!response.success) {
-            throw new Error(response.message || "Error en la respuesta del servidor");
-        }
-
-        return response;
-    } catch (error) {
-        console.error(`❌ Error en la solicitud a ${url}:`, error);
-
-        Swal.fire({
-            icon: "error",
-            title: "Error en la solicitud",
-            text: "Hubo un problema al obtener los datos. Inténtelo más tarde.",
-        });
-
-        return null;
+    if (data) {
+      options.data = JSON.stringify(data);
     }
-}
 
+    const response = await $.ajax(options);
+
+    if (!response.success) {
+      throw new Error(response.message || "Error en la respuesta del servidor");
+    }
+
+    return response;
+  } catch (error) {
+    console.error(`❌ Error en la solicitud a ${url}:`, error);
+
+    Swal.fire({
+      icon: "error",
+      title: "Error en la solicitud",
+      text: "Hubo un problema al obtener los datos. Inténtelo más tarde.",
+    });
+
+    return null;
+  }
+}

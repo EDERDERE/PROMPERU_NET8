@@ -8,7 +8,7 @@ import { useState } from "./utils/useState.js";
 import Quiz from "./components/Quiz.js";
 import StepProgress from "./components/StepProgress.js";
 import form from "./forms/index.js";
-import { store } from "./state.js";
+import WhatsAppFloat from "./components/WhatsappFloating.js";
 
 const Render = (state) => {
   const component = useState("");
@@ -72,7 +72,7 @@ const Render = (state) => {
       Results()
     );
   }
-  const componentRender = component.getState();
+  const componentRender = component.getState() + WhatsAppFloat();
 
   return componentRender;
 };

@@ -10,6 +10,9 @@ const NavigationButtons = (
   backText = "Anterior",
   nextText = "Siguiente"
 ) => {
+  const state = store.getState();
+  const isValid = validateFormIfNeeded(state);
+  const nextButtonDisabledClass = !isValid ? "button-disabled" : "";
   const disabledClass = store.getState().isSavingElement ? "d-none" : "";
 
   const nextContent = store.getState().isSavingElement
@@ -18,48 +21,43 @@ const NavigationButtons = (
       </div>`
     : `<span>${nextText}</span>`;
 
-const nextStep = async () => {
-  const state = store.getState();
-  if (state.isSavingElement) return;
-  if (!validateFormIfNeeded(state)) return;
+  const nextStep = async () => {
+    const state = store.getState();
+    if (state.isSavingElement) return;
+    if (!validateFormIfNeeded(state)) return;
 
-  const { activeTest } = state.test || {};
-  const hasInstructions = activeTest?.instructions;
-  const currentStep = state.currentStep;
+    const { activeTest } = state.test || {};
+    const hasInstructions = activeTest?.instructions;
+    const currentStep = state.currentStep;
 
-  const inInstructions = hasInstructions && typeof currentStep !== "number";
+    const inInstructions = hasInstructions && typeof currentStep !== "number";
 
-  if (!inInstructions) {
-    const currentElement = activeTest.elements[currentStep];
-    if (currentElement) {
-      currentElement.isComplete = true;
-    }
-
-    if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
-      const test = state.test;
-      const activeStep = test.steps.find((step) => step.current);
-      if (activeStep) {
-        activeStep.isComplete = true;
+    if (!inInstructions) {
+      const currentElement = activeTest.elements[currentStep];
+      if (currentElement) {
+        currentElement.isComplete = true;
       }
+
+      if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
+        const test = state.test;
+        const activeStep = test.steps.find((step) => step.current);
+        if (activeStep) {
+          activeStep.isComplete = true;
+        }
+      }
+
+      await updateSaveTest();
     }
 
-    await updateSaveTest();
-  }
+    store.setState({ previusStep: currentStep });
 
-  store.setState({ previusStep: currentStep });
+    if (inInstructions) {
+      store.setState({ currentStep: 0 });
+      return;
+    }
 
-  if (inInstructions) {
-    store.setState({ currentStep: 0 });
-    return;
-  }
-
-  // if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
-  //   store.setState({ currentStep: "results" });
-  //   return;
-  // }
-
-  store.setState({ currentStep: currentStep + 1 });
-};
+    store.setState({ currentStep: currentStep + 1 });
+  };
 
   const prevStep = () => {
     const state = store.getState();
@@ -95,7 +93,7 @@ const nextStep = async () => {
         ${
           showNext
             ? `
-              <div class="text-decoration-none " data-event="nextStep">
+              <div class="text-decoration-none ${nextButtonDisabledClass}" data-event="nextStep">
                 <div class="button-test d-flex align-items-center">
                   ${nextContent}
                 </div>
