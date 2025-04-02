@@ -680,7 +680,7 @@ namespace PROMPERU.BL
 
 
                 // Eliminar registros previos antes de insertar
-                //await _testDA.EliminarProgresoTestAsync(Insc_ID, ruc);
+                await _testDA.EliminarProgresoTestAsync(Insc_ID, ruc);
 
                 // Guardar o actualizar el progreso del Test
                 var test = new ProcesoTestBE
