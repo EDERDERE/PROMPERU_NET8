@@ -26,23 +26,26 @@ const FindBusinessForm = () => {
         return;
       }
 
-      const hasInstructions = test.activeTest.hasInstructions;
+      const hasInstructions = test.activeTest?.hasInstructions;
       let step = 0;
       if (hasInstructions) {
         step = "intro";
+      } else if(test?.resumen){
+        step = "results";
       } else {
         step = 0;
       }
 
-      const lastElementCompleted = test.activeTest.elements.filter(
-        (element) => element.isComplete
-      ).map((element, index) => index);
-      const lastCompletedIndex = lastElementCompleted.length > 0 ? lastElementCompleted[lastElementCompleted.length - 1] : 0;
-      // all the elements before the last completed element are completed
-      const completedElements = test.activeTest.elements.slice(0, lastCompletedIndex + 1);
-      completedElements.forEach(element => element.isComplete = true);
-      // the next element after the last completed element is the current step
-      step = lastCompletedIndex + 1;
+      if(test.activeTest?.elements){
+        const uncompletedIndex = test.activeTest?.elements.findIndex(
+          (element) => element.type !== "form" && (!element.selectAnswers || !element.selectAnswers.length)
+        );
+      if (uncompletedIndex !== -1) {
+        step = uncompletedIndex;
+      }
+    }
+
+      console.log(step)
 
       store.setState({ companyData: test.companyData, test, currentStep: step, loading: false });
     } catch (error) {

@@ -24,7 +24,7 @@ const Render = (state) => {
         stepsHtml + renderSectionTitle(title) + FindBusinessForm()
       );
     } else if (
-      state.test.activeTest.hasInstructions &&
+      state.test?.activeTest?.hasInstructions &&
       state.currentStep == "intro"
     ) {
       const instructions = state.test.activeTest.instructions;
@@ -36,16 +36,8 @@ const Render = (state) => {
           NavigationButtons(false, true, "", instructions.buttonText)
       );
     } else {
-      const elements = state.test.activeTest.elements;
+      const elements = state.test?.activeTest?.elements || [];
       let currentStep = state.currentStep;
-
-      const firstIncompleteIndex = elements.findIndex(
-        (element) => !element.isComplete
-      );
-
-      if (firstIncompleteIndex !== -1 && currentStep < firstIncompleteIndex) {
-        store.setState({ currentStep: firstIncompleteIndex });
-      }
 
       const data = elements[currentStep];
       let title = data?.title || state.test?.activeTest?.testType.label;
@@ -66,15 +58,6 @@ const Render = (state) => {
         state.currentStep === totalElements - 1;
       const nextText = isLastElement ? "Enviar" : "Siguiente";
 
-      // if (isLastElement) {
-      //   let test = state.test;
-      //   let activeTest = test.steps.find((step) => step.current);
-      //   if (activeTest) {
-      //     activeTest.isComplete = true;
-      //   }
-      //   store.setState({ test });
-      // }
-
       component.setState(
         TestSteps() +
           renderSectionTitle(title) +
@@ -84,7 +67,10 @@ const Render = (state) => {
       );
     }
   } else {
-    component.setState(Results);
+    component.setState(
+      TestSteps() +
+      Results()
+    );
   }
   const componentRender = component.getState();
 

@@ -53,10 +53,10 @@ const nextStep = async () => {
     return;
   }
 
-  if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
-    store.setState({ currentStep: "results" });
-    return;
-  }
+  // if (currentStep + 1 >= state.test?.activeTest?.elements.length) {
+  //   store.setState({ currentStep: "results" });
+  //   return;
+  // }
 
   store.setState({ currentStep: currentStep + 1 });
 };
@@ -66,8 +66,10 @@ const nextStep = async () => {
     if (state.isSavingElement) return;
 
     const currentStep = state.currentStep;
-    if (typeof currentStep === "number" && currentStep > 0) {
+    if (currentStep > 0) {
       store.setState({ currentStep: currentStep - 1 });
+    } else if (currentStep === 0 && state.test?.activeTest?.hasInstructions) {
+      store.setState({ currentStep: "intro" });
     }
   };
 
