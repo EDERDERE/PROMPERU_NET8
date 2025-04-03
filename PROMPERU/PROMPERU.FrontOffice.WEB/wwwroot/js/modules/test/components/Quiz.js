@@ -43,6 +43,9 @@ const Quiz = (data) => {
   registerEvent("change", "handleInput", handleInput);
 
   const component = () => {
+
+    if (!data) return null;
+    
     if (data.type === "question") {
       const subTitle = data.isComputable ? data.course.label : data.category;
       const content =

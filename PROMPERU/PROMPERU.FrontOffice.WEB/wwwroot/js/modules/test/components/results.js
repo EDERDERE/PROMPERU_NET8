@@ -4,7 +4,7 @@ const Results = () => {
   const companyName = state.companyData?.legalName;
   const isAproved = state.test?.steps.find((step) => step.current)?.isApproved;
   const fullPath = state.test?.filePath;
-  const fileName = fullPath.split(/[\\\/]/).pop();
+  const fileName = fullPath?.split(/[\\\/]/)?.pop();
   const rootPath = '/js/modules/test/templates/resumen/';
   const pdfUrl = rootPath + fileName;
   const aprovedTitle = isAproved ? `¡Felicidades, ${companyName}!` : "¡Gracias por participar en el Test de diagnóstico empresarial!";
