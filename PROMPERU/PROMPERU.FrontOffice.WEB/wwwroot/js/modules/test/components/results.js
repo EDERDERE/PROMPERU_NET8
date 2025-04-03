@@ -2,6 +2,10 @@ import { store } from "../state.js";
 const Results = () => {
   const state = store.getState();
   const companyName = state.companyData?.legalName;
+  const isAproved = state.test?.steps.find((step) => step.current)?.isApproved;
+
+  const aprovedTitle = isAproved ? `¡Felicidades, ${companyName}!` : "¡Gracias por participar en el Test de diagnóstico empresarial!";
+  const aprovedDescription = isAproved ? "Ha alcanzado un desempeño destacado en todas las áreas evaluadas en el Test de Diagnóstico Empresarial . Este resultado refleja un gran nivel de preparación y conocimiento en los aspectos clave para el éxito empresarial. <br> No es necesario que curses ninguno de los módulos recomendados, lo que demuestra tu compromiso con la excelencia y el crecimiento continuo" : "A continuación, te presentamos un resumen de tus resultados, con las áreas que necesitas reforzar y las competencias en las que ya destacas. Recuerda que los cursos recomendados están diseñados para ayudarte a mejorar.";
 
   const charts = () => {
     return state.test?.resumen?.approvedCourses.map((course) => {
@@ -40,7 +44,7 @@ const Results = () => {
     <div class="container mt-5">
       <div class="row mb-5">
         <div class="col-12">
-          <div class="d-flex justify-content-center align-items-center">
+          <div class="d-flex justify-content-center align-items-center gap-4">
             <div class="mb-4">
               <img src="../../shared/assets/inscripcion/check_business.png" alt="Logo" width="80" height="80" class="img-fluid">
             </div>
@@ -55,7 +59,7 @@ const Results = () => {
       <!-- Thank you message -->
       <div class="row mb-3">
         <div class="col-12 text-center">
-          <h2 class="question-title fw-bold">¡Gracias por participar en el Test de diagnóstico empresarial!</h2>
+          <h2 class="question-title fw-bold">${aprovedTitle}</h2>
         </div>
       </div>
 
@@ -63,9 +67,7 @@ const Results = () => {
       <div class="row mb-5">
         <div class="col-12">
           <p class="fs-4 lh-base text">
-            A continuación, te presentamos un resumen de tus resultados, con las áreas que necesitas reforzar y las
-            competencias en las que ya destacas. Recuerda que los cursos recomendados están diseñados para
-            ayudarte a mejorar.
+            ${aprovedDescription}
           </p>
         </div>
       </div>
