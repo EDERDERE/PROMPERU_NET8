@@ -1,8 +1,9 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
+import { openLink } from "../../utils/openLink.js";
 
 export function renderInscription(inscriptions) {
   const firstInscription = inscriptions[0];
-
+  window.openLink = openLink;
   renderTemplate(
     "tituloInscription",
     (data) => `
@@ -20,7 +21,7 @@ export function renderInscription(inscriptions) {
   renderTemplate(
     "botonInsciption",
     (data) => `
-    <a href="/Test/Index" class="full-button">
+    <a href="javascript:void(0)" onclick="openLink('/Test/Index')" class="full-button">
       <div class="button-test">
         <span>${data.insc_NombreBoton}</span>
         <img src="${data.insc_URLIconBoton}" alt="${data.insc_NombreBoton}" />

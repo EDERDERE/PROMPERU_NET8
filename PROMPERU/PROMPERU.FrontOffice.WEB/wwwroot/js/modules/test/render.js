@@ -3,7 +3,7 @@ import Instrucciones from "./components/Instructions.js";
 import NavigationButtons from "./components/NavigationButtons.js";
 import renderSectionTitle from "./components/renderSectionTitle.js";
 import TestSteps from "./components/TestSteps.js";
-import Results from "./components/results.js";
+import Results from "./components/Results.js";
 import { useState } from "./utils/useState.js";
 import Quiz from "./components/Quiz.js";
 import StepProgress from "./components/StepProgress.js";

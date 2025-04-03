@@ -3,22 +3,24 @@ import Render from "./render.js";
 import { setupCascadingSelects } from "./utils/setupCascadingSelects.js";
 import { attachFormListeners } from "./utils/attachFormListeners.js";
 import { preloadInscriptions } from "./services/getSteps.js";
+import { preloadLogos } from "./services/getLogos.js";
+import { startInactivityMonitor } from "./utils/inactivityMonitor.js";
 
 const container = document.getElementById("app");
 
 export async function init() {
   await preloadInscriptions();
+  await preloadLogos();
   container.innerHTML = Render(store.getState());
   attachFormListeners();
   setupCascadingSelects();
 
-  // Add beforeunload event listener
-  window.addEventListener('beforeunload', (e) => {
+  window.addEventListener("beforeunload", (e) => {
     const state = store.getState();
-    // Check if there's any progress that would be lost
     if (state.dataIsUpdated) {
       e.preventDefault();
-      e.returnValue = '¿Estás seguro de que quieres salir? Tu progreso se perderá.';
+      e.returnValue =
+        "¿Estás seguro de que quieres salir? Tu progreso se perderá.";
     }
   });
 
@@ -30,4 +32,6 @@ export async function init() {
     attachFormListeners();
     setupCascadingSelects();
   });
+
+  startInactivityMonitor();
 }

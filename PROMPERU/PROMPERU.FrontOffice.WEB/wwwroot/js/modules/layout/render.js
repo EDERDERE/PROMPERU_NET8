@@ -1,25 +1,35 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
-
+import { openLink } from "../../utils/openLink.js";
 import { getCurrentYear } from "../../utils/getCurrentYear.js";
 
-export function renderLogo(logo) {
+window.openLink = openLink;
+
+export function renderLogo(logo, isMenu = true) {
   renderTemplate(
     "logoHome",
     (data) => `
       <div class="d-flex align-items-center gap-2">
-        <img src="${data.logo_UrlPrincipal}" alt="Logo Superior" class="logo-header"/>
+        <img src="${
+          data.logo_UrlPrincipal
+        }" alt="Logo Superior" class="logo-header"/>
         <span class="separator mx-2 text-white">|</span>
-        <img src="${data.logo_UrlSecundario}" alt="Logo Inferior" class="logo-header"/>
+        <img src="${
+          data.logo_UrlSecundario
+        }" alt="Logo Inferior" class="logo-header"/>
       </div>
-      <button class="btn btn-transparent d-block d-lg-none text-white" id="openMenu" onclick="openMenu()">
+      ${
+        isMenu
+          ? ` <button class="btn btn-transparent d-block d-lg-none text-white" id="openMenu" onclick="openMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
         </svg>
       </button>
-      <a href="#" class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-none d-lg-block">
+      <a href="javascript:void(0)" class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-none d-lg-block" onclick="openLink('/Test/Index')">
         ${data.logo_NombreBoton}
         <img src="${data.logo_UrlIconBoton}" alt="icono de diagnostico"/>
-      </a>
+      </a>`
+          : ` `
+      } 
     `,
     logo
   );
@@ -66,7 +76,7 @@ export function renderMenu(menus, logoData) {
         )
         .join("")}
 
-      <a href="#!" class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-block d-lg-none">
+      <a href="javascript:void(0)"  onclick="openLink('/Test/Index')" class="btn bg-primary text-white rounded-pill header_btn d-flex align-items-center justify-content-center gap-1 d-block d-lg-none">
         ${data.logoData.logo_NombreBoton}
         <img src="${
           data.logoData.logo_UrlIconBoton

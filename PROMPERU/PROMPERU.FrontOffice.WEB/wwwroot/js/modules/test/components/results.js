@@ -3,7 +3,10 @@ const Results = () => {
   const state = store.getState();
   const companyName = state.companyData?.legalName;
   const isAproved = state.test?.steps.find((step) => step.current)?.isApproved;
-
+  const fullPath = state.test?.filePath;
+  const fileName = fullPath.split(/[\\\/]/).pop();
+  const rootPath = '/js/modules/test/templates/resumen/';
+  const pdfUrl = rootPath + fileName;
   const aprovedTitle = isAproved ? `¡Felicidades, ${companyName}!` : "¡Gracias por participar en el Test de diagnóstico empresarial!";
   const aprovedDescription = isAproved ? "Ha alcanzado un desempeño destacado en todas las áreas evaluadas en el Test de Diagnóstico Empresarial . Este resultado refleja un gran nivel de preparación y conocimiento en los aspectos clave para el éxito empresarial. <br> No es necesario que curses ninguno de los módulos recomendados, lo que demuestra tu compromiso con la excelencia y el crecimiento continuo" : "A continuación, te presentamos un resumen de tus resultados, con las áreas que necesitas reforzar y las competencias en las que ya destacas. Recuerda que los cursos recomendados están diseñados para ayudarte a mejorar.";
 
@@ -166,6 +169,23 @@ const Results = () => {
         </div>
       </div>
       ` : ''}
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12 d-flex justify-content-end gap-3">
+        <!-- Botón para abrir el PDF en una nueva pestaña -->
+        <button 
+          class="button-outline d-flex align-items-center h-100" 
+          onclick="window.open('${pdfUrl}', '_blank')">
+          Ver PDF
+        </button>
+
+        <button 
+          class="btn btn-primary" 
+          onclick="window.location.href='/siguiente'">
+          Continuar
+        </button>
+      </div>
     </div>
   `;
 };

@@ -60,7 +60,7 @@ const TestSteps = (customData = null) => {
   };
 
   return `
-    <div class="bgwhite my-5 py-3">
+    <div class="bgwhite my-5 py-0">
       <div class="container">
         <div class="d-flex">
           <div class="steps-content mx-auto" style="--step-multipler:${progress()}">

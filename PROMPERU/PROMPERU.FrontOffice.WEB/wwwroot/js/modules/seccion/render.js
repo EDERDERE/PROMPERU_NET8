@@ -1,6 +1,9 @@
 import { renderTemplate } from "../../../shared/js/renderTemplate.js";
+import { openLink } from "../../utils/openLink.js";
 
 export function renderCallToAction(data) {
+
+  window.openLink = openLink;
   const currentPath = window.location.pathname;
 
   const isCoursePage = currentPath.includes("/Curso/Index");
@@ -25,7 +28,7 @@ export function renderCallToAction(data) {
                   <img src="${buttonIcon}" alt="" />
               </a>
               <div class="btn-section text-center">
-                  <a href="/Test/Index" class="full-button">
+                  <a href="javascript:void(0)" onclick="openLink('/Test/Index')" class="full-button">
                   <div class="button-test">
                   <span>${content.cint_NombreBotonSecundario}</span>
                   <img src="${content.cint_UrlIconoBotonSecundario}" alt="${content.cint_UrlIconoBotonSecundario}" />
