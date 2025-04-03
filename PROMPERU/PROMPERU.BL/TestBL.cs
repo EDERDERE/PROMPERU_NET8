@@ -936,7 +936,7 @@ namespace PROMPERU.BL
                     Steps = stepsProgress,
                     CompanyData = datos,
                     Resumen = result,
-                    FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
+                    FilePath = "" , //ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
                 };
                 return response;
             }
