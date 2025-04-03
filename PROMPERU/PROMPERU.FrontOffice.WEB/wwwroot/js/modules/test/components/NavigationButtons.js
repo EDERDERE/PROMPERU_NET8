@@ -43,7 +43,7 @@ const NavigationButtons = (
         if (activeStep) {
           activeStep.isComplete = true;
         }
-        // await updateSaveTest();
+        await updateSaveTest();
       }
     }
 
