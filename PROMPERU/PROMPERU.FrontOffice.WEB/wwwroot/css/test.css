@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.container{
+  max-width: 800px;
+}
+
 .pasos {
   position: relative;
   z-index: 1;
@@ -465,13 +469,14 @@
 .content {
   text-align: center;
   position: absolute;
-  width: 90%;
+  width: 100%;
   height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .chart-svg {

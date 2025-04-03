@@ -7,4 +7,5 @@ export const store = createState({
   previusStep: null,
   answers: null,
   loading: false,
+  dataIsUpdated: false,
 });

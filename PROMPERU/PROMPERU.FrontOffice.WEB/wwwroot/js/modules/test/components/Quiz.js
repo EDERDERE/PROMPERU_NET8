@@ -27,7 +27,7 @@ const Quiz = (data) => {
     } else {
       currentTest.selectAnswers = [{ id }];
     }
-    store.setState({ test: state.test });
+    store.setState({ test: state.test, dataIsUpdated: true });
   };
 
   const handleInput = (e) => {
@@ -36,7 +36,7 @@ const Quiz = (data) => {
     let state = store.getState();
     let currentTest = state.test.activeTest.elements[state.currentStep];
     currentTest.selectAnswers = [{ input }];
-    store.setState({ test: state.test });
+    store.setState({ test: state.test, dataIsUpdated: true });
   };
 
   registerEvent("click", "quizOption", selectOption);

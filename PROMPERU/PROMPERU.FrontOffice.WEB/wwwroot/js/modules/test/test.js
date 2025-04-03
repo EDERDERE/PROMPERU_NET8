@@ -12,6 +12,16 @@ export async function init() {
   attachFormListeners();
   setupCascadingSelects();
 
+  // Add beforeunload event listener
+  window.addEventListener('beforeunload', (e) => {
+    const state = store.getState();
+    // Check if there's any progress that would be lost
+    if (state.dataIsUpdated) {
+      e.preventDefault();
+      e.returnValue = '¿Estás seguro de que quieres salir? Tu progreso se perderá.';
+    }
+  });
+
   store.subscribe((newState) => {
     container.innerHTML = Render(newState);
     const state = store.getState();

@@ -15,14 +15,13 @@ const NavigationButtons = (
   const nextButtonDisabledClass = !isValid ? "button-disabled" : "";
   const disabledClass = store.getState().isSavingElement ? "d-none" : "";
 
-  const nextContent = store.getState().isSavingElement
+  const saveContent = store.getState().isSavingElement
     ? `<div class="loading">
         <span class="loader"></span>
       </div>`
-    : `<span>${nextText}</span>`;
+    : `<span>Guardar Progreso</span>`;
 
   const nextStep = async () => {
-    const state = store.getState();
     if (state.isSavingElement) return;
     if (!validateFormIfNeeded(state)) return;
 
@@ -45,22 +44,17 @@ const NavigationButtons = (
           activeStep.isComplete = true;
         }
       }
-
-      await updateSaveTest();
     }
-
-    store.setState({ previusStep: currentStep });
 
     if (inInstructions) {
       store.setState({ currentStep: 0 });
       return;
     }
 
-    store.setState({ currentStep: currentStep + 1 });
+    store.setState({ currentStep: currentStep + 1, dataIsUpdated: true });
   };
 
   const prevStep = () => {
-    const state = store.getState();
     if (state.isSavingElement) return;
 
     const currentStep = state.currentStep;
@@ -71,13 +65,30 @@ const NavigationButtons = (
     }
   };
 
+  const saveProgress = async () => {
+    if (state.isSavingElement) return;
+
+    await updateSaveTest();
+    store.setState({ dataIsUpdated: false });
+  };
+
   registerEvent("click", "nextStep", nextStep);
   registerEvent("click", "prevStep", prevStep);
+  registerEvent("click", "saveProgress", saveProgress);
 
   setupFormListeners();
 
   return `
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-5">
+    ${
+      state.currentStep < state.test?.activeTest?.elements.length - 1 ?
+      `<div class="text-decoration-none me-auto" data-event="saveProgress">
+        <div class="button-outline d-flex align-items-center h-100">
+          <span>${saveContent}</span>
+        </div>
+      </div>` : ''
+    }
+      
       <div class="d-flex gap-3 buttons_group">
         ${
           showBack
@@ -95,7 +106,7 @@ const NavigationButtons = (
             ? `
               <div class="text-decoration-none ${nextButtonDisabledClass}" data-event="nextStep">
                 <div class="button-test d-flex align-items-center">
-                  ${nextContent}
+                  <span>${nextText}</span>
                 </div>
               </div>
               `
