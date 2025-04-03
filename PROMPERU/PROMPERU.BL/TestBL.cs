@@ -766,12 +766,12 @@ namespace PROMPERU.BL
 
 
                         var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
-                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+                        //var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
 
                     }
 
