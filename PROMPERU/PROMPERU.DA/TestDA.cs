@@ -149,6 +149,7 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
+                comando.Parameters.AddWithValue("@Rsel_ID", rSel.Rsel_ID);
                 comando.Parameters.AddWithValue("@Preg_ID", rSel.Preg_ID);
                 comando.Parameters.AddWithValue("@Eval_RUC", rSel.Eval_RUC);
                 comando.Parameters.AddWithValue("@Rsel_TextoRespuesta", rSel.Rsel_TextoRespuesta);
@@ -401,7 +402,7 @@ namespace PROMPERU.DA
                 {
                     Tests.Add(new RespuestaSeleccionadaBE
                     {
-                        ID = reader["Rsel_ID"] != DBNull.Value ? Convert.ToInt32(reader["Rsel_ID"]) : 0,
+                        Rsel_ID = reader["Rsel_ID"] != DBNull.Value ? Convert.ToInt32(reader["Rsel_ID"]) : 0,
                         Preg_ID = reader["Preg_ID"] != DBNull.Value ? Convert.ToInt32(reader["Preg_ID"]) : 0,
                         Eval_RUC = reader["Eval_RUC"] != DBNull.Value ? reader["Eval_RUC"].ToString() : "",
                         Rsel_TextoRespuesta = reader["Rsel_TextoRespuesta"] != DBNull.Value ? reader["Rsel_TextoRespuesta"].ToString() : "",

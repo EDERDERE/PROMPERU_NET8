@@ -19,7 +19,9 @@ namespace PROMPERU.BL.Dtos
     public class SelectAnswer
     {
         public int? ID { get; set; }
-        public string? Input { get; set; }   
+        public string? Input { get; set; }
+        public int? Rsel_ID { get; set; }
+        
     }
 
 
@@ -35,8 +37,9 @@ namespace PROMPERU.BL.Dtos
 
     public class Registration
     {
+        public int? ID { get; set; }
         // Información de inscripción
-        public string RegistrationNumber { get; set; } // Partida Registral N°
+        public string? RegistrationNumber { get; set; } // Partida Registral N°
         public string EntryNumber { get; set; } // Asiento N°
         public string City { get; set; } // Ciudad (Oficina Registral)
 
@@ -46,7 +49,8 @@ namespace PROMPERU.BL.Dtos
 
     public class Home
     {
-        public string Address { get; set; } // Av./Calle/Psje./Jr.
+        public int? ID { get; set; }
+        public string? Address { get; set; } // Av./Calle/Psje./Jr.
         public string District { get; set; } // Distrito
         public string Urbanization { get; set; } // Urbanización
         public string PostalCode { get; set; } // Código postal
@@ -54,8 +58,11 @@ namespace PROMPERU.BL.Dtos
 
     public class TitularRepresentative
     {
+        public int? ID { get; set; }
         public string FullName { get; set; } // Nombres y Apellidos
         public string Gender { get; set; } // Sexo
+        public string TypeDocument { get; set; } // Tipo de Documento
+        public string DocumentNumber { get; set; } // Nymero de documento
         public int Age { get; set; } // Edad
         public string EducationLevel { get; set; } // Grado de instrucción
         public string RepresentativePosition { get; set; } // Cargo del representante
@@ -67,6 +74,7 @@ namespace PROMPERU.BL.Dtos
 
     public class AdditionalRepresentative
     {
+        public int? ID { get; set; }
         public string FullName { get; set; } // Nombre y Apellidos
         public string Email { get; set; } // Correo electrónico
         public string PhoneNumber { get; set; } // Número de celular

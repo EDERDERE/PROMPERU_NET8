@@ -113,6 +113,10 @@ builder.Services.AddScoped<FormularioTestDA>();
 builder.Services.AddScoped<PreguntaDA>();
 builder.Services.AddScoped<PreguntaCursoDA>();
 builder.Services.AddScoped<RespuestaDA>();
+builder.Services.AddScoped<DomicilioDA>();
+builder.Services.AddScoped<RegistroDA>();
+builder.Services.AddScoped<RepresentanteAdicionalDA>();
+builder.Services.AddScoped<TitularRepresentanteDA>();
 
 // Ruta personalizada para wkhtmltopdf.exe
 var context = new CustomAssemblyLoadContext();

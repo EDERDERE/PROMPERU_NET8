@@ -14,4 +14,16 @@ namespace PROMPERU.BL.Utilities
         public const int TesSalida = 5;
 
     }
+
+    public static class EstadoCurso
+    {
+        public const string Aprobado = "APROBADO";
+        public const string Desaprobado = "PENDIENTE";
+
+    }
+    public static class EstadoEtapaTest
+    {
+        public const string Terminado = "COMPLETADO";
+        public const string EnProceso = "PENDIENTE";
+    }
 }

@@ -26,9 +26,29 @@ namespace PROMPERU.BL
         private readonly InscripcionBL _inscripcionBL;
         private readonly SunatService _sunatService;
         private readonly TestDA _testDA;
+        private readonly RegistroDA _registroDA;
+        private readonly DomicilioDA _domicilioDA;
+        private readonly TitularRepresentanteDA _titularRepresentanteDA;
+        private readonly RepresentanteAdicionalDA _representanteAdicionalDA;
         private readonly EmailService _emailService; 
         // Constructor con inyección de dependencias
-        public TestBL(CursoDA cursoDA , InscripcionDA inscripcionDA, PortadaTestDA portadaTestDA, ContenidoTestDA contenidoTestDA, FormularioTestDA formularioTestDA, PreguntaDA preguntaDA, RespuestaDA respuestaDA, PreguntaCursoDA preguntaCursoDA, TestDA testDA, InscripcionBL inscripcionBL, SunatService sunatService,EmailService emailService)
+        public TestBL(
+                    CursoDA cursoDA ,
+                    InscripcionDA inscripcionDA,
+                    PortadaTestDA portadaTestDA,
+                    ContenidoTestDA contenidoTestDA, 
+                    FormularioTestDA formularioTestDA,
+                    PreguntaDA preguntaDA, 
+                    RespuestaDA respuestaDA, 
+                    PreguntaCursoDA preguntaCursoDA,
+                    TestDA testDA, 
+                    InscripcionBL inscripcionBL, 
+                    SunatService sunatService,
+                    EmailService emailService,
+                    RegistroDA registroDA,
+                    TitularRepresentanteDA titularRepresentanteDA,
+                    RepresentanteAdicionalDA representanteAdicionalDA,
+                    DomicilioDA domicilioDA)
         {
             _cursoDA = cursoDA;
             _inscripcionDA = inscripcionDA;
@@ -43,6 +63,10 @@ namespace PROMPERU.BL
             _inscripcionBL = inscripcionBL;
             _sunatService = sunatService;
             _emailService = emailService;
+            _registroDA = registroDA;
+            _representanteAdicionalDA = representanteAdicionalDA;
+            _domicilioDA = domicilioDA;
+            _titularRepresentanteDA = titularRepresentanteDA;
         }
         public async Task<List<EtapaBE>> ListarTestAsync()
         {
@@ -592,8 +616,8 @@ namespace PROMPERU.BL
             if (procesoTest.Any())
             {
                 var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);              
-                var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == "PENDIENTE");
-                var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == "COMPLETADO");             
+                var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.EnProceso);
+                var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.Terminado);             
 
 
                 var generalData = datos.Select(item => new Evaluated
@@ -631,7 +655,7 @@ namespace PROMPERU.BL
                     {
                         if (dictProgreso.TryGetValue(step.Id, out var estado))
                         {
-                            step.IsComplete = estado == "COMPLETADO";
+                            step.IsComplete = estado == EstadoEtapaTest.Terminado;
                         }
                     }                   
                     response = await ObtenerTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
@@ -647,7 +671,7 @@ namespace PROMPERU.BL
                     {
                         if (dictProgreso.TryGetValue(step.Id, out var estado))
                         {
-                            step.IsComplete = estado == "COMPLETADO";
+                            step.IsComplete = estado == EstadoEtapaTest.Terminado;
                         }
                     }
                     response =  await ObtenerTestCompleto(testCompleto, generalData, stepsProgress, WebRootPath);
@@ -706,7 +730,7 @@ namespace PROMPERU.BL
 
 
                 // Eliminar registros previos antes de insertar
-                await _testDA.EliminarProgresoTestAsync(Insc_ID, ruc);
+                //await _testDA.EliminarProgresoTestAsync(Insc_ID, ruc);
 
                 // Guardar o actualizar el progreso del Test
                 var test = new ProcesoTestBE
@@ -729,14 +753,16 @@ namespace PROMPERU.BL
                     {
                         var respuestaSelect = new RespuestaSeleccionadaBE
                         {
-                            ID = respuesta.ID ?? 0,
+                            Rsel_ID = respuesta.Rsel_ID ?? 0,
                             Preg_ID = elemento.ID ?? 0,
                             Eval_RUC = ruc,
                             Rsel_TextoRespuesta = respuesta.Input ?? string.Empty,
                             Resp_ID = respuesta.ID
                         };
-
-                        tasks.Add(_testDA.InsertarRespuestaSelectTestAsync(respuestaSelect));
+                                               
+                                tasks.Add(respuestaSelect.Rsel_ID == 0
+                          ? _testDA.InsertarRespuestaSelectTestAsync(respuestaSelect)
+                          : _testDA.ActualizarRespuestaSelectTestAsync(respuestaSelect));
                     }
                 }
 
@@ -766,11 +792,95 @@ namespace PROMPERU.BL
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
                     };
 
-                    tasks.Add(_testDA.InsertarDatosGeneralesTestAsync(datos));
+                  
+                    tasks.Add(datos.ID == 0
+                     ? _testDA.InsertarDatosGeneralesTestAsync(datos)
+                     : _testDA.ActualizarDatosGeneralesTestAsync(datos));
                 }
 
 
                 //4. Guardar Inscripcion
+
+                // Guardar Datos Registro
+                if (testModel.Registration?.RegistrationNumber is not null)
+                {
+                    var datos = new RegistroBE
+                    {
+                        Regi_ID = testModel.Registration.ID ?? 0,                
+                        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
+                        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
+                        Regi_Ciudad = testModel.Registration.City,                    
+                    };
+
+                tasks.Add(datos.Domi_ID == 0
+                             ? _registroDA.InsertarRegistroAsync(datos)
+                             : _registroDA.ActualizarRegistroAsync(datos));
+                        }
+
+
+                // Guardar Datos domicilio
+                if (testModel.Registration?.Home?.Address is not null)
+                {
+                    var datos = new DomicilioBE
+                    {
+                        Domi_ID = testModel.Registration.Home.ID ?? 0,
+                        Domi_Direccion = testModel.Registration.Home.Address,
+                        Domi_Distrito = testModel.Registration.Home.District,
+                        Domi_Urbanizacion = testModel.Registration.Home.Urbanization,
+                        Domi_CodigoPostal = testModel.Registration.Home.PostalCode,
+                    };
+                                  
+                    tasks.Add(datos.Domi_ID == 0
+                     ? _domicilioDA.InsertarDomicilioAsync(datos)
+                     : _domicilioDA.ActualizarDomicilioAsync(datos));
+                }
+
+
+                // Guardar Datos Representate
+                if (testModel.TitularRepresentative?.FullName is not null)
+                {
+                    var datos = new TitularRepresentanteBE
+                    {
+                        Trep_ID = testModel.TitularRepresentative.ID ?? 0,
+                        Trep_NombreCompleto = testModel.TitularRepresentative.FullName,
+                        Trep_Sexo = testModel.TitularRepresentative.Gender,
+                        Trep_Edad = testModel.TitularRepresentative.Age,
+                        Trep_TipoDocumento = testModel.TitularRepresentative.TypeDocument,
+                        Trep_NumeroDocumento = testModel.TitularRepresentative.DocumentNumber,
+                        Trep_GradoInstruccion = testModel.TitularRepresentative.EducationLevel,
+                        Trep_CargoRepresentante = testModel.TitularRepresentative.RepresentativePosition,
+                        Trep_CelularRepresentante = testModel.TitularRepresentative.RepresentativePhone,                    
+
+                    }; 
+
+                    tasks.Add(datos.Trep_ID == 0
+                     ? _titularRepresentanteDA.ActualizarTitularRepresentanteAsync(datos)
+                     : _titularRepresentanteDA.ActualizarTitularRepresentanteAsync(datos));
+
+
+                    foreach (var representanteAdicional in testModel.TitularRepresentative.AdditionalRepresentatives)
+                    {
+                        // Guardar Datos Representante adicional
+                        if (representanteAdicional.FullName is not null)
+                        {
+                            var datosR = new RepresentanteAdicionalBE
+                            {
+                                Radi_ID = representanteAdicional.ID ?? 0,
+                                Trep_ID = datos.Trep_ID,
+                                Radi_NombreCompleto = representanteAdicional.FullName,
+                                Radi_CorreoElectronico = representanteAdicional.Email,
+                                Radi_NumeroCelular = representanteAdicional.PhoneNumber,                            
+                            };                                             
+                                                
+                                                tasks.Add(datosR.Radi_ID == 0
+                                                 ? _representanteAdicionalDA.InsertarRepresentanteAdicionalAsync(datosR)
+                                                 : _representanteAdicionalDA.ActualizarRepresentanteAdicionalAsync(datosR));
+                        }
+                    }
+                }
+
+              
+
                 //5. Guardar Malla Curricular
                 //6. Guardar Logica de Cursos
                 if (isComplete == true)
@@ -926,6 +1036,7 @@ namespace PROMPERU.BL
                     .Where(r => r.Preg_ID == element.ID)
                     .Select(r => new SelectAnswer
                     {
+                        Rsel_ID = r.Rsel_ID,
                         ID = r.Resp_ID > 0 ? r.Resp_ID : null,
                         Input = r.Rsel_TextoRespuesta ?? string.Empty
                     })
@@ -971,16 +1082,17 @@ namespace PROMPERU.BL
                    
                 
 
-                response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
-                response.Test = new
-                {
-                    Steps = stepsProgress,
-                    CompanyData = datos,
-                    Resumen = result,
-                    FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
-                };
-                return response;
+              
             }
+            response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
+            response.Test = new
+            {
+                Steps = stepsProgress,
+                CompanyData = datos,
+                Resumen = result,
+                FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
+            };
+            return response;
 
             // Devolver una respuesta predeterminada si no entra en el if
             response.Success = false;
@@ -991,11 +1103,10 @@ namespace PROMPERU.BL
 
         private async Task<ResponseTestDiagnosticoInicialDto> ResultadoTestDiagnosticoInicial(string eval_RUC, int? insc_ID)
         {
-            var progresoCurso = await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0);
-
+            var progresoCurso = await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0);         
 
             var groupedCourses = progresoCurso
-            .GroupBy(y => new { y.Ceva_Estado, y.Curs_CodigoCurso }) // Agrupar antes de la proyección
+            .GroupBy(y => new { y.Ceva_Estado, y.Curs_CodigoCurso, y.Curs_NombreCurso }) // Agrupar antes de la proyección
             .ToDictionary(
                 g => g.Key,
                 g => g.Select(y => new CoursesScore
@@ -1005,20 +1116,19 @@ namespace PROMPERU.BL
                     GlobalScore = y.Ceva_PuntajeGlobal
                 }).ToList()
             );
-
-            //var groupedCourses = progresoCurso
-            //    .GroupBy(x => x.Ceva_Estado)
-            //    .ToDictionary(g => g.Key, g => g.ToList());
+                    
 
             // Obtener listas de cursos aprobados y desaprobados
             var approvedCourses = groupedCourses
-                .Where(kv => kv.Key.Ceva_Estado == "APROBADO")
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Aprobado)
                 .SelectMany(kv => kv.Value) // Extraer todos los cursos de cada grupo
+                .Distinct()
                 .ToList();
 
             var disapprovedCourses = groupedCourses
-                .Where(kv => kv.Key.Ceva_Estado == "DESAPROBADO") // O el estado que definas
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Desaprobado) // O el estado que definas
                 .SelectMany(kv => kv.Value)
+                .Distinct()
                 .ToList();
       
 
