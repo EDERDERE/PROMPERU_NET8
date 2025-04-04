@@ -30,6 +30,7 @@ namespace PROMPERU.BL
         private readonly DomicilioDA _domicilioDA;
         private readonly TitularRepresentanteDA _titularRepresentanteDA;
         private readonly RepresentanteAdicionalDA _representanteAdicionalDA;
+        private readonly EvaluadoDA _evaluadoDA;
         private readonly EmailService _emailService; 
         // Constructor con inyección de dependencias
         public TestBL(
@@ -48,7 +49,8 @@ namespace PROMPERU.BL
                     RegistroDA registroDA,
                     TitularRepresentanteDA titularRepresentanteDA,
                     RepresentanteAdicionalDA representanteAdicionalDA,
-                    DomicilioDA domicilioDA)
+                    DomicilioDA domicilioDA,
+                    EvaluadoDA evaluadoDA)
         {
             _cursoDA = cursoDA;
             _inscripcionDA = inscripcionDA;
@@ -67,6 +69,7 @@ namespace PROMPERU.BL
             _representanteAdicionalDA = representanteAdicionalDA;
             _domicilioDA = domicilioDA;
             _titularRepresentanteDA = titularRepresentanteDA;
+            _evaluadoDA = evaluadoDA;
         }
         public async Task<List<EtapaBE>> ListarTestAsync()
         {
@@ -615,7 +618,7 @@ namespace PROMPERU.BL
             var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
             if (procesoTest.Any())
             {
-                var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);              
+                var datos = await _evaluadoDA.ListarDatosGeneralesTestsAsync(ruc);              
                 var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.EnProceso);
                 var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.Terminado);             
 
@@ -639,8 +642,20 @@ namespace PROMPERU.BL
                     Landline = item.TelefonoFijo,
                     Website = item.PaginaWeb,
                     TourismBusinessType = item.TipoEmpresaTuristica,
-                    LodgingCategory = item.CategoriaHospedaje
-                }).FirstOrDefault();               
+                    LodgingCategory = item.CategoriaHospedaje,
+                    Registration = new Registration {
+                          RegistrationNumber = item.NumeroPartida,
+                          EntryNumber = item.NumeroAsiento,
+                          City = item.Ciudad,
+                          Home = new Home {
+                            Address = item.Direccion,
+                            District = item.Distrito,
+                            Urbanization = item.Urbanizacion,
+                            PostalCode = item.CodigoPostal
+                          }
+                    }
+  
+                }).FirstOrDefault();         
 
                 // false TEST INCOMPLETO
                 // true TEST COMPLETO
@@ -720,12 +735,12 @@ namespace PROMPERU.BL
                 var statusTest = testModel.Steps.Where( y => y.Current == true).FirstOrDefault(x => x.Id == testModel.ActiveTest?.TestType?.Value);
                 bool isComplete = statusTest?.IsComplete ?? false;
 
-                int Insc_ID = statusTest.Id;
+                int Insc_ID = statusTest.Id ;
 
                 // Consultar el progreso del test
                 var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
                 var testExistente = procesoTest
-                                    .Where( x => x.Ieva_Estado == "PENDIENTE" || x.Ieva_Estado == "COMPLETADO" && x.Insc_ID == statusTest.Id)
+                                    .Where( x => x.Ieva_Estado == EstadoEtapaTest.EnProceso || x.Ieva_Estado == EstadoEtapaTest.Terminado && x.Insc_ID == statusTest.Id)
                                     .FirstOrDefault();
 
 
@@ -790,50 +805,57 @@ namespace PROMPERU.BL
                         PaginaWeb = testModel.CompanyData.Website,
                         TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
+                        NumeroPartida = testModel.Registration.RegistrationNumber,
+                        NumeroAsiento = testModel.Registration.EntryNumber,
+                        Ciudad = testModel.Registration.City,
+                        Direccion = testModel.Registration.Home.Address,
+                        Distrito = testModel.Registration.Home.District,
+                        Urbanizacion = testModel.Registration.Home.Urbanization,
+                        CodigoPostal = testModel.Registration.Home.PostalCode,
                     };
 
                   
                     tasks.Add(datos.ID == 0
-                     ? _testDA.InsertarDatosGeneralesTestAsync(datos)
-                     : _testDA.ActualizarDatosGeneralesTestAsync(datos));
+                     ? _evaluadoDA.InsertarDatosGeneralesTestAsync(datos)
+                     : _evaluadoDA.ActualizarDatosGeneralesTestAsync(datos));
                 }
 
 
                 //4. Guardar Inscripcion
 
                 // Guardar Datos Registro
-                if (testModel.Registration?.RegistrationNumber is not null)
-                {
-                    var datos = new RegistroBE
-                    {
-                        Regi_ID = testModel.Registration.ID ?? 0,                
-                        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
-                        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
-                        Regi_Ciudad = testModel.Registration.City,                    
-                    };
+                //if (testModel.Registration?.RegistrationNumber is not null)
+                //{
+                //    var datos = new RegistroBE
+                //    {
+                //        Regi_ID = testModel.Registration.ID ?? 0,                
+                //        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
+                //        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
+                //        Regi_Ciudad = testModel.Registration.City,                    
+                //    };
 
-                tasks.Add(datos.Domi_ID == 0
-                             ? _registroDA.InsertarRegistroAsync(datos)
-                             : _registroDA.ActualizarRegistroAsync(datos));
-                        }
+                //tasks.Add(datos.Domi_ID == 0
+                //             ? _registroDA.InsertarRegistroAsync(datos)
+                //             : _registroDA.ActualizarRegistroAsync(datos));
+                //        }
 
 
-                // Guardar Datos domicilio
-                if (testModel.Registration?.Home?.Address is not null)
-                {
-                    var datos = new DomicilioBE
-                    {
-                        Domi_ID = testModel.Registration.Home.ID ?? 0,
-                        Domi_Direccion = testModel.Registration.Home.Address,
-                        Domi_Distrito = testModel.Registration.Home.District,
-                        Domi_Urbanizacion = testModel.Registration.Home.Urbanization,
-                        Domi_CodigoPostal = testModel.Registration.Home.PostalCode,
-                    };
+                //// Guardar Datos domicilio
+                //if (testModel.Registration?.Home?.Address is not null)
+                //{
+                //    var datos = new DomicilioBE
+                //    {
+                //        Domi_ID = testModel.Registration.Home.ID ?? 0,
+                //        Domi_Direccion = testModel.Registration.Home.Address,
+                //        Domi_Distrito = testModel.Registration.Home.District,
+                //        Domi_Urbanizacion = testModel.Registration.Home.Urbanization,
+                //        Domi_CodigoPostal = testModel.Registration.Home.PostalCode,
+                //    };
                                   
-                    tasks.Add(datos.Domi_ID == 0
-                     ? _domicilioDA.InsertarDomicilioAsync(datos)
-                     : _domicilioDA.ActualizarDomicilioAsync(datos));
-                }
+                //    tasks.Add(datos.Domi_ID == 0
+                //     ? _domicilioDA.InsertarDomicilioAsync(datos)
+                //     : _domicilioDA.ActualizarDomicilioAsync(datos));
+                //}
 
 
                 // Guardar Datos Representate
@@ -975,11 +997,11 @@ namespace PROMPERU.BL
             }
         }
 
-        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string ruc)
+        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string ruc, int Insc_ID)
         {
             try
             {
-                var ListadoTest = await _testDA.ListarRespuestaSelectTestsAsync(ruc);
+                var ListadoTest = await _testDA.ListarRespuestaSelectTestsAsync(ruc, Insc_ID);
                 return ListadoTest;
             }
             catch (Exception ex)
@@ -1021,9 +1043,8 @@ namespace PROMPERU.BL
         private async Task<TestResponseDto> ObtenerTestEnCurso(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
       Evaluated datos, IEnumerable<Step> stepsProgress)
         {
-            var response = new TestResponseDto { Success = true };
-
-            var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC);
+            var response = new TestResponseDto { Success = true };           
+            var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC,testIncompleto.Insc_ID);
             var activeTestProgress = await ObtenerTestPorIdAsync(testIncompleto.Insc_ID);
 
             foreach (var element in activeTestProgress.Elements)
@@ -1052,7 +1073,7 @@ namespace PROMPERU.BL
             {
                 Steps = stepsProgress,
                 ActiveTest = activeTestProgress,
-                CompanyData = datos
+                CompanyData = datos,           
             };
 
             return response;
@@ -1103,17 +1124,33 @@ namespace PROMPERU.BL
 
         private async Task<ResponseTestDiagnosticoInicialDto> ResultadoTestDiagnosticoInicial(string eval_RUC, int? insc_ID)
         {
-            var progresoCurso = await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0);         
+            var progresoCurso = (await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0))
+            .Where(x => x.Curs_CodigoCurso != null && x.Curs_NombreCurso != null) // Filtrar elementos nulos
+            .GroupBy(x => x.Curs_CodigoCurso)  // Agrupar por código de curso
+            .Select(group => group.First())    // Tomar el primer elemento de cada grupo
+            .Select(x => new ProcesoCursoBE
+            {
+                Curs_CodigoCurso = x.Curs_CodigoCurso,
+                Curs_NombreCurso = x.Curs_NombreCurso,
+                Ceva_PuntajeIndividual = x.Ceva_PuntajeIndividual,
+                Ceva_PuntajeGlobal = x.Ceva_PuntajeGlobal,
+                Ceva_Estado = x.Ceva_Estado
+            })
+            .ToList();
+
+
+
 
             var groupedCourses = progresoCurso
-            .GroupBy(y => new { y.Ceva_Estado, y.Curs_CodigoCurso, y.Curs_NombreCurso }) // Agrupar antes de la proyección
+            .GroupBy(y => new {  y.Curs_CodigoCurso ,y.Ceva_Estado }) // Agrupar antes de la proyección
             .ToDictionary(
                 g => g.Key,
                 g => g.Select(y => new CoursesScore
                 {
                     CourseName = y.Curs_NombreCurso,
                     IndividualScore = y.Ceva_PuntajeIndividual,
-                    GlobalScore = y.Ceva_PuntajeGlobal
+                    GlobalScore = y.Ceva_PuntajeGlobal,
+                    CourseStatus = y.Ceva_Estado
                 }).ToList()
             );
                     

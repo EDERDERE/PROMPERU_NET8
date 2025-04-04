@@ -117,6 +117,7 @@ builder.Services.AddScoped<DomicilioDA>();
 builder.Services.AddScoped<RegistroDA>();
 builder.Services.AddScoped<RepresentanteAdicionalDA>();
 builder.Services.AddScoped<TitularRepresentanteDA>();
+builder.Services.AddScoped<EvaluadoDA>();
 
 // Ruta personalizada para wkhtmltopdf.exe
 var context = new CustomAssemblyLoadContext();

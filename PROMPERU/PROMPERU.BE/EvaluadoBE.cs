@@ -19,7 +19,19 @@
         public string TelefonoFijo { get; set; } // Teléfono fijo
         public string PaginaWeb { get; set; } // Página web
         public string TipoEmpresaTuristica { get; set; } // Tipo de empresa turística
-        public string CategoriaHospedaje { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje     
+        public string CategoriaHospedaje { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje
+        // Inscripcion
+        public string NumeroPartida { get; set; }  // Número de Partida Registral
+        public string NumeroAsiento { get; set; }  // Número de Asiento
+        public string Ciudad { get; set; }  // Ciudad
+
+        // domicilio
+        public string Direccion { get; set; }  // Dirección
+        public string Distrito { get; set; }  // Distrito
+        public string Urbanizacion { get; set; }  // Urbanización
+        public string CodigoPostal { get; set; }  // Código Postal
+
+
     }
 
 }

@@ -2,6 +2,7 @@
 {
     public class RegistroBE
     {
+        public string Eval_Ruc { get; set; }
         public int Regi_ID { get; set; }  // Registro ID
         public int Domi_ID { get; set; }  // Domicilio ID (FK)
         public string Regi_NumeroPartida { get; set; }  // Número de Partida Registral

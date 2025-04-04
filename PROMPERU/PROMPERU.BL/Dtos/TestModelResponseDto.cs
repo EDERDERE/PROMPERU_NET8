@@ -47,6 +47,7 @@ namespace PROMPERU.BL.Dtos
         public string Website { get; set; } // Página web
         public string TourismBusinessType { get; set; } // Tipo de empresa turística
         public string LodgingCategory { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje     
+        public Registration? Registration { get; set; }
     }
     public class TestResponseDto
     {
@@ -72,5 +73,6 @@ namespace PROMPERU.BL.Dtos
         public string CourseName { get; set; }
         public decimal IndividualScore { get; set; }
         public decimal GlobalScore { get; set; }
+        public string CourseStatus { get; set; }
     }      
 }

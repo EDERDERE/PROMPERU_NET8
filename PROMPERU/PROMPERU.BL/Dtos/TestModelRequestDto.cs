@@ -36,9 +36,7 @@ namespace PROMPERU.BL.Dtos
        
 
     public class Registration
-    {
-        public int? ID { get; set; }
-        // Información de inscripción
+    {      
         public string? RegistrationNumber { get; set; } // Partida Registral N°
         public string EntryNumber { get; set; } // Asiento N°
         public string City { get; set; } // Ciudad (Oficina Registral)
@@ -47,9 +45,8 @@ namespace PROMPERU.BL.Dtos
        public Home? Home { get; set; }
     }
 
-    public class Home
-    {
-        public int? ID { get; set; }
+    public class Home    {
+
         public string? Address { get; set; } // Av./Calle/Psje./Jr.
         public string District { get; set; } // Distrito
         public string Urbanization { get; set; } // Urbanización

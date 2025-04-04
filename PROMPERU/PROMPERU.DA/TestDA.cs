@@ -382,7 +382,7 @@ namespace PROMPERU.DA
                 throw new Exception("Error al listar los Tests", ex);
             }
         }
-        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string ruc)
+        public async Task<List<RespuestaSeleccionadaBE>> ListarRespuestaSelectTestsAsync(string Eval_RUC, int Insc_ID)
         {
             try
             {
@@ -394,8 +394,8 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Eval_RUC", ruc);
-
+                comando.Parameters.AddWithValue("@Eval_RUC", Eval_RUC);
+                comando.Parameters.AddWithValue("@Insc_ID", Insc_ID);
                 await using var reader = await comando.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())

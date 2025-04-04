@@ -102,12 +102,12 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
         {
             try
             {
-
+                string Ruc = testModel.CompanyData?.Ruc ?? "";
               if (testModel == null)
                     return BadRequest("El modelo no puede ser nulo.");
 
                 await _testBL.GuardarProgresoTest(testModel, _env.WebRootPath); // Llamada asincr�nica     
-                return RedirectToAction("ConsultarRUCprueba", new { ruc = testModel.CompanyData.Ruc });
+                return RedirectToAction("ConsultarRUCprueba", new { ruc = Ruc });
               
             }
             catch (Exception ex)
