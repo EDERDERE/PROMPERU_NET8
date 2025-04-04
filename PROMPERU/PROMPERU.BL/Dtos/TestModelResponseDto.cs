@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.ExtendedProperties;
 
 namespace PROMPERU.BL.Dtos
 {
@@ -72,6 +73,25 @@ namespace PROMPERU.BL.Dtos
         public decimal GlobalScore { get; set; }
 
     }
+
+    public class ResponseTestInscripcionProgramaDto
+    {       
+        public Evaluated CompanyData { get; set; }
+        public  LegalRepresentative LegalRepresentative { get; set; }      
+
+    }
+
+    public class ResponseTestInscripcionCursoDto
+    {
+        public ProcesoCursoDto ProcesoCurso { get; set; }
+
+    }
+    public class ResponseTestDiagnosticoSalidaDto
+    {
+        public CoursesScore TesInicial { get; set; }
+        public CoursesScore TestFinal { get; set; }
+    }
+
 
     public class CoursesScore
     {

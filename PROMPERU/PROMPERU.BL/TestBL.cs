@@ -4,11 +4,14 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Azure;
 using DinkToPdf;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using PROMPERU.BE;
 using PROMPERU.BL.Dtos;
 using PROMPERU.BL.Utilities;
 using PROMPERU.DA;
 using ServiceExterno;
+using static PROMPERU.BE.UbigeoBE;
 
 namespace PROMPERU.BL
 {
@@ -27,7 +30,6 @@ namespace PROMPERU.BL
         private readonly SunatService _sunatService;
         private readonly TestDA _testDA;
         private readonly RegistroDA _registroDA;
-        private readonly DomicilioDA _domicilioDA;
         private readonly TitularRepresentanteDA _titularRepresentanteDA;
         private readonly RepresentanteAdicionalDA _representanteAdicionalDA;
         private readonly EvaluadoDA _evaluadoDA;
@@ -67,7 +69,6 @@ namespace PROMPERU.BL
             _emailService = emailService;
             _registroDA = registroDA;
             _representanteAdicionalDA = representanteAdicionalDA;
-            _domicilioDA = domicilioDA;
             _titularRepresentanteDA = titularRepresentanteDA;
             _evaluadoDA = evaluadoDA;
         }
@@ -618,15 +619,15 @@ namespace PROMPERU.BL
             var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
             if (procesoTest.Any())
             {
-                var datos = await _evaluadoDA.ListarDatosGeneralesTestsAsync(ruc);
-                var registro =  await _registroDA.ListarRegistrosAsync(ruc);
-                var titular = await _titularRepresentanteDA.ListarTitularRepresentantesAsync(ruc);
-                var titularAdd = await _representanteAdicionalDA.ListarRepresentanteAdicionalsAsync(titular.Select( x => x.Trep_ID).FirstOrDefault());
+                var datosEvaluado = await _evaluadoDA.ListarDatosGeneralesTestsAsync(ruc);
+                var datosRepresentanteLegal =  await _registroDA.ListarRepresentanteLegalAsync(ruc);
+                var datosTitular = await _titularRepresentanteDA.ListarTitularRepresentantesAsync(ruc);
+            
                 var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.EnProceso);
                 var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.Terminado);             
 
 
-                var generalData = datos.Select(item => new Evaluated
+                var generalData = datosEvaluado.Select(item => new Evaluated
                 {
                     ID = item.ID,
                     LegalName = item.RazonSocial,
@@ -657,7 +658,7 @@ namespace PROMPERU.BL
 
                 // Representante legal 
 
-                var RepresentanteLegal = registro.Select(item => new Registration
+                var RepresentanteLegal = datosRepresentanteLegal.Select(item => new LegalRepresentative
                 {
                         FullName = item.Regi_NombreApellido,
                       TypeDocument = item.Regi_TipoDocumento,
@@ -669,7 +670,7 @@ namespace PROMPERU.BL
 
 
                 // Titular Representante
-                var TitularRepresentante = titular.Select(item => new TitularRepresentative
+                var TitularRepresentante = datosTitular.Select(item => new TitularRepresentative
                 {
                     FullName = item.Trep_NombreCompleto,
                     Gender = item.Trep_Sexo,
@@ -679,17 +680,22 @@ namespace PROMPERU.BL
                     RepresentativePhone = item.Trep_CelularRepresentante,                
                 }).FirstOrDefault();
 
-                if (TitularRepresentante.ID is not null)
+                IEnumerable<AdditionalRepresentative> RepresentantesAdicionales = Enumerable.Empty<AdditionalRepresentative>();
+
+                // Titular Representante Adicional
+                if (TitularRepresentante is not null)
                 {
-                    foreach (var item in titularAdd)
-                    {
-                        var RepresentanteAdd = titularAdd.Select(item => new AdditionalRepresentative
+                    var datosTitularesAdicionales = await _representanteAdicionalDA
+                        .ListarRepresentanteAdicionalsAsync(TitularRepresentante.ID.Value);
+
+                     RepresentantesAdicionales = datosTitularesAdicionales
+                        .Select(item => new AdditionalRepresentative
                         {
                             FullName = item.Radi_NombreCompleto,
                             Email = item.Radi_CorreoElectronico,
-                             PhoneNumber= item.Radi_NumeroCelular,                        
-                        }).FirstOrDefault();
-                    }
+                            PhoneNumber = item.Radi_NumeroCelular
+                        })
+                        .ToList();                    
                 }
 
 
@@ -709,7 +715,7 @@ namespace PROMPERU.BL
                             step.IsComplete = estado == EstadoEtapaTest.Terminado;
                         }
                     }                   
-                    response = await ObtenerTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
+                    response = await ObtenerTestEnCurso(procesoTest, testIncompleto, generalData,TitularRepresentante, RepresentantesAdicionales,RepresentanteLegal, stepsProgress);
                     return response;
                 }
                 else if (testCompleto != null)
@@ -957,16 +963,16 @@ namespace PROMPERU.BL
                     if (Insc_ID == EtapasConstants.TesDiagnostico)
                     {
                         // Resultados para Diagnostico Inicio 
-                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+                        var resul = await ResultadoTestDiagnosticoInicial(ruc, Insc_ID);
 
 
-                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        var html = GenerarHtmlTestDiagnosticoInicial(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
                         var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "alessandro.callirgos@echogroup.pe");
 
                     }
 
@@ -975,16 +981,16 @@ namespace PROMPERU.BL
                     if (Insc_ID == EtapasConstants.TesInscripcionPrograma)
                     {
                         // Resultados para Diagnostico Inicio 
-                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+                        var resul = await ResultadoTestInscripcionPrograma(ruc, Insc_ID);
 
 
-                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        var html = GenerarHtmlTestInscripcionPrograma(resul.CompanyData, resul.LegalRepresentative, WebRootPath);
                         var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "alessandro.callirgos@echogroup.pe");
 
                     }
 
@@ -993,32 +999,32 @@ namespace PROMPERU.BL
                     if (Insc_ID == EtapasConstants.TesInscripcionCurso)
                     {
                         // Resultados para Diagnostico Inicio 
-                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+                        var resul = await ResultadoTestInscripcionCurso(ruc, Insc_ID);
 
 
-                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
-                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+                        //var html = GenerarHtmlTestInscripcionCurso(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        //var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", null, "alessandro.callirgos@echogroup.pe");
 
                     }
                     // Resultado para Diagnostico Salida
                     if (Insc_ID == EtapasConstants.TesSalida)
                     {
                         // Resultados para Diagnostico Inicio 
-                        var resul = await ResultadoTestDiagnosticoInicial(ruc, testModel.ActiveTest?.TestType?.Value);
+                        var resul = await ResultadoTestDiagnosticoSalida(ruc, Insc_ID);
 
 
-                        var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
-                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+                        //var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
+                        //var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", null, "alessandro.callirgos@echogroup.pe");
 
                     }
                 }
@@ -1078,7 +1084,7 @@ namespace PROMPERU.BL
         }
 
         private async Task<TestResponseDto> ObtenerTestEnCurso(IEnumerable<ProcesoTestBE> procesoTest, ProcesoTestBE testIncompleto,
-      Evaluated datos, IEnumerable<Step> stepsProgress)
+      Evaluated datos,TitularRepresentative titularRepresentative, IEnumerable<AdditionalRepresentative> additionalRepresentative, LegalRepresentative legalRepresentative, IEnumerable<Step> stepsProgress)
         {
             var response = new TestResponseDto { Success = true };           
             var respuestaTest = await ListarRespuestaSelectTestsAsync(testIncompleto.Eval_RUC,testIncompleto.Insc_ID);
@@ -1110,7 +1116,11 @@ namespace PROMPERU.BL
             {
                 Steps = stepsProgress,
                 ActiveTest = activeTestProgress,
-                CompanyData = datos,           
+                CompanyData = datos,
+                TitularRepresentative = titularRepresentative,
+                AdditionalRepresentative = additionalRepresentative,
+                LegalRepresentative = legalRepresentative
+
             };
 
             return response;
@@ -1119,12 +1129,13 @@ namespace PROMPERU.BL
         private async Task<TestResponseDto> ObtenerTestCompleto(ProcesoTestBE testCompleto,
       Evaluated datos, IEnumerable<Step> stepsProgress, string WebRootPath)
         {
-            var response = new TestResponseDto { Success = true };
-          
+            var response = new TestResponseDto { Success = true };          
+            
                 var result = await ResultadoTestDiagnosticoInicial(testCompleto.Eval_RUC, testCompleto.Insc_ID);
+                var result2 = await ResultadoTestDiagnosticoSalida(testCompleto.Eval_RUC, testCompleto.Insc_ID);
 
-                // calcular si el alumno aprobo el tes por completo
-                if (result.DisapprovedCoursesCount == 0)
+            // calcular si el alumno aprobo el tes por completo
+            if (result.DisapprovedCoursesCount == 0)
                 {
 
                     stepsProgress = stepsProgress.Select(e => new Step
@@ -1142,20 +1153,23 @@ namespace PROMPERU.BL
 
               
             }
+            string filePath = "";
+            if (testCompleto.Insc_ID == EtapasConstants.TesDiagnostico)
+                filePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC, "resumen", "ReporteCursos");
+            if (testCompleto.Insc_ID == EtapasConstants.TesInscripcionPrograma)
+                filePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC, "fichaInscripcion", "ReporteInscripcion");
+
             response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
             response.Test = new
             {
                 Steps = stepsProgress,
                 CompanyData = datos,
                 Resumen = result,
-                FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
+                FilePath = filePath ?? null,
             };
             return response;
-
-            // Devolver una respuesta predeterminada si no entra en el if
-            response.Success = false;
-            response.Message = "No se encontraron datos para este proceso.";
-            return response;
+            
+           
         }
 
 
@@ -1174,9 +1188,6 @@ namespace PROMPERU.BL
                 Ceva_Estado = x.Ceva_Estado
             })
             .ToList();
-
-
-
 
             var groupedCourses = progresoCurso
             .GroupBy(y => new {  y.Curs_CodigoCurso ,y.Ceva_Estado }) // Agrupar antes de la proyección
@@ -1215,11 +1226,234 @@ namespace PROMPERU.BL
                 CoursesCount = approvedCourses.Count + disapprovedCourses.Count
             };
         }
+        private async Task<ResponseTestDiagnosticoSalidaDto> ResultadoTestDiagnosticoSalida(string eval_RUC, int insc_ID)
+        {
+            var progresoCursoTestFinal = (await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID))
+           .Where(x => x.Curs_CodigoCurso != null && x.Curs_NombreCurso != null) // Filtrar elementos nulos
+           .GroupBy(x => x.Curs_CodigoCurso)  // Agrupar por código de curso
+           .Select(group => group.First())    // Tomar el primer elemento de cada grupo
+           .Select(x => new ProcesoCursoBE
+           {
+               Curs_CodigoCurso = x.Curs_CodigoCurso,
+               Curs_NombreCurso = x.Curs_NombreCurso,
+               Ceva_PuntajeIndividual = x.Ceva_PuntajeIndividual,
+               Ceva_PuntajeGlobal = x.Ceva_PuntajeGlobal,
+               Ceva_Estado = x.Ceva_Estado
+           })
+           .ToList();
 
-        private string ObtenerRutaMayorCorrelativo(string webRootPath, string ruc)
+            // Comparar con Test de Diagnostico
+            var progresoCursoTestInicial = (await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, EtapasConstants.TesDiagnostico))
+             .Where(x => x.Curs_CodigoCurso != null && x.Curs_NombreCurso != null) // Filtrar elementos nulos
+             .GroupBy(x => x.Curs_CodigoCurso)  // Agrupar por código de curso
+             .Select(group => group.First())    // Tomar el primer elemento de cada grupo
+             .Select(x => new ProcesoCursoBE
+             {
+                 Curs_CodigoCurso = x.Curs_CodigoCurso,
+                 Curs_NombreCurso = x.Curs_NombreCurso,
+                 Ceva_PuntajeIndividual = x.Ceva_PuntajeIndividual,
+                 Ceva_PuntajeGlobal = x.Ceva_PuntajeGlobal,
+                 Ceva_Estado = x.Ceva_Estado
+             })
+             .ToList();
+
+
+           
+
+            //var groupedCourses = progresoCurso
+            //.GroupBy(y => new { y.Curs_CodigoCurso, y.Ceva_Estado }) // Agrupar antes de la proyección
+            //.ToDictionary(
+            //    g => g.Key,
+            //    g => g.Select(y => new CoursesScore
+            //    {
+            //        CourseName = y.Curs_NombreCurso,
+            //        IndividualScore = y.Ceva_PuntajeIndividual,
+            //        GlobalScore = y.Ceva_PuntajeGlobal,
+            //        CourseStatus = y.Ceva_Estado
+            //    }).ToList()
+            //);
+
+
+            //// Obtener listas de cursos aprobados y desaprobados
+            //var approvedCourses = groupedCourses
+            //    .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Aprobado)
+            //    .SelectMany(kv => kv.Value) // Extraer todos los cursos de cada grupo
+            //    .Distinct()
+            //    .ToList();
+
+            //var disapprovedCourses = groupedCourses
+            //    .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Desaprobado) // O el estado que definas
+            //    .SelectMany(kv => kv.Value)
+            //    .Distinct()
+            //    .ToList();
+
+
+            return new ResponseTestDiagnosticoSalidaDto
+            {
+                TesInicial = null,
+                TestFinal = null                
+            };
+        }
+
+        private async Task<ResponseTestInscripcionProgramaDto> ResultadoTestInscripcionPrograma(string eval_RUC, int? insc_ID)
+        {
+
+            var datosEvaluado = await _evaluadoDA.ListarDatosGeneralesTestsAsync(eval_RUC);
+            var datosRepresentanteLegal = await _registroDA.ListarRepresentanteLegalAsync(eval_RUC);
+
+            var generalData = datosEvaluado.Select(item => new Evaluated
+            {
+                ID = item.ID,
+                LegalName = item.RazonSocial,
+                FullName = item.NombresApellidos,
+                TradeName = item.NombreComercial,
+                Ruc = item.Ruc,
+                Region = item.Region,
+                Province = item.Provincia,
+                Phone = item.Telefono,
+                Email = item.CorreoElectronico,
+                StartDate = item.FechaInicioActividades,
+                LegalEntityType = item.TipoPersoneria,
+                CompanyType = item.TipoEmpresa,
+                TourismServiceProviderType = item.TipoPrestadorServiciosTuristicos,
+                BusinessActivity = item.ActividadEconomica,
+                Landline = item.TelefonoFijo,
+                Website = item.PaginaWeb,
+                TourismBusinessType = item.TipoEmpresaTuristica,
+                LodgingCategory = item.CategoriaHospedaje,
+                RegistrationNumber = item.NumeroPartida,
+                EntryNumber = item.NumeroAsiento,
+                City = item.Ciudad,
+                Address = item.Direccion,
+                District = item.Distrito,
+                Urbanization = item.Urbanizacion,
+                PostalCode = item.CodigoPostal
+            }).FirstOrDefault();
+
+            // Representante legal 
+
+            var RepresentanteLegal = datosRepresentanteLegal.Select(item => new LegalRepresentative
+            {
+                FullName = item.Regi_NombreApellido,
+                TypeDocument = item.Regi_TipoDocumento,
+                DocumentNumber = item.Regi_NumeroDocumento,
+                RegistrationNumber = item.Regi_NumeroPartida,
+                EntryNumber = item.Regi_NumeroDocumento,
+                City = item.Regi_Ciudad
+            }).FirstOrDefault();
+
+
+            return new ResponseTestInscripcionProgramaDto
+            {
+                CompanyData = generalData,
+                LegalRepresentative = RepresentanteLegal
+            };
+        }
+
+        private async Task<ResponseTestInscripcionCursoDto> ResultadoTestInscripcionCurso(string eval_RUC, int? insc_ID)
+        {
+            var progresoCurso = (await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0))
+            .Where(x => x.Curs_CodigoCurso != null && x.Curs_NombreCurso != null) // Filtrar elementos nulos
+            .GroupBy(x => x.Curs_CodigoCurso)  // Agrupar por código de curso
+            .Select(group => group.First())    // Tomar el primer elemento de cada grupo
+            .Select(x => new ProcesoCursoBE
+            {
+                Curs_CodigoCurso = x.Curs_CodigoCurso,
+                Curs_NombreCurso = x.Curs_NombreCurso,
+                Ceva_PuntajeIndividual = x.Ceva_PuntajeIndividual,
+                Ceva_PuntajeGlobal = x.Ceva_PuntajeGlobal,
+                Ceva_Estado = x.Ceva_Estado
+            })
+            .ToList();
+
+            var groupedCourses = progresoCurso
+            .GroupBy(y => new { y.Curs_CodigoCurso, y.Ceva_Estado }) // Agrupar antes de la proyección
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(y => new CoursesScore
+                {
+                    CourseName = y.Curs_NombreCurso,
+                    IndividualScore = y.Ceva_PuntajeIndividual,
+                    GlobalScore = y.Ceva_PuntajeGlobal,
+                    CourseStatus = y.Ceva_Estado
+                }).ToList()
+            );
+
+
+            // Obtener listas de cursos aprobados y desaprobados
+            var approvedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Aprobado)
+                .SelectMany(kv => kv.Value) // Extraer todos los cursos de cada grupo
+                .Distinct()
+                .ToList();
+
+            var disapprovedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Desaprobado) // O el estado que definas
+                .SelectMany(kv => kv.Value)
+                .Distinct()
+                .ToList();
+
+
+            return new ResponseTestInscripcionCursoDto
+            {
+               ProcesoCurso = null
+            };
+        }
+        private async Task<ResponseTestDiagnosticoSalidaDto> ResultadoTestDiagnosticoSalida(string eval_RUC, int? insc_ID)
+        {
+            var progresoCurso = (await _testDA.ObtenerProgresoCursoTestAsync(eval_RUC, insc_ID ?? 0))
+            .Where(x => x.Curs_CodigoCurso != null && x.Curs_NombreCurso != null) // Filtrar elementos nulos
+            .GroupBy(x => x.Curs_CodigoCurso)  // Agrupar por código de curso
+            .Select(group => group.First())    // Tomar el primer elemento de cada grupo
+            .Select(x => new ProcesoCursoBE
+            {
+                Curs_CodigoCurso = x.Curs_CodigoCurso,
+                Curs_NombreCurso = x.Curs_NombreCurso,
+                Ceva_PuntajeIndividual = x.Ceva_PuntajeIndividual,
+                Ceva_PuntajeGlobal = x.Ceva_PuntajeGlobal,
+                Ceva_Estado = x.Ceva_Estado
+            })
+            .ToList();
+
+            var groupedCourses = progresoCurso
+            .GroupBy(y => new { y.Curs_CodigoCurso, y.Ceva_Estado }) // Agrupar antes de la proyección
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(y => new CoursesScore
+                {
+                    CourseName = y.Curs_NombreCurso,
+                    IndividualScore = y.Ceva_PuntajeIndividual,
+                    GlobalScore = y.Ceva_PuntajeGlobal,
+                    CourseStatus = y.Ceva_Estado
+                }).ToList()
+            );
+
+
+            // Obtener listas de cursos aprobados y desaprobados
+            var approvedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Aprobado)
+                .SelectMany(kv => kv.Value) // Extraer todos los cursos de cada grupo
+                .Distinct()
+                .ToList();
+
+            var disapprovedCourses = groupedCourses
+                .Where(kv => kv.Key.Ceva_Estado == EstadoCurso.Desaprobado) // O el estado que definas
+                .SelectMany(kv => kv.Value)
+                .Distinct()
+                .ToList();
+
+
+            return new ResponseTestDiagnosticoSalidaDto
+            {
+                TesInicial = null,
+                TestFinal = null
+            };
+        }
+
+        private string ObtenerRutaMayorCorrelativo(string webRootPath, string ruc, string carpetaDestino, string nombreArchivoBase)
         {
             // Definir la ruta base donde están los archivos PDF
-            string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", "resumen");
+            string rutaBase = Path.Combine(webRootPath, "js", "modules", "test", "templates", carpetaDestino);
 
             // Verificar si la carpeta existe
             if (!Directory.Exists(rutaBase))
@@ -1228,10 +1462,10 @@ namespace PROMPERU.BL
             }
 
             // Obtener todos los archivos PDF que coincidan con el patrón
-            var archivos = Directory.GetFiles(rutaBase, $"ReporteCursos_{ruc}_*.pdf");
+            var archivos = Directory.GetFiles(rutaBase, $"{nombreArchivoBase}_{ruc}_*.pdf");
 
             // Expresión regular para extraer el correlativo
-            var regex = new Regex($@"ReporteCursos_{ruc}_(\d{{3}})\.pdf$", RegexOptions.IgnoreCase);
+            var regex = new Regex($@"{Regex.Escape(nombreArchivoBase)}_{ruc}_(\d{{3}})\.pdf$", RegexOptions.IgnoreCase);
 
             string archivoConMayorCorrelativo = null;
             int mayorCorrelativo = 0;
@@ -1244,7 +1478,7 @@ namespace PROMPERU.BL
                     if (correlativo > mayorCorrelativo)
                     {
                         mayorCorrelativo = correlativo;
-                        archivoConMayorCorrelativo = archivo; // Guardar la ruta del archivo con mayor correlativo
+                        archivoConMayorCorrelativo = archivo;
                     }
                 }
             }
@@ -1252,7 +1486,7 @@ namespace PROMPERU.BL
             return archivoConMayorCorrelativo;
         }
 
-        private string GenerarHtml(IEnumerable<CoursesScore> approvedCourses, IEnumerable<CoursesScore> failedCourses, string WebRootPath)
+        private string GenerarHtmlTestDiagnosticoInicial(IEnumerable<CoursesScore> approvedCourses, IEnumerable<CoursesScore> failedCourses, string WebRootPath)
         {
             // Ruta del archivo HTML
             string filePath = Path.Combine(WebRootPath, "js", "modules", "test", "templates", "resumen", "resultados_test.html");
@@ -1286,6 +1520,61 @@ namespace PROMPERU.BL
                                      .Replace("{CantidadCursosDesaprobados}", CantidadCursosDesaprobados.ToString())
                                      .Replace("{ListaCursosAprobados}", ListaCursosAprobadosHtml.ToString())
                                      .Replace("{ListaCursosDesaprobados}", ListaCursosDesaprobadosHtml.ToString());
+            return htmlContent;
+        }
+        private string GenerarHtmlTestInscripcionPrograma(Evaluated companyData, LegalRepresentative legalRepresentative, string WebRootPath)
+        {
+            // Ruta del archivo HTML
+            string filePath = Path.Combine(WebRootPath, "js", "modules", "test", "templates", "fichaInscripcion", "FichadeInscripcionProgramaComercialparaEmpresa.html");
+
+            // Leer el archivo HTML
+            string htmlContent = System.IO.File.ReadAllText(filePath, Encoding.UTF8);
+
+            // Datos Generales
+            if (companyData.LegalEntityType.Contains("Natural"))
+
+
+                // Reemplazar placeholders con valores reales
+                htmlContent = htmlContent.Replace("{PersonaJuridica}", companyData.LegalEntityType.Contains("Natural") ? " " : "X")
+                                         .Replace("{PersonaNatural}", companyData.LegalEntityType.Contains("Natural") ? "X" : " ")
+                                         .Replace("{RazonSocial}", companyData.LegalName.ToString())
+                                         .Replace("{NombreComercial}", companyData.TradeName.ToString())
+                                         .Replace("{Ruc}", companyData.Ruc.ToString())
+                                         .Replace("{ActividadSocial}", companyData.BusinessActivity.ToString())
+                                         .Replace("{FechaActividad}", companyData.StartDate.ToString())
+                                         .Replace("{PartidaRegistral}", companyData.RegistrationNumber.ToString())
+                                         .Replace("{Asiento}", companyData.EntryNumber.ToString())
+                                         .Replace("{Ciudad}", companyData.City.ToString())
+                                         .Replace("{Direccion}", companyData.Address.ToString())
+                                         .Replace("{Urbanizacion}", companyData.Urbanization.ToString())
+                                         .Replace("{Distrito}", companyData.District.ToString())
+                                         .Replace("{Provincia}", companyData.Province.ToString())
+                                         .Replace("{Departamento}", companyData.Region.ToString())      
+                                         .Replace("{CodigoPostal}", companyData.PostalCode.ToString())
+                                         .Replace("{PaginaWeb}", companyData.Website.ToString())
+                                         .Replace("{Telefono}", companyData.Landline.ToString())
+                                         .Replace("{Correo}", companyData.Email.ToString())
+                                         .Replace("{Celular}", companyData.Phone.ToString())
+                                         .Replace("{Acreditada}", companyData.Province.ToString())
+                                         .Replace("{NoAcreditada}", companyData.RegistrationNumber.ToString())
+                                         .Replace("{AgenciaViaje}", companyData.EntryNumber.ToString())
+                                         .Replace("{EstablecimientoHospedaje}", companyData.City.ToString())
+                                         .Replace("{SiPrestadorServicio}", companyData.Address.ToString())
+                                         .Replace("{NoPrestadorServicio}", companyData.Urbanization.ToString())
+                                         .Replace("{SiRequisitosPrestadorServicio}", companyData.District.ToString())
+                                         .Replace("{NoRequisitosPrestadorServicio}", companyData.Province.ToString())
+                                         .Replace("{SiSancion}", companyData.StartDate.ToString())
+                                         .Replace("{NoSancion}", companyData.RegistrationNumber.ToString());
+
+
+       // Representante Legal
+            // Reemplazar placeholders con valores reales
+            htmlContent = htmlContent.Replace("{Dni}", legalRepresentative.TypeDocument.Contains("Dni") ? "X" : "")
+                                     .Replace("{Carne}", legalRepresentative.TypeDocument.Contains("Carne") ? "X" : "")
+                                     .Replace("{Pasaporte}", legalRepresentative.TypeDocument.Contains("Pasaporte") ? "X" : "")
+                                     .Replace("{PartidaRegistralRL}", legalRepresentative.RegistrationNumber.ToString())
+                                     .Replace("{AsientoRL}", legalRepresentative.EntryNumber.ToString())
+                                     .Replace("{CiudadRL}", legalRepresentative.City.ToString());
             return htmlContent;
         }
 
