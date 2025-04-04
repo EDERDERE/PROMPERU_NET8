@@ -115,8 +115,8 @@ builder.Services.AddScoped<PreguntaCursoDA>();
 builder.Services.AddScoped<RespuestaDA>();
 
 // Ruta personalizada para wkhtmltopdf.exe
-// var context = new CustomAssemblyLoadContext();
-// context.LoadUnmanagedLibrary(Path.Combine(AppContext.BaseDirectory, "wkhtmltopdf", "libwkhtmltox.dll"));
+var context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(Path.Combine(AppContext.BaseDirectory, "wkhtmltopdf", "libwkhtmltox.dll"));
 // Registrar DinkToPdf como servicio
 builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 

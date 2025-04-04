@@ -5,7 +5,7 @@ export function startInactivityMonitor() {
     if (inactivityTimeout) {
       clearTimeout(inactivityTimeout);
     }
-    inactivityTimeout = setTimeout(checkInactivity, 60000);
+    inactivityTimeout = setTimeout(checkInactivity, 360000);
   }
 
   function checkInactivity() {

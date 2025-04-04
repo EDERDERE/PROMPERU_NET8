@@ -527,7 +527,7 @@ namespace PROMPERU.BL
             }
         }
 
-        public async Task<List<Step>> ObtenerPasosInscripcion( int Insc_ID)
+        public async Task<List<Step>> ObtenerPasosInscripcion( int Insc_ID, bool IsComplete)
         {
             var etapas = await _inscripcionBL.ListarEtapasInscripcionAsync();
             etapas = etapas.Select(e =>
@@ -543,7 +543,7 @@ namespace PROMPERU.BL
                 IconName = e.nombreIcono,
                 IconUrl = e.urIcono,
                 Current = e.Current ?? false,
-                IsComplete = false,
+                IsComplete = IsComplete ? (e.id == Insc_ID) : IsComplete!,
                 isApproved = false
             }).ToList();
         }
@@ -592,8 +592,9 @@ namespace PROMPERU.BL
             if (procesoTest.Any())
             {
                 var datos = await _testDA.ListarDatosGeneralesTestsAsync(ruc);              
-                var testIncompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "PENDIENTE");
-                var testCompleto = procesoTest.FirstOrDefault(x => x.Ieva_Estado == "COMPLETADO");               
+                var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == "PENDIENTE");
+                var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == "COMPLETADO");             
+
 
                 var generalData = datos.Select(item => new Evaluated
                 {
@@ -615,18 +616,43 @@ namespace PROMPERU.BL
                     Website = item.PaginaWeb,
                     TourismBusinessType = item.TipoEmpresaTuristica,
                     LodgingCategory = item.CategoriaHospedaje
-                }).FirstOrDefault();
+                }).FirstOrDefault();               
+
+                // false TEST INCOMPLETO
+                // true TEST COMPLETO
 
                 if (testIncompleto != null)
                 {
-                    var stepsProgress = await ObtenerPasosInscripcion(testIncompleto.Insc_ID);
+                    var stepsProgress = await ObtenerPasosInscripcion(testIncompleto.Insc_ID,false);
+                    // Actualizar el estado del test
+                    var dictProgreso = procesoTest.ToDictionary(p => p.Insc_ID, p => p.Ieva_Estado);
+
+                    foreach (var step in stepsProgress)
+                    {
+                        if (dictProgreso.TryGetValue(step.Id, out var estado))
+                        {
+                            step.IsComplete = estado == "COMPLETADO";
+                        }
+                    }                   
                     response = await ObtenerTestEnCurso(procesoTest, testIncompleto, generalData, stepsProgress);
                     return response;
                 }
                 else if (testCompleto != null)
                 {
-                    var stepsProgress = await ObtenerPasosInscripcion(testCompleto.Insc_ID);
+                    var stepsProgress = await ObtenerPasosInscripcion(testCompleto.Insc_ID,true);
+                    // Actualizar el estado del test
+                    var dictProgreso = procesoTest.ToDictionary(p => p.Insc_ID, p => p.Ieva_Estado);
+
+                    foreach (var step in stepsProgress)
+                    {
+                        if (dictProgreso.TryGetValue(step.Id, out var estado))
+                        {
+                            step.IsComplete = estado == "COMPLETADO";
+                        }
+                    }
                     response =  await ObtenerTestCompleto(testCompleto, generalData, stepsProgress, WebRootPath);
+                   
+                  
                     return response;
                 }
 
@@ -766,12 +792,12 @@ namespace PROMPERU.BL
 
 
                         var html = GenerarHtml(resul.ApprovedCourses, resul.DisapprovedCourses, WebRootPath);
-                        //var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
+                        var (rutaArchivoPdf, pdfBytes) = GenerarYGuardarPdf(ruc, html, WebRootPath);
 
                         // descomentar en PROD
                         //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes,datos.Email);
 
-                        //await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
+                        await _emailService.EnviarCorreoAsync("Adjunto el reporte en PDF.", "Test", pdfBytes, "jeffreyrm96@gmail.com");
 
                     }
 
@@ -866,7 +892,7 @@ namespace PROMPERU.BL
         }
         private async Task<TestResponseDto> ObtenerNuevoTest(string ruc, Evaluated evaluado)
         {
-            var steps = await ObtenerPasosInscripcion(EtapasConstants.TesDiagnostico);// Test Diagnostico
+            var steps = await ObtenerPasosInscripcion(EtapasConstants.TesDiagnostico,false);// Test Diagnostico
             var activeTest = await ObtenerTestPorIdAsync(steps[0].Id);
 
             return new TestResponseDto
@@ -925,10 +951,25 @@ namespace PROMPERU.BL
       Evaluated datos, IEnumerable<Step> stepsProgress, string WebRootPath)
         {
             var response = new TestResponseDto { Success = true };
-
-            if (testCompleto.Insc_ID == EtapasConstants.TesDiagnostico)
-            {
+          
                 var result = await ResultadoTestDiagnosticoInicial(testCompleto.Eval_RUC, testCompleto.Insc_ID);
+
+                // calcular si el alumno aprobo el tes por completo
+                if (result.DisapprovedCoursesCount == 0)
+                {
+
+                    stepsProgress = stepsProgress.Select(e => new Step
+                    {
+                        Id = e.Id,
+                        StepNumber = e.StepNumber,
+                        IconName = e.IconName,
+                        IconUrl = e.IconUrl,
+                        Current = e.Current,
+                        IsComplete = e.IsComplete,
+                        isApproved = (e.Id == testCompleto.Insc_ID)
+                    }).ToList();
+                   
+                
 
                 response.Message = $"Validaciones completadas. {testCompleto.Eval_Etapa}";
                 response.Test = new
@@ -936,7 +977,7 @@ namespace PROMPERU.BL
                     Steps = stepsProgress,
                     CompanyData = datos,
                     Resumen = result,
-                    FilePath = "" , //ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
+                    FilePath = ObtenerRutaMayorCorrelativo(WebRootPath, testCompleto.Eval_RUC)
                 };
                 return response;
             }
@@ -979,20 +1020,14 @@ namespace PROMPERU.BL
                 .Where(kv => kv.Key.Ceva_Estado == "DESAPROBADO") // O el estado que definas
                 .SelectMany(kv => kv.Value)
                 .ToList();
-
-            //var failedCourses = groupedCourses.TryGetValue("PENDIENTE", out var pendientes)
-            //    ? pendientes.Select(x => new CoursesScore
-            //    {
-            //        CourseName = x.Curs_NombreCurso
-            //    }).ToList()
-            //    : new List<CoursesScore>();
+      
 
             return new ResponseTestDiagnosticoInicialDto
             {
                 ApprovedCourses = approvedCourses,
                 DisapprovedCourses = disapprovedCourses,
                 ApprovedCoursesCount = approvedCourses.Count,
-                FailedCoursesCount = disapprovedCourses.Count,
+                DisapprovedCoursesCount = disapprovedCourses.Count,
                 CoursesCount = approvedCourses.Count + disapprovedCourses.Count
             };
         }

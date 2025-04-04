@@ -58,7 +58,7 @@ namespace PROMPERU.BL.Dtos
     
     public class ResponseTestDiagnosticoInicialDto
     {
-        public decimal FailedCoursesCount { get; set; }
+        public decimal DisapprovedCoursesCount { get; set; }
         public decimal ApprovedCoursesCount { get; set; }
         public decimal CoursesCount { get; set; }
         public IEnumerable<CoursesScore> ApprovedCourses { get; set; }
