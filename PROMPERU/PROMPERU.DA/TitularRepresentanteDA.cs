@@ -27,7 +27,7 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Eval_ID", titular.Eval_ID);
+                comando.Parameters.AddWithValue("@Eval_Ruc", titular.Eval_Ruc);
                 comando.Parameters.AddWithValue("@Trep_NombreCompleto", titular.Trep_NombreCompleto);
                 comando.Parameters.AddWithValue("@Trep_Sexo", titular.Trep_Sexo);
                 comando.Parameters.AddWithValue("@Trep_Edad", titular.Trep_Edad);
@@ -69,7 +69,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Trep_ID", titular.Trep_ID);
-                    comando.Parameters.AddWithValue("@Eval_ID", titular.Eval_ID);
+                    comando.Parameters.AddWithValue("@Eval_Ruc", titular.Eval_Ruc);
                     comando.Parameters.AddWithValue("@Trep_NombreCompleto", titular.Trep_NombreCompleto);
                     comando.Parameters.AddWithValue("@Trep_Sexo", titular.Trep_Sexo);
                     comando.Parameters.AddWithValue("@Trep_Edad", titular.Trep_Edad);
@@ -114,7 +114,7 @@ namespace PROMPERU.DA
 
                 var titulares = new List<TitularRepresentanteBE>();
 
-                comando.Parameters.AddWithValue("@Eval_ID", ruc);
+                comando.Parameters.AddWithValue("@Eval_Ruc", ruc);
 
                 await using var reader = await comando.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -122,7 +122,7 @@ namespace PROMPERU.DA
                     var titular = new TitularRepresentanteBE
                     {
                         Trep_ID = reader.GetInt32(reader.GetOrdinal("Trep_ID")),
-                        Eval_ID = reader.GetInt32(reader.GetOrdinal("Eval_ID")),
+                        Eval_Ruc = reader.GetString(reader.GetOrdinal("Eval_Ruc")),
                         Trep_NombreCompleto = reader.GetString(reader.GetOrdinal("Trep_NombreCompleto")),
                         Trep_Sexo = reader.GetString(reader.GetOrdinal("Trep_Sexo")),
                         Trep_Edad = reader.GetInt32(reader.GetOrdinal("Trep_Edad")),

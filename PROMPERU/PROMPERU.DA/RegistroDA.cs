@@ -103,7 +103,7 @@ namespace PROMPERU.DA
         }
 
 
-        public async Task<List<RegistroBE>> ListarRegistrosAsync( string ruc)
+        public async Task<List<RegistroBE>> ListarRepresentanteLegalAsync( string ruc)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace PROMPERU.DA
                 };
 
                 var registros = new List<RegistroBE>();
-                comando.Parameters.AddWithValue("@Eval_ID", ruc);
+                comando.Parameters.AddWithValue("@Eval_Ruc", ruc);
 
                 await using var reader = await comando.ExecuteReaderAsync();
                 while (await reader.ReadAsync())

@@ -1,4 +1,4 @@
-﻿namespace PROMPERU.BE
+﻿namespace PROMPERU.BL
 {
     public class ProcesoCursoDto
     {
