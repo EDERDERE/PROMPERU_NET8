@@ -560,3 +560,18 @@
 .swal2-timer-progress-bar {
   background-color: #c3122c !important; 
 }
+.legend {
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

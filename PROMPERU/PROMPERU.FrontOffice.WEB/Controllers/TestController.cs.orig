@@ -123,13 +123,8 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return BadRequest(new
                     {
                         success = false,
-<<<<<<< HEAD
-                        message = $"El RUC {ruc} no pasó las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnóstico.",
-                        validations
-=======
                         message = $"El RUC {ruc} no pasï¿½ las siguientes validaciones: {string.Join(", ", validacionesFallidas)}. No puede iniciar el Test de Diagnï¿½stico.",
                         validaciones
->>>>>>> af371b6320c467afcd16dd3e7998200c5fd9ccc9
                     });
                 }
 
@@ -145,66 +140,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     return e;
                 }).ToList();
 
-<<<<<<< HEAD
-                var activeTest = await _testBL.ObtenerTestPorIdAsync(2);
-
-                var steps = etapas.Select(e => new Step
-                {
-                    Id = e.id,
-                    StepNumber = e.paso,
-                    IconName = e.nombreIcono,
-                    IconUrl = e.urIcono,
-                    Current = e.Current ?? false,
-                    IsComplete = false,
-                    isApproved = false
-                }).ToList();
-
-
-                JsonElement evaluatedData = default;
-
-                // Verificamos si evaluadoResult tiene un valor
-                if (evaluadoResult.HasValue)
-                {
-                    if (evaluadoResult.Value.ValueKind == JsonValueKind.Array)
-                    {
-                        // Si es un array, tomamos el primer elemento
-                        evaluatedData = evaluadoResult.Value.EnumerateArray().FirstOrDefault();
-                    }
-                    else if (evaluadoResult.Value.ValueKind == JsonValueKind.Object)
-                    {
-                        // Si es un objeto, lo usamos directamente
-                        evaluatedData = evaluadoResult.Value;
-                    }
-                }
-
-                var evaluated = evaluatedData.ValueKind == JsonValueKind.Object
-                    ? new Evaluated
-                    {
-                        Ruc = ruc,
-                        LegalName = evaluatedData.TryGetProperty("razon", out var razon)
-                                     ? razon.GetString()
-                                     : (evaluatedData.TryGetProperty("RazonSocial", out var razonSocial) ? razonSocial.GetString() : ""),
-
-                        TradeName = evaluatedData.TryGetProperty("nombrecomercial", out var nombreComercial)
-                                     ? nombreComercial.GetString()
-                                     : (evaluatedData.TryGetProperty("NombreComercial", out var nombreComercial2) ? nombreComercial2.GetString() : ""),
-
-                        Phone = evaluatedData.TryGetProperty("Telefono", out var telefono) ? telefono.GetString() : "",
-                        Email = evaluatedData.TryGetProperty("Correo", out var correo) ? correo.GetString() : "",
-                        Address = evaluatedData.TryGetProperty("direccionfiscal", out var direccion) ? direccion.GetString() : "",
-                        Region = evaluatedData.TryGetProperty("Region", out var region) ? region.GetString() : "",
-                        Province = evaluatedData.TryGetProperty("Provincia", out var provincia) ? provincia.GetString() : ""
-                    }
-                    : null;
-
-
-
-                return Ok(new
-                {
-                    success = true,
-                    message = "Validaciones completadas. Iniciando Test de Diagnóstico.",
-                    validations,
-=======
                 var testDiagnostico = await _testBL.ObtenerTestPorIdAsync(2);
                 // Guardar datos en la sesiï¿½n
                 HttpContext.Session.SetString("RUC",ruc);
@@ -213,7 +148,6 @@ namespace PROMPERU.FrontOffice.WEB.Controllers
                     success = true,
                     message = "Validaciones completadas. Iniciando Test de Diagnï¿½stico.",
                     validaciones,
->>>>>>> af371b6320c467afcd16dd3e7998200c5fd9ccc9
                     test = new
                     {
                         steps,

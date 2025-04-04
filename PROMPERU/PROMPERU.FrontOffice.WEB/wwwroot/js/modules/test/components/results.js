@@ -13,19 +13,31 @@ const Results = () => {
   const charts = () => {
     return state.test?.resumen?.approvedCourses.map((course) => {
       return `
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center flex-column">
           <div class="item css">
             <div class="content">
-              <h3>${course.individualScore} de ${course.globalScore}</h3>
+              <h3>${course.individualScore} de ${(course.individualScore + course.globalScore)}</h3>
               <span>${course.courseName}</span>
             </div>
-            <svg class="chart-svg" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-              <circle class="circle_animation" r="96" cy="100" cx="100" stroke-width="8" stroke="#69aff4" fill="none"
-                style="--percent: ${course.individualScore / course.globalScore * 100};" />
-          </svg>
+            <svg class="chart-svg" width="210" height="210" xmlns="http://www.w3.org/2000/svg">
+              <circle class="circle_animation" r="96" cy="105" cx="105" stroke-width="15" stroke="#EE7C30" fill="none"
+                  style="--percent: 100;" />
+              <circle class="circle_animation" r="96" cy="105" cx="105" stroke-width="15" stroke="#4196BE" fill="none"
+                  style="--percent: ${course.individualScore / (course.individualScore + course.globalScore) * 100};" />
+            </svg>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #4196BE;"></div>
+              <span>Puntaje individual: ${course.individualScore}</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #EE7C30;"></div>
+              <span>Puntaje global: ${course.globalScore}</span>
+            </div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
   }).join("");
   };
 

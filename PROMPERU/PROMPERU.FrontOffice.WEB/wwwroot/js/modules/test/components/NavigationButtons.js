@@ -21,6 +21,13 @@ const NavigationButtons = (
       </div>`
     : `<span>Guardar Progreso</span>`;
 
+  const nextContent = store.getState().isSavingElement &&
+    state.currentStep == state.test?.activeTest?.elements.length - 1
+    ? `<div class="loading">
+        <span class="loader"></span>
+      </div>`
+    : `<span>${nextText}</span>`;
+
   const nextStep = async () => {
     if (state.isSavingElement) return;
     if (!validateFormIfNeeded(state)) return;
@@ -107,7 +114,7 @@ const NavigationButtons = (
             ? `
               <div class="text-decoration-none ${nextButtonDisabledClass}" data-event="nextStep">
                 <div class="button-test d-flex align-items-center">
-                  <span>${nextText}</span>
+                  ${nextContent}
                 </div>
               </div>
               `
