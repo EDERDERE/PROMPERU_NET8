@@ -47,7 +47,12 @@ namespace PROMPERU.BL.Dtos
         public string Website { get; set; } // Página web
         public string TourismBusinessType { get; set; } // Tipo de empresa turística
         public string LodgingCategory { get; set; } // Categoría y/o clasificación del establecimiento de hospedaje     
-        public Registration? Registration { get; set; }
+        public string? RegistrationNumber { get; set; } // Partida Registral N°
+        public string EntryNumber { get; set; } // Asiento N°
+        public string City { get; set; } // Ciudad (Oficina Registral)       
+        public string District { get; set; } // Distrito
+        public string Urbanization { get; set; } // Urbanización
+        public string PostalCode { get; set; } // Código postal
     }
     public class TestResponseDto
     {

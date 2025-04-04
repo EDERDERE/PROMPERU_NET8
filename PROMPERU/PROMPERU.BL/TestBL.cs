@@ -618,7 +618,10 @@ namespace PROMPERU.BL
             var procesoTest = await _testDA.ListarProcesoTestsAsync(ruc);
             if (procesoTest.Any())
             {
-                var datos = await _evaluadoDA.ListarDatosGeneralesTestsAsync(ruc);              
+                var datos = await _evaluadoDA.ListarDatosGeneralesTestsAsync(ruc);
+                var registro =  await _registroDA.ListarRegistrosAsync(ruc);
+                var titular = await _titularRepresentanteDA.ListarTitularRepresentantesAsync(ruc);
+                var titularAdd = await _representanteAdicionalDA.ListarRepresentanteAdicionalsAsync(titular.Select( x => x.Trep_ID).FirstOrDefault());
                 var testIncompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.EnProceso);
                 var testCompleto = procesoTest.LastOrDefault(x => x.Ieva_Estado == EstadoEtapaTest.Terminado);             
 
@@ -642,20 +645,53 @@ namespace PROMPERU.BL
                     Landline = item.TelefonoFijo,
                     Website = item.PaginaWeb,
                     TourismBusinessType = item.TipoEmpresaTuristica,
-                    LodgingCategory = item.CategoriaHospedaje,
-                    Registration = new Registration {
-                          RegistrationNumber = item.NumeroPartida,
-                          EntryNumber = item.NumeroAsiento,
-                          City = item.Ciudad,
-                          Home = new Home {
-                            Address = item.Direccion,
-                            District = item.Distrito,
-                            Urbanization = item.Urbanizacion,
-                            PostalCode = item.CodigoPostal
-                          }
+                    LodgingCategory = item.CategoriaHospedaje,               
+                    RegistrationNumber = item.NumeroPartida,
+                    EntryNumber = item.NumeroAsiento,
+                   City = item.Ciudad,                       
+                   Address = item.Direccion,
+                   District = item.Distrito,
+                   Urbanization = item.Urbanizacion,
+                   PostalCode = item.CodigoPostal  
+                }).FirstOrDefault();
+
+                // Representante legal 
+
+                var RepresentanteLegal = registro.Select(item => new Registration
+                {
+                        FullName = item.Regi_NombreApellido,
+                      TypeDocument = item.Regi_TipoDocumento,
+                    DocumentNumber = item.Regi_NumeroDocumento,
+                    RegistrationNumber = item.Regi_NumeroPartida,
+                        EntryNumber = item.Regi_NumeroDocumento,
+                        City = item.Regi_Ciudad
+                }).FirstOrDefault();
+
+
+                // Titular Representante
+                var TitularRepresentante = titular.Select(item => new TitularRepresentative
+                {
+                    FullName = item.Trep_NombreCompleto,
+                    Gender = item.Trep_Sexo,
+                    Age = item.Trep_Edad,
+                    EducationLevel = item.Trep_GradoInstruccion,
+                    RepresentativePosition = item.Trep_CargoRepresentante,
+                    RepresentativePhone = item.Trep_CelularRepresentante,                
+                }).FirstOrDefault();
+
+                if (TitularRepresentante.ID is not null)
+                {
+                    foreach (var item in titularAdd)
+                    {
+                        var RepresentanteAdd = titularAdd.Select(item => new AdditionalRepresentative
+                        {
+                            FullName = item.Radi_NombreCompleto,
+                            Email = item.Radi_CorreoElectronico,
+                             PhoneNumber= item.Radi_NumeroCelular,                        
+                        }).FirstOrDefault();
                     }
-  
-                }).FirstOrDefault();         
+                }
+
 
                 // false TEST INCOMPLETO
                 // true TEST COMPLETO
@@ -823,21 +859,24 @@ namespace PROMPERU.BL
 
                 //4. Guardar Inscripcion
 
-                // Guardar Datos Registro
-                //if (testModel.Registration?.RegistrationNumber is not null)
-                //{
-                //    var datos = new RegistroBE
-                //    {
-                //        Regi_ID = testModel.Registration.ID ?? 0,                
-                //        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
-                //        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
-                //        Regi_Ciudad = testModel.Registration.City,                    
-                //    };
+               // guardar representante legal
+                if (testModel.Registration?.RegistrationNumber is not null)
+                {
+                    var registro = new RegistroBE
+                    {
+                        Eval_Ruc = ruc,
+                        Regi_NombreApellido = testModel.Registration.FullName,
+                        Regi_NumeroDocumento = testModel.Registration.DocumentNumber,
+                        Regi_TipoDocumento = testModel.Registration.TypeDocument,
+                        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
+                        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
+                        Regi_Ciudad = testModel.Registration.City,
+                    };
 
-                //tasks.Add(datos.Domi_ID == 0
-                //             ? _registroDA.InsertarRegistroAsync(datos)
-                //             : _registroDA.ActualizarRegistroAsync(datos));
-                //        }
+                    tasks.Add(registro.Eval_Ruc == ""
+                                 ? _registroDA.InsertarRegistroAsync(registro)
+                                 : _registroDA.ActualizarRegistroAsync(registro));
+                }
 
 
                 //// Guardar Datos domicilio
@@ -851,7 +890,7 @@ namespace PROMPERU.BL
                 //        Domi_Urbanizacion = testModel.Registration.Home.Urbanization,
                 //        Domi_CodigoPostal = testModel.Registration.Home.PostalCode,
                 //    };
-                                  
+
                 //    tasks.Add(datos.Domi_ID == 0
                 //     ? _domicilioDA.InsertarDomicilioAsync(datos)
                 //     : _domicilioDA.ActualizarDomicilioAsync(datos));
@@ -866,9 +905,7 @@ namespace PROMPERU.BL
                         Trep_ID = testModel.TitularRepresentative.ID ?? 0,
                         Trep_NombreCompleto = testModel.TitularRepresentative.FullName,
                         Trep_Sexo = testModel.TitularRepresentative.Gender,
-                        Trep_Edad = testModel.TitularRepresentative.Age,
-                        Trep_TipoDocumento = testModel.TitularRepresentative.TypeDocument,
-                        Trep_NumeroDocumento = testModel.TitularRepresentative.DocumentNumber,
+                        Trep_Edad = testModel.TitularRepresentative.Age,      
                         Trep_GradoInstruccion = testModel.TitularRepresentative.EducationLevel,
                         Trep_CargoRepresentante = testModel.TitularRepresentative.RepresentativePosition,
                         Trep_CelularRepresentante = testModel.TitularRepresentative.RepresentativePhone,                    

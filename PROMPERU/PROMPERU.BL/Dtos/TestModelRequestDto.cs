@@ -36,7 +36,10 @@ namespace PROMPERU.BL.Dtos
        
 
     public class Registration
-    {      
+    {
+        public string FullName { get; set; } // Nombres y Apellidos
+        public string TypeDocument { get; set; } // Tipo de Documento
+        public string DocumentNumber { get; set; } // Nymero de documento
         public string? RegistrationNumber { get; set; } // Partida Registral N°
         public string EntryNumber { get; set; } // Asiento N°
         public string City { get; set; } // Ciudad (Oficina Registral)
@@ -53,13 +56,23 @@ namespace PROMPERU.BL.Dtos
         public string PostalCode { get; set; } // Código postal
     }
 
+    public class LegalRepresentative 
+    {
+        public string FullName { get; set; } // Nombres y Apellidos
+        public string Gender { get; set; } // Sexo
+        public string TypeDocument { get; set; } // Tipo de Documento
+        public string DocumentNumber { get; set; } // Nymero de documento
+        public string? RegistrationNumber { get; set; } // Partida Registral N°
+        public string EntryNumber { get; set; } // Asiento N°
+        public string City { get; set; } // Ciudad (Oficina Registral)
+
+    }
+
     public class TitularRepresentative
     {
         public int? ID { get; set; }
         public string FullName { get; set; } // Nombres y Apellidos
         public string Gender { get; set; } // Sexo
-        public string TypeDocument { get; set; } // Tipo de Documento
-        public string DocumentNumber { get; set; } // Nymero de documento
         public int Age { get; set; } // Edad
         public string EducationLevel { get; set; } // Grado de instrucción
         public string RepresentativePosition { get; set; } // Cargo del representante

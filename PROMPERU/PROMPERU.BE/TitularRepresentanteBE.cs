@@ -3,6 +3,7 @@
     public class TitularRepresentanteBE
     {
         public int Trep_ID { get; set; }  // Titular ID
+        public int Eval_ID { get; set; }  // Titular ID
         public string Trep_NombreCompleto { get; set; }  // Nombre Completo
         public string Trep_Sexo { get; set; }  // Sexo
         public int Trep_Edad { get; set; }  // Edad

@@ -27,6 +27,7 @@ namespace PROMPERU.DA
                     CommandType = CommandType.StoredProcedure
                 };
 
+                comando.Parameters.AddWithValue("@Eval_ID", titular.Eval_ID);
                 comando.Parameters.AddWithValue("@Trep_NombreCompleto", titular.Trep_NombreCompleto);
                 comando.Parameters.AddWithValue("@Trep_Sexo", titular.Trep_Sexo);
                 comando.Parameters.AddWithValue("@Trep_Edad", titular.Trep_Edad);
@@ -68,6 +69,7 @@ namespace PROMPERU.DA
                     };
 
                     comando.Parameters.AddWithValue("@Trep_ID", titular.Trep_ID);
+                    comando.Parameters.AddWithValue("@Eval_ID", titular.Eval_ID);
                     comando.Parameters.AddWithValue("@Trep_NombreCompleto", titular.Trep_NombreCompleto);
                     comando.Parameters.AddWithValue("@Trep_Sexo", titular.Trep_Sexo);
                     comando.Parameters.AddWithValue("@Trep_Edad", titular.Trep_Edad);
@@ -100,17 +102,19 @@ namespace PROMPERU.DA
             }
         }
 
-        public async Task<List<TitularRepresentanteBE>> ListarTitularRepresentantesAsync()
+        public async Task<List<TitularRepresentanteBE>> ListarTitularRepresentantesAsync(string ruc)
         {
             try
             {
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_TitularRepresentante_LST", conexion)
+                await using var comando = new SqlCommand("USP_TitularRepresentante_SEL", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
 
                 var titulares = new List<TitularRepresentanteBE>();
+
+                comando.Parameters.AddWithValue("@Eval_ID", ruc);
 
                 await using var reader = await comando.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -118,6 +122,7 @@ namespace PROMPERU.DA
                     var titular = new TitularRepresentanteBE
                     {
                         Trep_ID = reader.GetInt32(reader.GetOrdinal("Trep_ID")),
+                        Eval_ID = reader.GetInt32(reader.GetOrdinal("Eval_ID")),
                         Trep_NombreCompleto = reader.GetString(reader.GetOrdinal("Trep_NombreCompleto")),
                         Trep_Sexo = reader.GetString(reader.GetOrdinal("Trep_Sexo")),
                         Trep_Edad = reader.GetInt32(reader.GetOrdinal("Trep_Edad")),

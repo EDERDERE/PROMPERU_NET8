@@ -105,17 +105,20 @@ namespace PROMPERU.DA
             }
         }
 
-        public async Task<List<RepresentanteAdicionalBE>> ListarRepresentanteAdicionalsAsync()
+        public async Task<List<RepresentanteAdicionalBE>> ListarRepresentanteAdicionalsAsync(int Trep_ID)
         {
             try
             {
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_RepresentanteAdicional_LST", conexion)
+                await using var comando = new SqlCommand("USP_RepresentanteAdicional_SEL", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
 
                 var representantes = new List<RepresentanteAdicionalBE>();
+
+                comando.Parameters.AddWithValue("@Trep_ID", Trep_ID);
+
 
                 await using var reader = await comando.ExecuteReaderAsync();
                 while (await reader.ReadAsync())

@@ -24,12 +24,15 @@ namespace PROMPERU.DA
             try
             {
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Registro_INS", conexion)
+                await using var comando = new SqlCommand("USP_RepresentanteLegal_INS", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
 
-                comando.Parameters.AddWithValue("@Domi_ID", registro.Domi_ID);
+                comando.Parameters.AddWithValue("@Eval_Ruc", registro.Eval_Ruc);
+                comando.Parameters.AddWithValue("@Regi_NombreApellido", registro.Regi_NombreApellido);
+                comando.Parameters.AddWithValue("@Regi_TipoDocumento", registro.Regi_TipoDocumento);
+                comando.Parameters.AddWithValue("@Regi_NumeroDocumento", registro.Regi_NumeroDocumento);
                 comando.Parameters.AddWithValue("@Regi_NumeroPartida", registro.Regi_NumeroPartida);
                 comando.Parameters.AddWithValue("@Regi_NumeroAsiento", registro.Regi_NumeroAsiento);
                 comando.Parameters.AddWithValue("@Regi_Ciudad", registro.Regi_Ciudad);
@@ -61,13 +64,15 @@ namespace PROMPERU.DA
                 await using var transaccion = await conexion.BeginTransactionAsync();
                 try
                 {
-                    await using var comando = new SqlCommand("USP_Registro_UPD", conexion, (SqlTransaction)transaccion)
+                    await using var comando = new SqlCommand("USP_RepresentanteLegal_UPD", conexion, (SqlTransaction)transaccion)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    comando.Parameters.AddWithValue("@Regi_ID", registro.Regi_ID);
-                    comando.Parameters.AddWithValue("@Domi_ID", registro.Domi_ID);
+                    comando.Parameters.AddWithValue("@Eval_Ruc", registro.Eval_Ruc);
+                    comando.Parameters.AddWithValue("@Regi_NombreApellido", registro.Regi_NombreApellido);
+                    comando.Parameters.AddWithValue("@Regi_TipoDocumento", registro.Regi_TipoDocumento);
+                    comando.Parameters.AddWithValue("@Regi_NumeroDocumento", registro.Regi_NumeroDocumento);
                     comando.Parameters.AddWithValue("@Regi_NumeroPartida", registro.Regi_NumeroPartida);
                     comando.Parameters.AddWithValue("@Regi_NumeroAsiento", registro.Regi_NumeroAsiento);
                     comando.Parameters.AddWithValue("@Regi_Ciudad", registro.Regi_Ciudad);
@@ -103,7 +108,7 @@ namespace PROMPERU.DA
             try
             {
                 await using var conexion = await _conexionDB.ObtenerConexionAsync();
-                await using var comando = new SqlCommand("USP_Registro_SEL", conexion)
+                await using var comando = new SqlCommand("USP_RepresentanteLegal_SEL", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -116,8 +121,10 @@ namespace PROMPERU.DA
                 {
                     var registro = new RegistroBE
                     {
-                        Regi_ID = reader.GetInt32(reader.GetOrdinal("Regi_ID")),
-                        Domi_ID = reader.GetInt32(reader.GetOrdinal("Domi_ID")),
+                        Eval_Ruc = reader.GetString(reader.GetOrdinal("Eval_Ruc")),
+                        Regi_NombreApellido = reader.GetString(reader.GetOrdinal("Regi_NombreApellido")),
+                        Regi_TipoDocumento = reader.GetString(reader.GetOrdinal("Regi_TipoDocumento")),
+                        Regi_NumeroDocumento = reader.GetString(reader.GetOrdinal("Regi_NumeroDocumento")),
                         Regi_NumeroPartida = reader.GetString(reader.GetOrdinal("Regi_NumeroPartida")),
                         Regi_NumeroAsiento = reader.GetString(reader.GetOrdinal("Regi_NumeroAsiento")),
                         Regi_Ciudad = reader.GetString(reader.GetOrdinal("Regi_Ciudad"))
