@@ -171,7 +171,7 @@ namespace PROMPERU.DA
                 comando.Parameters.AddWithValue("@Eval_NumeroPartida", datos.NumeroPartida);
                 comando.Parameters.AddWithValue("@Eval_NumeroAsiento", datos.NumeroAsiento);
                 comando.Parameters.AddWithValue("@Eval_Ciudad", datos.Ciudad);
-                comando.Parameters.AddWithValue("@Eval_Distrito", datos.Direccion);
+                comando.Parameters.AddWithValue("@Eval_Direccion", datos.Direccion);
                 comando.Parameters.AddWithValue("@Eval_Distrito", datos.Distrito);
                 comando.Parameters.AddWithValue("@Eval_Urbanizacion", datos.Urbanizacion);
                 comando.Parameters.AddWithValue("@Eval_CodigoPostal", datos.CodigoPostal);

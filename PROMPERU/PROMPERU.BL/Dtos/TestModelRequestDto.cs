@@ -12,8 +12,9 @@ namespace PROMPERU.BL.Dtos
         public List<Step> Steps { get; set; }
         public ActiveTest ActiveTest { get; set; }
         public Evaluated? CompanyData { get; set; }
-        public Registration? Registration { get; set; }
+        public LegalRepresentative? LegalRepresentative { get; set; }
         public TitularRepresentative? TitularRepresentative { get; set; }
+        public AdditionalRepresentative? AdditionalRepresentative { get; set; }
     }
 
     public class SelectAnswer

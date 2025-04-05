@@ -706,7 +706,9 @@ namespace PROMPERU.BL
                 {
                     var stepsProgress = await ObtenerPasosInscripcion(testIncompleto.Insc_ID,false);
                     // Actualizar el estado del test
-                    var dictProgreso = procesoTest.ToDictionary(p => p.Insc_ID, p => p.Ieva_Estado);
+                    var dictProgreso = procesoTest
+                    .GroupBy(p => p.Insc_ID)
+                    .ToDictionary(g => g.Key, g => g.First().Ieva_Estado); // o g.Last()
 
                     foreach (var step in stepsProgress)
                     {
@@ -847,13 +849,13 @@ namespace PROMPERU.BL
                         PaginaWeb = testModel.CompanyData.Website,
                         TipoEmpresaTuristica = testModel.CompanyData.TourismBusinessType,
                         CategoriaHospedaje = testModel.CompanyData.LodgingCategory,
-                        NumeroPartida = testModel.Registration.RegistrationNumber,
-                        NumeroAsiento = testModel.Registration.EntryNumber,
-                        Ciudad = testModel.Registration.City,
-                        Direccion = testModel.Registration.Home.Address,
-                        Distrito = testModel.Registration.Home.District,
-                        Urbanizacion = testModel.Registration.Home.Urbanization,
-                        CodigoPostal = testModel.Registration.Home.PostalCode,
+                        NumeroPartida = testModel.CompanyData.RegistrationNumber,
+                        NumeroAsiento = testModel.CompanyData.EntryNumber,
+                        Ciudad = testModel.CompanyData.City,
+                        Direccion = testModel.CompanyData.Address,
+                        Distrito = testModel.CompanyData.District,
+                        Urbanizacion = testModel.CompanyData.Urbanization,
+                        CodigoPostal = testModel.CompanyData.PostalCode,
                     };
 
                   
@@ -866,17 +868,17 @@ namespace PROMPERU.BL
                 //4. Guardar Inscripcion
 
                // guardar representante legal
-                if (testModel.Registration?.RegistrationNumber is not null)
+                if (testModel.LegalRepresentative?.RegistrationNumber is not null)
                 {
                     var registro = new RegistroBE
                     {
                         Eval_Ruc = ruc,
-                        Regi_NombreApellido = testModel.Registration.FullName,
-                        Regi_NumeroDocumento = testModel.Registration.DocumentNumber,
-                        Regi_TipoDocumento = testModel.Registration.TypeDocument,
-                        Regi_NumeroPartida = testModel.Registration.RegistrationNumber,
-                        Regi_NumeroAsiento = testModel.Registration.EntryNumber,
-                        Regi_Ciudad = testModel.Registration.City,
+                        Regi_NombreApellido = testModel.LegalRepresentative.FullName,
+                        Regi_NumeroDocumento = testModel.LegalRepresentative.DocumentNumber,
+                        Regi_TipoDocumento = testModel.LegalRepresentative.TypeDocument,
+                        Regi_NumeroPartida = testModel.LegalRepresentative.RegistrationNumber,
+                        Regi_NumeroAsiento = testModel.LegalRepresentative.EntryNumber,
+                        Regi_Ciudad = testModel.LegalRepresentative.City,
                     };
 
                     tasks.Add(registro.Eval_Ruc == ""
