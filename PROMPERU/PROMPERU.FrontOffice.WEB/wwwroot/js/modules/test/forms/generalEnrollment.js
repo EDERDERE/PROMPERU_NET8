@@ -1,11 +1,6 @@
 import { regionOptions } from "../constants/region.js";
 import { tourismBusinessTypeOptions } from "../constants/selects.js";
-import {
-  ANY_INPUT_REGEX,
-  NAME_REGEX,
-  NUMBERS_REGEX,
-  PHONE_REGEX,
-} from "../utils/validators.js";
+import { NAME_REGEX, NUMBERS_REGEX, PHONE_REGEX } from "../utils/validators.js";
 
 export default {
   id: "userForm",
@@ -43,6 +38,7 @@ export default {
           label: "Nombre Comercial",
           placeholder: "Ingresa tu Nombre Comercial",
           required: true,
+          disabled: true,
           validation: {
             message: "Por favor, ingresa el Nombre Comercial",
           },
@@ -54,6 +50,7 @@ export default {
           placeholder: "Ingresa tu Teléfono ",
           min: 9,
           required: true,
+          disabled: true,
           validation: {
             pattern: PHONE_REGEX,
             message:
@@ -66,6 +63,7 @@ export default {
           label: "Nombres y Apellidos",
           placeholder: "Ingresa tus Nombres y Apellidos",
           required: true,
+          disabled: true,
           validation: {
             pattern: NAME_REGEX,
             minLength: 5,
@@ -77,6 +75,7 @@ export default {
           name: "email",
           label: "Correo Electrónico",
           placeholder: "Ingresa tu correo electrónico",
+          disabled: true,
           required: true,
           validation: {
             message: "Por favor, ingresa un correo electrónico válido",
@@ -87,6 +86,7 @@ export default {
           name: "region",
           label: "Región",
           options: regionOptions,
+          disabled: true,
           required: true,
           validation: {
             message: "Selecciona una Región",
@@ -97,16 +97,17 @@ export default {
           name: "province",
           label: "Provincia",
           options: [{ value: "", text: "Seleccione una provincia" }],
+          disabled: true,
           required: true,
           validation: {
             message: "Selecciona una Provincia",
           },
         },
         {
-          type: "select",
-          name: "tourismBusinessType",
-          label: "¿Cuál es el tipo de su empresa turística?",
-          options: tourismBusinessTypeOptions,
+          type: "date",
+          name: "startDate",
+          label: "Fecha de inicio de actividades",
+          placeholder: "Ingrese fecha",
           required: true,
           validation: {
             message: "Selecciona el tipo de empresa",
@@ -115,13 +116,65 @@ export default {
         {
           type: "text",
           name: "lodgingCategory",
-          label:
-            "¿Cuál es la categoría y/o clasificación de su establecimiento de hospedaje?",
-
+          label: "Tipo de personería",
+          options: tourismBusinessTypeOptions,
           required: true,
           validation: {
-            pattern: ANY_INPUT_REGEX,
-            message: "Selecciona la categoría de hospedaje",
+            message: "Selecciona tipo de personería",
+          },
+        },
+        {
+          type: "select",
+          name: "tourismBusinessType",
+          label: "Tipo de empresa",
+          options: tourismBusinessTypeOptions,
+          required: true,
+          validation: {
+            message: "Selecciona una Empresa",
+          },
+        },
+        {
+          type: "select",
+          name: "tourismServiceProviderType",
+          label: "Tipo de prestador de servicios turísticos",
+          options: tourismBusinessTypeOptions,
+          required: true,
+          validation: {
+            message: "Seleccione un tipo",
+          },
+        },
+        {
+          type: "text",
+          name: "tourismServiceProviderType",
+          label: "Objeto social / Actividad económica",
+          placeholder: "Ingrese su objeto social",
+          required: true,
+          validation: {
+            message: "Ingresa un objeto social/ actividad económica",
+          },
+        },
+        {
+          type: "text",
+          name: "localPhone",
+          label: "Telefono fijo",
+          placeholder: "Ingrese su telefono fijo ",
+          min: 6,
+          required: true,
+          validation: {
+            pattern: PHONE_REGEX,
+            message:
+              "Ingresa un teléfono válido: este campo es obligatorio y solo acepta números.",
+          },
+        },
+
+        {
+          type: "text",
+          name: "website",
+          label: "Pagina web",
+          placeholder: "Ingrese la url de su pagina web ",
+          required: true,
+          validation: {
+            message: "Ingresa una página web.",
           },
         },
       ],

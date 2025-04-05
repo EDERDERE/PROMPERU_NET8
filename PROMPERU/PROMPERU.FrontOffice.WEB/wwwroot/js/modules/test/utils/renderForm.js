@@ -17,6 +17,22 @@ export function renderForm(schema, initialData = {}) {
       sectionWrapper.appendChild(sectionTitle);
     }
 
+    if (section.subtitle) {
+      const subtitleRow = document.createElement("div");
+      subtitleRow.className = "row mb-3";
+
+      const colDiv = document.createElement("div");
+      colDiv.className = "col-12";
+
+      const sectionSubtitle = document.createElement("h5");
+      sectionSubtitle.textContent = section.subtitle;
+
+      colDiv.appendChild(sectionSubtitle);
+      subtitleRow.appendChild(colDiv);
+      sectionWrapper.appendChild(subtitleRow);
+    }
+
+
     section.fields.forEach((field) => {
       const wrapper = document.createElement("div");
       wrapper.className = "form-group";

@@ -1,29 +1,41 @@
 import { store } from "../state.js";
+
 const Results = () => {
   const state = store.getState();
   const companyName = state.companyData?.legalName;
   const isAproved = state.test?.steps.find((step) => step.current)?.isApproved;
   const fullPath = state.test?.filePath;
   const fileName = fullPath?.split(/[\\\/]/)?.pop();
-  const rootPath = '/js/modules/test/templates/resumen/';
+  const rootPath = "/js/modules/test/templates/resumen/";
   const pdfUrl = rootPath + fileName;
-  const aprovedTitle = isAproved ? `¡Felicidades, ${companyName}!` : "¡Gracias por participar en el Test de diagnóstico empresarial!";
-  const aprovedDescription = isAproved ? "Ha alcanzado un desempeño destacado en todas las áreas evaluadas en el Test de Diagnóstico Empresarial . Este resultado refleja un gran nivel de preparación y conocimiento en los aspectos clave para el éxito empresarial. <br> No es necesario que curses ninguno de los módulos recomendados, lo que demuestra tu compromiso con la excelencia y el crecimiento continuo" : "A continuación, te presentamos un resumen de tus resultados, con las áreas que necesitas reforzar y las competencias en las que ya destacas. Recuerda que los cursos recomendados están diseñados para ayudarte a mejorar.";
+  const aprovedTitle = isAproved
+    ? `¡Felicidades, ${companyName}!`
+    : "¡Gracias por participar en el Test de diagnóstico empresarial!";
+  const aprovedDescription = isAproved
+    ? "Ha alcanzado un desempeño destacado en todas las áreas evaluadas en el Test de Diagnóstico Empresarial . Este resultado refleja un gran nivel de preparación y conocimiento en los aspectos clave para el éxito empresarial. <br> No es necesario que curses ninguno de los módulos recomendados, lo que demuestra tu compromiso con la excelencia y el crecimiento continuo"
+    : "A continuación, te presentamos un resumen de tus resultados, con las áreas que necesitas reforzar y las competencias en las que ya destacas. Recuerda que los cursos recomendados están diseñados para ayudarte a mejorar.";
 
   const charts = () => {
-    return state.test?.resumen?.approvedCourses.map((course) => {
-      return `
+    return state.test?.resumen?.approvedCourses
+      .map((course) => {
+        return `
         <div class="d-flex align-items-center justify-content-center flex-column">
           <div class="item css">
             <div class="content">
-              <h3>${course.individualScore} de ${(course.individualScore + course.globalScore)}</h3>
+              <h3>${course.individualScore} de ${
+          course.individualScore + course.globalScore
+        }</h3>
               <span>${course.courseName}</span>
             </div>
             <svg class="chart-svg" width="210" height="210" xmlns="http://www.w3.org/2000/svg">
               <circle class="circle_animation" r="96" cy="105" cx="105" stroke-width="15" stroke="#EE7C30" fill="none"
                   style="--percent: 100;" />
               <circle class="circle_animation" r="96" cy="105" cx="105" stroke-width="15" stroke="#4196BE" fill="none"
-                  style="--percent: ${course.individualScore / (course.individualScore + course.globalScore) * 100};" />
+                  style="--percent: ${
+                    (course.individualScore /
+                      (course.individualScore + course.globalScore)) *
+                    100
+                  };" />
             </svg>
           </div>
           <div class="legend">
@@ -38,12 +50,14 @@ const Results = () => {
           </div>
         </div>
       `;
-  }).join("");
+      })
+      .join("");
   };
 
   const failedCharts = () => {
-    return state.test?.resumen?.disapprovedCourses.map((course) => {
-      return `
+    return state.test?.resumen?.disapprovedCourses
+      .map((course) => {
+        return `
         <div class="card-custom">
           <div class="d-flex align-items-center">
             <div class="circle"></div>
@@ -51,7 +65,8 @@ const Results = () => {
           </div>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
   };
 
   return `
@@ -108,10 +123,16 @@ const Results = () => {
                 <img src="../../shared/assets/inscripcion/certificate_approved.svg" alt="Aprobado">
               </div>
               <h5 class="mt-3 fw-bold">Cursos Aprobados</h5>
-              <p class="text-muted">${state.test?.resumen?.approvedCoursesCount} / ${state.test?.resumen?.coursesCount}</p>
+              <p class="text-muted">${
+                state.test?.resumen?.approvedCoursesCount
+              } / ${state.test?.resumen?.coursesCount}</p>
               <div class="progress">
                 <div class="progress-bar progress-bar-approved" 
-                  style="width: ${state.test?.resumen?.approvedCoursesCount / state.test?.resumen?.coursesCount * 100}%">
+                  style="width: ${
+                    (state.test?.resumen?.approvedCoursesCount /
+                      state.test?.resumen?.coursesCount) *
+                    100
+                  }%">
                 </div>
               </div>
             </div>
@@ -124,10 +145,16 @@ const Results = () => {
                 <img src="../../shared/assets/inscripcion/certificate_disapproved.svg" alt="Desaprobado">
               </div>
               <h5 class="mt-3 fw-bold">Cursos Desaprobados</h5>
-              <p class="text-muted">${state.test?.resumen?.failedCoursesCount} / ${state.test?.resumen?.coursesCount}</p>
+              <p class="text-muted">${
+                state.test?.resumen?.disapprovedCoursesCount
+              } / ${state.test?.resumen?.coursesCount}</p>
               <div class="progress">
                 <div class="progress-bar progress-bar-failed" 
-                  style="width: ${state.test?.resumen?.failedCoursesCount / state.test?.resumen?.coursesCount * 100}%">
+                  style="width: ${
+                    (state.test?.resumen?.disapprovedCoursesCount /
+                      state.test?.resumen?.coursesCount) *
+                    100
+                  }%">
                 </div>
               </div>
             </div>
@@ -135,7 +162,9 @@ const Results = () => {
         </div>
       </div>
 
-      ${state.test?.resumen?.approvedCourses.length > 0 ? `
+      ${
+        state.test?.resumen?.approvedCourses.length > 0
+          ? `
       <!-- Congratulations Section -->
       <div class="row mb-5">
         <div class="col-12">
@@ -157,9 +186,13 @@ const Results = () => {
           </div>
         </div>
       </div>
-      ` : ''}
+      `
+          : ""
+      }
 
-      ${state.test?.resumen?.disapprovedCourses.length > 0 ? `
+      ${
+        state.test?.resumen?.disapprovedCourses.length > 0
+          ? `
       <!-- Areas to Improve Section -->
       <div class="row mb-5">
         <div class="col-12">
@@ -180,7 +213,9 @@ const Results = () => {
           </div>
         </div>
       </div>
-      ` : ''}
+      `
+          : ""
+      }
     </div>
 
     <div class="row mt-5">
@@ -192,11 +227,17 @@ const Results = () => {
           Ver PDF
         </button>
 
-        <button 
+
+        ${
+          !isAproved
+            ? ` <button 
           class="btn btn-primary" 
           onclick="window.location.href='/siguiente'">
           Continuar
-        </button>
+        </button>`
+            : ""
+        }
+       
       </div>
     </div>
   `;
